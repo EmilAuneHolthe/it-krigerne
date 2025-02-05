@@ -67,7 +67,7 @@ If you look at *Settings → Repository* in GitLab, you can protect branches –
 # Credits
 
 ### Template example files
-* `src/main/resources/obligator.png` – Ingrid Næss Johansen
+* `src/main/resources/obligator.png` – Ingrid Næss Johansen E
 * `src/main/resources/blipp.ogg`– Dr. Richard Boulanger et al (CC-BY-3.0)
 
 (You should probably delete these if you don't need them!)
