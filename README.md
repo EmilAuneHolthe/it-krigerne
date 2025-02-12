@@ -72,3 +72,31 @@ If you look at *Settings → Repository* in GitLab, you can protect branches –
 
 (You should probably delete these if you don't need them!)
 
+# Navn/ Team navn
+
+* Emil Aune Holthe / Map tester
+* Martin Rønning   / Pixel-art
+* Daniel Bjørnstad / Team leader
+* Vemund Handeland / Custumer support
+
+* IT-krigerne
+
+# Projekt type
+* Fugleperskeptiv
+* 2D kamera
+* Kan bevege seg: OPP, NED, VENSTRE, HØYRE
+* Items, upgrades, quests, bosses, points, 
+* No save files. Run based game. 
+* The legend of Zelda: https://en.wikipedia.org/wiki/The_Legend_of_Zelda_(video_game)
+
+# Prosjekt navn
+* The legend of Daniel: The fall from grace
+* The legend of Daniel: The uprising
+
+# Gruppe nummer
+* Gruppe 1
+
+# Project board
+* Vi har opprettet trello i lag. 
+
+
