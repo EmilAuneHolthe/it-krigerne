@@ -72,3 +72,23 @@ If you look at *Settings → Repository* in GitLab, you can protect branches –
 
 (You should probably delete these if you don't need them!)
 
+# Navn/ Team navn
+
+* Emil Aune Holthe
+* Martin Rønning
+* Daniel Bjørnstad
+* Vemund Handeland
+
+* IT-krigerne
+
+# Prosjekt navn
+
+* The legend of Daniel: The fall from grace
+* The legend of Daniel: The uprising
+
+# Gruppe nummer
+* Gruppe 1
+
+# Team roller
+
+
