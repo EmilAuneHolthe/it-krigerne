@@ -90,8 +90,7 @@ If you look at *Settings → Repository* in GitLab, you can protect branches –
 * The legend of Zelda: https://en.wikipedia.org/wiki/The_Legend_of_Zelda_(video_game)
 
 # Prosjekt navn
-* The legend of Daniel: The fall from grace
-* The legend of Daniel: The uprising
+* The Legend of Invisible Stairs
 
 # Gruppe nummer
 * Gruppe 1

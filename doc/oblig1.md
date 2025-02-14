@@ -36,12 +36,44 @@
 * Eksperimentering med rammeverk: Vi har testet ulike verktøy og biblioteker for å håndtere 2D-grafikk og spillmotor
 * Foreløpig utvikling av spillkart og bevegelsessystem
 
+Krav til MVP
+1. Vise et spillebrett 
+2. Vise spiller på spillebrett
+3. Flytte spiller
+4. Kan angripe
+5. Kan plukke opp items
+6. Spiller interagerer med terreng
+7. Vise fiender/monstre; de skal interagere med terreng og spiller
+8. Spiller kan dø (Miste alle “healthpoints” til en fiende)
+9. Mål for spillbrett (Beseire bosser)
+10. Start-skjerm ved oppstart / game over
+
+Brukerhistorier
+
+1. Som en ny spiller ønsker jeg å forstå hvordan spillet fungerer.
+2. Som en spiller ønsker jeg å kunne forstå tydelig hva som befinner seg på spillerbrettet.
+3. Som en spiller ønsker jeg å kunne bevege meg opp, ned, venstre og høyre.
+
 ### A5: Oppsummering / retrospektiv
 
 # Hva har fungert bra?
 
-* God kommunikasjon i teamet
-* Strukturert oppgavefordeling via Trello
-* Rask iterasjon over idéer
+Hva gikk bra
+* God kjemi mellom gruppemedlemmene
+* Jobbet ukentlig
+* kommet i gang med å lære libgdx
+* Vi lærte om hvilke prosesser som gjøres
+
+Hva gikk dårlig
+* Vi sliter fremdeles litt med git. Så dette er noe å jobbe med for neste oppgave
+* kom litt sent igang med å gjøre oppgavene.
+* Vet ikke hvem han ene i gruppen er
+
+Hva vill vi prøve fremover
+* Mer libGDX
+* Bli bedre på git commands
+* prøve litt forskjellige arbeidsproser
+* bruke mer trello
+
 
 
