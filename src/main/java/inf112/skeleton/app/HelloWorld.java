@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.Texture;
 
+
 public class HelloWorld implements ApplicationListener {
 	private SpriteBatch batch;
 	private BitmapFont font;
@@ -31,6 +32,8 @@ public class HelloWorld implements ApplicationListener {
 		spriteRect = new Rectangle(1, 1, spriteImage.getWidth() / 2, spriteImage.getHeight() / 2);
 		bellSound = Gdx.audio.newSound(Gdx.files.internal("blipp.ogg"));
 		Gdx.graphics.setForegroundFPS(60);
+		
+		
 	}
 
 	@Override
@@ -72,14 +75,30 @@ public class HelloWorld implements ApplicationListener {
 		Rectangle.tmp.x += dx;
 		Rectangle.tmp2.set(spriteRect);
 		Rectangle.tmp2.y += dy;
-		if (screenRect.contains(Rectangle.tmp))
-			spriteRect.x += dx;
-		else
-			dx = -dx;
-		if (screenRect.contains(Rectangle.tmp2))
+
+
+		if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+			dy = -10;
 			spriteRect.y += dy;
-		else
-			dy = -dy;
+			dy = 0;
+		}
+		else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+			dy = 10;
+			spriteRect.y += dy;
+			dy = 0;
+		
+		}
+		else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+			dx = -10;
+			spriteRect.x += dx;
+			dx = 0;
+		
+		}
+		else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+			dx = 10;
+			spriteRect.x += dx;
+			dx = 0;
+		}
 
 		// Don't handle input this way – use event handlers!
 		if (Gdx.input.justTouched()) { // check for mouse click
