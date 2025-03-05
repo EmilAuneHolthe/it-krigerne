@@ -1,142 +1,65 @@
 package inf112.skeleton.app;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import java.util.HashMap;
+import java.util.Map;
+import inf112.skeleton.app.screen.*; 
 
-import javax.swing.JPanel;
-import java.awt.Color;
-
-public class GamePanel extends JPanel implements Runnable {
-    
-    
-    final int originalTileSize = 16; // 32x32 pixels
-    final int scale = 3; // 3x scale
-
-    final int tileSize = originalTileSize * scale; // 16x16 pixels
-    final int maxScreenCol = 16;
-    final int maxScreenRow = 12;
-    final int screenWidth = tileSize * maxScreenCol; // 2304 pixels
-    final int screenHeight = tileSize * maxScreenRow; // 1728 pixels
-
-    int FPS = 60;
-    
-    KeyHandler keyH = new KeyHandler();
-    Thread gameThread;
-
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 4;
+public class GamePanel extends Game {
+    private static GamePanel instance;
+    private Map<ScreenType, Screen> screenCache;
 
     public GamePanel() {
-
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(Color.BLACK);
-        this.setDoubleBuffered(true);
-        this.addKeyListener(keyH);
-        this.setFocusable(true);
-  
+        instance = this;  // Store reference to itself
+        screenCache = new HashMap<>();
     }
 
-    public void startGameThread() {
-        gameThread = new Thread(this);
-        gameThread.start();
+    public static GamePanel getInstance() {
+        return instance;
     }
-    // Run metode 1
 
-    // @Override
-    // public void run() {
-
-    //     double drawInterval = 1000000000/FPS; //  0.01666 seconds 
-    //     double nextDrawTime = System.nanoTime() + drawInterval;
-        
-    //     while (gameThread != null) {
-
-    //         update();
-
-    //         repaint();
-
-    //         try {
-    //             double remainingTime = nextDrawTime - System.nanoTime();
-    //             remainingTime = remainingTime / 1000000; // convert to milliseconds
-
-    //             if (remainingTime < 0) {
-    //                 remainingTime = 0;
-    //             }
-
-    //             Thread.sleep((long)remainingTime);
-
-    //             nextDrawTime += drawInterval;
-
-    //         } catch (InterruptedException e) {
-    //             // TODO Auto-generated catch block
-    //             e.printStackTrace();
-    //         }
-    //     }
-    // }
-
-    // Run metode 2
     @Override
-    public void run () {
+    public void create() {
+		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
-        double drawInterval = 1000000000/FPS; //  0.01666 seconds
-        double delta = 0;
-        long lastTime = System.nanoTime();
-        long currentTime;
-        long timer = 0;
-        long drawCount = 0;
+        // Initialize screens once
+        addScreen(ScreenType.LOADING, new LoadingScreen());
+        addScreen(ScreenType.GAME, new GameScreen());
 
-        while (gameThread != null) {
+        // Start with the loading screen
+        setScreen(ScreenType.LOADING);
+    }
 
-            currentTime = System.nanoTime();
+    public void addScreen(ScreenType type, Screen screen) {
+        screenCache.put(type, screen);
+    }
 
-            delta += (currentTime - lastTime) / drawInterval;
-            timer += currentTime - lastTime;
-            lastTime = currentTime;
-
-            if(delta >= 1) {
-                update();
-                repaint();
-                delta--;
-                drawCount++;
-            }
-
-            if (timer >= 1000000000) {
-                System.out.println("FPS: " + drawCount);
-                drawCount = 0;
-                timer = 0;
-            }
+    public void setScreen(ScreenType type) {
+        Screen screen = screenCache.get(type);
+        if (screen != null) {
+			Gdx.app.debug("GamePanel", "Setting screen: " + type);
+            super.setScreen(screen);
+        } else {
+            throw new IllegalArgumentException("Screen not found: " + type);
         }
     }
 
-    public void update() {
-
-        if (keyH.upPressed == true) {
-            playerY -= playerSpeed;
+    public void removeScreen(ScreenType type) {
+        Screen screen = screenCache.remove(type);
+        if (screen != null) {
+            screen.dispose(); // Clean up resources
         }
-        else if (keyH.downPressed == true) {
-            playerY += playerSpeed;
-        }
-        else if (keyH.leftPressed == true) {
-            playerX -= playerSpeed;
-        }
-        else if (keyH.rightPressed == true) {
-            playerX += playerSpeed;
-        } 
-        
-        
-    }
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-        Graphics2D g2 = (Graphics2D) g;   
-
-        g2.setColor(Color.WHITE);
-
-        g2.fillRect(playerX, playerY, tileSize, tileSize);
-
-        g2.dispose();
-        
     }
 
+    @Override
+    public void dispose() {
+        // Properly dispose of all screens
+        for (Screen screen : screenCache.values()) {
+            screen.dispose();
+        }
+        screenCache.clear();
+    }
 }
