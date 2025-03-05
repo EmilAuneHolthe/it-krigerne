@@ -1,7 +1,6 @@
 package inf112.skeleton.app.screen;
 
 import org.lwjgl.opengl.GL20;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -21,9 +20,9 @@ public class GameScreen extends AbstractScreen {
     private final FixtureDef fixtureDef;
     private final World world;
 
-    private static final short BIT_Circle = GamePanel.BIT_Circle;
-    private static final short BIT_Box = GamePanel.BIT_Box;
-    private static final short BIT_Ground = GamePanel.BIT_Ground;
+    private static final short BIT_CIRCLE = GamePanel.BIT_Circle;
+    private static final short BIT_BOX = GamePanel.BIT_Box;
+    private static final short BIT_GROUND = GamePanel.BIT_Ground;
 
     public GameScreen(GamePanel context) {
 super(context);
@@ -41,10 +40,11 @@ super(context);
         fixtureDef.isSensor = false;
         fixtureDef.restitution = 0.75f;
         fixtureDef.friction = 0.2f;
-        fixtureDef.filter.categoryBits = BIT_Circle;
-        fixtureDef.filter.maskBits = BIT_Ground | BIT_Box;
+        fixtureDef.filter.categoryBits = BIT_CIRCLE;
+        fixtureDef.filter.maskBits = BIT_GROUND | BIT_BOX;
         CircleShape cShape = new CircleShape();
         cShape.setRadius(0.5f);
+        fixtureDef.shape = cShape;
         body.createFixture(fixtureDef);
         cShape.dispose();
 
@@ -57,10 +57,11 @@ super(context);
         fixtureDef.isSensor = false;
         fixtureDef.restitution = 0.75f;
         fixtureDef.friction = 0.2f;
-        fixtureDef.filter.categoryBits = BIT_Box;
-        fixtureDef.filter.maskBits = BIT_Ground | BIT_Circle;
+        fixtureDef.filter.categoryBits = BIT_BOX;
+        fixtureDef.filter.maskBits = BIT_GROUND | BIT_CIRCLE;
         PolygonShape pShape = new PolygonShape();
         pShape.setAsBox(0.5f, 0.5f);
+        fixtureDef.shape = pShape;
         body.createFixture(fixtureDef);
         pShape.dispose();
 
@@ -73,10 +74,11 @@ super(context);
         fixtureDef.isSensor = false;
         fixtureDef.restitution = 0.75f;
         fixtureDef.friction = 0.2f;
-        fixtureDef.filter.categoryBits = BIT_Ground;
+        fixtureDef.filter.categoryBits = BIT_GROUND;
         fixtureDef.filter.maskBits = -1;
         pShape = new PolygonShape();
         pShape.setAsBox(4f, 0.5f);
+        fixtureDef.shape = pShape; 
         body.createFixture(fixtureDef);
         pShape.dispose();
 

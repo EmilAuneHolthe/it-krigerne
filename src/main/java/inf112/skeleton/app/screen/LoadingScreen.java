@@ -8,7 +8,7 @@ import inf112.skeleton.app.GamePanel;
 public class LoadingScreen extends AbstractScreen {
 
     public LoadingScreen(GamePanel context) {
-        super(context);
+        super(context); // this.context = context;
     }
 
     @Override

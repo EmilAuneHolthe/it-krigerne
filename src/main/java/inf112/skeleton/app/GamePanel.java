@@ -33,13 +33,6 @@ public class GamePanel extends Game {
     public static final short BIT_Box = 1<<1;
     public static final short BIT_Ground = 1<<2;
     
-    
-   
-
-    
-
-
-    
 
     @Override
     public void create() {
@@ -65,11 +58,9 @@ public class GamePanel extends Game {
 
     public void setScreen(final ScreenType screenType) {
         final Screen screen = screenCache.get(screenType);
-        if (screen != null) {
-            
+        if (screen == null) {
+            // Skjerm finnes ikke fra før
             try{
-
-            
             Gdx.app.debug(TAG, "Lager ny skjerm" + screenType);
             final AbstractScreen newScreen = (AbstractScreen) ClassReflection.getConstructor(screenType.getScreenClass(),GamePanel.class).newInstance(this);
             screenCache.put(screenType, newScreen);
@@ -104,8 +95,10 @@ public class GamePanel extends Game {
     }
 
     public static GamePanel getInstance() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getInstance'");
+        if (instance == null) {
+            instance = new GamePanel();
+        }
+        return instance;
     }
 
     
