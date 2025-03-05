@@ -34,6 +34,12 @@
 			<version>${libgdx.version}</version>
 			<classifier>natives-desktop</classifier>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-box2d -->
+		<dependency>
+			<groupId>com.badlogicgames.gdx</groupId>
+			<artifactId>gdx-box2d</artifactId>
+			<version>1.13.1</version>
+		</dependency>
 		<dependency>
 			<!-- libgdx OpenGL backend-->
 			<groupId>com.badlogicgames.gdx</groupId>

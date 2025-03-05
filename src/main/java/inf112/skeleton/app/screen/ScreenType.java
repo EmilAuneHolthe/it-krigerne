@@ -4,16 +4,16 @@ import com.badlogic.gdx.Screen;
 
 
 public enum ScreenType {
-    GAME(LoadingScreen.class),
-    LOADING(GameScreen.class);
+    GAME(GameScreen.class),
+    LOADING(LoadingScreen.class);
 
-    private final Class<? extends Screen> screenClass;
+    private final Class<? extends AbstractScreen> screenClass;
 
-    ScreenType(Class<? extends Screen> screenClass) {
+    ScreenType(Class<? extends AbstractScreen> screenClass) {
         this.screenClass = screenClass;
     }
 
-    public Class<? extends Screen> getScreenClass() {
+    public Class<? extends AbstractScreen> getScreenClass() {
         return screenClass;
     }
     

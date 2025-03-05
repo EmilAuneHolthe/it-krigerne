@@ -4,48 +4,78 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2D;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.reflect.ClassReflection;
+import com.badlogic.gdx.utils.reflect.ReflectionException;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 import inf112.skeleton.app.screen.*; 
 
 public class GamePanel extends Game {
+    private static final String TAG = GamePanel.class.getSimpleName();
+
     private static GamePanel instance;
-    private Map<ScreenType, Screen> screenCache;
+    
+    
+    private EnumMap<ScreenType, AbstractScreen> screenCache;
+    private FitViewport screenViewport;
+    private World world;
+    private Box2DDebugRenderer box2DDebugRenderer;
 
-    public GamePanel() {
-        instance = this;  // Store reference to itself
-        screenCache = new HashMap<>();
-    }
-
-    public static GamePanel getInstance() {
-        return instance;
-    }
+    
 
     @Override
     public void create() {
-		Gdx.app.setLogLevel(Application.LOG_DEBUG);
+        Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
-        // Initialize screens once
-        addScreen(ScreenType.LOADING, new LoadingScreen());
-        addScreen(ScreenType.GAME, new GameScreen());
+        Box2D.init(); // Initialize Box2D
+        world = new World(new Vector2(0, 9.81f), true); // Create a new world with gravity
+        box2DDebugRenderer = new Box2DDebugRenderer(); // Create a new debug renderer
 
-        // Start with the loading screen
-        setScreen(ScreenType.LOADING);
+        screenViewport = new FitViewport(9, 16);
+        screenCache = new EnumMap<ScreenType, AbstractScreen>(ScreenType.class);
+        setScreen(ScreenType.GAME);
     }
 
-    public void addScreen(ScreenType type, Screen screen) {
-        screenCache.put(type, screen);
-    }
+    public FitViewport getViewport() {return screenViewport;}
 
-    public void setScreen(ScreenType type) {
-        Screen screen = screenCache.get(type);
+    public World getWorld() {return world;}
+
+    public Box2DDebugRenderer getBox2DDebugRenderer() {return box2DDebugRenderer;}
+
+    
+    
+
+    public void setScreen(final ScreenType screenType) {
+        final Screen screen = screenCache.get(screenType);
         if (screen != null) {
-			Gdx.app.debug("GamePanel", "Setting screen: " + type);
-            super.setScreen(screen);
-        } else {
-            throw new IllegalArgumentException("Screen not found: " + type);
+            
+            try{
+
+            
+            Gdx.app.debug(TAG, "Lager ny skjerm" + screenType);
+            final AbstractScreen newScreen = (AbstractScreen) ClassReflection.getConstructor(screenType.getScreenClass(),GamePanel.class).newInstance(this);
+            screenCache.put(screenType, newScreen);
+            setScreen(newScreen);
+            } catch (ReflectionException e) {
+                throw new GdxRuntimeException("Screen" + screenType + " kunne ikke lages", e);
+            }
+        }else {
+                // Skjerm finnes fra før
+                Gdx.app.debug(TAG, "Skjerm finnes fra før" + screenType);
+                setScreen(screen);
         }
     }
+            
+            
+     
 
     public void removeScreen(ScreenType type) {
         Screen screen = screenCache.remove(type);
@@ -56,10 +86,19 @@ public class GamePanel extends Game {
 
     @Override
     public void dispose() {
-        // Properly dispose of all screens
-        for (Screen screen : screenCache.values()) {
-            screen.dispose();
-        }
-        screenCache.clear();
+        super.dispose();
+        // Properly dispose of the world
+        world.dispose();
+        // Properly dispose of the debug renderer
+        box2DDebugRenderer.dispose();
     }
+
+    public static GamePanel getInstance() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getInstance'");
+    }
+
+    
+
+    
 }

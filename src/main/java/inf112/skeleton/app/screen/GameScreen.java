@@ -1,12 +1,83 @@
 package inf112.skeleton.app.screen;
 
 import org.lwjgl.opengl.GL20;
+
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+
 import inf112.skeleton.app.GamePanel;
 
-public class GameScreen implements Screen {
+public class GameScreen extends AbstractScreen {
+    private final BodyDef bodyDef;
+    private final FixtureDef fixtureDef;
+    private final World world;
+
+    public GameScreen(GamePanel context) {
+super(context);
+        this.world = context.getWorld();
+
+        bodyDef = new BodyDef();
+        fixtureDef = new FixtureDef();
+
+        // creates a circle
+        bodyDef.position.set(4.5f, 15);
+        bodyDef.gravityScale = 1;
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        Body body = world.createBody(bodyDef);
+
+        fixtureDef.isSensor = false;
+        fixtureDef.restitution = 0.75f;
+        fixtureDef.friction = 0.2f;
+        fixtureDef.filter.categoryBits = BIT_Circle;
+        fixtureDef.filter.maskBits = BIT_Ground | BIT_Box;
+        CircleShape cShape = new CircleShape();
+        cShape.setRadius(0.5f);
+        body.createFixture(fixtureDef);
+        cShape.dispose();
+
+        // creates a Box
+        bodyDef.position.set(5.3f, 6);
+        bodyDef.gravityScale = 1;
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        body = world.createBody(bodyDef);
+
+        fixtureDef.isSensor = false;
+        fixtureDef.restitution = 0.75f;
+        fixtureDef.friction = 0.2f;
+        fixtureDef.filter.categoryBits = BIT_Box;
+        fixtureDef.filter.maskBits = BIT_Ground | BIT_Circle;
+        PolygonShape pShape = new PolygonShape();
+        pShape.setAsBox(0.5f, 0.5f);
+        body.createFixture(fixtureDef);
+        pShape.dispose();
+
+        // creates a platform
+        bodyDef.position.set(4.5f, 2);
+        bodyDef.gravityScale = 1;
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+        body = world.createBody(bodyDef);
+
+        fixtureDef.isSensor = false;
+        fixtureDef.restitution = 0.75f;
+        fixtureDef.friction = 0.2f;
+        fixtureDef.filter.categoryBits = BIT_Ground;
+        fixtureDef.filter.maskBits = -1;
+        pShape = new PolygonShape();
+        pShape.setAsBox(4f, 0.5f);
+        body.createFixture(fixtureDef);
+        pShape.dispose();
+
+
+    }
 
     @Override
     public void render(float delta) {
@@ -14,15 +85,21 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
-            GamePanel.getInstance().setScreen(ScreenType.LOADING);
+            context.setScreen(ScreenType.LOADING);
         }
+
+        viewport.apply(true);
+        world.step(delta, 6, 2);
+        
     }
 
     @Override
     public void show() {}
 
     @Override
-    public void resize(int width, int height) {}
+    public void resize(int width, int height) {
+        super.resize(width, height);
+}
 
     @Override
     public void pause() {}

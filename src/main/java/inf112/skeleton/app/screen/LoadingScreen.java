@@ -3,10 +3,13 @@ package inf112.skeleton.app.screen;
 import org.lwjgl.opengl.GL20;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
 import inf112.skeleton.app.GamePanel;
 
-public class LoadingScreen implements Screen {
+public class LoadingScreen extends AbstractScreen {
+
+    public LoadingScreen(GamePanel context) {
+        super(context);
+    }
 
     @Override
     public void render(float delta) {
@@ -14,7 +17,7 @@ public class LoadingScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.A)) {
-            GamePanel.getInstance().setScreen(ScreenType.GAME);
+            context.setScreen(ScreenType.GAME);
         }
     }
 
