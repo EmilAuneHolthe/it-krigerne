@@ -1,28 +1,23 @@
 package inf112.skeleton.app;
 
-import javax.swing.JFrame;
 
-import com.badlogic.gdx.Game;
+import org.lwjgl.system.Configuration;
 
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.badlogic.gdx.utils.SharedLibraryLoader;
+import com.badlogic.gdx.utils.Os;
+import com.badlogic.gdx.utils.SharedLibraryLoader;
 
 public class Main {
-    public static void main(String[] args) {
+	public static void main(String[] args) {
+		if (SharedLibraryLoader.os == Os.MacOsX) {
+			Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
+		}
+		Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
+		cfg.setTitle("hello-world");
+		cfg.setWindowedMode(800, 450);
 
-       JFrame window = new JFrame();
-       window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       window.setResizable(false);
-       window.setTitle("Stairs");
-
-       GamePanel gamePanel = new GamePanel();
-       window.add(gamePanel); 
-       window.pack();  
-
-    
-       
-       window.setLocationRelativeTo(null);
-       window.setVisible(true);
-
-       gamePanel.startGameThread();
-    
-    }
+		new Lwjgl3Application(new GamePanel(), cfg);
+	}
 }
