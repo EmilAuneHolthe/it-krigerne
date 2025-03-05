@@ -21,6 +21,10 @@ public class GameScreen extends AbstractScreen {
     private final FixtureDef fixtureDef;
     private final World world;
 
+    private static final short BIT_Circle = GamePanel.BIT_Circle;
+    private static final short BIT_Box = GamePanel.BIT_Box;
+    private static final short BIT_Ground = GamePanel.BIT_Ground;
+
     public GameScreen(GamePanel context) {
 super(context);
         this.world = context.getWorld();
@@ -90,6 +94,7 @@ super(context);
 
         viewport.apply(true);
         world.step(delta, 6, 2);
+        box2DDebugRenderer.render(world, viewport.getCamera().combined);
         
     }
 

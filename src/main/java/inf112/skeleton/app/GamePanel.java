@@ -29,6 +29,16 @@ public class GamePanel extends Game {
     private World world;
     private Box2DDebugRenderer box2DDebugRenderer;
 
+    public static final short BIT_Circle = 1<<0;
+    public static final short BIT_Box = 1<<1;
+    public static final short BIT_Ground = 1<<2;
+    
+    
+   
+
+    
+
+
     
 
     @Override
