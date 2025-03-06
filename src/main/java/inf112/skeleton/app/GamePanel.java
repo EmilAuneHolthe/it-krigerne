@@ -45,6 +45,7 @@ public class GamePanel extends Game {
 
         Box2D.init(); // Initialize Box2D
         world = new World(new Vector2(0, 9.81f), true); // Create a new world with gravity
+        world.setContactListener(null);
         box2DDebugRenderer = new Box2DDebugRenderer(); // Create a new debug renderer
 
         screenViewport = new FitViewport(9, 16);
