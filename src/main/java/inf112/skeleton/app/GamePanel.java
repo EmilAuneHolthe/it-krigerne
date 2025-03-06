@@ -32,11 +32,16 @@ public class GamePanel extends Game {
     public static final short BIT_Circle = 1<<0;
     public static final short BIT_Box = 1<<1;
     public static final short BIT_Ground = 1<<2;
+
+    private static final float FIXED_TIME_STEP = 1/60f;
+    private float accumulator;
+
     
 
     @Override
     public void create() {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
+        accumulator = 0;
 
         Box2D.init(); // Initialize Box2D
         world = new World(new Vector2(0, 9.81f), true); // Create a new world with gravity
@@ -73,6 +78,20 @@ public class GamePanel extends Game {
                 Gdx.app.debug(TAG, "Skjerm finnes fra før" + screenType);
                 setScreen(screen);
         }
+    }
+
+    @Override
+    public void render() {
+        super.render();
+
+        Gdx.app.debug(TAG, "" + Gdx.graphics.getDeltaTime());
+        accumulator += Math.min(0.25f, Gdx.graphics.getDeltaTime());
+        while (accumulator >= FIXED_TIME_STEP) {
+            world.step(FIXED_TIME_STEP, 6, 2);
+            accumulator -= FIXED_TIME_STEP;
+        }  
+
+        // final float alpha = accumulator / FIXED_TIME_STEP; DO NOT USE yet
     }
             
             

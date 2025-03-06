@@ -95,7 +95,6 @@ super(context);
         }
 
         viewport.apply(true);
-        world.step(delta, 6, 2);
         box2DDebugRenderer.render(world, viewport.getCamera().combined);
         
     }
