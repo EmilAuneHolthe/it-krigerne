@@ -22,7 +22,7 @@ public class LoadingScreen extends AbstractScreen {
         super(context); // this.context = context;
         assetManager = new AssetManager();
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
-        assetManager.load("src/main/assets/map/map.tmx", TiledMap.class);
+        assetManager.load("map/map.tmx", TiledMap.class);
     }
     
     @Override
