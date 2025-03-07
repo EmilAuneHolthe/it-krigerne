@@ -5,6 +5,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -20,6 +21,7 @@ public class GameScreen extends AbstractScreen {
     private final BodyDef bodyDef;
     private final FixtureDef fixtureDef;
     private final World world;
+    private final AssetManager assetManager;
 
     private final OrthogonalTiledMapRenderer renderer;
 
@@ -29,8 +31,9 @@ public class GameScreen extends AbstractScreen {
 
     public GameScreen(GamePanel context) {
         super(context);
+        this.assetManager = new AssetManager();
 
-        renderer = new OrthogonalTiledMapRenderer(null, context.getSpriteBatch());
+        renderer = new OrthogonalTiledMapRenderer(null, GamePanel.UNIT_SCALE, context.getSpriteBatch());
         this.world = context.getWorld();
 
         bodyDef = new BodyDef();
@@ -105,7 +108,9 @@ public class GameScreen extends AbstractScreen {
     }
 
     @Override
-    public void show() {}
+    public void show() {
+        renderer.setMap(assetManager.get("src/main/assets/map/map.tmx"));
+    }
 
     @Override
     public void resize(int width, int height) {
