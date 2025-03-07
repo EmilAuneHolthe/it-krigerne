@@ -28,12 +28,10 @@ public class MainMenuScreen extends AbstractScreen {
     }
 
     private void createUI() {
-        // Create background image and add to stage
         Image background = new Image(new TextureRegionDrawable(backgroundTexture));
         background.setFillParent(true);
         stage.addActor(background);
 
-        // Create invisible buttons
         Texture blankTexture = new Texture(Gdx.files.internal("transparent.png")); // A fully transparent 1x1 PNG
         TextureRegionDrawable blankDrawable = new TextureRegionDrawable(blankTexture);
 
@@ -41,10 +39,10 @@ public class MainMenuScreen extends AbstractScreen {
         ImageButton optionsButton = new ImageButton(blankDrawable);
         ImageButton exitButton = new ImageButton(blankDrawable);
 
-        // Set button positions (adjust to match text positions in your background)
-        startButton.setBounds(300, 280, 200, 50);  // x, y, width, height
-        optionsButton.setBounds(300, 210, 200, 50);
-        exitButton.setBounds(300, 100, 200, 50);
+        
+        startButton.setBounds(300, 320, 300, 50);  
+        optionsButton.setBounds(300, 230, 300, 50);
+        exitButton.setBounds(300, 140, 300, 50);
 
         // Button Click Listeners
         startButton.addListener(new ClickListener() {
@@ -71,7 +69,6 @@ public class MainMenuScreen extends AbstractScreen {
             }
         });
 
-        // Add buttons to the stage
         stage.addActor(startButton);
         stage.addActor(optionsButton);
         stage.addActor(exitButton);
@@ -84,6 +81,7 @@ public class MainMenuScreen extends AbstractScreen {
 
         stage.act(delta);
         stage.draw();
+        viewport.apply(true);
     }
 
     @Override
@@ -92,9 +90,5 @@ public class MainMenuScreen extends AbstractScreen {
         backgroundTexture.dispose();
     }
 
-    @Override
-    public void show() {
-        resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-    }
 }
 

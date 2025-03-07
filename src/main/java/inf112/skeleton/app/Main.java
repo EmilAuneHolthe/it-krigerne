@@ -16,7 +16,7 @@ public class Main {
 		}
 		Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
 		cfg.setTitle("hello-world");
-		cfg.setWindowedMode(800, 450);
+		cfg.setWindowedMode(960, 540);
 
 		new Lwjgl3Application(new GamePanel(), cfg);
 	}
