@@ -34,7 +34,7 @@ public class GameScreen extends AbstractScreen {
         fixtureDef = new FixtureDef();
 
         // creates a Player
-        bodyDef.position.set(4.5f, 3);
+        bodyDef.position.set(8, 5.5f);
         bodyDef.gravityScale = 1;
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         player = world.createBody(bodyDef);
@@ -54,24 +54,23 @@ public class GameScreen extends AbstractScreen {
 
 
         // creates room
-        bodyDef.position.set(0, 0);
-        bodyDef.gravityScale = 0;
-        bodyDef.type = BodyDef.BodyType.StaticBody;
-        final Body body = world.createBody(bodyDef);
-        body.setUserData("GROUND");
+        // bodyDef.position.set(0, 0);
+        // bodyDef.gravityScale = 0;
+        // bodyDef.type = BodyDef.BodyType.StaticBody;
+        // final Body body = world.createBody(bodyDef);
+        // body.setUserData("GROUND");
 
-        fixtureDef.isSensor = false;
-        fixtureDef.restitution = 0;
-        fixtureDef.friction = 0.2f;
-        fixtureDef.filter.categoryBits = BIT_GROUND;
-        fixtureDef.filter.maskBits = -1;
-        final ChainShape chainShape = new ChainShape();
-        chainShape.createLoop(new float[] {1,1,1,15,8,15,8,1});
-        fixtureDef.shape = chainShape;
-        body.createFixture(fixtureDef);
-        chainShape.dispose();
-        
-
+        // fixtureDef.isSensor = false;
+        // fixtureDef.restitution = 0;
+        // fixtureDef.friction = 0.2f;
+        // fixtureDef.filter.categoryBits = BIT_GROUND;
+        // fixtureDef.filter.maskBits = -1;
+        // final ChainShape chainShape = new ChainShape();
+        // chainShape.createLoop(new float[] {1,1,1,15,8,15,8,1});
+        // fixtureDef.shape = chainShape;
+        // body.createFixture(fixtureDef);
+        // chainShape.dispose();
+    
 
     }
 
