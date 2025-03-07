@@ -10,23 +10,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 
 import inf112.skeleton.app.GamePanel;
 
 public class MainMenuScreen extends AbstractScreen {
+    public static Texture backgroundTexture = new Texture(Gdx.files.internal("background.jpg"));
     private Stage stage;
-    private Texture backgroundTexture;
 
     public MainMenuScreen(GamePanel context) {
         super(context);
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
-        
-        // Load background image
-        backgroundTexture = new Texture("background.jpg"); // Ensure this is in assets
-        
         createUI();
     }
 
@@ -37,7 +34,7 @@ public class MainMenuScreen extends AbstractScreen {
         stage.addActor(background);
 
         // Create invisible buttons
-        Texture blankTexture = new Texture("transparent.png"); // A fully transparent 1x1 PNG
+        Texture blankTexture = new Texture(Gdx.files.internal("transparent.png")); // A fully transparent 1x1 PNG
         TextureRegionDrawable blankDrawable = new TextureRegionDrawable(blankTexture);
 
         ImageButton startButton = new ImageButton(blankDrawable);
@@ -90,6 +87,11 @@ public class MainMenuScreen extends AbstractScreen {
     public void dispose() {
         stage.dispose();
         backgroundTexture.dispose();
+    }
+
+    @Override
+    public void show() {
+        resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 }
 
