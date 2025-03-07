@@ -48,7 +48,6 @@ public class GamePanel extends Game {
 
     @Override
     public void create() {
-        camera = new OrthographicCamera();
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
         accumulator = 0;
 
@@ -57,14 +56,14 @@ public class GamePanel extends Game {
         world.setContactListener(null);
         box2DDebugRenderer = new Box2DDebugRenderer(); // Create a new debug renderer
 
-        screenViewport = new FitViewport(9, 16, camera);
-        screenCache = new EnumMap<ScreenType, AbstractScreen>(ScreenType.class);
-        setScreen(ScreenType.GAME);
-
         //init assetManager
         assetManager = new AssetManager();  
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
+        camera = new OrthographicCamera();
+        screenViewport = new FitViewport(9, 16, camera);
+        screenCache = new EnumMap<ScreenType, AbstractScreen>(ScreenType.class);
 
+        setScreen(ScreenType.LOADING);
     }
 
     public FitViewport getViewport() {return screenViewport;}

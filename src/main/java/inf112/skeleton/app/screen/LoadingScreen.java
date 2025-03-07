@@ -4,20 +4,27 @@ import org.lwjgl.opengl.GL20;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.resolvers.AbsoluteFileHandleResolver;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 import inf112.skeleton.app.GamePanel;
 
 public class LoadingScreen extends AbstractScreen {
+    
 
     private final AssetManager assetManager;
 
     public LoadingScreen(GamePanel context) {
         super(context); // this.context = context;
-        this. assetManager = context.getAssetManager();
-        assetManager.load("src/main/assets/map/map.tmx", TiledMap.class);
+        assetManager = new AssetManager();
+        String path = System.getProperty("user.dir") + "/src/main/assets/map/map.tmx";
+        assetManager.setLoader(TiledMap.class, new TmxMapLoader()); // Husk fortsatt loaderen!
+        assetManager.load(path, TiledMap.class);
     }
-
+    
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 1, 0, 1);
@@ -25,6 +32,10 @@ public class LoadingScreen extends AbstractScreen {
         
         if (assetManager.update()) {
             context.setScreen(ScreenType.GAME);
+        }
+        else {
+            float progress = assetManager.getProgress();
+            System.out.println("Loading: " + progress * 100 + "%");
         }
     }
 
