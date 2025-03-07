@@ -6,6 +6,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
@@ -24,6 +26,7 @@ import inf112.skeleton.app.screen.*;
 public class GamePanel extends Game {
     private static final String TAG = GamePanel.class.getSimpleName();
 
+    private SpriteBatch spriteBatch;
     private static GamePanel instance;
     private OrthographicCamera camera;
     
@@ -32,6 +35,7 @@ public class GamePanel extends Game {
     private World world;
     private Box2DDebugRenderer box2DDebugRenderer;
 
+    public static final float UNIT_SCALE = 1/32f;
     public static final short BIT_Circle = 1<<0;
     public static final short BIT_Box = 1<<1;
     public static final short BIT_Ground = 1<<2;
@@ -137,6 +141,9 @@ public class GamePanel extends Game {
     }
     public OrthographicCamera getCamera() {
         return camera;
+    }
+    public SpriteBatch getSpriteBatch() {
+        return spriteBatch;
     }
 
     

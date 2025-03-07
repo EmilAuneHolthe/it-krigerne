@@ -30,7 +30,7 @@ public class GameScreen extends AbstractScreen {
     public GameScreen(GamePanel context) {
         super(context);
 
-        renderer = new OrthogonalTiledMapRenderer(null);
+        renderer = new OrthogonalTiledMapRenderer(null, context.getSpriteBatch());
         this.world = context.getWorld();
 
         bodyDef = new BodyDef();
