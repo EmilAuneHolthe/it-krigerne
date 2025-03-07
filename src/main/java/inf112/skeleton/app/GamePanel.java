@@ -77,7 +77,7 @@ public class GamePanel extends Game {
         if (screen == null) {
             // Skjerm finnes ikke fra før
             try{
-            Gdx.app.debug(TAG, "Lager ny skjerm" + screenType);
+            //Gdx.app.debug(TAG, "Lager ny skjerm" + screenType);
             final AbstractScreen newScreen = (AbstractScreen) ClassReflection.getConstructor(screenType.getScreenClass(),GamePanel.class).newInstance(this);
             screenCache.put(screenType, newScreen);
             setScreen(newScreen);
@@ -86,7 +86,7 @@ public class GamePanel extends Game {
             }
         }else {
                 // Skjerm finnes fra før
-                Gdx.app.debug(TAG, "Skjerm finnes fra før" + screenType);
+                //Gdx.app.debug(TAG, "Skjerm finnes fra før" + screenType);
                 setScreen(screen);
         }
     }
@@ -95,7 +95,7 @@ public class GamePanel extends Game {
     public void render() {
         super.render();
 
-        Gdx.app.debug(TAG, "" + Gdx.graphics.getDeltaTime());
+        //Gdx.app.debug(TAG, "" + Gdx.graphics.getDeltaTime());
         accumulator += Math.min(0.25f, Gdx.graphics.getDeltaTime());
         while (accumulator >= FIXED_TIME_STEP) {
             world.step(FIXED_TIME_STEP, 6, 2);

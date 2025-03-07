@@ -5,6 +5,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -20,12 +21,16 @@ public class GameScreen extends AbstractScreen {
     private final FixtureDef fixtureDef;
     private final World world;
 
+    private final OrthogonalTiledMapRenderer renderer;
+
     private static final short BIT_CIRCLE = GamePanel.BIT_Circle;
     private static final short BIT_BOX = GamePanel.BIT_Box;
     private static final short BIT_GROUND = GamePanel.BIT_Ground;
 
     public GameScreen(GamePanel context) {
-super(context);
+        super(context);
+
+        renderer = new OrthogonalTiledMapRenderer(null);
         this.world = context.getWorld();
 
         bodyDef = new BodyDef();
