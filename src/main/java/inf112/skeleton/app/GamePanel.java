@@ -4,6 +4,8 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -12,7 +14,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +38,7 @@ public class GamePanel extends Game {
     private static final float FIXED_TIME_STEP = 1/60f;
     private float accumulator;
 
+    private AssetManager assetManager;
     
 
     @Override
@@ -51,6 +54,10 @@ public class GamePanel extends Game {
         screenViewport = new FitViewport(9, 16);
         screenCache = new EnumMap<ScreenType, AbstractScreen>(ScreenType.class);
         setScreen(ScreenType.GAME);
+
+        //init assetManager
+        assetManager = new AssetManager();  
+        assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
     }
 
     public FitViewport getViewport() {return screenViewport;}
@@ -112,6 +119,8 @@ public class GamePanel extends Game {
         world.dispose();
         // Properly dispose of the debug renderer
         box2DDebugRenderer.dispose();
+        // Properly dispose assetManager
+        assetManager.dispose();
     }
 
     public static GamePanel getInstance() {
