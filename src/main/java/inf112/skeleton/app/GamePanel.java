@@ -5,6 +5,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
@@ -24,7 +25,7 @@ public class GamePanel extends Game {
     private static final String TAG = GamePanel.class.getSimpleName();
 
     private static GamePanel instance;
-    
+    private OrthographicCamera camera;
     
     private EnumMap<ScreenType, AbstractScreen> screenCache;
     private FitViewport screenViewport;
@@ -43,21 +44,23 @@ public class GamePanel extends Game {
 
     @Override
     public void create() {
+        camera = new OrthographicCamera();
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
         accumulator = 0;
 
         Box2D.init(); // Initialize Box2D
-        world = new World(new Vector2(0, 9.81f), true); // Create a new world with gravity
+        world = new World(new Vector2(0, -9.81f), true); // Create a new world with gravity
         world.setContactListener(null);
         box2DDebugRenderer = new Box2DDebugRenderer(); // Create a new debug renderer
 
-        screenViewport = new FitViewport(9, 16);
+        screenViewport = new FitViewport(9, 16, camera);
         screenCache = new EnumMap<ScreenType, AbstractScreen>(ScreenType.class);
         setScreen(ScreenType.GAME);
 
         //init assetManager
         assetManager = new AssetManager();  
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
+
     }
 
     public FitViewport getViewport() {return screenViewport;}
@@ -129,8 +132,12 @@ public class GamePanel extends Game {
         }
         return instance;
     }
-
-    
+    public AssetManager getAssetManager() {
+        return assetManager;
+    }
+    public OrthographicCamera getCamera() {
+        return camera;
+    }
 
     
 }
