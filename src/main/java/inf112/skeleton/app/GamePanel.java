@@ -27,9 +27,10 @@ public class GamePanel extends Game {
     private EnumMap<ScreenType, AbstractScreen> screenCache;
     private FitViewport screenViewport;
     private World world;
+    private WorldContactListener worldContactListener;
     private Box2DDebugRenderer box2DDebugRenderer;
 
-    public static final short BIT_Circle = 1<<0;
+    public static final short BIT_Player = 1<<0;
     public static final short BIT_Box = 1<<1;
     public static final short BIT_Ground = 1<<2;
 
@@ -44,8 +45,9 @@ public class GamePanel extends Game {
         accumulator = 0;
 
         Box2D.init(); // Initialize Box2D
-        world = new World(new Vector2(0, 9.81f), true); // Create a new world with gravity
-        world.setContactListener(null);
+        world = new World(new Vector2(0, 0), true); // Create a new world with gravity
+        worldContactListener = new WorldContactListener();
+        world.setContactListener(worldContactListener);
         box2DDebugRenderer = new Box2DDebugRenderer(); // Create a new debug renderer
 
         screenViewport = new FitViewport(9, 16);
@@ -85,7 +87,7 @@ public class GamePanel extends Game {
     public void render() {
         super.render();
 
-        Gdx.app.debug(TAG, "" + Gdx.graphics.getDeltaTime());
+        //Gdx.app.debug(TAG, "" + Gdx.graphics.getDeltaTime());
         accumulator += Math.min(0.25f, Gdx.graphics.getDeltaTime());
         while (accumulator >= FIXED_TIME_STEP) {
             world.step(FIXED_TIME_STEP, 6, 2);
