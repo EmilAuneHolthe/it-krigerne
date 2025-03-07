@@ -50,9 +50,9 @@ public class GamePanel extends Game {
         world.setContactListener(worldContactListener);
         box2DDebugRenderer = new Box2DDebugRenderer(); // Create a new debug renderer
 
-        screenViewport = new FitViewport(9, 16);
+        screenViewport = new FitViewport(16, 11);
         screenCache = new EnumMap<ScreenType, AbstractScreen>(ScreenType.class);
-        setScreen(ScreenType.GAME);
+        setScreen(ScreenType.MAIN_MENU);
     }
 
     public FitViewport getViewport() {return screenViewport;}
@@ -96,9 +96,6 @@ public class GamePanel extends Game {
 
         // final float alpha = accumulator / FIXED_TIME_STEP; DO NOT USE yet
     }
-            
-            
-     
 
     public void removeScreen(ScreenType type) {
         Screen screen = screenCache.remove(type);
