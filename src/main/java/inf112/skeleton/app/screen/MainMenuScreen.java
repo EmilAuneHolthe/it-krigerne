@@ -42,14 +42,15 @@ public class MainMenuScreen extends AbstractScreen {
         ImageButton exitButton = new ImageButton(blankDrawable);
 
         // Set button positions (adjust to match text positions in your background)
-        startButton.setBounds(300, 350, 200, 50);  // x, y, width, height
-        optionsButton.setBounds(300, 280, 200, 50);
-        exitButton.setBounds(300, 210, 200, 50);
+        startButton.setBounds(300, 280, 200, 50);  // x, y, width, height
+        optionsButton.setBounds(300, 210, 200, 50);
+        exitButton.setBounds(300, 100, 200, 50);
 
         // Button Click Listeners
         startButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Starting game...");
                 context.setScreen(ScreenType.GAME);
             }
         });
@@ -57,6 +58,7 @@ public class MainMenuScreen extends AbstractScreen {
         optionsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Options screen not implemented yet.");
                 // Navigate to Options Screen (if implemented)
             }
         });
@@ -64,6 +66,7 @@ public class MainMenuScreen extends AbstractScreen {
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Exiting game...");
                 Gdx.app.exit();
             }
         });
