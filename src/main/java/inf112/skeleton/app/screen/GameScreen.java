@@ -24,7 +24,6 @@ public class GameScreen extends AbstractScreen {
     private final World world;
 
     private static final short BIT_PLAYER = GamePanel.BIT_Player;
-    private static final short BIT_BOX = GamePanel.BIT_Box;
     private static final short BIT_GROUND = GamePanel.BIT_Ground;
 
     public GameScreen(GamePanel context) {
@@ -41,6 +40,7 @@ public class GameScreen extends AbstractScreen {
         player = world.createBody(bodyDef);
         player.setUserData("PLAYER");
 
+        fixtureDef.density = 1;
         fixtureDef.isSensor = false;
         fixtureDef.restitution = 0;
         fixtureDef.friction = 0.2f;
@@ -80,9 +80,28 @@ public class GameScreen extends AbstractScreen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
-            context.setScreen(ScreenType.LOADING);
+        final float speedx;
+        final float speedy;
+
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            speedx = -8;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            speedx = 8;
+        } else {
+            speedx = 0;
         }
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            speedy = -8;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            speedy = 8;
+        } else {
+            speedy = 0;
+        }
+        player.applyLinearImpulse(
+            (speedx - player.getLinearVelocity().x),
+             (speedy - player.getLinearVelocity().y),
+              player.getWorldCenter().x,player.getWorldCenter().y,
+                true);
 
         viewport.apply(true);
         box2DDebugRenderer.render(world, viewport.getCamera().combined);
