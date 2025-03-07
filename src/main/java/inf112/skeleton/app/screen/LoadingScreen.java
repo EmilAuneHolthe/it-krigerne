@@ -20,9 +20,7 @@ public class LoadingScreen extends AbstractScreen {
     public LoadingScreen(GamePanel context) {
         super(context); // this.context = context;
         assetManager = new AssetManager();
-        String path = System.getProperty("user.dir") + "/src/main/assets/map/map.tmx";
-        assetManager.setLoader(TiledMap.class, new TmxMapLoader()); // Husk fortsatt loaderen!
-        assetManager.load(path, TiledMap.class);
+        assetManager.load("src/main/assets/map/map.tmx", TiledMap.class);
     }
     
     @Override

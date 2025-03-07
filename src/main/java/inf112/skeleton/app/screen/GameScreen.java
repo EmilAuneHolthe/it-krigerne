@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -23,7 +24,8 @@ public class GameScreen extends AbstractScreen {
     private final World world;
     private final AssetManager assetManager;
 
-    private final OrthogonalTiledMapRenderer renderer;
+    private final OrthogonalTiledMapRenderer mapRenderer;
+    private final OrthographicCamera camera;
 
     private static final short BIT_CIRCLE = GamePanel.BIT_Circle;
     private static final short BIT_BOX = GamePanel.BIT_Box;
@@ -31,9 +33,9 @@ public class GameScreen extends AbstractScreen {
 
     public GameScreen(GamePanel context) {
         super(context);
-        this.assetManager = new AssetManager();
-
-        renderer = new OrthogonalTiledMapRenderer(null, GamePanel.UNIT_SCALE, context.getSpriteBatch());
+        this.assetManager = context.getAssetManager();
+        this.camera = context.getCamera();
+        mapRenderer = new OrthogonalTiledMapRenderer(null, GamePanel.UNIT_SCALE, context.getSpriteBatch());
         this.world = context.getWorld();
 
         bodyDef = new BodyDef();
@@ -103,13 +105,15 @@ public class GameScreen extends AbstractScreen {
         }
 
         viewport.apply(true);
+        mapRenderer.setView((OrthographicCamera) viewport.getCamera());
+        mapRenderer.render();
         box2DDebugRenderer.render(world, viewport.getCamera().combined);
         
     }
 
     @Override
     public void show() {
-        renderer.setMap(assetManager.get("src/main/assets/map/map.tmx"));
+        mapRenderer.setMap(assetManager.get("src/main/assets/map/map.tmx"));
     }
 
     @Override
