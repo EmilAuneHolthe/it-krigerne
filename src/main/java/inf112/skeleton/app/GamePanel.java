@@ -67,7 +67,7 @@ public class GamePanel extends Game {
         screenViewport = new FitViewport(25 * 32 * UNIT_SCALE, 14 * 32 * UNIT_SCALE, camera);
         screenCache = new EnumMap<ScreenType, AbstractScreen>(ScreenType.class);
 
-        setScreen(ScreenType.LOADING);
+        setScreen(ScreenType.MAIN_MENU);
     }
 
     public FitViewport getViewport() {return screenViewport;}
