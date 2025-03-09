@@ -15,7 +15,7 @@ public class Main {
 			Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
 		}
 		Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
-		cfg.setTitle("hello-world");
+		cfg.setTitle("The Invisible Stairs");
 		cfg.setWindowedMode(960, 540);
 
 		new Lwjgl3Application(new GamePanel(), cfg);
