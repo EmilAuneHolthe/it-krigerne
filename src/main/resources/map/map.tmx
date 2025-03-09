@@ -123,9 +123,9 @@
   <object id="18" x="257.41" y="5.25719">
    <polyline points="0,0 -257.41,-5.25719 -257.41,3440.83 2947.89,3443.46 2949.26,-5.25719 1343.19,-2.6286"/>
   </object>
-  <object id="19" x="768.704" y="256.762" width="31.1067" height="30.5794"/>
-  <object id="20" x="704.381" y="256.235" width="30.5794" height="32.1611"/>
-  <object id="21" x="640.059" y="256.235" width="31.6339" height="31.6339"/>
+  <object id="19" x="771.819" y="259.747" width="24.0975" height="24.2192"/>
+  <object id="20" x="708.015" y="260.129" width="23.9596" height="23.7241"/>
+  <object id="21" x="643.693" y="259.999" width="24.2353" height="23.9757"/>
  </objectgroup>
  <layer id="2" name="foreground" width="100" height="108">
   <data encoding="csv">
