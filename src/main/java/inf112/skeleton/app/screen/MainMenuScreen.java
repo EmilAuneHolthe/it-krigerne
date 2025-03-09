@@ -49,7 +49,7 @@ public class MainMenuScreen extends AbstractScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Starting game...");
-                context.setScreen(ScreenType.GAME);
+                context.setScreen(ScreenType.LOADING);
             }
         });
 

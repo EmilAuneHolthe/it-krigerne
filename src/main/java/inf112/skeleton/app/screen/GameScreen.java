@@ -59,6 +59,7 @@ public class GameScreen extends AbstractScreen {
         // creates a Player
         bodyDef.position.set(8, 5.5f);
         bodyDef.gravityScale = 1;
+        bodyDef.fixedRotation = true;
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         player = world.createBody(bodyDef);
         player.setUserData("PLAYER");
@@ -170,10 +171,9 @@ public class GameScreen extends AbstractScreen {
                 true);
 
         playerSprite.setPosition(player.getPosition().x - playerSprite.getWidth() / 2, player.getPosition().y - playerSprite.getHeight() / 2);
-        playerSprite.setRotation(player.getAngle() * MathUtils.radiansToDegrees);
         spriteBatch.begin();
         playerSprite.draw(spriteBatch);
-        spriteBatch .end();
+        spriteBatch.end();
     }
 
     @Override
