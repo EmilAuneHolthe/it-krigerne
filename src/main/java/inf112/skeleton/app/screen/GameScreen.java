@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -24,6 +25,8 @@ import inf112.skeleton.app.GamePanel;
 public class GameScreen extends AbstractScreen {
     private final BodyDef bodyDef;
     private final FixtureDef fixtureDef;
+
+    private final Body player;
     private final World world;
     private final AssetManager assetManager;
     private SpriteBatch batch;
@@ -31,12 +34,11 @@ public class GameScreen extends AbstractScreen {
     private final OrthogonalTiledMapRenderer mapRenderer;
     private final OrthographicCamera camera;
 
-    private static final short BIT_CIRCLE = GamePanel.BIT_Circle;
-    private static final short BIT_BOX = GamePanel.BIT_Box;
+    private static final short BIT_PLAYER = GamePanel.BIT_Player;
     private static final short BIT_GROUND = GamePanel.BIT_Ground;
 
     public GameScreen(GamePanel context) {
-        super(context);
+        super(context); 
         this.assetManager = context.getAssetManager();
         this.camera = context.getCamera();
         this.batch = context.getSpriteBatch();
@@ -46,76 +48,80 @@ public class GameScreen extends AbstractScreen {
         bodyDef = new BodyDef();
         fixtureDef = new FixtureDef();
 
-        // creates a circle
-        bodyDef.position.set(4.5f, 15);
+        // creates a Player
+        bodyDef.position.set(8, 5.5f);
         bodyDef.gravityScale = 1;
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        Body body = world.createBody(bodyDef);
+        player = world.createBody(bodyDef);
+        player.setUserData("PLAYER");
 
+        fixtureDef.density = 1;
         fixtureDef.isSensor = false;
-        fixtureDef.restitution = 0.75f;
+        fixtureDef.restitution = 0;
         fixtureDef.friction = 0.2f;
-        fixtureDef.filter.categoryBits = BIT_CIRCLE;
-        fixtureDef.filter.maskBits = BIT_GROUND | BIT_BOX;
-        CircleShape cShape = new CircleShape();
-        cShape.setRadius(0.5f);
-        fixtureDef.shape = cShape;
-        body.createFixture(fixtureDef);
-        cShape.dispose();
-
-        // creates a Box
-        bodyDef.position.set(5.3f, 6);
-        bodyDef.gravityScale = 1;
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        body = world.createBody(bodyDef);
-
-        fixtureDef.isSensor = false;
-        fixtureDef.restitution = 0.75f;
-        fixtureDef.friction = 0.2f;
-        fixtureDef.filter.categoryBits = BIT_BOX;
-        fixtureDef.filter.maskBits = BIT_GROUND | BIT_CIRCLE;
-        PolygonShape pShape = new PolygonShape();
+        fixtureDef.filter.categoryBits = BIT_PLAYER;   
+        fixtureDef.filter.maskBits = BIT_GROUND;
+        final PolygonShape pShape = new PolygonShape();
         pShape.setAsBox(0.5f, 0.5f);
         fixtureDef.shape = pShape;
-        body.createFixture(fixtureDef);
+        player.createFixture(fixtureDef);
         pShape.dispose();
 
-        // creates a platform
-        bodyDef.position.set(4.5f, 2);
-        bodyDef.gravityScale = 1;
-        bodyDef.type = BodyDef.BodyType.StaticBody;
-        body = world.createBody(bodyDef);
+        // creates room
+        // bodyDef.position.set(0, 0);
+        // bodyDef.gravityScale = 0;
+        // bodyDef.type = BodyDef.BodyType.StaticBody;
+        // final Body body = world.createBody(bodyDef);
+        // body.setUserData("GROUND");
 
-        fixtureDef.isSensor = false;
-        fixtureDef.restitution = 0.75f;
-        fixtureDef.friction = 0.2f;
-        fixtureDef.filter.categoryBits = BIT_GROUND;
-        fixtureDef.filter.maskBits = -1;
-        pShape = new PolygonShape();
-        pShape.setAsBox(4f, 0.5f);
-        fixtureDef.shape = pShape; 
-        body.createFixture(fixtureDef);
-        pShape.dispose();
+        // fixtureDef.isSensor = false;
+        // fixtureDef.restitution = 0.75f;
+        // fixtureDef.friction = 0.2f;
+        // fixtureDef.filter.categoryBits = BIT_GROUND;
+        // fixtureDef.filter.maskBits = -1;
+        // //pShape = new PolygonShape();
+        // pShape.setAsBox(4f, 0.5f);
+        // fixtureDef.shape = pShape; 
+        // //body.createFixture(fixtureDef);
+        // pShape.dispose();
 
-        // Set the camera to the center of the map
         camera.setToOrtho(false, 25 * 32 * GamePanel.UNIT_SCALE, 14 * 32 * GamePanel.UNIT_SCALE);
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
         camera.update();
+
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
-            context.setScreen(ScreenType.LOADING);
-        }
-
+        //Gdx.gl.glClearColor(0, 0, 0, 1);
+        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         viewport.apply(true);
         mapRenderer.setView(camera);
         mapRenderer.render();
         box2DDebugRenderer.render(world, camera.combined);
+
+        final float speedx;
+        final float speedy;
+
+        if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {     
+            speedx = -8;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            speedx = 8;
+        } else {
+            speedx = 0;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            speedy = -8;
+        } else if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            speedy = 8;
+        } else {
+            speedy = 0;
+        }
+        player.applyLinearImpulse(
+            (speedx - player.getLinearVelocity().x),
+             (speedy - player.getLinearVelocity().y),
+              player.getWorldCenter().x,player.getWorldCenter().y,
+                true);
         
     }
 

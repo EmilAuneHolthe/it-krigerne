@@ -34,10 +34,11 @@ public class GamePanel extends Game {
     private EnumMap<ScreenType, AbstractScreen> screenCache;
     private FitViewport screenViewport;
     private World world;
+    private WorldContactListener worldContactListener;
     private Box2DDebugRenderer box2DDebugRenderer;
 
+    public static final short BIT_Player = 1<<0;
     public static final float UNIT_SCALE = 1/32f;
-    public static final short BIT_Circle = 1<<0;
     public static final short BIT_Box = 1<<1;
     public static final short BIT_Ground = 1<<2;
 
@@ -54,8 +55,9 @@ public class GamePanel extends Game {
         spriteBatch = new SpriteBatch();
 
         Box2D.init(); // Initialize Box2D
-        world = new World(new Vector2(0, -9.81f), true); // Create a new world with gravity
-        world.setContactListener(null);
+        world = new World(new Vector2(0, 0), true); // Create a new world with gravity
+        worldContactListener = new WorldContactListener();
+        world.setContactListener(worldContactListener);
         box2DDebugRenderer = new Box2DDebugRenderer(); // Create a new debug renderer
 
         //init assetManager
@@ -82,19 +84,19 @@ public class GamePanel extends Game {
         if (screen == null) {
             // Skjerm finnes ikke fra før
             try{
-            //Gdx.app.debug(TAG, "Lager ny skjerm" + screenType);
-            final AbstractScreen newScreen = (AbstractScreen) ClassReflection.getConstructor(screenType.getScreenClass(),GamePanel.class).newInstance(this);
-            screenCache.put(screenType, newScreen);
-            setScreen(newScreen);
-            } catch (ReflectionException e) {
-                throw new GdxRuntimeException("Screen" + screenType + " kunne ikke lages", e);
-            }
+                Gdx.app.debug(TAG, "Lager ny skjerm" + screenType);
+                final AbstractScreen newScreen = (AbstractScreen) ClassReflection.getConstructor(screenType.getScreenClass(),GamePanel.class).newInstance(this);
+                screenCache.put(screenType, newScreen);
+                setScreen(newScreen);
+                } catch (ReflectionException e) {
+                    throw new GdxRuntimeException("Screen" + screenType + " kunne ikke lages", e);
+                }
         }else {
-                // Skjerm finnes fra før
-                //Gdx.app.debug(TAG, "Skjerm finnes fra før" + screenType);
-                setScreen(screen);
-        }
+            // Skjerm finnes fra før
+            Gdx.app.debug(TAG, "Skjerm finnes fra før" + screenType);
+            setScreen(screen);
     }
+}
 
     @Override
     public void render() {
@@ -109,9 +111,6 @@ public class GamePanel extends Game {
 
         // final float alpha = accumulator / FIXED_TIME_STEP; DO NOT USE yet
     }
-            
-            
-     
 
     public void removeScreen(ScreenType type) {
         Screen screen = screenCache.remove(type);
