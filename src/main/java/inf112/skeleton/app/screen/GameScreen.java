@@ -97,7 +97,10 @@ public class GameScreen extends AbstractScreen {
         body.createFixture(fixtureDef);
         pShape.dispose();
 
-
+        // Set the camera to the center of the map
+        camera.setToOrtho(false, 25 * 32 * GamePanel.UNIT_SCALE, 14 * 32 * GamePanel.UNIT_SCALE);
+        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+        camera.update();
     }
 
     @Override
@@ -110,9 +113,9 @@ public class GameScreen extends AbstractScreen {
         }
 
         viewport.apply(true);
-        mapRenderer.setView((OrthographicCamera) viewport.getCamera());
+        mapRenderer.setView(camera);
         mapRenderer.render();
-        box2DDebugRenderer.render(world, viewport.getCamera().combined);
+        box2DDebugRenderer.render(world, camera.combined);
         
     }
 
@@ -128,7 +131,11 @@ public class GameScreen extends AbstractScreen {
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-}
+        viewport.update(width, height);
+        camera.setToOrtho(false, viewport.getWorldWidth(), viewport.getWorldHeight());
+        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+        camera.update();
+    }
 
     @Override
     public void pause() {}

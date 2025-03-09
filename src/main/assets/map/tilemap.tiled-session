@@ -1,0 +1,20 @@
+{
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "tileset.tsx": {
+            "scaleInDock": 0.5801,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "/Users/vemundhandeland/Documents/sem 4/it-krigerne-1/src/main/resources/map",
+    "map.lastUsedFormat": "tmx",
+    "openFiles": [
+    ],
+    "project": "tilemap.tiled-project",
+    "recentFiles": [
+        "tileset.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx"
+}
