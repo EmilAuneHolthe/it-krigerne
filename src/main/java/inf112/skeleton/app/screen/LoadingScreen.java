@@ -27,17 +27,8 @@ public class LoadingScreen extends AbstractScreen {
     
     @Override
     public void render(float delta) {
-        assetManager.finishLoading() ;
-        Gdx.gl.glClearColor(0, 1, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
         if (assetManager.update()) {
-            System.out.println("Loading complete" + assetManager.getAssetNames());
             context.setScreen(ScreenType.GAME);
-        }
-        else {
-            float progress = assetManager.getProgress();
-            System.out.println("Loading: " + progress * 100 + "%");
         }
     }
 

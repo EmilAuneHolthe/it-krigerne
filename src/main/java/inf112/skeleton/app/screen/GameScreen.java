@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.ChainShape;
@@ -19,6 +20,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import inf112.skeleton.app.GamePanel;
 
@@ -29,7 +32,7 @@ public class GameScreen extends AbstractScreen {
     private final Body player;
     private final World world;
     private final AssetManager assetManager;
-    private SpriteBatch batch;
+    private SpriteBatch spriteBatch;
 
     private final OrthogonalTiledMapRenderer mapRenderer;
     private final OrthographicCamera camera;
@@ -37,12 +40,15 @@ public class GameScreen extends AbstractScreen {
     private static final short BIT_PLAYER = GamePanel.BIT_Player;
     private static final short BIT_GROUND = GamePanel.BIT_Ground;
 
+    private Sprite playerSprite;
+    private Texture playerTexture;
+
     public GameScreen(GamePanel context) {
         super(context); 
         this.assetManager = context.getAssetManager();
         this.camera = context.getCamera();
-        this.batch = context.getSpriteBatch();
-        mapRenderer = new OrthogonalTiledMapRenderer(null, GamePanel.UNIT_SCALE, batch);
+        this.spriteBatch = context.getSpriteBatch();
+        mapRenderer = new OrthogonalTiledMapRenderer(null, GamePanel.UNIT_SCALE, spriteBatch);
         this.world = context.getWorld();
 
         bodyDef = new BodyDef();
@@ -66,6 +72,10 @@ public class GameScreen extends AbstractScreen {
         fixtureDef.shape = pShape;
         player.createFixture(fixtureDef);
         pShape.dispose();
+
+        playerTexture = new Texture(Gdx.files.internal("mario.jpeg"));
+        playerSprite = new Sprite(playerTexture);
+        playerSprite.setSize(1, 1);
 
         // creates room
         // bodyDef.position.set(0, 0);
@@ -122,13 +132,19 @@ public class GameScreen extends AbstractScreen {
              (speedy - player.getLinearVelocity().y),
               player.getWorldCenter().x,player.getWorldCenter().y,
                 true);
+
+        playerSprite.setPosition(player.getPosition().x - playerSprite.getWidth() / 2, player.getPosition().y - playerSprite.getHeight() / 2);
+        playerSprite.setRotation(player.getAngle() * MathUtils.radiansToDegrees);
+        spriteBatch.begin();
+        playerSprite.draw(spriteBatch);
+        spriteBatch .end();
         
     }
 
     @Override
     public void show() {
         if (assetManager.isLoaded("map/map.tmx")) {
-            mapRenderer.setMap(assetManager.get("map/map.tmx"));
+            mapRenderer.setMap(assetManager.get("map/map.tmx", TiledMap.class));
         } else {
             throw new GdxRuntimeException("Tiled map not loaded!");
         };
@@ -153,5 +169,8 @@ public class GameScreen extends AbstractScreen {
     public void hide() {}
 
     @Override
-    public void dispose() {}
+    public void dispose() {
+        mapRenderer.dispose();
+        playerTexture.dispose();
+    }
 }
