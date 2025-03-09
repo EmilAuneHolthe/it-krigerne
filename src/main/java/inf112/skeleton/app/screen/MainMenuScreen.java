@@ -59,7 +59,7 @@ public class MainMenuScreen extends AbstractScreen {
         optionsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Options screen not implemented yet.");
+                System.out.println("Going to settings...");
                 context.setScreen(ScreenType.SETTINGS);
             }
         });
