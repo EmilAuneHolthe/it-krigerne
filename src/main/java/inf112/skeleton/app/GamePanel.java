@@ -128,6 +128,7 @@ public class GamePanel extends Game {
         box2DDebugRenderer.dispose();
         // Properly dispose assetManager
         assetManager.dispose();
+        spriteBatch.dispose();
     }
 
     public static GamePanel getInstance() {

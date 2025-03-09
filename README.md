@@ -69,6 +69,7 @@ If you look at *Settings → Repository* in GitLab, you can protect branches –
 ### Template example files
 * `src/main/resources/obligator.png` – Ingrid Næss Johansen E
 * `src/main/resources/blipp.ogg`– Dr. Richard Boulanger et al (CC-BY-3.0)
+*  `src/main/resources/chest.png` - http://bonsaiheld.org
 
 (You should probably delete these if you don't need them!)
 
