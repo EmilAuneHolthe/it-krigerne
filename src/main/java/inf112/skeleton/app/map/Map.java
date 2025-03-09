@@ -29,16 +29,7 @@ public class Map {
     
       private void getCollisionLayer() {
        final MapLayer collisionLayer = tiledMap.getLayers().get("collision");
-       if (collisionLayer == null) {
-         Gdx.app.debug(TAG, "Map must have a collision layer");
-         return;
-       }
        final MapObjects objects = collisionLayer.getObjects();
-       if(objects == null) {
-         Gdx.app.debug(TAG, "Collision layer must have objects");
-         return;
-       }
-
        for (final MapObject object : objects) {
          if (object instanceof RectangleMapObject) {
           final RectangleMapObject rectangleMapObject = (RectangleMapObject) object;
@@ -74,20 +65,15 @@ public class Map {
       }
       private Vector2 findPlayerSpawnVector2() {
         MapObjects objects = tiledMap.getLayers().get("playerSpawn").getObjects();
-        if(objects == null) {
-          Gdx.app.debug(TAG, "Map must have a playerSpawn layer");
-          return new Vector2(0, 0);
-        }
-        else{
           for (final MapObject object : objects) {
             final RectangleMapObject spawn = (RectangleMapObject) object;
             final Rectangle rectangle = spawn.getRectangle();
             Gdx.app.debug(TAG, "Player spawn found at: " + rectangle.x + ", " + rectangle.y);
             return new Vector2(rectangle.x, rectangle.y);
           }
-          }
           return new Vector2(0, 0);
         }
+        
         public Vector2 getPlayerSpawn() {
           return playerspawn;
         }

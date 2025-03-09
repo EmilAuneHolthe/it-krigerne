@@ -32,7 +32,7 @@ public class GameScreen extends AbstractScreen {
     private final BodyDef bodyDef;
     private final FixtureDef fixtureDef;
 
-    private final Body player;
+    private Body player;
     private final World world;
     private final AssetManager assetManager;
     private SpriteBatch spriteBatch;
@@ -49,10 +49,11 @@ public class GameScreen extends AbstractScreen {
 
     public GameScreen(GamePanel context) {
         super(context); 
-        this.assetManager = context.getAssetManager();
+
+        assetManager = context.getAssetManager();
         this.camera = context.getCamera();
-        this.spriteBatch = context.getSpriteBatch();
-        mapRenderer = new OrthogonalTiledMapRenderer(null, GamePanel.UNIT_SCALE, spriteBatch);
+        spriteBatch = context.getSpriteBatch();
+        mapRenderer = new OrthogonalTiledMapRenderer(null, GamePanel.UNIT_SCALE, context.getSpriteBatch());
         this.world = context.getWorld();
 
         bodyDef = new BodyDef();
@@ -61,56 +62,10 @@ public class GameScreen extends AbstractScreen {
         final TiledMap tiledMap = assetManager.get("map/map.tmx", TiledMap.class);
         mapRenderer.setMap(assetManager.get("map/map.tmx", TiledMap.class));
         map = new Map(tiledMap);
-        
-        // creates a Player
-        bodyDef.position.set(map.getPlayerSpawn().x*UNIT_SCALE, map.getPlayerSpawn().y*UNIT_SCALE);
-        bodyDef.gravityScale = 1;
-        bodyDef.fixedRotation = true;
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        player = world.createBody(bodyDef);
-        player.setUserData("PLAYER");
-
-        fixtureDef.density = 1;
-        fixtureDef.isSensor = false;
-        fixtureDef.restitution = 0;
-        fixtureDef.friction = 0.2f;
-        fixtureDef.filter.categoryBits = BIT_PLAYER;   
-        fixtureDef.filter.maskBits = BIT_GROUND;
-        final PolygonShape pShape = new PolygonShape();
-        pShape.setAsBox(0.5f, 0.5f);
-        fixtureDef.shape = pShape;
-        player.createFixture(fixtureDef);
-        pShape.dispose();
-        
-        playerTexture = new Texture(Gdx.files.internal("mario.jpeg"));
-        playerSprite = new Sprite(playerTexture);
-        playerSprite.setSize(1, 1);
-
-        // creates room
-        // bodyDef.position.set(0, 0);
-        // bodyDef.gravityScale = 0;
-        // bodyDef.type = BodyDef.BodyType.StaticBody;
-        // final Body body = world.createBody(bodyDef);
-        // body.setUserData("GROUND");
-
-        // fixtureDef.isSensor = false;
-        // fixtureDef.restitution = 0.75f;
-        // fixtureDef.friction = 0.2f;
-        // fixtureDef.filter.categoryBits = BIT_GROUND;
-        // fixtureDef.filter.maskBits = -1;
-        // //pShape = new PolygonShape();
-        // pShape.setAsBox(4f, 0.5f);
-        // fixtureDef.shape = pShape; 
-        // //body.createFixture(fixtureDef);
-        // pShape.dispose();
-
-        camera.setToOrtho(false, 25 * 32 * GamePanel.UNIT_SCALE, 14 * 32 * GamePanel.UNIT_SCALE);
-        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-        camera.update();
-
-
+        spawnplayer();
         spawnCollisionsAreas();
     }
+
     private void resetBodyAndFixtureDefinition(){
         bodyDef.position.set(0, 0);
         bodyDef.gravityScale = 0;
@@ -125,21 +80,43 @@ public class GameScreen extends AbstractScreen {
     private void spawnCollisionsAreas() {
         for (final CollisonArea collisionArea : map.getColissionAreas()) {
             resetBodyAndFixtureDefinition();
-                    // creates room
-        bodyDef.position.set(collisionArea.getX(), collisionArea.getY());
-        bodyDef.fixedRotation = true;
-        bodyDef.type = BodyDef.BodyType.StaticBody;
-        final Body body = world.createBody(bodyDef);
-        body.setUserData("GROUND");
+            // creates room
+            bodyDef.position.set(collisionArea.getX(), collisionArea.getY());
+            bodyDef.fixedRotation = true;
+            bodyDef.type = BodyDef.BodyType.StaticBody;
+            final Body body = world.createBody(bodyDef);
+            body.setUserData("GROUND");
 
-        fixtureDef.filter.categoryBits = BIT_GROUND;
-        fixtureDef.filter.maskBits = -1;
-        final ChainShape cShape = new ChainShape();
-        cShape.createChain(collisionArea.getVertices());
-        fixtureDef.shape = cShape;
-        body.createFixture(fixtureDef);
-        cShape.dispose();
+            fixtureDef.filter.categoryBits = BIT_GROUND;
+            fixtureDef.filter.maskBits = -1;
+            final ChainShape cShape = new ChainShape();
+            cShape.createChain(collisionArea.getVertices());
+            fixtureDef.shape = cShape;
+            body.createFixture(fixtureDef);
+            cShape.dispose();
         }
+    }
+
+    private void spawnplayer(){
+        resetBodyAndFixtureDefinition();
+
+        bodyDef.position.set(map.getPlayerSpawn().x * UNIT_SCALE, map.getPlayerSpawn().y * UNIT_SCALE);
+        bodyDef.fixedRotation = true;
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        player = world.createBody(bodyDef);
+        player.setUserData("PLAYER");
+
+        fixtureDef.filter.categoryBits = BIT_PLAYER;   
+        fixtureDef.filter.maskBits = BIT_GROUND;
+        final PolygonShape pShape = new PolygonShape();
+        pShape.setAsBox(0.5f, 0.5f);
+        fixtureDef.shape = pShape;
+        player.createFixture(fixtureDef);
+        pShape.dispose();
+
+        playerTexture = new Texture(Gdx.files.internal("mario.jpeg"));
+        playerSprite = new Sprite(playerTexture);
+        playerSprite.setSize(1, 1);
     }
 
     @Override
@@ -147,9 +124,14 @@ public class GameScreen extends AbstractScreen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         viewport.apply(true);
+
+        camera.position.set(player.getPosition().x, player.getPosition().y, 0);
+        camera.update();
+        
         mapRenderer.setView(camera);
         mapRenderer.render();
         box2DDebugRenderer.render(world, camera.combined);
+
 
         final float speedx;
         final float speedy;
@@ -175,6 +157,7 @@ public class GameScreen extends AbstractScreen {
                 true);
 
         playerSprite.setPosition(player.getPosition().x - playerSprite.getWidth() / 2, player.getPosition().y - playerSprite.getHeight() / 2);
+
         spriteBatch.begin();
         playerSprite.draw(spriteBatch);
         spriteBatch.end();
@@ -190,6 +173,7 @@ public class GameScreen extends AbstractScreen {
         viewport.update(width, height);
         camera.setToOrtho(false, viewport.getWorldWidth(), viewport.getWorldHeight());
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+        Gdx.app.debug(null,"resized");
         camera.update();
     }
 
