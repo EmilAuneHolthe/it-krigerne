@@ -15,11 +15,11 @@ import com.badlogic.gdx.utils.Array;
 public class Map {
   private final TiledMap tiledMap;
   public static final String TAG = Map.class.getSimpleName();
-  private final Array<ColissionArea> colissionAreas;
+  private final Array<CollisonArea> colissionAreas;
   
   public Map(TiledMap tiledMap) {
     this.tiledMap = tiledMap;
-    colissionAreas = new Array<ColissionArea>();
+    colissionAreas = new Array<CollisonArea>();
     getCollisionLayer();
       }
     
@@ -55,14 +55,17 @@ public class Map {
           //rectangle left bottom
           rectVertices[8] = 0;
           rectVertices[9] = 0;
-          colissionAreas.add(new ColissionArea(rectangle.x, rectangle.y, rectVertices));
-         } else if( object instanceof PolygonMapObject){
+          colissionAreas.add(new CollisonArea(rectangle.x, rectangle.y, rectVertices));
+         } else if( object instanceof PolylineMapObject) {
           final PolylineMapObject polynineMapObject = (PolylineMapObject) object;
           final Polyline polyline = polynineMapObject.getPolyline();
-          colissionAreas.add(new ColissionArea(polyline.getX(), polyline.getY(), polyline.getVertices()));
+          colissionAreas.add(new CollisonArea(polyline.getX(), polyline.getY(), polyline.getVertices()));
          } else {
-          Gdx.app.debug(TAG, "Collision object not supported");
+          Gdx.app.debug(TAG, "Collision object not supported" + object);
          }
        }
+      }
+      public Array<CollisonArea> getColissionAreas() {
+        return colissionAreas;
       }
 }

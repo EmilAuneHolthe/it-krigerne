@@ -22,8 +22,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-
 import inf112.skeleton.app.GamePanel;
+import inf112.skeleton.app.map.CollisonArea;
+import inf112.skeleton.app.map.Map;
 
 public class GameScreen extends AbstractScreen {
     private final BodyDef bodyDef;
@@ -42,6 +43,7 @@ public class GameScreen extends AbstractScreen {
 
     private Sprite playerSprite;
     private Texture playerTexture;
+    private Map map;
 
     public GameScreen(GamePanel context) {
         super(context); 
@@ -72,7 +74,7 @@ public class GameScreen extends AbstractScreen {
         fixtureDef.shape = pShape;
         player.createFixture(fixtureDef);
         pShape.dispose();
-
+        
         playerTexture = new Texture(Gdx.files.internal("mario.jpeg"));
         playerSprite = new Sprite(playerTexture);
         playerSprite.setSize(1, 1);
@@ -99,12 +101,46 @@ public class GameScreen extends AbstractScreen {
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
         camera.update();
 
+        final TiledMap tiledMap = assetManager.get("map/map.tmx", TiledMap.class);
+        mapRenderer.setMap(assetManager.get("map/map.tmx", TiledMap.class));
+        map = new Map(tiledMap);
+        spawnCollisionsAreas();
+    }
+    private void resetBodyAndFixtureDefinition(){
+        bodyDef.position.set(0, 0);
+        bodyDef.gravityScale = 0;
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+        fixtureDef.isSensor = false;
+        fixtureDef.restitution = 0.75f;
+        fixtureDef.friction = 0.2f;
+        fixtureDef.filter.categoryBits = BIT_GROUND;
+        fixtureDef.filter.maskBits = -1;
+    }
+
+    private void spawnCollisionsAreas() {
+        for (final CollisonArea collisionArea : map.getColissionAreas()) {
+            resetBodyAndFixtureDefinition();
+                    // creates room
+        bodyDef.position.set(collisionArea.getX(), collisionArea.getY());
+        bodyDef.fixedRotation = true;
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+        final Body body = world.createBody(bodyDef);
+        body.setUserData("GROUND");
+
+        fixtureDef.filter.categoryBits = BIT_GROUND;
+        fixtureDef.filter.maskBits = -1;
+        final ChainShape cShape = new ChainShape();
+        cShape.createChain(collisionArea.getVertices());
+        fixtureDef.shape = cShape;
+        body.createFixture(fixtureDef);
+        cShape.dispose();
+        }
     }
 
     @Override
     public void render(float delta) {
-        //Gdx.gl.glClearColor(0, 0, 0, 1);
-        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         viewport.apply(true);
         mapRenderer.setView(camera);
         mapRenderer.render();
@@ -138,16 +174,10 @@ public class GameScreen extends AbstractScreen {
         spriteBatch.begin();
         playerSprite.draw(spriteBatch);
         spriteBatch .end();
-        
     }
 
     @Override
     public void show() {
-        if (assetManager.isLoaded("map/map.tmx")) {
-            mapRenderer.setMap(assetManager.get("map/map.tmx", TiledMap.class));
-        } else {
-            throw new GdxRuntimeException("Tiled map not loaded!");
-        };
     }
 
     @Override

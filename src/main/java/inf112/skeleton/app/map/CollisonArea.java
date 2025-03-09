@@ -2,12 +2,12 @@ package inf112.skeleton.app.map;
 
 import com.badlogic.gdx.math.Vector2;
 import static inf112.skeleton.app.GamePanel.UNIT_SCALE;
-public class ColissionArea {
+public class CollisonArea {
   private final float x;
   private final float y;
   private final float[] vertices;
 
-  public ColissionArea(final float x, final float y, float[] vertices) {
+  public CollisonArea(final float x, final float y, float[] vertices) {
     this.x = x * UNIT_SCALE;
     this.y = y * UNIT_SCALE;
     this.vertices = vertices;

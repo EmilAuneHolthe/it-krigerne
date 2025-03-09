@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="25" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="2">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="25" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="16">
  <tileset firstgid="1" source="tileset.tsx"/>
  <layer id="1" name="background" width="25" height="14">
   <data encoding="csv">
@@ -19,6 +19,13 @@
 38,39,40,41,38,39,40,41,38,39,40,41,38,39,40,41,38,39,40,41,38,39,40,41,38
 </data>
  </layer>
+ <objectgroup id="5" name="gameObjects"/>
+ <objectgroup color="#ff2600" id="6" name="collision">
+  <object id="13" x="287.439" y="257.559">
+   <polyline points="0,0 -62.7465,-0.597586 -63.3441,190.032 127.883,190.63 127.883,-1.19517 65.1368,-1.19517"/>
+  </object>
+  <object id="14" x="128.038" y="2.61301" width="670.238" height="189.443"/>
+ </objectgroup>
  <layer id="2" name="foreground" width="25" height="14">
   <data encoding="csv">
 0,0,26,27,120,121,122,123,120,121,122,123,120,121,122,123,120,121,122,123,120,121,122,123,0,
@@ -29,7 +36,7 @@
 0,0,26,27,210,211,212,213,210,211,212,213,210,211,212,213,210,211,212,213,210,211,212,213,0,
 0,0,26,27,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,44,45,
 0,0,26,27,62,62,62,62,62,62,62,62,62,62,62,62,62,62,62,62,62,62,62,62,63,
-0,0,26,27,0,0,0,13,14,15,16,17,18,0,0,0,44,45,0,0,0,0,0,0,0,
+0,0,26,27,0,0,0,13,14,25,30,17,18,0,0,0,44,45,0,0,0,0,0,0,0,
 0,0,26,27,0,0,0,31,32,33,34,35,36,0,0,0,44,45,0,0,0,0,0,0,0,
 0,0,26,27,0,0,0,49,50,51,52,53,54,0,0,0,44,45,0,0,0,0,0,0,0,
 0,0,26,27,0,0,0,67,68,69,70,71,72,0,0,0,44,45,0,0,0,0,0,0,0,
