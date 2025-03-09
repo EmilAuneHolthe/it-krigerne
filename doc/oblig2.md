@@ -158,35 +158,27 @@ Videreutvikle funksjoner i spillet:
 - Jobbe med MVP punktene som vi ikke ble ferdig med.
 
 
-`Prosjektrapport/Oppsumering:`
+# Prosjektrapport/Oppsumering:
 
-# Hva har fungert bra?
-
-Hva gikk bra
+`Hva har fungert bra?`
 * God kjemi mellom gruppemedlemmene
 * Jobbet ukentlig
 * Lært masse om libgdx
 * Vi lærte om hvilke prosesser som gjøres
 * God kommunikasjon, meldinger over snapchat og dicoard er effektivt og fungerer godt.
 
-Hva gikk dårlig
+`Hva gikk dårlig`
 * Ikke fått jobbet så mye vi hadde ønsket, flere på gruppen hadde flere konteeksamener som har blitt prioritert de siste ukene.
 * Har ikke kommet skikkelig i gang med parprogrammeringen. Mye på grunn av at vi ikke har fått møtt hverandre like mye som vi hadde ønsket før eksamenene vi hadde. Den siste uken har parprogammeringen vært effektiv derimot.
 * Vi har ikke fått kontakt med han siste på gruppen etter flere forsøk. Ser han er fjernet fra gruppen vår på mitt Uib så vi regner med dette er tatt hånd om.
 * Box2d slet vi lenge med å få implementert og vi har ikke enda klart helt å få kollisjon funksjon inn med i spillet.
 * Ikke klart å implementere alt vi ville i fra vår MVP.
 
-Hva vill vi prøve fremover
-* Ferdigstille MVP.
-* Komme sikkelig i gang med parprogrammeringen.
-* Legge inn mer tid i oppgaven fremover siden mye tid gikk tapt på grunn av eksamener.
-* Bruke mer trello
 
-Oppsumering:
+`Oppsumering:`
 * Vi har ikke skikkelig fått testet rollene vi har satt, da vi i starten har jobbet jevnt med forskjellige deler av spillet for å få til en grunnleggende MVP. Dette har ført til at alle har tatt på seg oppgaver utenfor sine tiltenkte roller. For eksempel har det vært utfordrende å være map-tester uten et ferdig map å teste, og det har vært vanskelig å jobbe med pixel art uten å ha grunnleggende funksjonalitet på plass i spillet. Likevel har vi tro på at de rollene vi nå har definert, er gode, og vi forventer å få mer nytte av dem fremover. Kommunikasjonen har vært god, og vi samarbeider godt. Vi er flinke til å lytte til hverandre, og alle kan komme med innspill. Spesielt har Snapchat vist seg å være en effektiv kanal for kommunikasjon. Selv om vi er fornøyde med det vi har oppnådd så langt og har lagt en solid grunnmur vi er motiverte til å bygge videre på, har vi ikke nådd alle målene vi satte for MVP. Hovedårsaken til dette er at vi hadde eksamener mellom oblig1 og oblig2, noe som begrenset tiden vi kunne bruke på prosjektet. Likevel er vi motiverte til å ta igjen den tapte tiden og jobbe for å nå målene våre så raskt som mulig.
 
-
-Forbedringer til neste sprint:
+`Forbedringer til neste sprint:`
 * Ferdigstille MVP
 * Spillet skal være gjennomførbart og skal kunne spilles som et spill. Det skal ha et sluttmål med utfordringer underveis. Få inn animasjoner, fiender og måter å angripe på. Dette skal være en god base som vi skal kunne viderebygge på. (En bedre versjon av MVP)
 * Flinkere til å notere underveis, altså møte-referat, trello og skrive ned nye mål.
