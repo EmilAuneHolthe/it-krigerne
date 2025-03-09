@@ -17,8 +17,11 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import inf112.skeleton.app.GamePanel;
 
 public class MainMenuScreen extends AbstractScreen {
-    public static Texture backgroundTexture = new Texture(Gdx.files.internal("background.jpg"));
+    public static Texture backgroundTexture = new Texture(Gdx.files.internal("background.png"));
     private Stage stage;
+    private ImageButton startButton;
+    private ImageButton optionsButton;
+    private ImageButton exitButton;
 
     public MainMenuScreen(GamePanel context) {
         super(context);
@@ -32,32 +35,32 @@ public class MainMenuScreen extends AbstractScreen {
         background.setFillParent(true);
         stage.addActor(background);
 
+        
         Texture blankTexture = new Texture(Gdx.files.internal("transparent.png")); // A fully transparent 1x1 PNG
         TextureRegionDrawable blankDrawable = new TextureRegionDrawable(blankTexture);
 
-        ImageButton startButton = new ImageButton(blankDrawable);
-        ImageButton optionsButton = new ImageButton(blankDrawable);
-        ImageButton exitButton = new ImageButton(blankDrawable);
+        startButton = new ImageButton(blankDrawable);
+        optionsButton = new ImageButton(blankDrawable);
+        exitButton = new ImageButton(blankDrawable);
 
-        
-        startButton.setBounds(300, 320, 300, 50);  
-        optionsButton.setBounds(300, 230, 300, 50);
-        exitButton.setBounds(300, 140, 300, 50);
+        startButton.setBounds(385, 340, 200, 80);  
+        optionsButton.setBounds(385, 235, 200, 80);
+        exitButton.setBounds(385, 130, 200, 80);
 
         // Button Click Listeners
         startButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Starting game...");
-                context.setScreen(ScreenType.GAME);
+                context.setScreen(ScreenType.LOADING);
             }
         });
 
         optionsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Options screen not implemented yet.");
-                // Navigate to Options Screen (if implemented)
+                System.out.println("Going to settings...");
+                context.setScreen(ScreenType.SETTINGS);
             }
         });
 
@@ -88,6 +91,11 @@ public class MainMenuScreen extends AbstractScreen {
     public void dispose() {
         stage.dispose();
         backgroundTexture.dispose();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        viewport.update(width, height, true);
     }
 
 }
