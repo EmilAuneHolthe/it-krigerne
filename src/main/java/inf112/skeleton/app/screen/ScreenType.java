@@ -10,6 +10,7 @@ public enum ScreenType {
     MAIN_MENU(MainMenuScreen.class);
 
 
+
     private final Class<? extends AbstractScreen> screenClass;
 
     ScreenType(Class<? extends AbstractScreen> screenClass) {
