@@ -7,6 +7,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -15,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import inf112.skeleton.app.GamePanel;
 
@@ -23,6 +26,7 @@ public class GameScreen extends AbstractScreen {
     private final FixtureDef fixtureDef;
     private final World world;
     private final AssetManager assetManager;
+    private SpriteBatch batch;
 
     private final OrthogonalTiledMapRenderer mapRenderer;
     private final OrthographicCamera camera;
@@ -35,7 +39,8 @@ public class GameScreen extends AbstractScreen {
         super(context);
         this.assetManager = context.getAssetManager();
         this.camera = context.getCamera();
-        mapRenderer = new OrthogonalTiledMapRenderer(null, GamePanel.UNIT_SCALE, context.getSpriteBatch());
+        this.batch = context.getSpriteBatch();
+        mapRenderer = new OrthogonalTiledMapRenderer(null, GamePanel.UNIT_SCALE, batch);
         this.world = context.getWorld();
 
         bodyDef = new BodyDef();
@@ -113,7 +118,11 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void show() {
-        mapRenderer.setMap(assetManager.get("map/map.tmx"));
+        if (assetManager.isLoaded("map/map.tmx")) {
+            mapRenderer.setMap(assetManager.get("map/map.tmx"));
+        } else {
+            throw new GdxRuntimeException("Tiled map not loaded!");
+        };
     }
 
     @Override

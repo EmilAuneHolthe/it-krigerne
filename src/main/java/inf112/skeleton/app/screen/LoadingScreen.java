@@ -20,17 +20,20 @@ public class LoadingScreen extends AbstractScreen {
 
     public LoadingScreen(GamePanel context) {
         super(context); // this.context = context;
-        assetManager = new AssetManager();
+        this.assetManager = context.getAssetManager();
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         assetManager.load("map/map.tmx", TiledMap.class);
+        assetManager.finishLoading();
     }
     
     @Override
     public void render(float delta) {
+        assetManager.finishLoading() ;
         Gdx.gl.glClearColor(0, 1, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         if (assetManager.update()) {
+            System.out.println("Loading complete" + assetManager.getAssetNames());
             context.setScreen(ScreenType.GAME);
         }
         else {
