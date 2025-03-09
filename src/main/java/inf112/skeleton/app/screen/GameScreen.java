@@ -1,5 +1,7 @@
 package inf112.skeleton.app.screen;
 
+import static inf112.skeleton.app.GamePanel.UNIT_SCALE;
+
 import org.lwjgl.opengl.GL20;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -56,8 +58,12 @@ public class GameScreen extends AbstractScreen {
         bodyDef = new BodyDef();
         fixtureDef = new FixtureDef();
 
+        final TiledMap tiledMap = assetManager.get("map/map.tmx", TiledMap.class);
+        mapRenderer.setMap(assetManager.get("map/map.tmx", TiledMap.class));
+        map = new Map(tiledMap);
+        
         // creates a Player
-        bodyDef.position.set(8, 5.5f);
+        bodyDef.position.set(map.getPlayerSpawn().x*UNIT_SCALE, map.getPlayerSpawn().y*UNIT_SCALE);
         bodyDef.gravityScale = 1;
         bodyDef.fixedRotation = true;
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -102,9 +108,7 @@ public class GameScreen extends AbstractScreen {
         camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
         camera.update();
 
-        final TiledMap tiledMap = assetManager.get("map/map.tmx", TiledMap.class);
-        mapRenderer.setMap(assetManager.get("map/map.tmx", TiledMap.class));
-        map = new Map(tiledMap);
+
         spawnCollisionsAreas();
     }
     private void resetBodyAndFixtureDefinition(){

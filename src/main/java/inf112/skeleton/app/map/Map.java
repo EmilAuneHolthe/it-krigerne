@@ -1,6 +1,7 @@
 package inf112.skeleton.app.map;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g3d.environment.PointLight;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
@@ -10,16 +11,19 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Polyline;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 public class Map {
   private final TiledMap tiledMap;
   public static final String TAG = Map.class.getSimpleName();
   private final Array<CollisonArea> colissionAreas;
+  private final Vector2 playerspawn;
   
   public Map(TiledMap tiledMap) {
     this.tiledMap = tiledMap;
     colissionAreas = new Array<CollisonArea>();
+    playerspawn = findPlayerSpawnVector2();
     getCollisionLayer();
       }
     
@@ -68,4 +72,23 @@ public class Map {
       public Array<CollisonArea> getColissionAreas() {
         return colissionAreas;
       }
+      private Vector2 findPlayerSpawnVector2() {
+        MapObjects objects = tiledMap.getLayers().get("playerSpawn").getObjects();
+        if(objects == null) {
+          Gdx.app.debug(TAG, "Map must have a playerSpawn layer");
+          return new Vector2(0, 0);
+        }
+        else{
+          for (final MapObject object : objects) {
+            final RectangleMapObject spawn = (RectangleMapObject) object;
+            final Rectangle rectangle = spawn.getRectangle();
+            Gdx.app.debug(TAG, "Player spawn found at: " + rectangle.x + ", " + rectangle.y);
+            return new Vector2(rectangle.x, rectangle.y);
+          }
+          }
+          return new Vector2(0, 0);
+        }
+        public Vector2 getPlayerSpawn() {
+          return playerspawn;
+        }
 }
