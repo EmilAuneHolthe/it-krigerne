@@ -51,6 +51,7 @@ public class GamePanel extends Game {
     public void create() {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
         accumulator = 0;
+        spriteBatch = new SpriteBatch();
 
         Box2D.init(); // Initialize Box2D
         world = new World(new Vector2(0, -9.81f), true); // Create a new world with gravity
