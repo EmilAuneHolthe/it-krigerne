@@ -8,12 +8,16 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import inf112.skeleton.app.GamePanel;
+import inf112.skeleton.controller.GameKeys;
+import inf112.skeleton.controller.KeyHandler;
+import inf112.skeleton.controller.KeyListener;
 
-public class AbstractScreen  implements Screen{
+public class AbstractScreen  implements Screen, KeyListener {
     protected final GamePanel context;
     protected final FitViewport viewport;
     protected final World world;
     protected final Box2DDebugRenderer box2DDebugRenderer;
+    protected final KeyHandler keyHandler;
 
 
     public AbstractScreen(final GamePanel context) {
@@ -21,10 +25,12 @@ public class AbstractScreen  implements Screen{
         this.viewport = context.getViewport();
         this.world = context.getWorld();
         this.box2DDebugRenderer = context.getBox2DDebugRenderer();
+        keyHandler = context.getKeyHandler();
     }
 
     @Override
     public void show() {
+        keyHandler.addListener(this);
     }
 
     @Override
@@ -49,13 +55,24 @@ public class AbstractScreen  implements Screen{
 
     @Override
     public void hide() {
-
+        keyHandler.removeListener(this);
     }
 
     @Override
     public void dispose() {
 
     }
-    
+
+    @Override
+    public void keyPressed(KeyHandler keyHandler, GameKeys key) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'keyPressed'");
+    }
+
+    @Override
+    public void keyReleased(KeyHandler keyHandler, GameKeys key) {
+        // TODO Auto-generated methodwdw stub
+        throw new UnsupportedOperationException("Unimplemented method 'keyReleased'");
+    }
     
 }

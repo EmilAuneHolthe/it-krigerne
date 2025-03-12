@@ -13,12 +13,15 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 import inf112.skeleton.app.GamePanel;
+import inf112.skeleton.controller.GameKeys;
+import inf112.skeleton.controller.KeyHandler;
+import inf112.skeleton.controller.KeyListener;
 
-public class LoadingScreen extends AbstractScreen {
+public class LoadingScreen extends AbstractScreen  {
     
 
     private final AssetManager assetManager;
-    private final SpriteBatch   spriteBatch;
+    private final SpriteBatch spriteBatch;
 
     public LoadingScreen(GamePanel context) {
         super(context); // this.context = context;
@@ -52,4 +55,17 @@ public class LoadingScreen extends AbstractScreen {
 
     @Override
     public void dispose() {}
+
+    @Override
+    public void keyPressed(KeyHandler keyHandler, GameKeys key) {
+        if(assetManager.getProgress() >= 1) {
+            context.setScreen(ScreenType.GAME);
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyHandler keyHandler, GameKeys key) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'keyReleased'");
+    }
 }

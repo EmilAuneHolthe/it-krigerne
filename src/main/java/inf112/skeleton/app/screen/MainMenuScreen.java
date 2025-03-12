@@ -1,5 +1,7 @@
 package inf112.skeleton.app.screen;
 
+import java.security.Key;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -15,6 +17,9 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 
 import inf112.skeleton.app.GamePanel;
+import inf112.skeleton.controller.GameKeys;
+import inf112.skeleton.controller.KeyHandler;
+import inf112.skeleton.controller.KeyListener;
 
 public class MainMenuScreen extends AbstractScreen {
     public static Texture backgroundTexture = new Texture(Gdx.files.internal("background.png"));
@@ -97,6 +102,8 @@ public class MainMenuScreen extends AbstractScreen {
     public void resize(int width, int height) {
         viewport.update(width, height, true);
     }
+
+    
 
 }
 

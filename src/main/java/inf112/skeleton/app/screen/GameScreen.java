@@ -2,6 +2,8 @@ package inf112.skeleton.app.screen;
 
 import static inf112.skeleton.app.GamePanel.UNIT_SCALE;
 
+import java.security.Key;
+
 import org.lwjgl.opengl.GL20;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -27,10 +29,18 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import inf112.skeleton.app.GamePanel;
 import inf112.skeleton.app.map.CollisonArea;
 import inf112.skeleton.app.map.Map;
+import inf112.skeleton.controller.GameKeys;
+import inf112.skeleton.controller.KeyHandler;
+import inf112.skeleton.controller.KeyListener;
 
 public class GameScreen extends AbstractScreen {
     private final BodyDef bodyDef;
     private final FixtureDef fixtureDef;
+
+    //MOVEMENT
+    private boolean directionChange;
+    private int xFactor;
+    private int yFactor;
 
     private Body player;
     private final World world;
@@ -132,29 +142,14 @@ public class GameScreen extends AbstractScreen {
         mapRenderer.render();
         box2DDebugRenderer.render(world, camera.combined);
 
-
-        final float speedx;
-        final float speedy;
-
-        if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {     
-            speedx = -8;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            speedx = 8;
-        } else {
-            speedx = 0;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            speedy = -8;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            speedy = 8;
-        } else {
-            speedy = 0;
-        }
+        if(directionChange) {
         player.applyLinearImpulse(
-            (speedx - player.getLinearVelocity().x),
-             (speedy - player.getLinearVelocity().y),
-              player.getWorldCenter().x,player.getWorldCenter().y,
-                true);
+            (xFactor * 3 - player.getLinearVelocity().x * player.getMass()),
+            (yFactor * 3 - player.getLinearVelocity().y * player.getMass()),
+            player.getWorldCenter().x, player.getWorldCenter().y, true
+            );
+
+        }
 
         playerSprite.setPosition(player.getPosition().x - playerSprite.getWidth() / 2, player.getPosition().y - playerSprite.getHeight() / 2);
 
@@ -191,4 +186,55 @@ public class GameScreen extends AbstractScreen {
         mapRenderer.dispose();
         playerTexture.dispose();
     }
+
+    @Override
+    public void keyPressed(KeyHandler keyHandler, GameKeys key) {
+
+        System.err.println("Key pressed: " + key);
+        switch (key) {
+            case LEFT:
+                directionChange = true;
+                xFactor = -1;
+                break;
+            case RIGHT:
+                directionChange = true;
+                xFactor = 1;
+                break;
+            case UP:
+                directionChange = true;
+                yFactor = 1;
+                break;
+            case DOWN:
+                directionChange = true;
+                yFactor = -1;
+                break;  
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyHandler keyHandler, GameKeys key) {
+        switch (key) {
+            case LEFT:
+                directionChange = true;
+                xFactor = keyHandler.isKeyPressed(GameKeys.RIGHT) ? 1 : 0;
+                break;
+            case RIGHT:
+                directionChange = true;
+                xFactor = keyHandler.isKeyPressed(GameKeys.LEFT) ? -1 : 0;
+                break;
+            case UP:
+                directionChange = true;
+                yFactor = keyHandler.isKeyPressed(GameKeys.DOWN) ? -1 : 0;
+                break;
+            case DOWN:
+                directionChange = true;
+                yFactor = keyHandler.isKeyPressed(GameKeys.UP) ? 1 : 0;
+                break;  
+            default:
+                break;
+    }
+    
+}
 }
