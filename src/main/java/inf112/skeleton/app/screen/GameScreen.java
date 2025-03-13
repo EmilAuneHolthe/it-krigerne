@@ -57,23 +57,29 @@ public class GameScreen extends AbstractScreen {
     private Texture playerTexture;
     private Map map;
 
+
     public GameScreen(GamePanel context) {
         super(context); 
+
 
         assetManager = context.getAssetManager();
         this.camera = context.getCamera();
         spriteBatch = context.getSpriteBatch();
         mapRenderer = new OrthogonalTiledMapRenderer(null, GamePanel.UNIT_SCALE, context.getSpriteBatch());
         this.world = context.getWorld();
-
+     
         bodyDef = new BodyDef();
         fixtureDef = new FixtureDef();
 
         final TiledMap tiledMap = assetManager.get("map/map.tmx", TiledMap.class);
         mapRenderer.setMap(assetManager.get("map/map.tmx", TiledMap.class));
         map = new Map(tiledMap);
+
         spawnplayer();
         spawnCollisionsAreas();
+
+        
+
     }
 
     private void resetBodyAndFixtureDefinition(){
@@ -160,6 +166,8 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void show() {
+        keyHandler.addListener(this);
+        Gdx.input.setInputProcessor(keyHandler);
     }
 
     @Override
@@ -179,7 +187,9 @@ public class GameScreen extends AbstractScreen {
     public void resume() {}
 
     @Override
-    public void hide() {}
+    public void hide() {
+        keyHandler.removeListener(this);
+    }
 
     @Override
     public void dispose() {
@@ -194,19 +204,19 @@ public class GameScreen extends AbstractScreen {
         switch (key) {
             case LEFT:
                 directionChange = true;
-                xFactor = -1;
+                xFactor = -3;
                 break;
             case RIGHT:
                 directionChange = true;
-                xFactor = 1;
+                xFactor = 3;
                 break;
             case UP:
                 directionChange = true;
-                yFactor = 1;
+                yFactor = 3;
                 break;
             case DOWN:
                 directionChange = true;
-                yFactor = -1;
+                yFactor = -3;
                 break;  
             default:
                 break;
@@ -218,19 +228,19 @@ public class GameScreen extends AbstractScreen {
         switch (key) {
             case LEFT:
                 directionChange = true;
-                xFactor = keyHandler.isKeyPressed(GameKeys.RIGHT) ? 1 : 0;
+                xFactor = keyHandler.isKeyPressed(GameKeys.RIGHT) ? 3 : 0;
                 break;
             case RIGHT:
                 directionChange = true;
-                xFactor = keyHandler.isKeyPressed(GameKeys.LEFT) ? -1 : 0;
+                xFactor = keyHandler.isKeyPressed(GameKeys.LEFT) ? -3 : 0;
                 break;
             case UP:
                 directionChange = true;
-                yFactor = keyHandler.isKeyPressed(GameKeys.DOWN) ? -1 : 0;
+                yFactor = keyHandler.isKeyPressed(GameKeys.DOWN) ? -3 : 0;
                 break;
             case DOWN:
                 directionChange = true;
-                yFactor = keyHandler.isKeyPressed(GameKeys.UP) ? 1 : 0;
+                yFactor = keyHandler.isKeyPressed(GameKeys.UP) ? 3 : 0;
                 break;  
             default:
                 break;

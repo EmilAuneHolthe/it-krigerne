@@ -14,8 +14,7 @@ public enum GameKeys {
     RIGHT (Input.Keys.D, Input.Keys.RIGHT), 
 
     //Player interaction keys
-    INTERACT (Input.Keys.E, Input.Keys.ENTER),
-    ;
+    INTERACT (Input.Keys.E, Input.Keys.ENTER);
 
     final int[] keyCode;
     

@@ -16,7 +16,7 @@ public class KeyHandler implements InputProcessor {
                 keyMapping[code] = key;
             }
         }
-        keyState = new boolean[GameKeys.values().length];
+        this.keyState = new boolean[GameKeys.values().length];
         listeners = new Array<KeyListener>();
     }
 
@@ -73,44 +73,37 @@ public class KeyHandler implements InputProcessor {
 
     @Override
     public boolean keyTyped(char character) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'keyTyped'");
+        return false;
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'touchDown'");
+        return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'touchUp'");
+        return false;
     }
 
     @Override
     public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'touchCancelled'");
+        return false;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'touchDragged'");
+        return false;
     }
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseMoved'");
+        return false;
     }
 
     @Override
     public boolean scrolled(float amountX, float amountY) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'scrolled'");
+        return false;
     }
     
 }

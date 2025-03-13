@@ -103,7 +103,24 @@ public class MainMenuScreen extends AbstractScreen {
         viewport.update(width, height, true);
     }
 
-    
+    @Override
+    public void show() {
+    }
+
+    @Override
+    public void hide() {
+        keyHandler.removeListener(this);
+    }
+
+    @Override
+    public void keyPressed(KeyHandler keyHandler, GameKeys key) {
+        System.err.println("Key pressed MainMEnu: " + key);
+    }
+
+    @Override
+    public void keyReleased(KeyHandler keyHandler, GameKeys key) {
+        System.out.println("Key released MainMenu: " + key);
+    }
 
 }
 

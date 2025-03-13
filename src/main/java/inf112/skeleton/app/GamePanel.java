@@ -75,7 +75,6 @@ public class GamePanel extends Game {
 
         //Input 
         keyHandler = new KeyHandler();
-        Gdx.input.setInputProcessor(new InputMultiplexer(keyHandler));
 
         setScreen(ScreenType.MAIN_MENU);
     }

@@ -2,6 +2,7 @@ package inf112.skeleton.app.screen;
 
 import javax.swing.Box;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -30,7 +31,7 @@ public class AbstractScreen  implements Screen, KeyListener {
 
     @Override
     public void show() {
-        keyHandler.addListener(this);
+
     }
 
     @Override
@@ -65,8 +66,7 @@ public class AbstractScreen  implements Screen, KeyListener {
 
     @Override
     public void keyPressed(KeyHandler keyHandler, GameKeys key) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'keyPressed'");
+        System.err.println("blblbblbl" + key);
     }
 
     @Override

@@ -17,7 +17,7 @@ import inf112.skeleton.controller.GameKeys;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.controller.KeyListener;
 
-public class LoadingScreen extends AbstractScreen  {
+public class LoadingScreen extends AbstractScreen   {
     
 
     private final AssetManager assetManager;
