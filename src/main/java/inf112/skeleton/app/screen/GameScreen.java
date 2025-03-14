@@ -39,8 +39,8 @@ public class GameScreen extends AbstractScreen {
 
     //MOVEMENT
     private boolean directionChange;
-    private int xFactor;
-    private int yFactor;
+    private float xFactor;
+    private float yFactor;
 
     private Body player;
     private final World world;
@@ -74,6 +74,8 @@ public class GameScreen extends AbstractScreen {
         final TiledMap tiledMap = assetManager.get("map/map.tmx", TiledMap.class);
         mapRenderer.setMap(assetManager.get("map/map.tmx", TiledMap.class));
         map = new Map(tiledMap);
+
+        
 
         spawnplayer();
         spawnCollisionsAreas();
@@ -168,6 +170,7 @@ public class GameScreen extends AbstractScreen {
     public void show() {
         keyHandler.addListener(this);
         Gdx.input.setInputProcessor(keyHandler);
+
     }
 
     @Override
@@ -199,52 +202,76 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void keyPressed(KeyHandler keyHandler, GameKeys key) {
-
-        System.err.println("Key pressed: " + key);
-        switch (key) {
-            case LEFT:
-                directionChange = true;
-                xFactor = -3;
-                break;
-            case RIGHT:
-                directionChange = true;
-                xFactor = 3;
-                break;
-            case UP:
-                directionChange = true;
-                yFactor = 3;
-                break;
-            case DOWN:
-                directionChange = true;
-                yFactor = -3;
-                break;  
-            default:
-                break;
-        }
+        movePlayer(keyHandler, key);
     }
 
     @Override
     public void keyReleased(KeyHandler keyHandler, GameKeys key) {
+        movePlayerReleased(keyHandler, key);
+    }
+
+    private void movePlayer(KeyHandler keyHandler, GameKeys key) {
+        System.err.println("Key pressed: " + key);
         switch (key) {
             case LEFT:
-                directionChange = true;
-                xFactor = keyHandler.isKeyPressed(GameKeys.RIGHT) ? 3 : 0;
+                xFactor = -3;
                 break;
             case RIGHT:
-                directionChange = true;
-                xFactor = keyHandler.isKeyPressed(GameKeys.LEFT) ? -3 : 0;
+                xFactor = 3;
                 break;
             case UP:
-                directionChange = true;
-                yFactor = keyHandler.isKeyPressed(GameKeys.DOWN) ? -3 : 0;
+                yFactor = 3;
                 break;
             case DOWN:
-                directionChange = true;
-                yFactor = keyHandler.isKeyPressed(GameKeys.UP) ? 3 : 0;
-                break;  
+                yFactor = -3;
+                break;
             default:
                 break;
+        }
+        updateDirection();
+        dontAccelerate();
     }
-    
+
+    private void movePlayerReleased (KeyHandler keyHandler, GameKeys key) {
+
+        switch (key) {
+            case LEFT:
+            case RIGHT:
+                xFactor = 0;
+                if (keyHandler.isKeyPressed(GameKeys.LEFT)) {
+                    xFactor = -3;
+                } else if (keyHandler.isKeyPressed(GameKeys.RIGHT)) {
+                    xFactor = 3;
+                }
+                break;
+            case UP:
+            case DOWN:
+                yFactor = 0;
+                if (keyHandler.isKeyPressed(GameKeys.UP)) {
+                    yFactor = 3;
+                } else if (keyHandler.isKeyPressed(GameKeys.DOWN)) {
+                    yFactor = -3;
+                }
+                break;
+            default:
+                break;
+        }
+        updateDirection();
+        dontAccelerate();
+    }
+
+    private void updateDirection() {
+        directionChange = true;
+    }
+
+    private void dontAccelerate() {
+        //Player speed is not multiplied by pressing multiple keys
+        float speed = 3.0f;
+        float magnitude = (float) Math.sqrt(xFactor * xFactor + yFactor * yFactor);
+        if (magnitude > 0) {
+            xFactor = (xFactor / magnitude) * speed;
+            yFactor = (yFactor / magnitude) * speed;
+        }
+    }
 }
-}
+

@@ -74,7 +74,7 @@ public class GamePanel extends Game {
         screenCache = new EnumMap<ScreenType, AbstractScreen>(ScreenType.class);
 
         //Input 
-        keyHandler = new KeyHandler();
+        keyHandler = new KeyHandler();  // Initialize KeyHandler
 
         setScreen(ScreenType.MAIN_MENU);
     }
