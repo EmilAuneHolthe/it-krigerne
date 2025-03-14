@@ -13,12 +13,14 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 import inf112.skeleton.app.GamePanel;
+import inf112.skeleton.controller.GameKeys;
+import inf112.skeleton.controller.KeyHandler;
 
-public class LoadingScreen extends AbstractScreen {
+public class LoadingScreen extends AbstractScreen   {
     
 
     private final AssetManager assetManager;
-    private final SpriteBatch   spriteBatch;
+    private final SpriteBatch spriteBatch;
 
     public LoadingScreen(GamePanel context) {
         super(context); // this.context = context;
@@ -26,6 +28,7 @@ public class LoadingScreen extends AbstractScreen {
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         assetManager.load("map/map.tmx", TiledMap.class);
         this.spriteBatch = context.getSpriteBatch();
+        
     }
     
     @Override
@@ -48,7 +51,8 @@ public class LoadingScreen extends AbstractScreen {
     public void resume() {}
 
     @Override
-    public void hide() {}
+    public void hide() {
+    }
 
     @Override
     public void dispose() {}

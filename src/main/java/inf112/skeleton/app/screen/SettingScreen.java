@@ -2,6 +2,7 @@ package inf112.skeleton.app.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -10,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import inf112.skeleton.app.GamePanel;
+import inf112.skeleton.controller.GameKeys;
+import inf112.skeleton.controller.KeyHandler;
 
 public class SettingScreen extends AbstractScreen {
     public static Texture backgroundTexture = new Texture(Gdx.files.internal("settings.png"));
@@ -32,6 +35,8 @@ public class SettingScreen extends AbstractScreen {
     @Override
     public void show() {
         super.show();
+        keyHandler.addListener(this);
+        Gdx.input.setInputProcessor(new InputMultiplexer(stage, keyHandler));
     }
 
     @Override
@@ -42,12 +47,6 @@ public class SettingScreen extends AbstractScreen {
         stage.act(delta);
         stage.draw();
         viewport.apply(true);
-        
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            System.out.println("Returning to main menu...");
-            dispose();
-            context.setScreen(new MainMenuScreen(context));
-        }
     }
 
     @Override
@@ -68,6 +67,7 @@ public class SettingScreen extends AbstractScreen {
     @Override
     public void hide() {
         super.hide();
+        keyHandler.removeListener(this);
     }
 
     @Override
@@ -75,4 +75,26 @@ public class SettingScreen extends AbstractScreen {
         super.dispose();
     }
     
+    @Override
+    public void keyPressed(KeyHandler keyHandler, GameKeys key) {
+        returnToMainMenu(keyHandler, key);
+    }
+
+    @Override
+    public void keyReleased(KeyHandler keyHandler, GameKeys key) {
+    }
+
+    private void returnToMainMenu(KeyHandler keyHandler, GameKeys key) {
+        switch (key) {
+            case PAUSE:
+            System.out.println("Returning to main menu...");
+            dispose();
+            context.setScreen(new MainMenuScreen(context));
+                break;
+            default:
+                break;
+            
+    }
 }
+}
+

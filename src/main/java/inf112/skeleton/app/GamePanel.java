@@ -3,6 +3,7 @@ package inf112.skeleton.app;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
@@ -19,10 +20,13 @@ import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+
+import java.security.Key;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
-import inf112.skeleton.app.screen.*; 
+import inf112.skeleton.app.screen.*;
+import inf112.skeleton.controller.KeyHandler; 
 
 public class GamePanel extends Game {
     private static final String TAG = GamePanel.class.getSimpleName();
@@ -47,6 +51,7 @@ public class GamePanel extends Game {
 
     private AssetManager assetManager;
     
+    private KeyHandler keyHandler;
 
     @Override
     public void create() {
@@ -54,6 +59,7 @@ public class GamePanel extends Game {
         accumulator = 0;
         spriteBatch = new SpriteBatch();
 
+        // Box2D
         Box2D.init(); // Initialize Box2D
         world = new World(new Vector2(0, 0), true); // Create a new world with gravity
         worldContactListener = new WorldContactListener();
@@ -67,17 +73,18 @@ public class GamePanel extends Game {
         screenViewport = new FitViewport(25 * 32 * UNIT_SCALE, 14 * 32 * UNIT_SCALE, camera);
         screenCache = new EnumMap<ScreenType, AbstractScreen>(ScreenType.class);
 
+        //Input 
+        keyHandler = new KeyHandler();  // Initialize KeyHandler
+
         setScreen(ScreenType.MAIN_MENU);
     }
 
+    //get-methods
     public FitViewport getViewport() {return screenViewport;}
-
     public World getWorld() {return world;}
-
     public Box2DDebugRenderer getBox2DDebugRenderer() {return box2DDebugRenderer;}
+    public KeyHandler getKeyHandler() {return keyHandler;}
 
-    
-    
 
     public void setScreen(final ScreenType screenType) {
         final Screen screen = screenCache.get(screenType);
