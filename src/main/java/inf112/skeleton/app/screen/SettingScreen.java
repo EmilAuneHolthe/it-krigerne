@@ -77,6 +77,14 @@ public class SettingScreen extends AbstractScreen {
     
     @Override
     public void keyPressed(KeyHandler keyHandler, GameKeys key) {
+        returnToMainMenu(keyHandler, key);
+    }
+
+    @Override
+    public void keyReleased(KeyHandler keyHandler, GameKeys key) {
+    }
+
+    private void returnToMainMenu(KeyHandler keyHandler, GameKeys key) {
         switch (key) {
             case PAUSE:
             System.out.println("Returning to main menu...");
@@ -86,10 +94,7 @@ public class SettingScreen extends AbstractScreen {
             default:
                 break;
             
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyHandler keyHandler, GameKeys key) {
     }
 }
+}
+
