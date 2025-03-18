@@ -10,6 +10,7 @@ import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2D;
@@ -34,6 +35,7 @@ public class GamePanel extends Game {
     private SpriteBatch spriteBatch;
     private static GamePanel instance;
     private OrthographicCamera camera;
+
     
     private EnumMap<ScreenType, AbstractScreen> screenCache;
     private FitViewport screenViewport;
@@ -41,8 +43,10 @@ public class GamePanel extends Game {
     private WorldContactListener worldContactListener;
     private Box2DDebugRenderer box2DDebugRenderer;
 
+
+
     public static final short BIT_Player = 1<<0;
-    public static final float UNIT_SCALE = 1/32f;
+    public static final float UNIT_SCALE = 1/32f; // 1 meter = 32 pixels
     public static final short BIT_Box = 1<<1;
     public static final short BIT_Ground = 1<<2;
 
@@ -58,7 +62,8 @@ public class GamePanel extends Game {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
         accumulator = 0;
         spriteBatch = new SpriteBatch();
-
+        
+        
         // Box2D
         Box2D.init(); // Initialize Box2D
         world = new World(new Vector2(0, 0), true); // Create a new world with gravity
@@ -68,7 +73,7 @@ public class GamePanel extends Game {
 
         //init assetManager
         assetManager = new AssetManager();  
-        assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+        assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
         camera = new OrthographicCamera();
         screenViewport = new FitViewport(25 * 32 * UNIT_SCALE, 14 * 32 * UNIT_SCALE, camera);
         screenCache = new EnumMap<ScreenType, AbstractScreen>(ScreenType.class);
@@ -84,6 +89,9 @@ public class GamePanel extends Game {
     public World getWorld() {return world;}
     public Box2DDebugRenderer getBox2DDebugRenderer() {return box2DDebugRenderer;}
     public KeyHandler getKeyHandler() {return keyHandler;}
+    public AssetManager getAssetManager() {return assetManager;}
+    public SpriteBatch getSpriteBatch() {return spriteBatch;}
+    public OrthographicCamera getCamera() {return camera;}
 
 
     public void setScreen(final ScreenType screenType) {
@@ -143,15 +151,6 @@ public class GamePanel extends Game {
             instance = new GamePanel();
         }
         return instance;
-    }
-    public AssetManager getAssetManager() {
-        return assetManager;
-    }
-    public OrthographicCamera getCamera() {
-        return camera;
-    }
-    public SpriteBatch getSpriteBatch() {
-        return spriteBatch;
     }
 
     
