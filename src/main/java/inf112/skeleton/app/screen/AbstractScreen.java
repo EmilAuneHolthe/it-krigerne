@@ -2,6 +2,7 @@ package inf112.skeleton.app.screen;
 
 import javax.swing.Box;
 
+import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import inf112.skeleton.app.GamePanel;
+import inf112.skeleton.audio.AudioHandler;
 import inf112.skeleton.controller.GameKeys;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.controller.KeyListener;
@@ -19,6 +21,7 @@ public class AbstractScreen  implements Screen, KeyListener {
     protected final World world;
     protected final Box2DDebugRenderer box2DDebugRenderer;
     protected KeyHandler keyHandler;
+    protected final AudioHandler audioHandler;
 
 
     public AbstractScreen(final GamePanel context) {
@@ -27,6 +30,7 @@ public class AbstractScreen  implements Screen, KeyListener {
         this.world = context.getWorld();
         this.box2DDebugRenderer = context.getBox2DDebugRenderer();
         this.keyHandler = context.getKeyHandler();
+        this.audioHandler = context.getAudioHandler();
         
     }
 

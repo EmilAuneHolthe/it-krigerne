@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import inf112.skeleton.app.GamePanel;
+import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.GameKeys;
 import inf112.skeleton.controller.KeyHandler;
 
@@ -87,6 +88,7 @@ public class SettingScreen extends AbstractScreen {
     private void returnToMainMenu(KeyHandler keyHandler, GameKeys key) {
         switch (key) {
             case PAUSE:
+            audioHandler.playAudio(AudioTypes.SELECT);
             System.out.println("Returning to main menu...");
             dispose();
             context.setScreen(new MainMenuScreen(context));

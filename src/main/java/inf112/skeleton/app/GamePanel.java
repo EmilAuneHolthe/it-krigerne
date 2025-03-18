@@ -1,12 +1,17 @@
 package inf112.skeleton.app;
 
 import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.MusicLoader;
+import com.badlogic.gdx.assets.loaders.SoundLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -27,16 +32,19 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 import inf112.skeleton.app.screen.*;
+import inf112.skeleton.audio.AudioHandler;
+import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.KeyHandler; 
 
 public class GamePanel extends Game {
     private static final String TAG = GamePanel.class.getSimpleName();
 
+    // Graphics
     private SpriteBatch spriteBatch;
     private static GamePanel instance;
     private OrthographicCamera camera;
 
-    
+    // Screen management
     private EnumMap<ScreenType, AbstractScreen> screenCache;
     private FitViewport screenViewport;
     private World world;
@@ -44,25 +52,23 @@ public class GamePanel extends Game {
     private Box2DDebugRenderer box2DDebugRenderer;
 
 
-
+    // Pixel to meter ratio
     public static final short BIT_Player = 1<<0;
     public static final float UNIT_SCALE = 1/32f; // 1 meter = 32 pixels
     public static final short BIT_Box = 1<<1;
     public static final short BIT_Ground = 1<<2;
-
     private static final float FIXED_TIME_STEP = 1/60f;
     private float accumulator;
 
     private AssetManager assetManager;
-    
     private KeyHandler keyHandler;
+    private AudioHandler audioHandler;
 
     @Override
     public void create() {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
         accumulator = 0;
-        spriteBatch = new SpriteBatch();
-        
+        spriteBatch = new SpriteBatch();        
         
         // Box2D
         Box2D.init(); // Initialize Box2D
@@ -78,6 +84,13 @@ public class GamePanel extends Game {
         screenViewport = new FitViewport(25 * 32 * UNIT_SCALE, 14 * 32 * UNIT_SCALE, camera);
         screenCache = new EnumMap<ScreenType, AbstractScreen>(ScreenType.class);
 
+        //Audio
+        audioHandler = new AudioHandler(this);
+        for(final AudioTypes audioType : AudioTypes.values()) { // Load all audio files
+            assetManager.load(audioType.getPath(), (Class<?>) (audioType.isMusic() ? Music.class : Sound.class));
+        }
+        assetManager.finishLoading();  // Ensures assets are loaded before use
+
         //Input 
         keyHandler = new KeyHandler();  // Initialize KeyHandler
 
@@ -92,6 +105,7 @@ public class GamePanel extends Game {
     public AssetManager getAssetManager() {return assetManager;}
     public SpriteBatch getSpriteBatch() {return spriteBatch;}
     public OrthographicCamera getCamera() {return camera;}
+    public AudioHandler getAudioHandler() {return audioHandler;}
 
 
     public void setScreen(final ScreenType screenType) {
