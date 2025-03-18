@@ -11,8 +11,11 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 
 import inf112.skeleton.app.GamePanel;
+import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.GameKeys;
 import inf112.skeleton.controller.KeyHandler;
 
@@ -27,8 +30,7 @@ public class LoadingScreen extends AbstractScreen   {
         this.assetManager = context.getAssetManager();
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         assetManager.load("map/testMap/testMap.tmx", TiledMap.class);
-        this.spriteBatch = context.getSpriteBatch();
-        
+        this.spriteBatch = context.getSpriteBatch();       
     }
     
     @Override

@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 
 import inf112.skeleton.app.GamePanel;
+import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.GameKeys;
 import inf112.skeleton.controller.KeyHandler;
 
@@ -25,7 +26,7 @@ public class MainMenuScreen extends AbstractScreen {
     private ImageButton startButton;
     private ImageButton optionsButton;
     private ImageButton exitButton;
-    
+
     public MainMenuScreen(GamePanel context) {
         super(context);
         stage = new Stage(new ScreenViewport());
@@ -55,6 +56,7 @@ public class MainMenuScreen extends AbstractScreen {
             
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                audioHandler.stopMusic();
                 System.out.println("Starting game...");
                 context.setScreen(ScreenType.LOADING);
             }
@@ -64,6 +66,7 @@ public class MainMenuScreen extends AbstractScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Going to settings...");
+                audioHandler.playAudio(AudioTypes.SELECT);
                 context.setScreen(ScreenType.SETTINGS);
             }
         });
@@ -85,10 +88,13 @@ public class MainMenuScreen extends AbstractScreen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    
+
         
         stage.act(delta);
         stage.draw();
         viewport.apply(true);
+        
     }
     
     @Override
@@ -105,12 +111,14 @@ public class MainMenuScreen extends AbstractScreen {
     @Override
     public void hide() {
         keyHandler.removeListener(this);
+        audioHandler.playAudio(AudioTypes.SELECT);
         
     }
     
     @Override
     public void show() {
         keyHandler.addListener(this);
+        audioHandler.playAudio(AudioTypes.INTRO);
         Gdx.input.setInputProcessor(new InputMultiplexer(stage, keyHandler));
         
     }
