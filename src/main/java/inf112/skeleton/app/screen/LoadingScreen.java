@@ -26,20 +26,22 @@ public class LoadingScreen extends AbstractScreen   {
         super(context); // this.context = context;
         this.assetManager = context.getAssetManager();
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
-        assetManager.load("map/map.tmx", TiledMap.class);
+        assetManager.load("map/testMap/testMap.tmx", TiledMap.class);
         this.spriteBatch = context.getSpriteBatch();
         
     }
     
     @Override
-    public void render(float delta) {
+    public void render(float delta) { 
+
         if (assetManager.update()) {
             context.setScreen(ScreenType.GAME);
         }
     }
 
     @Override
-    public void show() {}
+    public void show() {
+    }
 
     @Override
     public void resize(int width, int height) {}

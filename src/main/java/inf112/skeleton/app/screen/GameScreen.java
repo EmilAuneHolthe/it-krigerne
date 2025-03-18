@@ -12,6 +12,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Circle;
@@ -52,14 +53,21 @@ public class GameScreen extends AbstractScreen {
 
     private static final short BIT_PLAYER = GamePanel.BIT_Player;
     private static final short BIT_GROUND = GamePanel.BIT_Ground;
+    private final GLProfiler profiler;
 
     private Sprite playerSprite;
+    private Texture playerIdleFrontTexture, playerIdleUpTexture, playerIdleRightTexture, playerIdleLeftTexture;
     private Texture playerTexture;
     private Map map;
+    private String direction;
 
 
     public GameScreen(GamePanel context) {
         super(context); 
+
+        profiler = new GLProfiler(Gdx.graphics);
+        profiler.enable();
+
 
 
         assetManager = context.getAssetManager();
@@ -71,28 +79,25 @@ public class GameScreen extends AbstractScreen {
         bodyDef = new BodyDef();
         fixtureDef = new FixtureDef();
 
-        final TiledMap tiledMap = assetManager.get("map/map.tmx", TiledMap.class);
-        mapRenderer.setMap(assetManager.get("map/map.tmx", TiledMap.class));
+        final TiledMap tiledMap = assetManager.get("map/testMap/testMap.tmx", TiledMap.class);
+        mapRenderer.setMap(tiledMap);
         map = new Map(tiledMap);
-
-        
 
         spawnplayer();
         spawnCollisionsAreas();
-
-        
-
     }
 
     private void resetBodyAndFixtureDefinition(){
         bodyDef.position.set(0, 0);
         bodyDef.gravityScale = 0;
         bodyDef.type = BodyDef.BodyType.StaticBody;
+
         fixtureDef.isSensor = false;
         fixtureDef.restitution = 0.75f;
         fixtureDef.friction = 0.2f;
         fixtureDef.filter.categoryBits = BIT_GROUND;
         fixtureDef.filter.maskBits = -1;
+
     }
 
     private void spawnCollisionsAreas() {
@@ -101,7 +106,6 @@ public class GameScreen extends AbstractScreen {
             // creates room
             bodyDef.position.set(collisionArea.getX(), collisionArea.getY());
             bodyDef.fixedRotation = true;
-            bodyDef.type = BodyDef.BodyType.StaticBody;
             final Body body = world.createBody(bodyDef);
             body.setUserData("GROUND");
 
@@ -132,9 +136,8 @@ public class GameScreen extends AbstractScreen {
         player.createFixture(fixtureDef);
         pShape.dispose();
 
-        playerTexture = new Texture(Gdx.files.internal("mario.jpeg"));
-        playerSprite = new Sprite(playerTexture);
-        playerSprite.setSize(1, 1);
+        getPlayerImage();
+        createSprite(playerIdleFrontTexture);
     }
 
     @Override
@@ -147,20 +150,15 @@ public class GameScreen extends AbstractScreen {
         camera.update();
         
         mapRenderer.setView(camera);
-        mapRenderer.render();
+        mapRenderer.render();;
         box2DDebugRenderer.render(world, camera.combined);
 
-        if(directionChange) {
-        player.applyLinearImpulse(
-            (xFactor * 3 - player.getLinearVelocity().x * player.getMass()),
-            (yFactor * 3 - player.getLinearVelocity().y * player.getMass()),
-            player.getWorldCenter().x, player.getWorldCenter().y, true
-            );
-
-        }
-
+        /*Gdx.app.debug("renderinfo", "Bindings" + profiler.getTextureBindings());
+        Gdx.app.debug("renderinfo", "Drawcells" + profiler.getDrawCalls());
+        profiler.reset();*/
+        movePlayer();
         playerSprite.setPosition(player.getPosition().x - playerSprite.getWidth() / 2, player.getPosition().y - playerSprite.getHeight() / 2);
-
+        
         spriteBatch.begin();
         playerSprite.draw(spriteBatch);
         spriteBatch.end();
@@ -197,12 +195,12 @@ public class GameScreen extends AbstractScreen {
     @Override
     public void dispose() {
         mapRenderer.dispose();
-        playerTexture.dispose();
+        playerIdleFrontTexture.dispose();
     }
 
     @Override
     public void keyPressed(KeyHandler keyHandler, GameKeys key) {
-        movePlayer(keyHandler, key);
+        playerInput(keyHandler, key);
     }
 
     @Override
@@ -210,24 +208,71 @@ public class GameScreen extends AbstractScreen {
         movePlayerReleased(keyHandler, key);
     }
 
-    private void movePlayer(KeyHandler keyHandler, GameKeys key) {
+    private void getPlayerImage(){
+        playerIdleFrontTexture = new Texture(Gdx.files.internal("Player/PlayerIdle/PlayerIdleFront.png"));
+        playerIdleUpTexture = new Texture(Gdx.files.internal("Player/PlayerIdle/PlayerIdleUp.png"));
+        playerIdleLeftTexture = new Texture(Gdx.files.internal("Player/PlayerIdle/PlayerIdleLeft.png"));
+        playerIdleRightTexture = new Texture(Gdx.files.internal("Player/PlayerIdle/PlayerIdleRight.png"));
+        
+      }
+    
+    private void setPlayeSprite() {
+        
+        switch (direction) {
+            case "Front":
+                playerTexture = playerIdleFrontTexture;
+                createSprite(playerTexture);
+                break;
+            case "Up":
+                playerTexture = playerIdleUpTexture;
+                createSprite(playerTexture);
+                break;
+
+            case "Left":
+                playerTexture = playerIdleLeftTexture;
+                createSprite(playerTexture);
+                break;
+
+            case "Right":
+                playerTexture = playerIdleRightTexture;
+                createSprite(playerTexture);
+                break;
+        
+            default:
+                break;
+            
+        }
+    }
+
+    private void createSprite(Texture playerTexture) {
+        playerSprite = new Sprite(playerTexture);
+        playerSprite.setSize(1, 1);
+    }
+
+    private void playerInput(KeyHandler keyHandler, GameKeys key) {
         System.err.println("Key pressed: " + key);
+        
         switch (key) {
             case LEFT:
+                direction = "Left";
                 xFactor = -3;
                 break;
             case RIGHT:
+                direction = "Right";
                 xFactor = 3;
                 break;
             case UP:
+                direction = "Up";
                 yFactor = 3;
                 break;
             case DOWN:
+                direction = "Front";
                 yFactor = -3;
                 break;
             default:
                 break;
         }
+
         updateDirection();
         dontAccelerate();
     }
@@ -271,6 +316,16 @@ public class GameScreen extends AbstractScreen {
         if (magnitude > 0) {
             xFactor = (xFactor / magnitude) * speed;
             yFactor = (yFactor / magnitude) * speed;
+        }
+    }
+    private void movePlayer() {
+        if(directionChange) {
+        player.applyLinearImpulse(
+            (xFactor * 3 - player.getLinearVelocity().x * player.getMass()),
+            (yFactor * 3 - player.getLinearVelocity().y * player.getMass()),
+            player.getWorldCenter().x, player.getWorldCenter().y, true
+            );
+
         }
     }
 }

@@ -17,54 +17,72 @@ import com.badlogic.gdx.utils.Array;
 public class Map {
   private final TiledMap tiledMap;
   public static final String TAG = Map.class.getSimpleName();
-  private final Array<CollisonArea> colissionAreas;
+  private final Array<CollisonArea> collisionAreas;
   private final Vector2 playerspawn;
   
   public Map(TiledMap tiledMap) {
     this.tiledMap = tiledMap;
-    colissionAreas = new Array<CollisonArea>();
+    collisionAreas = new Array<CollisonArea>();
     playerspawn = findPlayerSpawnVector2();
     getCollisionLayer();
-      }
+  }
+
+  private void getCollisionLayer() {
+    MapLayer collisionLayer = tiledMap.getLayers().get("Collision");
     
-      private void getCollisionLayer() {
-       final MapLayer collisionLayer = tiledMap.getLayers().get("collision");
-       final MapObjects objects = collisionLayer.getObjects();
-       for (final MapObject object : objects) {
-         if (object instanceof RectangleMapObject) {
-          final RectangleMapObject rectangleMapObject = (RectangleMapObject) object;
-          final Rectangle rectangle = rectangleMapObject.getRectangle();
-          final float[] rectVertices = new float[10];
-          //rectangle left bottom
-          rectVertices[0] = 0;
-          rectVertices[1] = 0;
-          //rectangle left top
-          rectVertices[2] = 0;
-          rectVertices[3] = rectangle.height;
-          //rectangle right top
-          rectVertices[4] = rectangle.width;
-          rectVertices[5] = rectangle.height;
-          //rectangle right bottom
-          rectVertices[6] = rectangle.width;
-          rectVertices[7] = 0;
-          //rectangle left bottom
-          rectVertices[8] = 0;
-          rectVertices[9] = 0;
-          colissionAreas.add(new CollisonArea(rectangle.x, rectangle.y, rectVertices));
-         } else if( object instanceof PolylineMapObject) {
-          final PolylineMapObject polynineMapObject = (PolylineMapObject) object;
-          final Polyline polyline = polynineMapObject.getPolyline();
-          colissionAreas.add(new CollisonArea(polyline.getX(), polyline.getY(), polyline.getVertices()));
-         } else {
-          Gdx.app.debug(TAG, "Collision object not supported" + object);
-         }
-       }
+    if (collisionLayer == null) {
+      Gdx.app.error(TAG, "Collision layer not found! Ensure 'collision' layer exists in the map.");
+      return;
+    
+    }
+    final MapObjects mapObjects = collisionLayer.getObjects();
+    if(mapObjects == null) {
+      Gdx.app.error(TAG, "No collision objects found in 'collision' layer!");
+      return;
+    }
+
+    for(final MapObject mapObject : mapObjects) {
+      if(mapObject instanceof RectangleMapObject) {
+        final RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;
+        final Rectangle rectangle = rectangleMapObject.getRectangle();
+        final float[] rectVertices = new float[10];
+        //rectangle left bottom
+        rectVertices[0] = 0;
+        rectVertices[1] = 0;
+
+        //rectangle left top
+        rectVertices[2] = 0;
+        rectVertices[3] = rectangle.height;
+
+        //rectangle right top
+        rectVertices[4] = rectangle.width;
+        rectVertices[5] = rectangle.height;
+
+        //rectangle right bottom
+        rectVertices[6] = rectangle.width;
+        rectVertices[7] = 0;
+
+        //rectangle left bottom
+        rectVertices[8] = 0;
+        rectVertices[9] = 0;
+        collisionAreas.add(new CollisonArea(rectangle.x, rectangle.y, rectVertices));
+      } else if(mapObject instanceof PolylineMapObject) {
+        final PolylineMapObject polylineMapObject = (PolylineMapObject) mapObject;
+        final Polyline polyLine = polylineMapObject.getPolyline();
+        collisionAreas.add(new CollisonArea(polyLine.getX(), polyLine.getY(), polyLine.getVertices()));
+       
+      } else {
+        Gdx.app.debug(TAG, "Collision object not supported: " + mapObject);
       }
-      public Array<CollisonArea> getColissionAreas() {
-        return colissionAreas;
-      }
-      private Vector2 findPlayerSpawnVector2() {
-        MapObjects objects = tiledMap.getLayers().get("playerSpawn").getObjects();
+    }
+   
+  }
+  
+  public Array<CollisonArea> getColissionAreas() {
+    return collisionAreas;
+  }
+  private Vector2 findPlayerSpawnVector2() {
+    MapObjects objects = tiledMap.getLayers().get("Player").getObjects();
           for (final MapObject object : objects) {
             final RectangleMapObject spawn = (RectangleMapObject) object;
             final Rectangle rectangle = spawn.getRectangle();
@@ -73,8 +91,8 @@ public class Map {
           }
           return new Vector2(0, 0);
         }
-        
-        public Vector2 getPlayerSpawn() {
-          return playerspawn;
-        }
+  
+  public Vector2 getPlayerSpawn() {
+    return playerspawn;
+  }
 }
