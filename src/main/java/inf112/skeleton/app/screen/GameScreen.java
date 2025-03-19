@@ -10,6 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
@@ -79,7 +80,8 @@ public class GameScreen extends AbstractScreen {
         bodyDef = new BodyDef();
         fixtureDef = new FixtureDef();
 
-        final TiledMap tiledMap = assetManager.get("map/testMap/testMap.tmx", TiledMap.class);
+        final TiledMap tiledMap = assetManager.get("map/SampleMap/samplemap.tmx", TiledMap.class);
+        //final TiledMap tiledMap = assetManager.get("map/testMap/testMap.tmx", TiledMap.class);
         mapRenderer.setMap(tiledMap);
         map = new Map(tiledMap);
 
@@ -131,7 +133,7 @@ public class GameScreen extends AbstractScreen {
         fixtureDef.filter.categoryBits = BIT_PLAYER;   
         fixtureDef.filter.maskBits = BIT_GROUND;
         final PolygonShape pShape = new PolygonShape();
-        pShape.setAsBox(0.5f, 0.5f);
+        pShape.setAsBox(0.4f, 0.4f);
         fixtureDef.shape = pShape;
         player.createFixture(fixtureDef);
         pShape.dispose();
@@ -156,6 +158,7 @@ public class GameScreen extends AbstractScreen {
         /*Gdx.app.debug("renderinfo", "Bindings" + profiler.getTextureBindings());
         Gdx.app.debug("renderinfo", "Drawcells" + profiler.getDrawCalls());
         profiler.reset();*/
+        //Gdx.app.debug(FPSLogger.class.getSimpleName(), "FPS: " + Gdx.graphics.getFramesPerSecond());
         movePlayer();
         playerSprite.setPosition(player.getPosition().x - playerSprite.getWidth() / 2, player.getPosition().y - playerSprite.getHeight() / 2);
         
@@ -201,6 +204,7 @@ public class GameScreen extends AbstractScreen {
     @Override
     public void keyPressed(KeyHandler keyHandler, GameKeys key) {
         playerInput(keyHandler, key);
+
     }
 
     @Override
