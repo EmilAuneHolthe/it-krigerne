@@ -29,7 +29,8 @@ public class LoadingScreen extends AbstractScreen   {
         super(context); // this.context = context;
         this.assetManager = context.getAssetManager();
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
-        assetManager.load("map/testMap/testMap.tmx", TiledMap.class);
+        assetManager.load("map/SampleMap/samplemap.tmx", TiledMap.class);
+        //assetManager.load("map/testMap/testMap.tmx", TiledMap.class);
         this.spriteBatch = context.getSpriteBatch();       
     }
     
