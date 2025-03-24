@@ -1,4 +1,4 @@
-package inf112.skeleton.app.screen;
+package inf112.skeleton.view.screen;
 
 import org.lwjgl.opengl.GL20;
 import com.badlogic.gdx.Gdx;
@@ -14,10 +14,10 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
-import inf112.skeleton.app.GamePanel;
 import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.GameKeys;
 import inf112.skeleton.controller.KeyHandler;
+import inf112.skeleton.model.GamePanel;
 
 public class LoadingScreen extends AbstractScreen   {
     

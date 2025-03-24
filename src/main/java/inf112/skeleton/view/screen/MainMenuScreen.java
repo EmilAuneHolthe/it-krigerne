@@ -1,4 +1,4 @@
-package inf112.skeleton.app.screen;
+package inf112.skeleton.view.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -15,10 +15,10 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 
-import inf112.skeleton.app.GamePanel;
 import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.GameKeys;
 import inf112.skeleton.controller.KeyHandler;
+import inf112.skeleton.model.GamePanel;
 
 public class MainMenuScreen extends AbstractScreen {
     public static Texture backgroundTexture = new Texture(Gdx.files.internal("background.png"));

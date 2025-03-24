@@ -1,6 +1,6 @@
-package inf112.skeleton.app.screen;
+package inf112.skeleton.view.screen;
 
-import static inf112.skeleton.app.GamePanel.UNIT_SCALE;
+import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
 
 import java.security.Key;
 
@@ -28,12 +28,13 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import inf112.skeleton.app.GamePanel;
-import inf112.skeleton.app.map.CollisionArea;
-import inf112.skeleton.app.map.Map;
+
 import inf112.skeleton.controller.GameKeys;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.controller.KeyListener;
+import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.map.CollisionArea;
+import inf112.skeleton.model.map.Map;
 
 public class GameScreen extends AbstractScreen {
     private final BodyDef bodyDef;

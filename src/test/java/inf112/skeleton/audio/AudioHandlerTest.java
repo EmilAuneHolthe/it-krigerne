@@ -4,9 +4,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import com.badlogic.gdx.audio.Music;
+
+import inf112.skeleton.model.GamePanel;
+
 import com.badlogic.gdx.assets.AssetManager;
 
-import inf112.skeleton.app.GamePanel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

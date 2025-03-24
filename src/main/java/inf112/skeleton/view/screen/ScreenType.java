@@ -1,7 +1,8 @@
-package inf112.skeleton.app.screen;
+package inf112.skeleton.view.screen;
 
-import inf112.skeleton.app.screen.MainMenuScreen;
 import com.badlogic.gdx.Screen;
+
+import inf112.skeleton.view.screen.MainMenuScreen;
 
 
 public enum ScreenType {

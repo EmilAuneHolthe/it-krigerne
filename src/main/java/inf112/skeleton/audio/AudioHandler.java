@@ -5,7 +5,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
-import inf112.skeleton.app.GamePanel;
+import inf112.skeleton.model.GamePanel;
 
 public class AudioHandler {
     private AudioTypes currentMusicType;

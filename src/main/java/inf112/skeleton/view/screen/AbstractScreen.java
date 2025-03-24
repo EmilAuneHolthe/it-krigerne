@@ -1,4 +1,4 @@
-package inf112.skeleton.app.screen;
+package inf112.skeleton.view.screen;
 
 import javax.swing.Box;
 
@@ -9,11 +9,11 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-import inf112.skeleton.app.GamePanel;
 import inf112.skeleton.audio.AudioHandler;
 import inf112.skeleton.controller.GameKeys;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.controller.KeyListener;
+import inf112.skeleton.model.GamePanel;
 
 public class AbstractScreen  implements Screen, KeyListener {
     protected final GamePanel context;

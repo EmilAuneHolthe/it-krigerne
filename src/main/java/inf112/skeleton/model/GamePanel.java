@@ -1,4 +1,4 @@
-package inf112.skeleton.app;
+package inf112.skeleton.model;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Audio;
@@ -31,10 +31,11 @@ import java.security.Key;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
-import inf112.skeleton.app.screen.*;
+
 import inf112.skeleton.audio.AudioHandler;
 import inf112.skeleton.audio.AudioTypes;
-import inf112.skeleton.controller.KeyHandler; 
+import inf112.skeleton.controller.KeyHandler;
+import inf112.skeleton.view.screen.*; 
 
 public class GamePanel extends Game {
     private static final String TAG = GamePanel.class.getSimpleName();

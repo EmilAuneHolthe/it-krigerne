@@ -1,6 +1,6 @@
-package inf112.skeleton.app.map;
+package inf112.skeleton.model.map;
 
-import static inf112.skeleton.app.GamePanel.UNIT_SCALE;
+import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
 public class CollisionArea {
   private final float[] vertices;
   private final float x;

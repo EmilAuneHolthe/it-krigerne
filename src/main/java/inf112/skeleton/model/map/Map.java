@@ -1,4 +1,4 @@
-package inf112.skeleton.app.map;
+package inf112.skeleton.model.map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g3d.environment.PointLight;
