@@ -35,10 +35,12 @@ import inf112.skeleton.controller.KeyListener;
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.map.CollisionArea;
 import inf112.skeleton.model.map.Map;
+import inf112.skeleton.model.map.MapListener;
+import inf112.skeleton.model.map.MapManager;
+import inf112.skeleton.model.map.MapType;
 
-public class GameScreen extends AbstractScreen {
-    private final BodyDef bodyDef;
-    private final FixtureDef fixtureDef;
+public class GameScreen extends AbstractScreen implements MapListener{
+  
 
     //MOVEMENT
     private boolean directionChange;
@@ -54,7 +56,6 @@ public class GameScreen extends AbstractScreen {
     private final OrthographicCamera camera;
 
     private static final short BIT_PLAYER = GamePanel.BIT_Player;
-    private static final short BIT_GROUND = GamePanel.BIT_Ground;
     private final GLProfiler profiler;
 
     private Sprite playerSprite;
@@ -62,6 +63,7 @@ public class GameScreen extends AbstractScreen {
     private Texture playerTexture;
     private Map map;
     private String direction;
+    private final MapManager mapManager; 
 
 
     public GameScreen(GamePanel context) {
@@ -69,74 +71,36 @@ public class GameScreen extends AbstractScreen {
 
         profiler = new GLProfiler(Gdx.graphics);
         profiler.enable();
-
-
-
         assetManager = context.getAssetManager();
         this.camera = context.getCamera();
         spriteBatch = context.getSpriteBatch();
         mapRenderer = new OrthogonalTiledMapRenderer(null, GamePanel.UNIT_SCALE, context.getSpriteBatch());
         this.world = context.getWorld();
-     
-        bodyDef = new BodyDef();
-        fixtureDef = new FixtureDef();
 
-        final TiledMap tiledMap = assetManager.get("map/SampleMap/samplemap.tmx", TiledMap.class);
-        //final TiledMap tiledMap = assetManager.get("map/testMap/testMap.tmx", TiledMap.class);
-        mapRenderer.setMap(tiledMap);
-        map = new Map(tiledMap);
+        mapManager = context.getMapManager();
+        mapManager.addListener(this);
+        mapManager.setMap(MapType.MAP_1);
+    
 
         spawnplayer();
-        spawnCollisionsAreas();
     }
 
-    private void resetBodyAndFixtureDefinition(){
-        bodyDef.position.set(0, 0);
-        bodyDef.gravityScale = 0;
-        bodyDef.type = BodyDef.BodyType.StaticBody;
-
-        fixtureDef.isSensor = false;
-        fixtureDef.restitution = 0.75f;
-        fixtureDef.friction = 0.2f;
-        fixtureDef.filter.categoryBits = BIT_GROUND;
-        fixtureDef.filter.maskBits = -1;
-
-    }
-
-    private void spawnCollisionsAreas() {
-        for (final CollisionArea collisionArea : map.getColissionAreas()) {
-            resetBodyAndFixtureDefinition();
-            // creates room
-            bodyDef.position.set(collisionArea.getX(), collisionArea.getY());
-            bodyDef.fixedRotation = true;
-            final Body body = world.createBody(bodyDef);
-            body.setUserData("GROUND");
-
-            fixtureDef.filter.categoryBits = BIT_GROUND;
-            fixtureDef.filter.maskBits = -1;
-            final ChainShape cShape = new ChainShape();
-            cShape.createChain(collisionArea.getVertices());
-            fixtureDef.shape = cShape;
-            body.createFixture(fixtureDef);
-            cShape.dispose();
-        }
-    }
 
     private void spawnplayer(){
-        resetBodyAndFixtureDefinition();
+        GamePanel.resetBodyAndFixtureDefinition();
 
-        bodyDef.position.set(map.getPlayerSpawn().x * UNIT_SCALE, map.getPlayerSpawn().y * UNIT_SCALE);
-        bodyDef.fixedRotation = true;
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        player = world.createBody(bodyDef);
+        GamePanel.BODY_DEF.position.set(map.getPlayerSpawn().x * UNIT_SCALE, map.getPlayerSpawn().y * UNIT_SCALE);
+        GamePanel.BODY_DEF.fixedRotation = true;
+        GamePanel.BODY_DEF.type = BodyDef.BodyType.DynamicBody;
+        player = world.createBody(GamePanel.BODY_DEF);
         player.setUserData("PLAYER");
 
-        fixtureDef.filter.categoryBits = BIT_PLAYER;   
-        fixtureDef.filter.maskBits = BIT_GROUND;
+        GamePanel.FIXTURE_DEF.filter.categoryBits = BIT_PLAYER;   
+        GamePanel.FIXTURE_DEF.filter.maskBits = GamePanel.BIT_GROUND;
         final PolygonShape pShape = new PolygonShape();
         pShape.setAsBox(0.4f, 0.4f);
-        fixtureDef.shape = pShape;
-        player.createFixture(fixtureDef);
+        GamePanel.FIXTURE_DEF.shape = pShape;
+        player.createFixture(GamePanel.FIXTURE_DEF);
         pShape.dispose();
 
         getPlayerImage();
@@ -155,6 +119,8 @@ public class GameScreen extends AbstractScreen {
         mapRenderer.setView(camera);
         mapRenderer.render();;
         box2DDebugRenderer.render(world, camera.combined);
+
+        
 
         /*Gdx.app.debug("renderinfo", "Bindings" + profiler.getTextureBindings());
         Gdx.app.debug("renderinfo", "Drawcells" + profiler.getDrawCalls());
@@ -332,6 +298,12 @@ public class GameScreen extends AbstractScreen {
             );
 
         }
+    }
+
+
+    @Override
+    public void mapChanged(Map map) {
+        
     }
 }
 
