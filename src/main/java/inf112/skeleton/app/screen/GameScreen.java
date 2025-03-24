@@ -29,7 +29,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import inf112.skeleton.app.GamePanel;
-import inf112.skeleton.app.map.CollisonArea;
+import inf112.skeleton.app.map.CollisionArea;
 import inf112.skeleton.app.map.Map;
 import inf112.skeleton.controller.GameKeys;
 import inf112.skeleton.controller.KeyHandler;
@@ -103,7 +103,7 @@ public class GameScreen extends AbstractScreen {
     }
 
     private void spawnCollisionsAreas() {
-        for (final CollisonArea collisionArea : map.getColissionAreas()) {
+        for (final CollisionArea collisionArea : map.getColissionAreas()) {
             resetBodyAndFixtureDefinition();
             // creates room
             bodyDef.position.set(collisionArea.getX(), collisionArea.getY());

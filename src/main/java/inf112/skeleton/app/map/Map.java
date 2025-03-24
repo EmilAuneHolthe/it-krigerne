@@ -17,12 +17,12 @@ import com.badlogic.gdx.utils.Array;
 public class Map {
   private final TiledMap tiledMap;
   public static final String TAG = Map.class.getSimpleName();
-  private final Array<CollisonArea> collisionAreas;
+  private final Array<CollisionArea> collisionAreas;
   private final Vector2 playerspawn;
   
   public Map(TiledMap tiledMap) {
     this.tiledMap = tiledMap;
-    collisionAreas = new Array<CollisonArea>();
+    collisionAreas = new Array<CollisionArea>();
     playerspawn = findPlayerSpawnVector2();
     getCollisionLayer();
   }
@@ -65,11 +65,11 @@ public class Map {
         //rectangle left bottom
         rectVertices[8] = 0;
         rectVertices[9] = 0;
-        collisionAreas.add(new CollisonArea(rectangle.x, rectangle.y, rectVertices));
+        collisionAreas.add(new CollisionArea(rectangle.x, rectangle.y, rectVertices));
       } else if(mapObject instanceof PolylineMapObject) {
         final PolylineMapObject polylineMapObject = (PolylineMapObject) mapObject;
         final Polyline polyLine = polylineMapObject.getPolyline();
-        collisionAreas.add(new CollisonArea(polyLine.getX(), polyLine.getY(), polyLine.getVertices()));
+        collisionAreas.add(new CollisionArea(polyLine.getX(), polyLine.getY(), polyLine.getVertices()));
        
       } else {
         Gdx.app.debug(TAG, "Collision object not supported: " + mapObject);
@@ -78,7 +78,7 @@ public class Map {
    
   }
   
-  public Array<CollisonArea> getColissionAreas() {
+  public Array<CollisionArea> getColissionAreas() {
     return collisionAreas;
   }
   private Vector2 findPlayerSpawnVector2() {

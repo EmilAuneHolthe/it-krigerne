@@ -1,12 +1,12 @@
 package inf112.skeleton.app.map;
 
 import static inf112.skeleton.app.GamePanel.UNIT_SCALE;
-public class CollisonArea {
+public class CollisionArea {
   private final float[] vertices;
   private final float x;
   private final float y;
 
-  public CollisonArea(final float x, final float y, final float[] vertices) {
+  public CollisionArea(final float x, final float y, final float[] vertices) {
     this.x = x * UNIT_SCALE;
     this.y = y * UNIT_SCALE;
     this.vertices = vertices;
