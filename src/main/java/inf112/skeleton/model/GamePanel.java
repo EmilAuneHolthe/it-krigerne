@@ -49,7 +49,7 @@ public class GamePanel extends Game {
     private EnumMap<ScreenType, AbstractScreen> screenCache;
     private FitViewport screenViewport;
     private World world;
-    private WorldContactListener worldContactListener;
+    // private WorldContactListener worldContactListener;
     private Box2DDebugRenderer box2DDebugRenderer;
 
 
@@ -74,8 +74,6 @@ public class GamePanel extends Game {
         // Box2D
         Box2D.init(); // Initialize Box2D
         world = new World(new Vector2(0, 0), true); // Create a new world with gravity
-        worldContactListener = new WorldContactListener();
-        world.setContactListener(worldContactListener);
         box2DDebugRenderer = new Box2DDebugRenderer(); // Create a new debug renderer
 
         //init assetManager
