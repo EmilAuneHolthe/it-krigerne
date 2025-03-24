@@ -8,6 +8,7 @@ import org.lwjgl.opengl.GL20;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.FPSLogger;
@@ -25,7 +26,11 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -64,6 +69,12 @@ public class GameScreen extends AbstractScreen {
     private String direction;
 
 
+    //UI
+    private Stage uiStage;
+    private Image healthBar;
+    private Image[] toolSlots = new Image[3];
+
+
     public GameScreen(GamePanel context) {
         super(context); 
 
@@ -87,6 +98,33 @@ public class GameScreen extends AbstractScreen {
         map = new Map(tiledMap);
 
         spawnplayer();
+        uiStage = new Stage(new ScreenViewport(), spriteBatch);
+
+        // --- UI Layout ---
+
+        // Top-left: health bar
+        Table topLeftTable = new Table();
+        topLeftTable.top().left().pad(10);
+        topLeftTable.setFillParent(true);
+
+        Texture healthTexture = new Texture(Gdx.files.internal("healthbar.png"));
+        healthBar = new Image(healthTexture);
+        topLeftTable.add(healthBar).width(200).height(100); // Adjust height as needed
+
+        uiStage.addActor(topLeftTable);
+
+        // Bottom-left: tool slots
+        Table bottomLeftTable = new Table();
+        bottomLeftTable.bottom().left().pad(10);
+        bottomLeftTable.setFillParent(true);
+
+        for (int i = 0; i < 3; i++) {
+            Texture toolSlotTexture = new Texture(Gdx.files.internal("toolslot.png"));
+            toolSlots[i] = new Image(toolSlotTexture);
+            bottomLeftTable.add(toolSlots[i]).size(40, 40).padRight(10);
+        }
+
+        uiStage.addActor(bottomLeftTable);
         spawnCollisionsAreas();
     }
 
@@ -166,12 +204,17 @@ public class GameScreen extends AbstractScreen {
         spriteBatch.begin();
         playerSprite.draw(spriteBatch);
         spriteBatch.end();
+
+        uiStage.act(delta);
+        uiStage.draw();
     }
 
     @Override
     public void show() {
         keyHandler.addListener(this);
         Gdx.input.setInputProcessor(keyHandler);
+        Gdx.input.setInputProcessor(new InputMultiplexer(uiStage, keyHandler));
+
 
     }
 
