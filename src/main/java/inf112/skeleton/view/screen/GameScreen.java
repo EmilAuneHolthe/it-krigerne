@@ -76,6 +76,11 @@ public class GameScreen extends AbstractScreen implements MapListener{
     private Image healthBar;
     private Image[] toolSlots = new Image[3];
 
+    private float health = 1;
+    private Texture healthTexture;
+
+    
+
 
     public GameScreen(GamePanel context) {
         super(context); 
@@ -92,7 +97,28 @@ public class GameScreen extends AbstractScreen implements MapListener{
         mapManager.addListener(this);
         mapManager.setMap(MapType.MAP_1);
 
+
         spawnplayer();
+        
+
+        //UI
+        uiStage = new Stage(new ScreenViewport(), spriteBatch);
+
+        Table topLeftTable = new Table();
+        topLeftTable.setFillParent(true);
+        topLeftTable.top().left().padTop(10).padLeft(10);
+        uiStage.addActor(topLeftTable);
+
+        topLeftTable.add(healthBar).width(200).height(20);
+
+        
+        
+        healthTexture = new Texture(Gdx.files.internal("redtexture.png"));
+        healthBar = new Image(healthTexture);
+        healthBar.setSize(200 * health, 20); // start at full width (or current health)
+        healthBar.setOrigin(0, 0); // anchor at bottom-left so we can shrink from left
+
+
     }
 
 
@@ -148,6 +174,9 @@ public class GameScreen extends AbstractScreen implements MapListener{
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             mapManager.setMap(MapType.MAP_2);
         }
+
+        uiStage.act(delta);
+        uiStage.draw();
     }
 
     @Override
@@ -324,5 +353,13 @@ public class GameScreen extends AbstractScreen implements MapListener{
         this.map = map;
         this.mapRenderer.setMap(map.getTiledMap());
     }
+
+
+
+    public void setHealth(float healthPercent) {
+        this.health = Math.max(0f, Math.min(1f, healthPercent)); // clamp between 0 and 1
+        healthBar.setSize(200 * this.health, 20); // update width
+    }
+    
 }
 
