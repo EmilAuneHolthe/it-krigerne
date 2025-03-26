@@ -153,10 +153,7 @@ public class GameScreen extends AbstractScreen implements MapListener{
     @Override
     public void show() {
         keyHandler.addListener(this);
-        Gdx.input.setInputProcessor(keyHandler);
-        Gdx.input.setInputProcessor(new InputMultiplexer(uiStage, keyHandler));
-
-
+        Gdx.input.setInputProcessor(keyHandler); // Fjernet uiStage for å unngå crash
     }
 
     @Override
