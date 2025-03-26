@@ -76,11 +76,10 @@ public class GameScreen extends AbstractScreen implements MapListener{
         spriteBatch = context.getSpriteBatch();
         mapRenderer = new OrthogonalTiledMapRenderer(null, GamePanel.UNIT_SCALE, context.getSpriteBatch());
         this.world = context.getWorld();
-
+    
         mapManager = context.getMapManager();
         mapManager.addListener(this);
         mapManager.setMap(MapType.MAP_1);
-    
 
         spawnplayer();
     }
@@ -132,6 +131,12 @@ public class GameScreen extends AbstractScreen implements MapListener{
         spriteBatch.begin();
         playerSprite.draw(spriteBatch);
         spriteBatch.end();
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+            mapManager.setMap(MapType.MAP_1);
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+            mapManager.setMap(MapType.MAP_2);
+        }
     }
 
     @Override
@@ -303,7 +308,8 @@ public class GameScreen extends AbstractScreen implements MapListener{
 
     @Override
     public void mapChanged(Map map) {
-        
+        this.map = map;
+        this.mapRenderer.setMap(map.getTiledMap());
     }
 }
 

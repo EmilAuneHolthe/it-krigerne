@@ -95,4 +95,8 @@ public class Map {
   public Vector2 getPlayerSpawn() {
     return playerspawn;
   }
+
+  public TiledMap getTiledMap() {
+    return tiledMap;
+}
 }
