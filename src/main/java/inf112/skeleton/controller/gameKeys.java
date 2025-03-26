@@ -22,6 +22,8 @@ public enum GameKeys {
         this.keyCode = keyCode;
     }
 
+    //ffff
+
     public int[] getKeyCode() {
         return keyCode;
     }
