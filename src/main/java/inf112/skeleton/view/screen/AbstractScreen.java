@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import inf112.skeleton.audio.AudioHandler;
-import inf112.skeleton.controller.GameKeys;
+import inf112.skeleton.controller.gameKeys;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.controller.KeyListener;
 import inf112.skeleton.model.GamePanel;
@@ -69,12 +69,12 @@ public class AbstractScreen  implements Screen, KeyListener {
     }
 
     @Override
-    public void keyPressed(KeyHandler keyHandler, GameKeys key) {
+    public void keyPressed(KeyHandler keyHandler, gameKeys key) {
         System.err.println("blblbblbl" + key);
     }
 
     @Override
-    public void keyReleased(KeyHandler keyHandler, GameKeys key) {
+    public void keyReleased(KeyHandler keyHandler, gameKeys key) {
         System.err.println("blblbblbl up" + key);
     }
     

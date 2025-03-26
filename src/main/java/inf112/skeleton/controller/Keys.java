@@ -2,7 +2,7 @@ package inf112.skeleton.controller;
 
 import com.badlogic.gdx.Input;
 
-public enum GameKeys {
+public enum Keys {
     //Menu keys
     PAUSE (Input.Keys.ESCAPE),
     BACK (Input.Keys.BACKSPACE),
@@ -18,11 +18,12 @@ public enum GameKeys {
 
     final int[] keyCode;
     
-    private GameKeys(int... keyCode) {
+    private Keys(int... keyCode) {
         this.keyCode = keyCode;
     }
 
     //ffff
+    //fffffff
 
     public int[] getKeyCode() {
         return keyCode;

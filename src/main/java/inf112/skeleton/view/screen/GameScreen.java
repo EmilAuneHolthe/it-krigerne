@@ -29,7 +29,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-import inf112.skeleton.controller.GameKeys;
+import inf112.skeleton.controller.gameKeys;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.controller.KeyListener;
 import inf112.skeleton.model.GamePanel;
@@ -174,13 +174,13 @@ public class GameScreen extends AbstractScreen implements MapListener{
     }
 
     @Override
-    public void keyPressed(KeyHandler keyHandler, GameKeys key) {
+    public void keyPressed(KeyHandler keyHandler, gameKeys key) {
         playerInput(keyHandler, key);
 
     }
 
     @Override
-    public void keyReleased(KeyHandler keyHandler, GameKeys key) {
+    public void keyReleased(KeyHandler keyHandler, gameKeys key) {
         movePlayerReleased(keyHandler, key);
     }
 
@@ -225,7 +225,7 @@ public class GameScreen extends AbstractScreen implements MapListener{
         playerSprite.setSize(1, 1);
     }
 
-    private void playerInput(KeyHandler keyHandler, GameKeys key) {
+    private void playerInput(KeyHandler keyHandler, gameKeys key) {
         System.err.println("Key pressed: " + key);
         
         switch (key) {
@@ -253,24 +253,24 @@ public class GameScreen extends AbstractScreen implements MapListener{
         dontAccelerate();
     }
 
-    private void movePlayerReleased (KeyHandler keyHandler, GameKeys key) {
+    private void movePlayerReleased (KeyHandler keyHandler, gameKeys key) {
 
         switch (key) {
             case LEFT:
             case RIGHT:
                 xFactor = 0;
-                if (keyHandler.isKeyPressed(GameKeys.LEFT)) {
+                if (keyHandler.isKeyPressed(gameKeys.LEFT)) {
                     xFactor = -3;
-                } else if (keyHandler.isKeyPressed(GameKeys.RIGHT)) {
+                } else if (keyHandler.isKeyPressed(gameKeys.RIGHT)) {
                     xFactor = 3;
                 }
                 break;
             case UP:
             case DOWN:
                 yFactor = 0;
-                if (keyHandler.isKeyPressed(GameKeys.UP)) {
+                if (keyHandler.isKeyPressed(gameKeys.UP)) {
                     yFactor = 3;
-                } else if (keyHandler.isKeyPressed(GameKeys.DOWN)) {
+                } else if (keyHandler.isKeyPressed(gameKeys.DOWN)) {
                     yFactor = -3;
                 }
                 break;
