@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import inf112.skeleton.audio.AudioTypes;
-import inf112.skeleton.controller.GameKeys;
+import inf112.skeleton.controller.Keys;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
 
@@ -77,15 +77,15 @@ public class SettingScreen extends AbstractScreen {
     }
     
     @Override
-    public void keyPressed(KeyHandler keyHandler, GameKeys key) {
+    public void keyPressed(KeyHandler keyHandler, Keys key) {
         returnToMainMenu(keyHandler, key);
     }
 
     @Override
-    public void keyReleased(KeyHandler keyHandler, GameKeys key) {
+    public void keyReleased(KeyHandler keyHandler, Keys key) {
     }
 
-    private void returnToMainMenu(KeyHandler keyHandler, GameKeys key) {
+    private void returnToMainMenu(KeyHandler keyHandler, Keys key) {
         switch (key) {
             case PAUSE:
             audioHandler.playAudio(AudioTypes.SELECT);

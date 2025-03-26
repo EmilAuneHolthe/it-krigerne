@@ -34,16 +34,18 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-import inf112.skeleton.controller.GameKeys;
+import inf112.skeleton.controller.Keys;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.controller.KeyListener;
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.map.CollisionArea;
 import inf112.skeleton.model.map.Map;
+import inf112.skeleton.model.map.MapListener;
+import inf112.skeleton.model.map.MapManager;
+import inf112.skeleton.model.map.MapType;
 
-public class GameScreen extends AbstractScreen {
-    private final BodyDef bodyDef;
-    private final FixtureDef fixtureDef;
+public class GameScreen extends AbstractScreen implements MapListener{
+  
 
     //MOVEMENT
     private boolean directionChange;
@@ -59,7 +61,6 @@ public class GameScreen extends AbstractScreen {
     private final OrthographicCamera camera;
 
     private static final short BIT_PLAYER = GamePanel.BIT_Player;
-    private static final short BIT_GROUND = GamePanel.BIT_Ground;
     private final GLProfiler profiler;
 
     private Sprite playerSprite;
@@ -67,6 +68,7 @@ public class GameScreen extends AbstractScreen {
     private Texture playerTexture;
     private Map map;
     private String direction;
+    private final MapManager mapManager; 
 
 
     //UI
@@ -80,101 +82,35 @@ public class GameScreen extends AbstractScreen {
 
         profiler = new GLProfiler(Gdx.graphics);
         profiler.enable();
-
-
-
         assetManager = context.getAssetManager();
         this.camera = context.getCamera();
         spriteBatch = context.getSpriteBatch();
         mapRenderer = new OrthogonalTiledMapRenderer(null, GamePanel.UNIT_SCALE, context.getSpriteBatch());
         this.world = context.getWorld();
-     
-        bodyDef = new BodyDef();
-        fixtureDef = new FixtureDef();
-
-        final TiledMap tiledMap = assetManager.get("map/SampleMap/samplemap.tmx", TiledMap.class);
-        //final TiledMap tiledMap = assetManager.get("map/testMap/testMap.tmx", TiledMap.class);
-        mapRenderer.setMap(tiledMap);
-        map = new Map(tiledMap);
+    
+        mapManager = context.getMapManager();
+        mapManager.addListener(this);
+        mapManager.setMap(MapType.MAP_1);
 
         spawnplayer();
-        uiStage = new Stage(new ScreenViewport(), spriteBatch);
-
-        // --- UI Layout ---
-
-        // Top-left: health bar
-        Table topLeftTable = new Table();
-        topLeftTable.top().left().pad(10);
-        topLeftTable.setFillParent(true);
-
-        Texture healthTexture = new Texture(Gdx.files.internal("healthbar.png"));
-        healthBar = new Image(healthTexture);
-        topLeftTable.add(healthBar).width(200).height(100); // Adjust height as needed
-
-        uiStage.addActor(topLeftTable);
-
-        // Bottom-left: tool slots
-        Table bottomLeftTable = new Table();
-        bottomLeftTable.bottom().left().pad(10);
-        bottomLeftTable.setFillParent(true);
-
-        for (int i = 0; i < 3; i++) {
-            Texture toolSlotTexture = new Texture(Gdx.files.internal("toolslot.png"));
-            toolSlots[i] = new Image(toolSlotTexture);
-            bottomLeftTable.add(toolSlots[i]).size(40, 40).padRight(10);
-        }
-
-        uiStage.addActor(bottomLeftTable);
-        spawnCollisionsAreas();
     }
 
-    private void resetBodyAndFixtureDefinition(){
-        bodyDef.position.set(0, 0);
-        bodyDef.gravityScale = 0;
-        bodyDef.type = BodyDef.BodyType.StaticBody;
-
-        fixtureDef.isSensor = false;
-        fixtureDef.restitution = 0.75f;
-        fixtureDef.friction = 0.2f;
-        fixtureDef.filter.categoryBits = BIT_GROUND;
-        fixtureDef.filter.maskBits = -1;
-
-    }
-
-    private void spawnCollisionsAreas() {
-        for (final CollisionArea collisionArea : map.getColissionAreas()) {
-            resetBodyAndFixtureDefinition();
-            // creates room
-            bodyDef.position.set(collisionArea.getX(), collisionArea.getY());
-            bodyDef.fixedRotation = true;
-            final Body body = world.createBody(bodyDef);
-            body.setUserData("GROUND");
-
-            fixtureDef.filter.categoryBits = BIT_GROUND;
-            fixtureDef.filter.maskBits = -1;
-            final ChainShape cShape = new ChainShape();
-            cShape.createChain(collisionArea.getVertices());
-            fixtureDef.shape = cShape;
-            body.createFixture(fixtureDef);
-            cShape.dispose();
-        }
-    }
 
     private void spawnplayer(){
-        resetBodyAndFixtureDefinition();
+        GamePanel.resetBodyAndFixtureDefinition();
 
-        bodyDef.position.set(map.getPlayerSpawn().x * UNIT_SCALE, map.getPlayerSpawn().y * UNIT_SCALE);
-        bodyDef.fixedRotation = true;
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        player = world.createBody(bodyDef);
+        GamePanel.BODY_DEF.position.set(map.getPlayerSpawn().x * UNIT_SCALE, map.getPlayerSpawn().y * UNIT_SCALE);
+        GamePanel.BODY_DEF.fixedRotation = true;
+        GamePanel.BODY_DEF.type = BodyDef.BodyType.DynamicBody;
+        player = world.createBody(GamePanel.BODY_DEF);
         player.setUserData("PLAYER");
 
-        fixtureDef.filter.categoryBits = BIT_PLAYER;   
-        fixtureDef.filter.maskBits = BIT_GROUND;
+        GamePanel.FIXTURE_DEF.filter.categoryBits = BIT_PLAYER;   
+        GamePanel.FIXTURE_DEF.filter.maskBits = GamePanel.BIT_GROUND;
         final PolygonShape pShape = new PolygonShape();
         pShape.setAsBox(0.4f, 0.4f);
-        fixtureDef.shape = pShape;
-        player.createFixture(fixtureDef);
+        GamePanel.FIXTURE_DEF.shape = pShape;
+        player.createFixture(GamePanel.FIXTURE_DEF);
         pShape.dispose();
 
         getPlayerImage();
@@ -194,6 +130,8 @@ public class GameScreen extends AbstractScreen {
         mapRenderer.render();;
         box2DDebugRenderer.render(world, camera.combined);
 
+        
+
         /*Gdx.app.debug("renderinfo", "Bindings" + profiler.getTextureBindings());
         Gdx.app.debug("renderinfo", "Drawcells" + profiler.getDrawCalls());
         profiler.reset();*/
@@ -205,8 +143,11 @@ public class GameScreen extends AbstractScreen {
         playerSprite.draw(spriteBatch);
         spriteBatch.end();
 
-        uiStage.act(delta);
-        uiStage.draw();
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+            mapManager.setMap(MapType.MAP_1);
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+            mapManager.setMap(MapType.MAP_2);
+        }
     }
 
     @Override
@@ -246,13 +187,13 @@ public class GameScreen extends AbstractScreen {
     }
 
     @Override
-    public void keyPressed(KeyHandler keyHandler, GameKeys key) {
+    public void keyPressed(KeyHandler keyHandler, Keys key) {
         playerInput(keyHandler, key);
 
     }
 
     @Override
-    public void keyReleased(KeyHandler keyHandler, GameKeys key) {
+    public void keyReleased(KeyHandler keyHandler, Keys key) {
         movePlayerReleased(keyHandler, key);
     }
 
@@ -297,7 +238,7 @@ public class GameScreen extends AbstractScreen {
         playerSprite.setSize(1, 1);
     }
 
-    private void playerInput(KeyHandler keyHandler, GameKeys key) {
+    private void playerInput(KeyHandler keyHandler, Keys key) {
         System.err.println("Key pressed: " + key);
         
         switch (key) {
@@ -325,24 +266,24 @@ public class GameScreen extends AbstractScreen {
         dontAccelerate();
     }
 
-    private void movePlayerReleased (KeyHandler keyHandler, GameKeys key) {
+    private void movePlayerReleased (KeyHandler keyHandler, Keys key) {
 
         switch (key) {
             case LEFT:
             case RIGHT:
                 xFactor = 0;
-                if (keyHandler.isKeyPressed(GameKeys.LEFT)) {
+                if (keyHandler.isKeyPressed(Keys.LEFT)) {
                     xFactor = -3;
-                } else if (keyHandler.isKeyPressed(GameKeys.RIGHT)) {
+                } else if (keyHandler.isKeyPressed(Keys.RIGHT)) {
                     xFactor = 3;
                 }
                 break;
             case UP:
             case DOWN:
                 yFactor = 0;
-                if (keyHandler.isKeyPressed(GameKeys.UP)) {
+                if (keyHandler.isKeyPressed(Keys.UP)) {
                     yFactor = 3;
-                } else if (keyHandler.isKeyPressed(GameKeys.DOWN)) {
+                } else if (keyHandler.isKeyPressed(Keys.DOWN)) {
                     yFactor = -3;
                 }
                 break;
@@ -375,6 +316,13 @@ public class GameScreen extends AbstractScreen {
             );
 
         }
+    }
+
+
+    @Override
+    public void mapChanged(Map map) {
+        this.map = map;
+        this.mapRenderer.setMap(map.getTiledMap());
     }
 }
 

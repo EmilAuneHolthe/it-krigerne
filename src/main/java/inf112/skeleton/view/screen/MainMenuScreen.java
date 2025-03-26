@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 
 import inf112.skeleton.audio.AudioTypes;
-import inf112.skeleton.controller.GameKeys;
+import inf112.skeleton.controller.Keys;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
 
@@ -124,12 +124,12 @@ public class MainMenuScreen extends AbstractScreen {
     }
     
     @Override
-    public void keyPressed(KeyHandler keyHandler, GameKeys key) {
+    public void keyPressed(KeyHandler keyHandler, Keys key) {
         System.err.println("MainMeny pressed: " + key);
     }
     
     @Override
-    public void keyReleased(KeyHandler keyHandler, GameKeys key) {
+    public void keyReleased(KeyHandler keyHandler, Keys key) {
     }
 }
 

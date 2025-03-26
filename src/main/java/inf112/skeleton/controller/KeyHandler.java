@@ -5,18 +5,18 @@ import com.badlogic.gdx.utils.Array;
 
 public class KeyHandler implements InputProcessor {
 
-    private final GameKeys[] keyMapping;
+    private final Keys[] keyMapping;
     private final boolean[] keyState;
     private final Array<KeyListener> listeners;
 
     public KeyHandler() {
-        this.keyMapping = new GameKeys[256]; // 256 is the maximum number of keys in the Input.Keys class
-        for(final GameKeys key : GameKeys.values()) {
+        this.keyMapping = new Keys[256]; // 256 is the maximum number of keys in the Input.Keys class
+        for(final Keys key : Keys.values()) {
             for(final int code : key.keyCode) {
                 keyMapping[code] = key;
             }
         }
-        this.keyState = new boolean[GameKeys.values().length];
+        this.keyState = new boolean[Keys.values().length];
         listeners = new Array<KeyListener>();
     }
 
@@ -31,7 +31,7 @@ public class KeyHandler implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        final GameKeys key = keyMapping[keycode];
+        final Keys key = keyMapping[keycode];
         if(key == null) {
             return false;
         }
@@ -41,7 +41,7 @@ public class KeyHandler implements InputProcessor {
         return true;
     }
 
-    public void notifyKeyDown(final GameKeys key) {
+    public void notifyKeyDown(final Keys key) {
         keyState[key.ordinal()] = true;
         for(final KeyListener listener : listeners) {
             listener.keyPressed(this, key);
@@ -50,7 +50,7 @@ public class KeyHandler implements InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
-        final GameKeys key = keyMapping[keycode];
+        final Keys key = keyMapping[keycode];
         if(key == null) {
             return false;
         }
@@ -60,14 +60,14 @@ public class KeyHandler implements InputProcessor {
         return true;
     }
 
-    public void notifyKeyUp(final GameKeys key) {
+    public void notifyKeyUp(final Keys key) {
         keyState[key.ordinal()] = false;
         for(final KeyListener listener : listeners) {
             listener.keyReleased(this, key);
     }
     }
 
-    public boolean isKeyPressed(final GameKeys key) {
+    public boolean isKeyPressed(final Keys key) {
         return keyState[key.ordinal()];
     }
 

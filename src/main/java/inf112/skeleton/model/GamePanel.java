@@ -18,8 +18,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
@@ -35,6 +37,7 @@ import java.util.Map;
 import inf112.skeleton.audio.AudioHandler;
 import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.KeyHandler;
+import inf112.skeleton.model.map.MapManager;
 import inf112.skeleton.view.screen.*; 
 
 public class GamePanel extends Game {
@@ -49,7 +52,6 @@ public class GamePanel extends Game {
     private EnumMap<ScreenType, AbstractScreen> screenCache;
     private FitViewport screenViewport;
     private World world;
-    // private WorldContactListener worldContactListener;
     private Box2DDebugRenderer box2DDebugRenderer;
 
 
@@ -61,9 +63,14 @@ public class GamePanel extends Game {
     private static final float FIXED_TIME_STEP = 1/60f;
     private float accumulator;
 
+    public static final BodyDef BODY_DEF = new BodyDef();
+    public static final FixtureDef FIXTURE_DEF = new FixtureDef();
+    public static final short BIT_GROUND = GamePanel.BIT_Ground;
+
     private AssetManager assetManager;
     private KeyHandler keyHandler;
     private AudioHandler audioHandler;
+    private MapManager mapManager;
 
     @Override
     public void create() {
@@ -75,7 +82,7 @@ public class GamePanel extends Game {
         Box2D.init(); // Initialize Box2D
         world = new World(new Vector2(0, 0), true); // Create a new world with gravity
         box2DDebugRenderer = new Box2DDebugRenderer(); // Create a new debug renderer
-
+        
         //init assetManager
         assetManager = new AssetManager();  
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
@@ -93,6 +100,9 @@ public class GamePanel extends Game {
         //Input 
         keyHandler = new KeyHandler();  // Initialize KeyHandler
 
+        //MapManager
+        mapManager = new MapManager(this);
+
         setScreen(ScreenType.MAIN_MENU);
     }
 
@@ -105,6 +115,7 @@ public class GamePanel extends Game {
     public SpriteBatch getSpriteBatch() {return spriteBatch;}
     public OrthographicCamera getCamera() {return camera;}
     public AudioHandler getAudioHandler() {return audioHandler;}
+    public MapManager getMapManager() {return mapManager;}
 
 
     public void setScreen(final ScreenType screenType) {
@@ -164,6 +175,19 @@ public class GamePanel extends Game {
             instance = new GamePanel();
         }
         return instance;
+    }
+
+    public static void resetBodyAndFixtureDefinition(){
+        BODY_DEF.position.set(0, 0);
+        BODY_DEF.gravityScale = 0;
+        BODY_DEF.type = BodyDef.BodyType.StaticBody;
+
+        FIXTURE_DEF.isSensor = false;
+        FIXTURE_DEF.restitution = 0.75f;
+        FIXTURE_DEF.friction = 0.2f;
+        FIXTURE_DEF.filter.categoryBits = BIT_GROUND;
+        FIXTURE_DEF.filter.maskBits = -1;
+
     }
 
     
