@@ -1,4 +1,4 @@
-package inf112.skeleton.app.mapTest;
+package inf112.skeleton.model.map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

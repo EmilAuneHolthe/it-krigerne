@@ -1,4 +1,4 @@
-package inf112.skeleton.app;
+package inf112.skeleton.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

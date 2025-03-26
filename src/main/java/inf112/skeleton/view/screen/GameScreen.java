@@ -8,6 +8,7 @@ import org.lwjgl.opengl.GL20;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.FPSLogger;
@@ -25,7 +26,11 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -64,6 +69,12 @@ public class GameScreen extends AbstractScreen implements MapListener{
     private Map map;
     private String direction;
     private final MapManager mapManager; 
+
+
+    //UI
+    private Stage uiStage;
+    private Image healthBar;
+    private Image[] toolSlots = new Image[3];
 
 
     public GameScreen(GamePanel context) {
@@ -143,6 +154,8 @@ public class GameScreen extends AbstractScreen implements MapListener{
     public void show() {
         keyHandler.addListener(this);
         Gdx.input.setInputProcessor(keyHandler);
+        Gdx.input.setInputProcessor(new InputMultiplexer(uiStage, keyHandler));
+
 
     }
 
