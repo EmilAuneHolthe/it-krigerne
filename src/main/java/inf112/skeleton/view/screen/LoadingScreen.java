@@ -15,7 +15,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
 import inf112.skeleton.audio.AudioTypes;
-import inf112.skeleton.controller.gameKeys;
+import inf112.skeleton.controller.Keys;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
 
