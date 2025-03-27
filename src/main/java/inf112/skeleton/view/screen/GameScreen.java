@@ -28,6 +28,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -35,6 +36,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import inf112.skeleton.controller.Keys;
+import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.controller.KeyListener;
 import inf112.skeleton.model.GamePanel;
@@ -77,7 +79,9 @@ public class GameScreen extends AbstractScreen implements MapListener{
     //UI
     private Stage uiStage;
     private Texture healthTexture;
+    private Texture backgroundTexture;
     private PlayerHUD playerHUD;
+    private Skin skin;
 
 
     
@@ -105,8 +109,10 @@ public class GameScreen extends AbstractScreen implements MapListener{
 
         //UI
         healthTexture = new Texture(Gdx.files.internal("redtexture.png"));
+        backgroundTexture = new Texture(Gdx.files.internal("graytexture.png"));
         uiStage = new Stage(new ScreenViewport(), spriteBatch);
-        playerHUD = new PlayerHUD(uiStage, player, healthTexture);
+        playerHUD = new PlayerHUD(uiStage, player, healthTexture, backgroundTexture);
+        
     }
 
 
@@ -171,7 +177,9 @@ public class GameScreen extends AbstractScreen implements MapListener{
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.T)) {
             boolean alive = player.takeDamage(10); // deal 10 damage
+            context.getAudioHandler().playAudio(AudioTypes.HURT);
             Gdx.app.log("DAMAGE", "Player took 10 damage. Current HP: " + player.getHealth());
+            
         
             if (!alive) {
                 Gdx.app.log("DAMAGE", "Player has died!");
