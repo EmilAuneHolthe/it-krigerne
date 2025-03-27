@@ -44,6 +44,8 @@ import inf112.skeleton.model.map.Map;
 import inf112.skeleton.model.map.MapListener;
 import inf112.skeleton.model.map.MapManager;
 import inf112.skeleton.model.map.MapType;
+import inf112.skeleton.view.ui.PlayerHUD;;
+
 
 public class GameScreen extends AbstractScreen implements MapListener{
   
@@ -74,11 +76,9 @@ public class GameScreen extends AbstractScreen implements MapListener{
 
     //UI
     private Stage uiStage;
-    private Image healthBar;
-    private Image[] toolSlots = new Image[3];
-
-    private float health = 1;
     private Texture healthTexture;
+    private PlayerHUD playerHUD;
+
 
     
 
@@ -104,23 +104,9 @@ public class GameScreen extends AbstractScreen implements MapListener{
         
 
         //UI
-        uiStage = new Stage(new ScreenViewport(), spriteBatch);
-
-        Table topLeftTable = new Table();
-        topLeftTable.setFillParent(true);
-        topLeftTable.top().left().padTop(10).padLeft(10);
-        uiStage.addActor(topLeftTable);
-
-        topLeftTable.add(healthBar).width(200).height(20);
-
-        
-        
         healthTexture = new Texture(Gdx.files.internal("redtexture.png"));
-        healthBar = new Image(healthTexture);
-        healthBar.setSize(200 * health, 20); // start at full width (or current health)
-        healthBar.setOrigin(0, 0); // anchor at bottom-left so we can shrink from left
-
-
+        uiStage = new Stage(new ScreenViewport(), spriteBatch);
+        playerHUD = new PlayerHUD(uiStage, player, healthTexture);
     }
 
 
@@ -181,8 +167,23 @@ public class GameScreen extends AbstractScreen implements MapListener{
             mapManager.setMap(MapType.MAP_2);
         }
 
+
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.T)) {
+            boolean alive = player.takeDamage(10); // deal 10 damage
+            Gdx.app.log("DAMAGE", "Player took 10 damage. Current HP: " + player.getHealth());
+        
+            if (!alive) {
+                Gdx.app.log("DAMAGE", "Player has died!");
+                // Optional: trigger death state, animation, etc.
+            }
+        }
+        
+
         uiStage.act(delta);
         uiStage.draw();
+        playerHUD.update();
+
     }
 
     @Override
@@ -354,13 +355,6 @@ public class GameScreen extends AbstractScreen implements MapListener{
     public void mapChanged(Map map) {
         this.map = map;
         this.mapRenderer.setMap(map.getTiledMap());
-    }
-
-
-
-    public void setHealth(float healthPercent) {
-        this.health = Math.max(0f, Math.min(1f, healthPercent)); // clamp between 0 and 1
-        healthBar.setSize(200 * this.health, 20); // update width
     }
     
 }
