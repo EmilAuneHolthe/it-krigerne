@@ -28,6 +28,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -77,7 +78,9 @@ public class GameScreen extends AbstractScreen implements MapListener{
     //UI
     private Stage uiStage;
     private Texture healthTexture;
+    private Texture backgroundTexture;
     private PlayerHUD playerHUD;
+    private Skin skin;
 
 
     
@@ -105,8 +108,10 @@ public class GameScreen extends AbstractScreen implements MapListener{
 
         //UI
         healthTexture = new Texture(Gdx.files.internal("redtexture.png"));
+        backgroundTexture = new Texture(Gdx.files.internal("graytexture.png"));
         uiStage = new Stage(new ScreenViewport(), spriteBatch);
-        playerHUD = new PlayerHUD(uiStage, player, healthTexture);
+        playerHUD = new PlayerHUD(uiStage, player, healthTexture, backgroundTexture);
+        
     }
 
 
