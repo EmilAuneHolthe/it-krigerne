@@ -44,6 +44,8 @@ import inf112.skeleton.model.map.Map;
 import inf112.skeleton.model.map.MapListener;
 import inf112.skeleton.model.map.MapManager;
 import inf112.skeleton.model.map.MapType;
+import inf112.skeleton.view.ui.PlayerHUD;;
+
 
 public class GameScreen extends AbstractScreen implements MapListener{
   
@@ -74,8 +76,11 @@ public class GameScreen extends AbstractScreen implements MapListener{
 
     //UI
     private Stage uiStage;
-    private Image healthBar;
-    private Image[] toolSlots = new Image[3];
+    private Texture healthTexture;
+    private PlayerHUD playerHUD;
+
+
+    
 
 
     public GameScreen(GamePanel context) {
@@ -92,9 +97,16 @@ public class GameScreen extends AbstractScreen implements MapListener{
         mapManager.addListener(this);
         mapManager.setMap(MapType.MAP_1);
         direction = "Front";
+
         spawnplayer();
         playerBody =  player.getBody();
         player.getHealth();
+        
+
+        //UI
+        healthTexture = new Texture(Gdx.files.internal("redtexture.png"));
+        uiStage = new Stage(new ScreenViewport(), spriteBatch);
+        playerHUD = new PlayerHUD(uiStage, player, healthTexture);
     }
 
 
@@ -154,6 +166,24 @@ public class GameScreen extends AbstractScreen implements MapListener{
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             mapManager.setMap(MapType.MAP_2);
         }
+
+
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.T)) {
+            boolean alive = player.takeDamage(10); // deal 10 damage
+            Gdx.app.log("DAMAGE", "Player took 10 damage. Current HP: " + player.getHealth());
+        
+            if (!alive) {
+                Gdx.app.log("DAMAGE", "Player has died!");
+                // Optional: trigger death state, animation, etc.
+            }
+        }
+        
+
+        uiStage.act(delta);
+        uiStage.draw();
+        playerHUD.update();
+
     }
 
     @Override
@@ -326,5 +356,6 @@ public class GameScreen extends AbstractScreen implements MapListener{
         this.map = map;
         this.mapRenderer.setMap(map.getTiledMap());
     }
+    
 }
 
