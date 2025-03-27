@@ -94,6 +94,7 @@ public class GameScreen extends AbstractScreen implements MapListener{
         direction = "Front";
         spawnplayer();
         playerBody =  player.getBody();
+        player.getHealth();
     }
 
 
@@ -105,7 +106,7 @@ public class GameScreen extends AbstractScreen implements MapListener{
         GamePanel.BODY_DEF.fixedRotation = true;
         GamePanel.BODY_DEF.type = BodyDef.BodyType.DynamicBody;
         Body body = world.createBody(GamePanel.BODY_DEF);
-        body.setUserData("PLAYER");
+        body.setUserData("Test");
 
         GamePanel.FIXTURE_DEF.filter.categoryBits = BIT_PLAYER;   
         GamePanel.FIXTURE_DEF.filter.maskBits = GamePanel.BIT_GROUND;

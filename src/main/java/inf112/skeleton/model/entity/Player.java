@@ -33,7 +33,10 @@ public class Player implements entity {
 
     @Override
     public int getHealth() {
-        return health;
+      if (health < 0) {
+        return 0;
+      }
+      return health;
     }
 
     @Override

@@ -20,6 +20,9 @@ public class Enemy implements entity {
 
     @Override
     public int getHealth() {
+      if (health < 0) {
+        return 0;
+      }
       return health;
     }
     @Override

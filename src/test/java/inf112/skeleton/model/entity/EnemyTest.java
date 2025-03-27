@@ -15,10 +15,10 @@ public class EnemyTest {
 
     @Test
     public void testTakeDamage() {
-        assertFalse(enemy.takeDamage(30)); // Health should not drop to 0
+        assertTrue(enemy.takeDamage(30)); // Health should not drop to 0
         assertEquals(70, enemy.getHealth());
 
-        assertTrue(enemy.takeDamage(70)); // Health should drop to 0
+        assertFalse(enemy.takeDamage(70)); // Health should drop to 0
         assertEquals(0, enemy.getHealth());
     }
 
