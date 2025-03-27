@@ -36,6 +36,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import inf112.skeleton.controller.Keys;
+import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.controller.KeyListener;
 import inf112.skeleton.model.GamePanel;
@@ -176,7 +177,9 @@ public class GameScreen extends AbstractScreen implements MapListener{
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.T)) {
             boolean alive = player.takeDamage(10); // deal 10 damage
+            context.getAudioHandler().playAudio(AudioTypes.HURT);
             Gdx.app.log("DAMAGE", "Player took 10 damage. Current HP: " + player.getHealth());
+            
         
             if (!alive) {
                 Gdx.app.log("DAMAGE", "Player has died!");
