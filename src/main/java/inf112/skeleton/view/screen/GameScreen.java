@@ -91,7 +91,7 @@ public class GameScreen extends AbstractScreen implements MapListener{
         mapManager = context.getMapManager();
         mapManager.addListener(this);
         mapManager.setMap(MapType.MAP_1);
-
+        direction = "Front";
         spawnplayer();
     }
 
@@ -137,8 +137,8 @@ public class GameScreen extends AbstractScreen implements MapListener{
         profiler.reset();*/
         //Gdx.app.debug(FPSLogger.class.getSimpleName(), "FPS: " + Gdx.graphics.getFramesPerSecond());
         movePlayer();
+        setPlayeSprite();
         playerSprite.setPosition(player.getPosition().x - playerSprite.getWidth() / 2, player.getPosition().y - playerSprite.getHeight() / 2);
-        
         spriteBatch.begin();
         playerSprite.draw(spriteBatch);
         spriteBatch.end();

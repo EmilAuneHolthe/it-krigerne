@@ -6,7 +6,7 @@ public class Enemy implements entity {
     private int x;
     private int y;
     @Override
-    public void attack() {
+    public int attack() {
       // TODO Auto-generated method stub
       throw new UnsupportedOperationException("Unimplemented method 'attack'");
     }
@@ -23,7 +23,7 @@ public class Enemy implements entity {
     @Override
     public boolean takeDamage(int damage) {
       health -= damage;
-      return health <= 0;
+      return health > 0;
     }
     @Override
     public void setHealth(int health) {
