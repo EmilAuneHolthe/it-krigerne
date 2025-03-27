@@ -1,10 +1,12 @@
 package inf112.skeleton.model.entity;
 
+import com.badlogic.gdx.physics.box2d.Body;
+
 public class Enemy implements entity {
     private int health;
     private int damage;
-    private int x;
-    private int y;
+    private float x;
+    private float y;
     @Override
     public int attack() {
       // TODO Auto-generated method stub
@@ -30,17 +32,27 @@ public class Enemy implements entity {
       this.health = health;
     }
     @Override
-    public void setSpawn(int x, int y) {
+    public void setSpawn(float x, float y) {
       this.x = x;
       this.y = y;
     }
     @Override
-    public int getX() {
+    public float getX() {
      return x;
     }
     @Override
-    public int getY() {
+    public float getY() {
      return y;
     }
-  
+    public void create(int health, int damage, float x, float y) {
+      this.health = health;
+      this.damage = damage;
+      this.x = x;
+      this.y = y;
+    }
+    @Override
+    public Body getBody() {
+      // TODO Auto-generated method stub
+      throw new UnsupportedOperationException("Unimplemented method 'getBody'");
+    }
 }

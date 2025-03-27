@@ -38,6 +38,7 @@ import inf112.skeleton.controller.Keys;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.controller.KeyListener;
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.entity.Player;
 import inf112.skeleton.model.map.CollisionArea;
 import inf112.skeleton.model.map.Map;
 import inf112.skeleton.model.map.MapListener;
@@ -51,8 +52,7 @@ public class GameScreen extends AbstractScreen implements MapListener{
     private boolean directionChange;
     private float xFactor;
     private float yFactor;
-
-    private Body player;
+    private Player player;
     private final World world;
     private final AssetManager assetManager;
     private SpriteBatch spriteBatch;
@@ -69,6 +69,7 @@ public class GameScreen extends AbstractScreen implements MapListener{
     private Map map;
     private String direction;
     private final MapManager mapManager; 
+    private Body playerBody;
 
 
     //UI
@@ -79,7 +80,6 @@ public class GameScreen extends AbstractScreen implements MapListener{
 
     public GameScreen(GamePanel context) {
         super(context); 
-
         profiler = new GLProfiler(Gdx.graphics);
         profiler.enable();
         assetManager = context.getAssetManager();
@@ -93,25 +93,30 @@ public class GameScreen extends AbstractScreen implements MapListener{
         mapManager.setMap(MapType.MAP_1);
         direction = "Front";
         spawnplayer();
+        playerBody =  player.getBody();
     }
 
 
     private void spawnplayer(){
+
         GamePanel.resetBodyAndFixtureDefinition();
 
         GamePanel.BODY_DEF.position.set(map.getPlayerSpawn().x * UNIT_SCALE, map.getPlayerSpawn().y * UNIT_SCALE);
         GamePanel.BODY_DEF.fixedRotation = true;
         GamePanel.BODY_DEF.type = BodyDef.BodyType.DynamicBody;
-        player = world.createBody(GamePanel.BODY_DEF);
-        player.setUserData("PLAYER");
+        Body body = world.createBody(GamePanel.BODY_DEF);
+        body.setUserData("PLAYER");
 
         GamePanel.FIXTURE_DEF.filter.categoryBits = BIT_PLAYER;   
         GamePanel.FIXTURE_DEF.filter.maskBits = GamePanel.BIT_GROUND;
         final PolygonShape pShape = new PolygonShape();
         pShape.setAsBox(0.4f, 0.4f);
         GamePanel.FIXTURE_DEF.shape = pShape;
-        player.createFixture(GamePanel.FIXTURE_DEF);
+        body.createFixture(GamePanel.FIXTURE_DEF);
         pShape.dispose();
+
+        // Initialize Player with Body properties
+        player = new Player(world, body, 100, 10, (int) map.getPlayerSpawn().x *  UNIT_SCALE, (int) map.getPlayerSpawn().y *  UNIT_SCALE);
 
         getPlayerImage();
         createSprite(playerIdleFrontTexture);
@@ -123,7 +128,7 @@ public class GameScreen extends AbstractScreen implements MapListener{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         viewport.apply(true);
 
-        camera.position.set(player.getPosition().x, player.getPosition().y, 0);
+        camera.position.set(playerBody.getPosition().x, playerBody.getPosition().y, 0); // Use player
         camera.update();
         
         mapRenderer.setView(camera);
@@ -138,7 +143,7 @@ public class GameScreen extends AbstractScreen implements MapListener{
         //Gdx.app.debug(FPSLogger.class.getSimpleName(), "FPS: " + Gdx.graphics.getFramesPerSecond());
         movePlayer();
         setPlayeSprite();
-        playerSprite.setPosition(player.getPosition().x - playerSprite.getWidth() / 2, player.getPosition().y - playerSprite.getHeight() / 2);
+        playerSprite.setPosition(playerBody.getPosition().x - playerSprite.getWidth() / 2, playerBody.getPosition().y - playerSprite.getHeight() / 2);
         spriteBatch.begin();
         playerSprite.draw(spriteBatch);
         spriteBatch.end();
@@ -306,12 +311,11 @@ public class GameScreen extends AbstractScreen implements MapListener{
     }
     private void movePlayer() {
         if(directionChange) {
-        player.applyLinearImpulse(
-            (xFactor * 3 - player.getLinearVelocity().x * player.getMass()),
-            (yFactor * 3 - player.getLinearVelocity().y * player.getMass()),
-            player.getWorldCenter().x, player.getWorldCenter().y, true
+            playerBody.applyLinearImpulse(
+            (xFactor * 3 - playerBody.getLinearVelocity().x * playerBody.getMass()),
+            (yFactor * 3 - playerBody.getLinearVelocity().y * playerBody.getMass()),
+            playerBody.getWorldCenter().x, playerBody.getWorldCenter().y, true
             );
-
         }
     }
 
