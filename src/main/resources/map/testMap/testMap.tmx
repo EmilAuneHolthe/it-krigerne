@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-up" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="47">
+ <tileset firstgid="1" source="GrassSprites.tsx"/>
+ <tileset firstgid="529" source="DirtSprites.tsx"/>
+ <tileset firstgid="865" source="Decorations.tsx"/>
+ <tileset firstgid="1929" source="KeyAnimation.tsx"/>
+ <layer id="1" name="Ground" width="64" height="64">
+  <data encoding="base64" compression="zlib">
+   eJztw0ENAAAMA6Hzb7qTsQ8krJqqqqqqqqqqqqqqqqqqqqr6+gAFovDi
+  </data>
+ </layer>
+ <layer id="2" name="Paths" width="64" height="64">
+  <data encoding="base64" compression="zlib">
+   eJzt0DEKgDAQRNGAoKnUSnP/xms6jWeIsO/B9Pu3NT7PMvuCeda0b1kv+oM93Ud2Fu2/0n1no2g/AAAAAAAAAAAAAAAAAAD8wQt06gFN
+  </data>
+ </layer>
+ <layer id="3" name="Grass misc" width="64" height="64">
+  <data encoding="base64" compression="zlib">
+   eJzt0rEJACAQA0DB/QudWGwEC2sfcjdBSNIa2+i/E9QxdXH+kNCF798SNn9J/ULy5gAAAAAAAAAAAAAAAABALQsGoQSl
+  </data>
+ </layer>
+ <layer id="4" name="Ground Collision" width="64" height="64">
+  <data encoding="base64" compression="zlib">
+   eJzt0rEJACAMRcGAE+sg6g4uanoHSOEd/D7wEgGv06ovoMrK9js3/cA3erYeegMAAAAAAAAAAAAAAAAAlLuvowNG
+  </data>
+ </layer>
+ <objectgroup id="9" name="Collision">
+  <object id="6" x="192" y="64" width="32" height="32"/>
+  <object id="7" x="224" y="128" width="32" height="32"/>
+  <object id="8" x="192" y="128" width="32" height="32"/>
+  <object id="9" x="160" y="128" width="32" height="32"/>
+  <object id="10" x="96" y="192" width="32" height="32"/>
+  <object id="12" x="64" y="192" width="32" height="32"/>
+  <object id="32" x="-0.00730248" y="2048">
+   <polyline points="0,0 0.00730248,-2047.98"/>
+  </object>
+  <object id="33" x="0.0273438" y="0">
+   <polyline points="0,0 2047.93,0"/>
+  </object>
+  <object id="34" x="2048" y="0">
+   <polyline points="0,0 -0.0035768,2048"/>
+  </object>
+  <object id="35" x="2047.96" y="2048">
+   <polyline points="0,0 -2047.93,0.00247821"/>
+  </object>
+ </objectgroup>
+ <objectgroup id="6" name="Player">
+  <object id="2" x="110.526" y="111.842">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="7" name="Items">
+  <object id="1" gid="1929" x="191.237" y="222.579" width="32" height="32"/>
+ </objectgroup>
+ <layer id="5" name="Ground Foreground" width="64" height="64">
+  <data encoding="base64" compression="zlib">
+   eJztzkENAAAIBKDbTKv9AxjDh5CABOC3rmTqegEAAAAAAAAAAAAAAAAAwHcLPWwA2g==
+  </data>
+ </layer>
+</map>

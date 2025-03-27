@@ -1,75 +1,109 @@
 package inf112.skeleton.controller;
 
-import java.awt.event.KeyListener;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.utils.Array;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Rectangle;
+public class KeyHandler implements InputProcessor {
 
-import java.awt.event.KeyEvent;
+    private final Keys[] keyMapping;
+    private final boolean[] keyState;
+    private final Array<KeyListener> listeners;
 
-public class KeyHandler implements KeyListener {
-
-    public boolean up, down, left, right;
-    private float dx = 1, dy = 1;
-    private Rectangle spriteRect;
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-     
-        
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-			dy = -10;
-			spriteRect.y += dy;
-			dy = 0;
-		}
-		else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-			dy = 10;
-			spriteRect.y += dy;
-			dy = 0;
-		
-		}
-		else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-			dx = -10;
-			spriteRect.x += dx;
-			dx = 0;
-		
-		}
-		else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-			dx = 10;
-			spriteRect.x += dx;
-			dx = 0;
-		}
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        
-        int code = e.getKeyCode();
-
-        switch (code) {
-            case KeyEvent.VK_UP:
-                up = false;  
-                break;
-            case KeyEvent.VK_DOWN:
-                down = false;
-                break;
-            case KeyEvent.VK_LEFT:
-                left = false;
-                break;
-            case KeyEvent.VK_RIGHT:
-                right = false;
-                break;
-            default:
-                break;
+    public KeyHandler() {
+        this.keyMapping = new Keys[256]; // 256 is the maximum number of keys in the Input.Keys class
+        for(final Keys key : Keys.values()) {
+            for(final int code : key.keyCode) {
+                keyMapping[code] = key;
+            }
         }
-    } 
+        this.keyState = new boolean[Keys.values().length];
+        listeners = new Array<KeyListener>();
+    }
 
+    public void addListener(final KeyListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeListener(final KeyListener listener) {
+        listeners.removeValue(listener, true);
+    }
+
+
+    @Override
+    public boolean keyDown(int keycode) {
+        final Keys key = keyMapping[keycode];
+        if(key == null) {
+            return false;
+        }
+
+        notifyKeyDown(key);
+
+        return true;
+    }
+
+    public void notifyKeyDown(final Keys key) {
+        keyState[key.ordinal()] = true;
+        for(final KeyListener listener : listeners) {
+            listener.keyPressed(this, key);
+        }
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        final Keys key = keyMapping[keycode];
+        if(key == null) {
+            return false;
+        }
+
+        notifyKeyUp(key);
+
+        return true;
+    }
+
+    public void notifyKeyUp(final Keys key) {
+        keyState[key.ordinal()] = false;
+        for(final KeyListener listener : listeners) {
+            listener.keyReleased(this, key);
+    }
+    }
+
+    public boolean isKeyPressed(final Keys key) {
+        return keyState[key.ordinal()];
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchCancelled(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(float amountX, float amountY) {
+        return false;
+    }
     
-
 }

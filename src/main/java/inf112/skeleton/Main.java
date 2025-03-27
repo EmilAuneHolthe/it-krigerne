@@ -1,0 +1,26 @@
+package inf112.skeleton;
+
+
+import org.lwjgl.system.Configuration;
+
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.badlogic.gdx.utils.SharedLibraryLoader;
+
+import inf112.skeleton.model.GamePanel;
+
+import com.badlogic.gdx.utils.Os;
+
+
+public class Main {
+	public static void main(String[] args) {
+		if (SharedLibraryLoader.os == Os.MacOsX) {
+			Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
+		}
+		Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
+		cfg.setTitle("The Invisible Stairs");
+		cfg.setWindowedMode(960, 540);
+
+		new Lwjgl3Application(new GamePanel(), cfg);
+	}
+}
