@@ -38,6 +38,7 @@ import inf112.skeleton.audio.AudioHandler;
 import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.map.MapManager;
+import inf112.skeleton.view.GameRenderer;
 import inf112.skeleton.view.screen.*; 
 
 public class GamePanel extends Game {
@@ -71,6 +72,7 @@ public class GamePanel extends Game {
     private KeyHandler keyHandler;
     private AudioHandler audioHandler;
     private MapManager mapManager;
+    private GameRenderer gameRenderer;
 
     @Override
     public void create() {
@@ -103,6 +105,9 @@ public class GamePanel extends Game {
         //MapManager
         mapManager = new MapManager(this);
 
+        //GameRenderer
+        //gameRenderer = new GameRenderer(this);
+
         setScreen(ScreenType.MAIN_MENU);
     }
 
@@ -116,6 +121,7 @@ public class GamePanel extends Game {
     public OrthographicCamera getCamera() {return camera;}
     public AudioHandler getAudioHandler() {return audioHandler;}
     public MapManager getMapManager() {return mapManager;}
+    //public GameRenderer getGameRenderer() {return gameRenderer;}
 
 
     public void setScreen(final ScreenType screenType) {
@@ -147,6 +153,8 @@ public class GamePanel extends Game {
             world.step(FIXED_TIME_STEP, 6, 2);
             accumulator -= FIXED_TIME_STEP;
         }  
+
+        //gameRenderer.render(accumulator / FIXED_TIME_STEP);
 
         // final float alpha = accumulator / FIXED_TIME_STEP; DO NOT USE yet
     }

@@ -53,9 +53,6 @@ public class GameScreen extends AbstractScreen implements MapListener{
   
 
     //MOVEMENT
-    private boolean directionChange;
-    private float xFactor;
-    private float yFactor;
     private Player player;
     private final World world;
     private final AssetManager assetManager;
@@ -67,11 +64,8 @@ public class GameScreen extends AbstractScreen implements MapListener{
     private static final short BIT_PLAYER = GamePanel.BIT_Player;
     private final GLProfiler profiler;
 
-    private Sprite playerSprite;
-    private Texture playerIdleFrontTexture, playerIdleUpTexture, playerIdleRightTexture, playerIdleLeftTexture;
-    private Texture playerTexture;
+    private Texture playerIdleFrontTexture;
     private Map map;
-    private String direction;
     private final MapManager mapManager; 
     private Body playerBody;
 
@@ -81,10 +75,6 @@ public class GameScreen extends AbstractScreen implements MapListener{
     private Texture healthTexture;
     private Texture backgroundTexture;
     private PlayerHUD playerHUD;
-    private Skin skin;
-
-
-    
 
 
     public GameScreen(GamePanel context) {
@@ -100,7 +90,7 @@ public class GameScreen extends AbstractScreen implements MapListener{
         mapManager = context.getMapManager();
         mapManager.addListener(this);
         mapManager.setMap(MapType.MAP_1);
-        direction = "Front";
+       
 
         spawnplayer();
         playerBody =  player.getBody();
@@ -134,11 +124,9 @@ public class GameScreen extends AbstractScreen implements MapListener{
         body.createFixture(GamePanel.FIXTURE_DEF);
         pShape.dispose();
 
-        // Initialize Player with Body properties
-        player = new Player(world, body, 100, 10, (int) map.getPlayerSpawn().x *  UNIT_SCALE, (int) map.getPlayerSpawn().y *  UNIT_SCALE);
+        player = new Player(context, world, body, 100, 10, map.getPlayerSpawn().x * UNIT_SCALE, map.getPlayerSpawn().y * UNIT_SCALE);
+        player.loadTextures(); // Legg til denne linjen
 
-        getPlayerImage();
-        createSprite(playerIdleFrontTexture);
     }
 
     @Override
@@ -154,37 +142,26 @@ public class GameScreen extends AbstractScreen implements MapListener{
         mapRenderer.render();;
         box2DDebugRenderer.render(world, camera.combined);
 
+        player.render(spriteBatch);
+
+
+        Gdx.app.debug("renderinfo", "Bindings" + profiler.getTextureBindings());
+        Gdx.app.debug("renderinfo", "Drawcells" + profiler.getDrawCalls());
+        profiler.reset();
+        //Gdx.app.debug(FPSLogger.class.getSimpleName(), "FPS: " + Gdx.graphics.getFramesPerSecond());
+        
+        
+        
+        
         
 
-        /*Gdx.app.debug("renderinfo", "Bindings" + profiler.getTextureBindings());
-        Gdx.app.debug("renderinfo", "Drawcells" + profiler.getDrawCalls());
-        profiler.reset();*/
-        //Gdx.app.debug(FPSLogger.class.getSimpleName(), "FPS: " + Gdx.graphics.getFramesPerSecond());
-        movePlayer();
-        setPlayeSprite();
-        playerSprite.setPosition(playerBody.getPosition().x - playerSprite.getWidth() / 2, playerBody.getPosition().y - playerSprite.getHeight() / 2);
-        spriteBatch.begin();
-        playerSprite.draw(spriteBatch);
-        spriteBatch.end();
 
+        /* Dette er bare test, skal ikke stå sånt, ikke legg til andre funksjoner som 
+        bruker Gdx.input.isKeyJustPressed, bruk keyhandleren!*/ 
         if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             mapManager.setMap(MapType.MAP_1);
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             mapManager.setMap(MapType.MAP_2);
-        }
-
-
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.T)) {
-            boolean alive = player.takeDamage(10); // deal 10 damage
-            context.getAudioHandler().playAudio(AudioTypes.HURT);
-            Gdx.app.log("DAMAGE", "Player took 10 damage. Current HP: " + player.getHealth());
-            
-        
-            if (!alive) {
-                Gdx.app.log("DAMAGE", "Player has died!");
-                // Optional: trigger death state, animation, etc.
-            }
         }
         
 
@@ -229,133 +206,13 @@ public class GameScreen extends AbstractScreen implements MapListener{
 
     @Override
     public void keyPressed(KeyHandler keyHandler, Keys key) {
-        playerInput(keyHandler, key);
-
+        player.playerInput(keyHandler, key);
+        player.playerTakeDamage(keyHandler, key);
     }
 
     @Override
     public void keyReleased(KeyHandler keyHandler, Keys key) {
-        movePlayerReleased(keyHandler, key);
-    }
-
-    private void getPlayerImage(){
-        playerIdleFrontTexture = new Texture(Gdx.files.internal("Player/PlayerIdle/PlayerIdleFront.png"));
-        playerIdleUpTexture = new Texture(Gdx.files.internal("Player/PlayerIdle/PlayerIdleUp.png"));
-        playerIdleLeftTexture = new Texture(Gdx.files.internal("Player/PlayerIdle/PlayerIdleLeft.png"));
-        playerIdleRightTexture = new Texture(Gdx.files.internal("Player/PlayerIdle/PlayerIdleRight.png"));
-        
-      }
-    
-    private void setPlayeSprite() {
-        
-        switch (direction) {
-            case "Front":
-                playerTexture = playerIdleFrontTexture;
-                createSprite(playerTexture);
-                break;
-            case "Up":
-                playerTexture = playerIdleUpTexture;
-                createSprite(playerTexture);
-                break;
-
-            case "Left":
-                playerTexture = playerIdleLeftTexture;
-                createSprite(playerTexture);
-                break;
-
-            case "Right":
-                playerTexture = playerIdleRightTexture;
-                createSprite(playerTexture);
-                break;
-        
-            default:
-                break;
-            
-        }
-    }
-
-    private void createSprite(Texture playerTexture) {
-        playerSprite = new Sprite(playerTexture);
-        playerSprite.setSize(1, 1);
-    }
-
-    private void playerInput(KeyHandler keyHandler, Keys key) {
-        System.err.println("Key pressed: " + key);
-        
-        switch (key) {
-            case LEFT:
-                direction = "Left";
-                xFactor = -3;
-                break;
-            case RIGHT:
-                direction = "Right";
-                xFactor = 3;
-                break;
-            case UP:
-                direction = "Up";
-                yFactor = 3;
-                break;
-            case DOWN:
-                direction = "Front";
-                yFactor = -3;
-                break;
-            default:
-                break;
-        }
-
-        updateDirection();
-        dontAccelerate();
-    }
-
-    private void movePlayerReleased (KeyHandler keyHandler, Keys key) {
-
-        switch (key) {
-            case LEFT:
-            case RIGHT:
-                xFactor = 0;
-                if (keyHandler.isKeyPressed(Keys.LEFT)) {
-                    xFactor = -3;
-                } else if (keyHandler.isKeyPressed(Keys.RIGHT)) {
-                    xFactor = 3;
-                }
-                break;
-            case UP:
-            case DOWN:
-                yFactor = 0;
-                if (keyHandler.isKeyPressed(Keys.UP)) {
-                    yFactor = 3;
-                } else if (keyHandler.isKeyPressed(Keys.DOWN)) {
-                    yFactor = -3;
-                }
-                break;
-            default:
-                break;
-        }
-        updateDirection();
-        dontAccelerate();
-    }
-
-    private void updateDirection() {
-        directionChange = true;
-    }
-
-    private void dontAccelerate() {
-        //Player speed is not multiplied by pressing multiple keys
-        float speed = 3.0f;
-        float magnitude = (float) Math.sqrt(xFactor * xFactor + yFactor * yFactor);
-        if (magnitude > 0) {
-            xFactor = (xFactor / magnitude) * speed;
-            yFactor = (yFactor / magnitude) * speed;
-        }
-    }
-    private void movePlayer() {
-        if(directionChange) {
-            playerBody.applyLinearImpulse(
-            (xFactor * 3 - playerBody.getLinearVelocity().x * playerBody.getMass()),
-            (yFactor * 3 - playerBody.getLinearVelocity().y * playerBody.getMass()),
-            playerBody.getWorldCenter().x, playerBody.getWorldCenter().y, true
-            );
-        }
+        player.movePlayerReleased(keyHandler, key);
     }
 
 

@@ -59,7 +59,6 @@ public class AbstractScreen  implements Screen, KeyListener {
 
     @Override
     public void resume() {
-     
     }
 
 
