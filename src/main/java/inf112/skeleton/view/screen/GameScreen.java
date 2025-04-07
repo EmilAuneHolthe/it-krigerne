@@ -7,11 +7,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import inf112.skeleton.controller.Keys;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.entity.Enemy;
+import inf112.skeleton.model.entity.EnemyFactory;
 import inf112.skeleton.model.entity.Player;
 import inf112.skeleton.model.entity.PlayerFactory;
 import inf112.skeleton.model.map.Map;
@@ -22,6 +25,7 @@ import inf112.skeleton.view.GameRenderer;
 
 public class GameScreen extends AbstractScreen implements MapListener {
     private Player player;
+    private Array<Enemy> enemies;
     private final World world;
     private final AssetManager assetManager;
     private final OrthographicCamera camera;
@@ -38,7 +42,8 @@ public class GameScreen extends AbstractScreen implements MapListener {
         
         mapManager.addListener(this);
         mapManager.setMap(MapType.MAP_1);
-
+        
+        spawnEnemy();
         spawnPlayer();
     }
 
@@ -46,7 +51,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
     public void render(float delta) {
         gameRenderer.render(delta);
 
-        Gdx.app.log("Debug", "FPS: " + Gdx.graphics.getFramesPerSecond());
+        //Gdx.app.log("Debug", "FPS: " + Gdx.graphics.getFramesPerSecond());
    
 
         // Test map switching - should be moved to a proper input handler
@@ -61,6 +66,9 @@ public class GameScreen extends AbstractScreen implements MapListener {
     public void show() {
         keyHandler.addListener(this);
         Gdx.input.setInputProcessor(keyHandler);
+        
+        // Always spawn a new player when showing the game screen
+        spawnPlayer();
     }
 
     @Override
@@ -106,11 +114,16 @@ public class GameScreen extends AbstractScreen implements MapListener {
     }
 
     private void spawnPlayer() {
-        if (context.getPlayer() == null) {
-            context.setPlayer(PlayerFactory.createPlayer(context, world, mapManager.getCurrentMap()));
-        }
+        context.setPlayer(PlayerFactory.createPlayer(context, world, mapManager.getCurrentMap()));
         player = context.getPlayer();
         gameRenderer.updatePlayer(player);
+    }
+
+    private void spawnEnemy() {
+        context.setEnemy(EnemyFactory.createEnemy(context, world, mapManager.getCurrentMap()));
+        //System.out.println("Spawning enemy at" + context.getEnemy().getX() + " " + context.getEnemy().getY());
+        enemies = context.getEnemy();
+        gameRenderer.updateEnemy(enemies);
     }
 }
 

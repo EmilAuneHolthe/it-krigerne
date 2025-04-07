@@ -12,6 +12,8 @@ import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.controller.Keys;
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.view.screen.ScreenType;
+import inf112.skeleton.view.ui.DeathOverlay;
 
 public class Player implements entity, Disposable {
     private int health;
@@ -29,6 +31,9 @@ public class Player implements entity, Disposable {
     private Texture playerTexture;
     private final GamePanel context;
     
+    private boolean isDead;
+    private DeathOverlay deathOverlay;
+    
     public Player(GamePanel context, World world, Body body, int health, int damage, float x, float y) {
         this.context = context;
         this.world = world;
@@ -38,10 +43,16 @@ public class Player implements entity, Disposable {
         this.x = x;
         this.y = y;
         direction = "Front";
+        isDead = false;
+        deathOverlay = new DeathOverlay(context);
     }
     
     
     public void render(SpriteBatch batch) {
+        if (isDead) {
+            deathOverlay.render(batch);
+            return;
+        }
         movePlayer();
         setPlayeSprite();
         playerSprite.setPosition(body.getPosition().x - playerSprite.getWidth() / 2, 
@@ -53,6 +64,16 @@ public class Player implements entity, Disposable {
     
     
     public void playerInput(KeyHandler keyHandler, Keys key) {
+        if (isDead) {
+            // When dead, only handle the Enter key to return to main menu
+            if (key == Keys.INTERACT) {
+                context.getAudioHandler().playAudio(AudioTypes.SELECT);
+                context.resetPlayer(); // Reset the player before returning to main menu
+                context.setScreen(ScreenType.MAIN_MENU);
+            }
+            return;
+        }
+        
         System.err.println("Key pressed: " + key);
         
         switch (key) {
@@ -186,8 +207,9 @@ public class Player implements entity, Disposable {
     
     @Override
     public void die() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'die'");
+        if (deathOverlay != null) {
+            deathOverlay.show();
+        }
     }
     
     @Override
@@ -201,7 +223,12 @@ public class Player implements entity, Disposable {
     @Override
     public boolean takeDamage(int damage) {
         health -= damage;
-        return health > 0;
+        boolean alive = health > 0;
+        if (!alive && !isDead) {
+            isDead = true;
+            die();
+        }
+        return alive;
     }
     
     @Override
@@ -239,5 +266,12 @@ public class Player implements entity, Disposable {
     @Override
     public void dispose() {
         playerIdleFrontTexture.dispose();
+        if (deathOverlay != null) {
+            deathOverlay.dispose();
+        }
+    }
+    
+    public DeathOverlay getDeathOverlay() {
+        return deathOverlay;
     }
 }

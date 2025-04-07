@@ -36,6 +36,10 @@ __MACOSX
 Desktop.ini
 Thumbs.db
 
+# macOS system directories
+Developer/
+/Developer/
+
 # backup files and other crap
 *.bak
 *.old

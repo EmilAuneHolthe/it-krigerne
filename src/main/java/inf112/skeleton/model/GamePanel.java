@@ -23,6 +23,7 @@ import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
@@ -37,6 +38,7 @@ import java.util.Map;
 import inf112.skeleton.audio.AudioHandler;
 import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.KeyHandler;
+import inf112.skeleton.model.entity.Enemy;
 import inf112.skeleton.model.entity.Player;
 import inf112.skeleton.model.map.MapManager;
 import inf112.skeleton.view.GameRenderer;
@@ -75,6 +77,7 @@ public class GamePanel extends Game {
     private MapManager mapManager;
     private GameRenderer gameRenderer;
     private Player player;
+    private Array<Enemy> enemies;
 
     @Override
     public void create() {
@@ -133,7 +136,26 @@ public class GamePanel extends Game {
     public Player getPlayer() {
         return player;
     }
-
+    public void setEnemy(Array<Enemy> enemies) {
+        this.enemies = enemies;
+    }
+    public Array<Enemy> getEnemy() {
+        return enemies;
+    }
+    /**
+     * Resets the player by setting it to null.
+     * This will cause a new player to be created when the game screen is shown again.
+     */
+    public void resetPlayer() {
+        if (player != null) {
+            // Hide the death overlay if it's visible
+            if (player.getDeathOverlay() != null) {
+                player.getDeathOverlay().hide();
+            }
+            player.dispose();
+            player = null;
+        }
+    }
 
     public void setScreen(final ScreenType screenType) {
         final Screen screen = screenCache.get(screenType);

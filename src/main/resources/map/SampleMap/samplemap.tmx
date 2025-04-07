@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="60" height="60" tilewidth="32" tileheight="32" infinite="0" nextlayerid="22" nextobjectid="952">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="60" height="60" tilewidth="32" tileheight="32" infinite="0" nextlayerid="23" nextobjectid="955">
  <tileset firstgid="1" source="[A]WaterFall_pipo.tsx"/>
  <tileset firstgid="577" name="[Base]BaseChip_pipo" tilewidth="32" tileheight="32" tilecount="1064" columns="8">
   <image source="[Base]BaseChip_pipo.png" width="256" height="4256"/>
@@ -652,6 +652,23 @@
  </layer>
  <objectgroup id="15" name="Player" locked="1">
   <object id="1" x="1728" y="1728">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="22" name="Enemy">
+  <object id="952" x="1664" y="1408">
+   <point/>
+  </object>
+  <object id="953" x="1664" y="1408">
+   <properties>
+    <property name="Enemy1" value=""/>
+   </properties>
+   <point/>
+  </object>
+  <object id="954" x="1344" y="1792">
+   <properties>
+    <property name="Enemy2" value=""/>
+   </properties>
    <point/>
   </object>
  </objectgroup>

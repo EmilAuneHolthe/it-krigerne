@@ -58,6 +58,7 @@ public class MainMenuScreen extends AbstractScreen {
             public void clicked(InputEvent event, float x, float y) {
                 audioHandler.stopMusic();
                 System.out.println("Starting game...");
+                context.resetPlayer();
                 context.setScreen(ScreenType.LOADING);
             }
         });
