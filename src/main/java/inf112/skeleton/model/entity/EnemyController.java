@@ -45,6 +45,10 @@ public class EnemyController {
         }
         enemy.moveEnemy(x, y);
       }
+      if(distance < 1) {
+        player.takeDamage(enemy.getDamage());
+        System.out.println("Player took damage: " + enemy.getDamage());
+      }
     }
   }
 }

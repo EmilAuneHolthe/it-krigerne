@@ -141,4 +141,7 @@ public class Enemy implements entity {
                 break;
         }
     }
+    public int getDamage() {
+        return damage;
+    }
 }
