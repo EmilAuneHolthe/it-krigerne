@@ -17,6 +17,7 @@ import inf112.skeleton.model.entity.Enemy;
 import inf112.skeleton.model.entity.EnemyFactory;
 import inf112.skeleton.model.entity.Player;
 import inf112.skeleton.model.entity.PlayerFactory;
+import inf112.skeleton.model.entity.PlayerInteractions;
 import inf112.skeleton.model.map.Map;
 import inf112.skeleton.model.map.MapListener;
 import inf112.skeleton.model.map.MapManager;
@@ -31,7 +32,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
     private final OrthographicCamera camera;
     private final MapManager mapManager;
     private final GameRenderer gameRenderer;
-
+    private final PlayerInteractions playerInteractions;
     public GameScreen(GamePanel context) {
         super(context);
         assetManager = context.getAssetManager();
@@ -45,6 +46,8 @@ public class GameScreen extends AbstractScreen implements MapListener {
         
         spawnEnemy();
         spawnPlayer();
+        playerInteractions = new PlayerInteractions(context);
+        context.setPlayerInteractions(playerInteractions);
     }
 
     @Override
@@ -56,16 +59,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
 
         // Test map switching - should be moved to a proper input handler
         if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-            String enemyName = distanceToPlayer();
-            if (enemyName != null) {
-                for(Enemy enemy : enemies) {
-                    if (enemy.getName().equals(enemyName)) {
-                        System.out.println("Enemy " + enemy.getName() + " is within range!");
-                        enemy.takeDamage(player.attack());
-                    }
-                }
-                //player.attack();
-            }
+            playerInteractions.attackEnemy(player, enemies);
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             mapManager.setMap(MapType.MAP_2);
         }
@@ -133,16 +127,6 @@ public class GameScreen extends AbstractScreen implements MapListener {
         //System.out.println("Spawning enemy at" + context.getEnemy().getX() + " " + context.getEnemy().getY());
         enemies = context.getEnemy();
         gameRenderer.updateEnemy(enemies);
-    }
-    private String distanceToPlayer() {
-        for (Enemy enemy : enemies) {
-            float distance = enemy.getPosition().dst(player.getPosition());
-            System.out.println("Distance to player: " + distance + enemy.getName());
-            if(distance < 1.0f) {
-                return enemy.getName();
-            }
-        }
-        return null;
     }
 }
 
