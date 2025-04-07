@@ -1,10 +1,13 @@
 package inf112.skeleton.model.map;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g3d.environment.PointLight;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -12,6 +15,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Polyline;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.utils.Array;
 
 public class Map {
@@ -19,11 +23,13 @@ public class Map {
   public static final String TAG = Map.class.getSimpleName();
   private final Array<CollisionArea> collisionAreas;
   private final Vector2 playerspawn;
+  private final ArrayList<EnemySpawn>  enemySpawn;
   
   public Map(TiledMap tiledMap) {
     this.tiledMap = tiledMap;
     collisionAreas = new Array<CollisionArea>();
     playerspawn = findPlayerSpawnVector2();
+    enemySpawn = findEnemySpawn();
     getCollisionLayer();
   }
 
@@ -91,7 +97,20 @@ public class Map {
           }
           return new Vector2(0, 0);
         }
-  
+
+        private ArrayList<EnemySpawn> findEnemySpawn() {
+          ArrayList<EnemySpawn> enemySpawns = new ArrayList<>();
+          MapObjects objects = tiledMap.getLayers().get("Enemy").getObjects();
+          for (final MapObject object : objects) {
+              final RectangleMapObject spawn = (RectangleMapObject) object;
+              final Rectangle rectangle = spawn.getRectangle();
+              Gdx.app.debug(TAG, "Enemy spawn found at: " + rectangle.x + ", " + rectangle.y);
+              MapProperties properties = spawn.getProperties();
+              Vector2 position = new Vector2(rectangle.x, rectangle.y);
+              enemySpawns.add(new EnemySpawn(position, properties));
+          }
+          return enemySpawns;
+        }
   public Vector2 getPlayerSpawn() {
     return playerspawn;
   }
@@ -99,5 +118,7 @@ public class Map {
   public TiledMap getTiledMap() {
     return tiledMap;
 }
-
+public ArrayList<EnemySpawn> getEnemySpawn() {
+  return enemySpawn;
+}
 }
