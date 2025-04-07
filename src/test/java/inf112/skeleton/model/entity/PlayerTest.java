@@ -12,16 +12,12 @@ import inf112.skeleton.model.GamePanel;
 
 public class PlayerTest {
     private Player player;
-    private World mockWorld;
-    private Body mockBody;
-    private GamePanel mockGamePanel;
-
+    private World world;
+    private Body body;
     @BeforeEach
     public void setUp() {
-        mockWorld = mock(World.class);
-        mockBody = mock(Body.class);
-        mockGamePanel = mock(GamePanel.class);
-        player = new Player(mockGamePanel, mockWorld, mockBody, 100, 10, 0, 0);
+        player = new Player(world, body, 0, 0, 0, 0);
+        player.setHealth(100); // Initialize with default health
     }
 
     @Test
