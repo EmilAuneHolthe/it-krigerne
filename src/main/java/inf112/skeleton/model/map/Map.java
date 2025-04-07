@@ -19,11 +19,13 @@ public class Map {
   public static final String TAG = Map.class.getSimpleName();
   private final Array<CollisionArea> collisionAreas;
   private final Vector2 playerspawn;
+  private final Vector2 enemySpawn;
   
   public Map(TiledMap tiledMap) {
     this.tiledMap = tiledMap;
     collisionAreas = new Array<CollisionArea>();
     playerspawn = findPlayerSpawnVector2();
+    enemySpawn = findEnemySpawnVector2();
     getCollisionLayer();
   }
 
@@ -91,7 +93,16 @@ public class Map {
           }
           return new Vector2(0, 0);
         }
-  
+  private Vector2 findEnemySpawnVector2(){
+    MapObjects objects = tiledMap.getLayers().get("Enemy").getObjects();
+          for (final MapObject object : objects) {
+            final RectangleMapObject spawn = (RectangleMapObject) object;
+            final Rectangle rectangle = spawn.getRectangle();
+            Gdx.app.debug(TAG, "Enemy spawn found at: " + rectangle.x + ", " + rectangle.y);
+            return new Vector2(rectangle.x, rectangle.y);
+          }
+          return new Vector2(0, 0);
+        }
   public Vector2 getPlayerSpawn() {
     return playerspawn;
   }
@@ -99,5 +110,7 @@ public class Map {
   public TiledMap getTiledMap() {
     return tiledMap;
 }
-
+public Vector2 getEnemySpawn() {
+  return enemySpawn;
+}
 }

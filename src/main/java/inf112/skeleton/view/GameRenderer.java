@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.entity.Enemy;
 import inf112.skeleton.model.entity.Player;
 import inf112.skeleton.model.map.Map;
 import inf112.skeleton.model.map.MapListener;
@@ -42,6 +43,7 @@ public class GameRenderer implements Disposable, MapListener {
     private final Texture healthTexture;
     private final Texture backgroundTexture;
     private boolean showDebug = false;
+    private Enemy enemy;
 
     public GameRenderer(final GamePanel context) {
         assetManager = context.getAssetManager();
@@ -49,6 +51,7 @@ public class GameRenderer implements Disposable, MapListener {
         camera = context.getCamera();
         spriteBatch = context.getSpriteBatch();
         player = context.getPlayer();
+        enemy = context.getEnemy();
 
         mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, spriteBatch);
         context.getMapManager().addListener(this);
@@ -99,7 +102,9 @@ public class GameRenderer implements Disposable, MapListener {
         if (showDebug) {
             box2DDebugRenderer.render(world, camera.combined);
         }
-
+        if(enemy != null) {
+            enemy.render(spriteBatch);
+        }
         // Render player
         if (player != null) {
             player.render(spriteBatch);
@@ -133,6 +138,9 @@ public class GameRenderer implements Disposable, MapListener {
     public void updatePlayer(Player player) {
         this.player = player;
         createPlayerHUD();
+    }
+    public void updateEnemy(Enemy enemy) {
+        this.enemy = enemy;
     }
 
     @Override

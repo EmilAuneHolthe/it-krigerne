@@ -12,6 +12,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import inf112.skeleton.controller.Keys;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.entity.Enemy;
+import inf112.skeleton.model.entity.EnemyFactory;
 import inf112.skeleton.model.entity.Player;
 import inf112.skeleton.model.entity.PlayerFactory;
 import inf112.skeleton.model.map.Map;
@@ -22,6 +24,7 @@ import inf112.skeleton.view.GameRenderer;
 
 public class GameScreen extends AbstractScreen implements MapListener {
     private Player player;
+    private Enemy enemy;
     private final World world;
     private final AssetManager assetManager;
     private final OrthographicCamera camera;
@@ -38,7 +41,8 @@ public class GameScreen extends AbstractScreen implements MapListener {
         
         mapManager.addListener(this);
         mapManager.setMap(MapType.MAP_1);
-
+        
+        spawnEnemy();
         spawnPlayer();
     }
 
@@ -46,7 +50,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
     public void render(float delta) {
         gameRenderer.render(delta);
 
-        Gdx.app.log("Debug", "FPS: " + Gdx.graphics.getFramesPerSecond());
+        //Gdx.app.log("Debug", "FPS: " + Gdx.graphics.getFramesPerSecond());
    
 
         // Test map switching - should be moved to a proper input handler
@@ -108,9 +112,19 @@ public class GameScreen extends AbstractScreen implements MapListener {
     private void spawnPlayer() {
         if (context.getPlayer() == null) {
             context.setPlayer(PlayerFactory.createPlayer(context, world, mapManager.getCurrentMap()));
+            System.out.println("Spawning player at" + context.getPlayer().getX() + " " + context.getPlayer().getY());
         }
         player = context.getPlayer();
         gameRenderer.updatePlayer(player);
+    }
+
+    private void spawnEnemy() {
+        if (context.getEnemy() == null) {
+            context.setEnemy(EnemyFactory.createEnemy(context, world, mapManager.getCurrentMap()));
+            System.out.println("Spawning enemy at" + context.getEnemy().getX() + " " + context.getEnemy().getY());
+        }
+        enemy = context.getEnemy();
+        gameRenderer.updateEnemy(enemy);
     }
 }
 

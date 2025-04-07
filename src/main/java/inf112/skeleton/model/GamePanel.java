@@ -37,6 +37,7 @@ import java.util.Map;
 import inf112.skeleton.audio.AudioHandler;
 import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.KeyHandler;
+import inf112.skeleton.model.entity.Enemy;
 import inf112.skeleton.model.entity.Player;
 import inf112.skeleton.model.map.MapManager;
 import inf112.skeleton.view.GameRenderer;
@@ -75,6 +76,7 @@ public class GamePanel extends Game {
     private MapManager mapManager;
     private GameRenderer gameRenderer;
     private Player player;
+    private Enemy enemy;
 
     @Override
     public void create() {
@@ -133,7 +135,12 @@ public class GamePanel extends Game {
     public Player getPlayer() {
         return player;
     }
-
+    public void setEnemy(Enemy enemy) {
+        this.enemy = enemy;
+    }
+    public Enemy getEnemy() {
+        return enemy;
+    }
 
     public void setScreen(final ScreenType screenType) {
         final Screen screen = screenCache.get(screenType);
