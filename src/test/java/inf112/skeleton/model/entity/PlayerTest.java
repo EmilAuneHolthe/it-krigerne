@@ -1,21 +1,27 @@
 package inf112.skeleton.model.entity;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.badlogic.gdx.physics.box2d.Body;
-
 import com.badlogic.gdx.physics.box2d.World;
 
-/*public class PlayerTest {
+import inf112.skeleton.model.GamePanel;
+
+public class PlayerTest {
     private Player player;
-    private World world;
-    private Body body;
+    private World mockWorld;
+    private Body mockBody;
+    private GamePanel mockGamePanel;
+
     @BeforeEach
     public void setUp() {
-        player = new Player(world, body, 0, 0, 0, 0);
-        player.setHealth(100); // Initialize with default health
+        mockWorld = mock(World.class);
+        mockBody = mock(Body.class);
+        mockGamePanel = mock(GamePanel.class);
+        player = new Player(mockGamePanel, mockWorld, mockBody, 100, 10, 0, 0);
     }
 
     @Test
@@ -39,4 +45,31 @@ import com.badlogic.gdx.physics.box2d.World;
         assertEquals(5, player.getX());
         assertEquals(10, player.getY());
     }
-}*/
+
+    @Test
+    public void testAttack() {
+        int damage = player.attack();
+        assertEquals(10, damage, "Attack damage should match the initialized value");
+    }
+
+    @Test
+    public void testDie() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            player.die();
+        }, "Die method should throw UnsupportedOperationException");
+    }
+
+    @Test
+    public void testCreate() {
+        player.create(150, 20, 10, 15);
+        assertEquals(150, player.getHealth(), "Health should be set correctly");
+        assertEquals(10, player.getX(), "X position should be set correctly");
+        assertEquals(15, player.getY(), "Y position should be set correctly");
+    }
+
+    @Test
+    public void testGetBody() {
+        Body playerBody = player.getBody();
+        assertSame(mockBody, playerBody, "Body should be the same as the mock");
+    }
+}
