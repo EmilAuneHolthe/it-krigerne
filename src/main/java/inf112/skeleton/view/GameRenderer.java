@@ -15,6 +15,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -43,7 +44,7 @@ public class GameRenderer implements Disposable, MapListener {
     private final Texture healthTexture;
     private final Texture backgroundTexture;
     private boolean showDebug = false;
-    private Enemy enemy;
+    private Array<Enemy> enemies;
 
     public GameRenderer(final GamePanel context) {
         assetManager = context.getAssetManager();
@@ -51,7 +52,7 @@ public class GameRenderer implements Disposable, MapListener {
         camera = context.getCamera();
         spriteBatch = context.getSpriteBatch();
         player = context.getPlayer();
-        enemy = context.getEnemy();
+        enemies = context.getEnemy();
 
         mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, spriteBatch);
         context.getMapManager().addListener(this);
@@ -102,8 +103,10 @@ public class GameRenderer implements Disposable, MapListener {
         if (showDebug) {
             box2DDebugRenderer.render(world, camera.combined);
         }
-        if(enemy != null) {
-            enemy.render(spriteBatch);
+        if(enemies != null) {
+            for (Enemy enemy : enemies) {
+                enemy.render(spriteBatch);
+            }
         }
         // Render player
         if (player != null) {
@@ -139,8 +142,8 @@ public class GameRenderer implements Disposable, MapListener {
         this.player = player;
         createPlayerHUD();
     }
-    public void updateEnemy(Enemy enemy) {
-        this.enemy = enemy;
+    public void updateEnemy(Array<Enemy> enemies) {
+        this.enemies = enemies;
     }
 
     @Override

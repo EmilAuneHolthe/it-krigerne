@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import inf112.skeleton.controller.Keys;
@@ -24,7 +25,7 @@ import inf112.skeleton.view.GameRenderer;
 
 public class GameScreen extends AbstractScreen implements MapListener {
     private Player player;
-    private Enemy enemy;
+    private Array<Enemy> enemies;
     private final World world;
     private final AssetManager assetManager;
     private final OrthographicCamera camera;
@@ -121,10 +122,10 @@ public class GameScreen extends AbstractScreen implements MapListener {
     private void spawnEnemy() {
         if (context.getEnemy() == null) {
             context.setEnemy(EnemyFactory.createEnemy(context, world, mapManager.getCurrentMap()));
-            System.out.println("Spawning enemy at" + context.getEnemy().getX() + " " + context.getEnemy().getY());
+            //System.out.println("Spawning enemy at" + context.getEnemy().getX() + " " + context.getEnemy().getY());
         }
-        enemy = context.getEnemy();
-        gameRenderer.updateEnemy(enemy);
+        enemies = context.getEnemy();
+        gameRenderer.updateEnemy(enemies);
     }
 }
 

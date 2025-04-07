@@ -23,6 +23,7 @@ import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
@@ -76,7 +77,7 @@ public class GamePanel extends Game {
     private MapManager mapManager;
     private GameRenderer gameRenderer;
     private Player player;
-    private Enemy enemy;
+    private Array<Enemy> enemies;
 
     @Override
     public void create() {
@@ -135,11 +136,11 @@ public class GamePanel extends Game {
     public Player getPlayer() {
         return player;
     }
-    public void setEnemy(Enemy enemy) {
-        this.enemy = enemy;
+    public void setEnemy(Array<Enemy> enemies) {
+        this.enemies = enemies;
     }
-    public Enemy getEnemy() {
-        return enemy;
+    public Array<Enemy> getEnemy() {
+        return enemies;
     }
 
     public void setScreen(final ScreenType screenType) {
