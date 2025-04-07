@@ -18,6 +18,7 @@ import inf112.skeleton.model.entity.Enemy;
 import inf112.skeleton.model.entity.EnemyFactory;
 import inf112.skeleton.model.entity.Player;
 import inf112.skeleton.model.entity.PlayerFactory;
+import inf112.skeleton.model.entity.PlayerInteractions;
 import inf112.skeleton.model.entity.CharacterType;
 import inf112.skeleton.model.map.Map;
 import inf112.skeleton.model.map.MapListener;
@@ -33,7 +34,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
     private final OrthographicCamera camera;
     private final MapManager mapManager;
     private final GameRenderer gameRenderer;
-
+    private final PlayerInteractions playerInteractions;
     public GameScreen(GamePanel context) {
         super(context);
         assetManager = context.getAssetManager();
@@ -47,6 +48,8 @@ public class GameScreen extends AbstractScreen implements MapListener {
         
         spawnEnemy();
         spawnPlayer();
+        playerInteractions = new PlayerInteractions(context);
+        context.setPlayerInteractions(playerInteractions);
     }
 
     @Override
@@ -58,7 +61,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
 
         // Test map switching - should be moved to a proper input handler
         if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-            mapManager.setMap(MapType.MAP_1);
+            playerInteractions.attackEnemy(player, enemies);
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             mapManager.setMap(MapType.MAP_2);
         }
@@ -135,6 +138,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
         gameRenderer.updateEnemy(enemies);
     }
 }
+
 
 
 

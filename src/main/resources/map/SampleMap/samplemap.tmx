@@ -651,24 +651,15 @@
 </data>
  </layer>
  <objectgroup id="15" name="Player" locked="1">
-  <object id="1" x="1728" y="1728">
+  <object id="1" name="PlayerSpawn" x="1728" y="1728">
    <point/>
   </object>
  </objectgroup>
  <objectgroup id="22" name="Enemy">
-  <object id="952" x="1664" y="1408">
+  <object id="953" name="Enemy1" x="1664" y="1408">
    <point/>
   </object>
-  <object id="953" x="1664" y="1408">
-   <properties>
-    <property name="Enemy1" value=""/>
-   </properties>
-   <point/>
-  </object>
-  <object id="954" x="1344" y="1792">
-   <properties>
-    <property name="Enemy2" value=""/>
-   </properties>
+  <object id="954" name="Enemy2" x="1344" y="1792">
    <point/>
   </object>
  </objectgroup>

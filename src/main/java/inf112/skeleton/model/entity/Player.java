@@ -2,6 +2,7 @@ package inf112.skeleton.model.entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
@@ -101,7 +102,7 @@ public class Player implements entity, Disposable {
     
     @Override
     public boolean takeDamage(int damage) {
-        health -= damage;
+        health -= 0;
         boolean alive = health > 0;
         if (!alive && !isDead) {
             isDead = true;
@@ -153,5 +154,8 @@ public class Player implements entity, Disposable {
     
     public DeathOverlay getDeathOverlay() {
         return deathOverlay;
+    }
+    public Vector2 getPosition() {
+        return new Vector2(body.getPosition().x, body.getPosition().y);
     }
 }

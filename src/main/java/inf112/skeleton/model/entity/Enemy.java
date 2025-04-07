@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -20,7 +21,8 @@ public class Enemy implements entity {
     private final GamePanel context;
     public Texture playerIdleFrontTexture, playerIdleUpTexture, playerIdleRightTexture, playerIdleLeftTexture;
     private Sprite playerSprite;
-    public Enemy(GamePanel context, World world, Body body, int health, int damage, float x, float y) {
+    private String name;
+    public Enemy(GamePanel context, World world, Body body, int health, int damage, float x, float y, String name) {
         this.context = context;
         this.world = world;
         this.body = body;
@@ -28,6 +30,7 @@ public class Enemy implements entity {
         this.damage = damage;
         this.x = x;
         this.y = y;
+        this.name = name;
         direction = "Front";
     }
     @Override
@@ -51,6 +54,17 @@ public class Enemy implements entity {
     @Override
     public boolean takeDamage(int damage) {
       health -= damage;
+      System.out.println("Enemy took damage: " + damage + name);
+      System.out.println(health);
+      if (health < 1) {
+        
+        int index = context.getEnemy().indexOf(this, true);
+        if (index >= 0) {
+            context.getEnemy().removeIndex(index);
+            System.out.println("Enemy removed from list: " + name);
+        }
+        
+      }
       return health > 0;
     }
     @Override
@@ -96,5 +110,11 @@ public class Enemy implements entity {
         batch.begin();
         playerSprite.draw(batch);
         batch.end();
+    }
+    public Vector2 getPosition() {
+        return new Vector2(body.getPosition().x, body.getPosition().y);
+    }
+    public String getName() {
+        return name;
     }
 }
