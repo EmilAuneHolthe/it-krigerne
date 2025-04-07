@@ -60,6 +60,12 @@ public class GameScreen extends AbstractScreen implements MapListener {
     public void render(float delta) {
         gameRenderer.render(delta);
 
+        dTime += 0.5;
+        if (dTime >= 25) {
+            System.out.println("Enemy sight");
+            enemyController.sight();
+            dTime = 0;
+        }
         //Gdx.app.log("Debug", "FPS: " + Gdx.graphics.getFramesPerSecond());
 
         // Test map switching - should be moved to a proper input handler
