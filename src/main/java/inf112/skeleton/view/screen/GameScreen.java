@@ -46,6 +46,9 @@ public class GameScreen extends AbstractScreen implements MapListener {
     public void render(float delta) {
         gameRenderer.render(delta);
 
+        Gdx.app.log("Debug", "FPS: " + Gdx.graphics.getFramesPerSecond());
+   
+
         // Test map switching - should be moved to a proper input handler
         if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             mapManager.setMap(MapType.MAP_1);
