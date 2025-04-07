@@ -2,6 +2,8 @@ package inf112.skeleton.view;
 
 import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
 
+import java.util.EnumMap;
+
 import org.lwjgl.opengl.GL20;
 
 import com.badlogic.gdx.Application;
@@ -9,6 +11,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -45,6 +49,7 @@ public class GameRenderer implements Disposable, MapListener {
     private final Texture backgroundTexture;
     private boolean showDebug = false;
     private Array<Enemy> enemies;
+    private final EnumMap<AnimationTypes, Animation<Sprite>> animationChache;
 
     public GameRenderer(final GamePanel context) {
         assetManager = context.getAssetManager();
@@ -53,6 +58,7 @@ public class GameRenderer implements Disposable, MapListener {
         spriteBatch = context.getSpriteBatch();
         player = context.getPlayer();
         enemies = context.getEnemy();
+        animationChache = new EnumMap<AnimationTypes, Animation<Sprite>>(AnimationTypes.class);
 
         mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, spriteBatch);
         context.getMapManager().addListener(this);

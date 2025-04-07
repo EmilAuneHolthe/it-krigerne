@@ -13,10 +13,12 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import inf112.skeleton.controller.Keys;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
+import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
 import inf112.skeleton.model.entity.Enemy;
 import inf112.skeleton.model.entity.EnemyFactory;
 import inf112.skeleton.model.entity.Player;
 import inf112.skeleton.model.entity.PlayerFactory;
+import inf112.skeleton.model.entity.CharacterType;
 import inf112.skeleton.model.map.Map;
 import inf112.skeleton.model.map.MapListener;
 import inf112.skeleton.model.map.MapManager;
@@ -114,7 +116,14 @@ public class GameScreen extends AbstractScreen implements MapListener {
     }
 
     private void spawnPlayer() {
-        context.setPlayer(PlayerFactory.createPlayer(context, world, mapManager.getCurrentMap()));
+        if (context.getPlayer() == null) {
+            PlayerFactory factory = new PlayerFactory(context, world);
+            context.setPlayer(factory.createPlayer(
+                mapManager.getCurrentMap().getPlayerSpawn().x * UNIT_SCALE,
+                mapManager.getCurrentMap().getPlayerSpawn().y * UNIT_SCALE,
+                CharacterType.SOLDIER
+            ));
+        }
         player = context.getPlayer();
         gameRenderer.updatePlayer(player);
     }
