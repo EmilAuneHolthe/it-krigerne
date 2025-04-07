@@ -56,7 +56,16 @@ public class GameScreen extends AbstractScreen implements MapListener {
 
         // Test map switching - should be moved to a proper input handler
         if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-            mapManager.setMap(MapType.MAP_1);
+            String enemyName = distanceToPlayer();
+            if (enemyName != null) {
+                for(Enemy enemy : enemies) {
+                    if (enemy.getName().equals(enemyName)) {
+                        System.out.println("Enemy " + enemy.getName() + " is within range!");
+                        enemy.takeDamage(player.attack());
+                    }
+                }
+                //player.attack();
+            }
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             mapManager.setMap(MapType.MAP_2);
         }
@@ -125,7 +134,18 @@ public class GameScreen extends AbstractScreen implements MapListener {
         enemies = context.getEnemy();
         gameRenderer.updateEnemy(enemies);
     }
+    private String distanceToPlayer() {
+        for (Enemy enemy : enemies) {
+            float distance = enemy.getPosition().dst(player.getPosition());
+            System.out.println("Distance to player: " + distance + enemy.getName());
+            if(distance < 1.0f) {
+                return enemy.getName();
+            }
+        }
+        return null;
+    }
 }
+
 
 
 
