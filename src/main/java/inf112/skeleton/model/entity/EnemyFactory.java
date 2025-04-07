@@ -22,6 +22,7 @@ public class EnemyFactory {
 
         Body body = world.createBody(BODY_DEF);
         body.setUserData(spawn.getName());
+        //body.setGravityScale(1);
 
         FIXTURE_DEF.filter.categoryBits = BIT_Player;
         FIXTURE_DEF.filter.maskBits = BIT_Ground;

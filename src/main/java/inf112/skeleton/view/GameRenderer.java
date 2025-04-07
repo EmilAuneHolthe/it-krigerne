@@ -112,6 +112,7 @@ public class GameRenderer implements Disposable, MapListener {
         if(enemies != null) {
             for (Enemy enemy : enemies) {
                 enemy.render(spriteBatch);
+                System.out.println("Enemy position: " + enemy.getPosition());
             }
         }
         // Render player

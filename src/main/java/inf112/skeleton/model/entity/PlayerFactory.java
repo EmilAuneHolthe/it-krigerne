@@ -40,6 +40,6 @@ public class PlayerFactory {
         shape.dispose();
         
         // Create and return player
-        return new Player(context, world, body, 100, 10, x, y, characterType);
+        return new Player(context, world, body, 100, 34, x, y, characterType);
     }
 }

@@ -16,6 +16,7 @@ public class Enemy implements entity {
     private float x;
     private float y;
     private World world;
+    private float speed;
     private Body body;
     private String direction;
     private final GamePanel context;
@@ -32,6 +33,7 @@ public class Enemy implements entity {
         this.y = y;
         this.name = name;
         direction = "Front";
+        this.speed = 0.5f;
     }
     @Override
     public int attack() {
@@ -116,5 +118,27 @@ public class Enemy implements entity {
     }
     public String getName() {
         return name;
+    }
+    public void moveEnemy(float x, float y) {
+      body.setLinearVelocity(x, y);
+    }
+    public void setDirection(String direction) {
+        this.direction = direction;
+        switch (direction) {
+            case "Front":
+                playerSprite.setTexture(playerIdleFrontTexture);
+                break;
+            case "Up":
+                playerSprite.setTexture(playerIdleUpTexture);
+                break;
+            case "Left":
+                playerSprite.setTexture(playerIdleLeftTexture);
+                break;
+            case "Right":
+                playerSprite.setTexture(playerIdleRightTexture);
+                break;
+            default:
+                break;
+        }
     }
 }
