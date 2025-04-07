@@ -11,7 +11,7 @@ public class EnemyTest {
 
     @BeforeEach
     public void setUp() {
-        enemy = new Enemy();
+        enemy = new Enemy(null, null, null, 0, 0, 0, 0);
         enemy.create(100, 10, 0, 0); // Initialize with default values
     }
 
