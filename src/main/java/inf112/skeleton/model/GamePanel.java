@@ -134,6 +134,20 @@ public class GamePanel extends Game {
         return player;
     }
 
+    /**
+     * Resets the player by setting it to null.
+     * This will cause a new player to be created when the game screen is shown again.
+     */
+    public void resetPlayer() {
+        if (player != null) {
+            // Hide the death overlay if it's visible
+            if (player.getDeathOverlay() != null) {
+                player.getDeathOverlay().hide();
+            }
+            player.dispose();
+            player = null;
+        }
+    }
 
     public void setScreen(final ScreenType screenType) {
         final Screen screen = screenCache.get(screenType);

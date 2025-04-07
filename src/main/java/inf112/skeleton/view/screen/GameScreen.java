@@ -46,7 +46,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
     public void render(float delta) {
         gameRenderer.render(delta);
 
-        Gdx.app.log("Debug", "FPS: " + Gdx.graphics.getFramesPerSecond());
+        //Gdx.app.log("Debug", "FPS: " + Gdx.graphics.getFramesPerSecond());
    
 
         // Test map switching - should be moved to a proper input handler
@@ -61,6 +61,9 @@ public class GameScreen extends AbstractScreen implements MapListener {
     public void show() {
         keyHandler.addListener(this);
         Gdx.input.setInputProcessor(keyHandler);
+        
+        // Always spawn a new player when showing the game screen
+        spawnPlayer();
     }
 
     @Override
@@ -106,9 +109,8 @@ public class GameScreen extends AbstractScreen implements MapListener {
     }
 
     private void spawnPlayer() {
-        if (context.getPlayer() == null) {
-            context.setPlayer(PlayerFactory.createPlayer(context, world, mapManager.getCurrentMap()));
-        }
+        // Always create a new player when spawning
+        context.setPlayer(PlayerFactory.createPlayer(context, world, mapManager.getCurrentMap()));
         player = context.getPlayer();
         gameRenderer.updatePlayer(player);
     }

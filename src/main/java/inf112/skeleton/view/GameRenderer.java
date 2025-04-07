@@ -100,7 +100,7 @@ public class GameRenderer implements Disposable, MapListener {
             box2DDebugRenderer.render(world, camera.combined);
         }
 
-        // Render player
+        // Render player (this will also render the death overlay if the player is dead)
         if (player != null) {
             player.render(spriteBatch);
         }
