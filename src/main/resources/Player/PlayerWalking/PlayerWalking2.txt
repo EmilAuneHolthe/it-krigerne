@@ -1,0 +1,61 @@
+PlayerWalking2.png
+size: 60, 125
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+PlayerWalkingFront1
+  rotate: false
+  xy: 29, 1
+  size: 25, 31
+  orig: 32, 32
+  offset: 4, 0
+  index: -1
+PlayerWalkingFront2
+  rotate: false
+  xy: 1, 67
+  size: 25, 31
+  orig: 32, 32
+  offset: 4, 0
+  index: -1
+PlayerWalkingLeft1
+  rotate: true
+  xy: 1, 100
+  size: 24, 31
+  orig: 32, 32
+  offset: 4, 0
+  index: -1
+PlayerWalkingLeft2
+  rotate: false
+  xy: 29, 34
+  size: 24, 31
+  orig: 32, 32
+  offset: 4, 0
+  index: -1
+PlayerWalkingRight1
+  rotate: true
+  xy: 28, 67
+  size: 24, 31
+  orig: 32, 32
+  offset: 5, 0
+  index: -1
+PlayerWalkingRight2
+  rotate: false
+  xy: 34, 93
+  size: 24, 31
+  orig: 32, 32
+  offset: 5, 0
+  index: -1
+PlayerWalkingUp1
+  rotate: false
+  xy: 1, 1
+  size: 26, 31
+  orig: 32, 32
+  offset: 4, 0
+  index: -1
+PlayerWalkingUp2
+  rotate: false
+  xy: 1, 34
+  size: 26, 31
+  orig: 32, 32
+  offset: 3, 0
+  index: -1

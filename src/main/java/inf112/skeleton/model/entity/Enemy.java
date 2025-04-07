@@ -7,6 +7,7 @@ public class Enemy implements entity {
     private int damage;
     private float x;
     private float y;
+    
     @Override
     public int attack() {
       // TODO Auto-generated method stub
