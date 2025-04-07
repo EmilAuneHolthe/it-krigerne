@@ -37,6 +37,7 @@ import java.util.Map;
 import inf112.skeleton.audio.AudioHandler;
 import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.KeyHandler;
+import inf112.skeleton.model.entity.Player;
 import inf112.skeleton.model.map.MapManager;
 import inf112.skeleton.view.GameRenderer;
 import inf112.skeleton.view.screen.*; 
@@ -73,10 +74,11 @@ public class GamePanel extends Game {
     private AudioHandler audioHandler;
     private MapManager mapManager;
     private GameRenderer gameRenderer;
+    private Player player;
 
     @Override
     public void create() {
-        Gdx.app.setLogLevel(Application.LOG_DEBUG);
+        Gdx.app.setLogLevel(Application.LOG_INFO);
         accumulator = 0;
         spriteBatch = new SpriteBatch();        
         
@@ -106,7 +108,8 @@ public class GamePanel extends Game {
         mapManager = new MapManager(this);
 
         //GameRenderer
-        //gameRenderer = new GameRenderer(this);
+        gameRenderer = new GameRenderer(this);
+        gameRenderer.setShowDebug(false);
 
         setScreen(ScreenType.MAIN_MENU);
     }
@@ -121,7 +124,15 @@ public class GamePanel extends Game {
     public OrthographicCamera getCamera() {return camera;}
     public AudioHandler getAudioHandler() {return audioHandler;}
     public MapManager getMapManager() {return mapManager;}
-    //public GameRenderer getGameRenderer() {return gameRenderer;}
+    public GameRenderer getGameRenderer() {return gameRenderer;}
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+    
+    public Player getPlayer() {
+        return player;
+    }
 
 
     public void setScreen(final ScreenType screenType) {
@@ -154,7 +165,10 @@ public class GamePanel extends Game {
             accumulator -= FIXED_TIME_STEP;
         }  
 
-        //gameRenderer.render(accumulator / FIXED_TIME_STEP);
+        // Only render game when in game screen
+        if (getScreen() instanceof GameScreen) {
+            gameRenderer.render(accumulator / FIXED_TIME_STEP);
+        }
 
         // final float alpha = accumulator / FIXED_TIME_STEP; DO NOT USE yet
     }

@@ -17,22 +17,24 @@ public class PlayerHUD {
     private final Player player;
     private final Image healthBar;
     private final Label healthLabel;
-    private final float maxHealthBarWidth = 200f;
+    private final float maxHealthBarWidth = 240f;
+    private final float healthBarHeight = 24f;
 
     public PlayerHUD(Stage stage, Player player, Texture healthTexture, Texture backgroundTexture) {
         this.player = player;
 
         // Health bar (foreground)
         healthBar = new Image(healthTexture);
-        healthBar.setSize(maxHealthBarWidth, 20);
+        healthBar.setSize(maxHealthBarWidth, healthBarHeight);
         healthBar.setOrigin(Align.bottomLeft);
 
         // Health bar background
         Image healthBg = new Image(backgroundTexture);
-        healthBg.setSize(maxHealthBarWidth, 20);
+        healthBg.setSize(maxHealthBarWidth, healthBarHeight);
 
         // Label setup with inline style
-        BitmapFont font = new BitmapFont(); // Default font
+        BitmapFont font = new BitmapFont();
+        font.getData().setScale(0.6f);
         LabelStyle style = new LabelStyle(font, Color.WHITE);
         healthLabel = new Label("100 / 100", style);
         healthLabel.setAlignment(Align.center);
@@ -42,20 +44,20 @@ public class PlayerHUD {
         healthStack.add(healthBg);
         healthStack.add(healthBar);
         healthStack.add(healthLabel);
-        healthStack.setSize(maxHealthBarWidth, 20);
+        healthStack.setSize(maxHealthBarWidth, healthBarHeight);
 
         // Place using Table
         Table table = new Table();
         table.setFillParent(true);
-        table.top().left().padTop(10).padLeft(10);
-        table.add(healthStack).width(maxHealthBarWidth).height(20);
+        table.top().left().padTop(5).padLeft(5);
+        table.add(healthStack).width(maxHealthBarWidth).height(healthBarHeight);
         stage.addActor(table);
     }
 
     public void update() {
         float health = player.getHealth();
         float percent = Math.max(0f, health / 100f);
-        healthBar.setSize(maxHealthBarWidth * percent, 20);
+        healthBar.setSize(maxHealthBarWidth * percent, healthBarHeight);
         healthLabel.setText((int) health + " / 100");
     }
 }

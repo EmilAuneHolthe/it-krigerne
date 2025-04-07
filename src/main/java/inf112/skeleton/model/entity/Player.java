@@ -108,9 +108,6 @@ public class Player implements entity, Disposable {
         dontAccelerate();
     }
     
-    
-    
-    
     private void updateDirection() {
         directionChange = true;
     }
@@ -139,34 +136,27 @@ public class Player implements entity, Disposable {
         playerIdleUpTexture = new Texture(Gdx.files.internal("Player/PlayerIdle/PlayerIdleUp.png"));
         playerIdleLeftTexture = new Texture(Gdx.files.internal("Player/PlayerIdle/PlayerIdleLeft.png"));
         playerIdleRightTexture = new Texture(Gdx.files.internal("Player/PlayerIdle/PlayerIdleRight.png"));
-        
+        playerSprite = new Sprite(playerIdleFrontTexture);
+        playerSprite.setSize(1, 1);
     }
     
+    
     public void setPlayeSprite() {
-        
         switch (direction) {
             case "Front":
-            playerTexture = playerIdleFrontTexture;
-            createSprite(playerTexture);
-            break;
+                playerSprite.setTexture(playerIdleFrontTexture);
+                break;
             case "Up":
-            playerTexture = playerIdleUpTexture;
-            createSprite(playerTexture);
-            break;
-            
+                playerSprite.setTexture(playerIdleUpTexture);
+                break;
             case "Left":
-            playerTexture = playerIdleLeftTexture;
-            createSprite(playerTexture);
-            break;
-            
+                playerSprite.setTexture(playerIdleLeftTexture);
+                break;
             case "Right":
-            playerTexture = playerIdleRightTexture;
-            createSprite(playerTexture);
-            break;
-            
+                playerSprite.setTexture(playerIdleRightTexture);
+                break;
             default:
-            break;
-            
+                break;
         }
     }
     
