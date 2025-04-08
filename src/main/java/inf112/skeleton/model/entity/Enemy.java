@@ -33,7 +33,7 @@ public class Enemy implements entity {
         this.y = y;
         this.name = name;
         direction = "Front";
-        this.speed = 0.5f;
+        this.speed = 2f;
     }
     @Override
     public int attack() {
@@ -56,8 +56,6 @@ public class Enemy implements entity {
     @Override
     public boolean takeDamage(int damage) {
       health -= damage;
-      System.out.println("Enemy took damage: " + damage + name);
-      System.out.println(health);
       if (health < 1) {
         
         int index = context.getEnemy().indexOf(this, true);
@@ -120,14 +118,24 @@ public class Enemy implements entity {
         return name;
     }
     public void moveEnemy(float x, float y) {
-      body.setLinearVelocity(x, y);
+        // Calculate direction vector
+        Vector2 target = new Vector2(x - body.getPosition().x, y - body.getPosition().y);
+        
+        // Only move if we're not already at the target
+        if (target.len2() > 0.01f) {  // Small threshold to prevent jittering
+          target.nor(); // Normalize to get unit vector
+          target.scl(speed); // Scale by speed
+            body.setLinearVelocity(target);
+        } else {
+            body.setLinearVelocity(0, 0);
+        }
     }
     public void setDirection(String direction) {
         this.direction = direction;
         switch (direction) {
             case "Front":
                 playerSprite.setTexture(playerIdleFrontTexture);
-                break;
+                  break;
             case "Up":
                 playerSprite.setTexture(playerIdleUpTexture);
                 break;
@@ -140,5 +148,11 @@ public class Enemy implements entity {
             default:
                 break;
         }
+    }
+    public int getDamage() {
+        return damage;
+    }
+    public void setLinearVelocity(float x, float y) {
+        body.setLinearVelocity(x, y);
     }
 }
