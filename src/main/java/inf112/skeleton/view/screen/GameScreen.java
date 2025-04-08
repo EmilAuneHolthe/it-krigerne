@@ -62,7 +62,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
 
         dTime += 0.5;
         if (dTime >= 25) {
-            System.out.println("Enemy sight");
+            //System.out.println("Enemy sight");
             enemyController.sight();
             dTime = 0;
         }

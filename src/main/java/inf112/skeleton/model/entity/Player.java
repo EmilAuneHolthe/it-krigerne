@@ -102,7 +102,7 @@ public class Player implements entity, Disposable {
     
     @Override
     public boolean takeDamage(int damage) {
-        health -= 0;
+        health -= damage;
         boolean alive = health > 0;
         if (!alive && !isDead) {
             isDead = true;

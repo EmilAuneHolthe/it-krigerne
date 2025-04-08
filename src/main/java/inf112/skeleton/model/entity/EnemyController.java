@@ -22,7 +22,6 @@ public class EnemyController {
     // Constructor logic here
   }
   public void sight() {
-    System.out.println("Enemy sight");
     for (Enemy enemy : enemies) {
       Vector2 enemyPosition = enemy.getPosition();
       Vector2 playerPosition = player.getPosition();
@@ -30,24 +29,37 @@ public class EnemyController {
       float distance = enemyPosition.dst(playerPosition);
 
       if (distance < 5) {
-        float x = playerPosition.x - enemyPosition.x;
-        float y = playerPosition.y - enemyPosition.y;
-        float angle = (float) Math.atan2(y, x);
+        // Calculate relative position
+        float dx = playerPosition.x - enemyPosition.x;
+        float dy = playerPosition.y - enemyPosition.y;
+        float angle = (float) Math.atan2(dy, dx);
         float angleDegrees = (float) Math.toDegrees(angle);
-        if (angleDegrees >= -45 && angleDegrees < 45) {
+        
+        // Normalize angle to 0-360 range
+        if (angleDegrees < 0) {
+            angleDegrees += 360;
+        }
+        
+        
+        // Set direction based on angle
+        if (angleDegrees >= 315 || angleDegrees < 45) {
           enemy.setDirection("Right");
         } else if (angleDegrees >= 45 && angleDegrees < 135) {
           enemy.setDirection("Up");
-        } else if (angleDegrees >= 135 || angleDegrees < -135) {
+        } else if (angleDegrees >= 135 && angleDegrees < 225) {
           enemy.setDirection("Left");
         } else {
           enemy.setDirection("Down");
         }
-        enemy.moveEnemy(x, y);
+        enemy.moveEnemy(playerPosition.x, playerPosition.y);
+        if(distance < 1) {
+          player.takeDamage(enemy.getDamage());
+          System.out.println("Player took damage: " + enemy.getDamage());
+        }
       }
-      if(distance < 1) {
-        player.takeDamage(enemy.getDamage());
-        System.out.println("Player took damage: " + enemy.getDamage());
+      else {
+        enemy.setLinearVelocity(0, 0);
+        enemy.setDirection("Front");
       }
     }
   }
