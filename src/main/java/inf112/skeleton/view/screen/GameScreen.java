@@ -74,6 +74,9 @@ public class GameScreen extends AbstractScreen implements MapListener {
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             mapManager.setMap(MapType.MAP_2);
         }
+        else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            gameRenderer.setShowDebug(!gameRenderer.isShowDebug());
+        }
     }
 
     @Override

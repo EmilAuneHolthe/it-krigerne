@@ -57,13 +57,14 @@ public class Enemy implements entity {
     public boolean takeDamage(int damage) {
       health -= damage;
       if (health < 1) {
-        
         int index = context.getEnemy().indexOf(this, true);
         if (index >= 0) {
+            // Destroy the Box2D body
+            world.destroyBody(body);
+            // Remove from the enemy list
             context.getEnemy().removeIndex(index);
             System.out.println("Enemy removed from list: " + name);
         }
-        
       }
       return health > 0;
     }
@@ -92,8 +93,7 @@ public class Enemy implements entity {
     }
     @Override
     public Body getBody() {
-      // TODO Auto-generated method stub
-      throw new UnsupportedOperationException("Unimplemented method 'getBody'");
+      return body;
     }
         public void loadTextures(){
         playerIdleFrontTexture = new Texture(Gdx.files.internal("Player/PlayerIdle/PlayerIdleFront.png"));
