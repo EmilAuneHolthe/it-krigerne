@@ -43,6 +43,7 @@ public abstract class GameEntity implements entity, Disposable {
     
     @Override
     public boolean takeDamage(int damage) {
+        System.out.println("Taking damage: " + damage);
         health -= damage;
         return health > 0;
     }

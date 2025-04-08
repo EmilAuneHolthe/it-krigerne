@@ -36,27 +36,27 @@ public class Player extends GameEntity {
         return !isDead;
     }
     
-    @Override
-    public boolean takeDamage(int damage) {
-        boolean alive = super.takeDamage(damage);
-        if (!alive && !isDead) {
-            isDead = true;
-            die();
-        }
-        return alive;
-    }
+    // @Override
+    // public boolean takeDamage(int damage) {
+    //     boolean alive = super.takeDamage(damage);
+    //     if (!alive && !isDead) {
+    //         isDead = true;
+    //         die();
+    //     }
+    //     return alive;
+    // }
     
-    @Override
-    public void die() {
-        if (deathOverlay != null) {
-            deathOverlay.show();
-        }
-    }
+    // @Override
+    // public void die() {
+    //     if (deathOverlay != null) {
+    //         deathOverlay.show();
+    //     }
+    // }
     
-    @Override
-    public int attack() {
-        return damage;
-    }
+    // @Override
+    // public int attack() {
+    //     return damage;
+    // }
     
     public void playerInput(KeyHandler keyHandler, Keys key) {
         if (isDead) {

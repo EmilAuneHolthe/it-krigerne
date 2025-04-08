@@ -44,12 +44,16 @@ public class EnemyController {
         // Set direction based on angle
         if (angleDegrees >= 315 || angleDegrees < 45) {
           enemy.setDirection("Right");
+          System.out.println("Right");
         } else if (angleDegrees >= 45 && angleDegrees < 135) {
           enemy.setDirection("Up");
+          System.out.println("Up");
         } else if (angleDegrees >= 135 && angleDegrees < 225) {
           enemy.setDirection("Left");
+          System.out.println("Left");
         } else {
-          enemy.setDirection("Down");
+          enemy.setDirection("Front");
+          System.out.println("Down");
         }
         enemy.moveEnemy(playerPosition.x, playerPosition.y);
         if(distance < 0.8) {

@@ -28,14 +28,12 @@ public class PlayerFactory {
         
         // Create player fixture
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(0.5f, 0.5f);
-        
+        shape.setAsBox(0.4f, 0.4f);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = 1.0f;
         fixtureDef.friction = 0.0f;
         fixtureDef.restitution = 0.0f;
-        
         body.createFixture(fixtureDef);
         shape.dispose();
         
