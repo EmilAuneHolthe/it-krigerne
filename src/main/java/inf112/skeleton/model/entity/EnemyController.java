@@ -52,9 +52,8 @@ public class EnemyController {
           enemy.setDirection("Down");
         }
         enemy.moveEnemy(playerPosition.x, playerPosition.y);
-        if(distance < 1) {
+        if(distance < 0.8) {
           player.takeDamage(enemy.getDamage());
-          System.out.println("Player took damage: " + enemy.getDamage());
         }
       }
       else {

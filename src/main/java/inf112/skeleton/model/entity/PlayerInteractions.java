@@ -6,11 +6,12 @@ import inf112.skeleton.model.GamePanel;
 
 public class PlayerInteractions {
   private final GamePanel context;
+  private final float attackRange;
   public PlayerInteractions(GamePanel context) {
     this.context = context;
+    this.attackRange = 2.0f;
   }
-  public void attackEnemy(Player player,
-  Array<Enemy> enemies) {
+  public void attackEnemy(Player player, Array<Enemy> enemies) {
     String enemyName = distanceToPlayer(player, enemies);
     if (enemyName != null) {
         for(Enemy enemy : enemies) {
@@ -26,7 +27,7 @@ public class PlayerInteractions {
     for (Enemy enemy : enemies) {
         float distance = enemy.getPosition().dst(player.getPosition());
         System.out.println("Distance to player: " + distance + enemy.getName());
-        if(distance < 1.0f) {
+        if(distance < attackRange) {
             return enemy.getName();
         }
     }

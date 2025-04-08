@@ -56,8 +56,6 @@ public class Enemy implements entity {
     @Override
     public boolean takeDamage(int damage) {
       health -= damage;
-      System.out.println("Enemy took damage: " + damage + name);
-      System.out.println(health);
       if (health < 1) {
         
         int index = context.getEnemy().indexOf(this, true);
