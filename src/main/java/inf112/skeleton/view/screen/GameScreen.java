@@ -139,7 +139,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
             context.setPlayer(factory.createPlayer(
                 mapManager.getCurrentMap().getPlayerSpawn().x * UNIT_SCALE,
                 mapManager.getCurrentMap().getPlayerSpawn().y * UNIT_SCALE,
-                CharacterType.SOLDIER
+                CharacterType.OLD
             ));
         }
         player = context.getPlayer();
@@ -147,8 +147,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
     }
 
     private void spawnEnemy() {
-        context.setEnemy(EnemyFactory.createEnemy(context, world, mapManager.getCurrentMap()));
-        //System.out.println("Spawning enemy at" + context.getEnemy().getX() + " " + context.getEnemy().getY());
+        context.setEnemy(EnemyFactory.createEnemy(context, world, mapManager.getCurrentMap(), CharacterType.ZOMBIE));
         enemies = context.getEnemy();
         gameRenderer.updateEnemy(enemies);
     }

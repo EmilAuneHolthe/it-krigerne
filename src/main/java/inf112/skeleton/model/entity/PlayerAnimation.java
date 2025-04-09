@@ -44,7 +44,7 @@ public class PlayerAnimation {
             
             attackAtlas = new TextureAtlas(Gdx.files.internal(attackAnimationType.getAtlasPath()));
             
-            // Load attack frames
+            // Load attack frames 
             TextureRegion region = attackAtlas.findRegion(attackAnimationType.getAtlasKey());
             if (region == null) {
                 throw new RuntimeException("Could not find region '" + attackAnimationType.getAtlasKey() + 
@@ -152,15 +152,27 @@ public class PlayerAnimation {
                 switch (direction) {
                     case "Down":
                         currentAnimationType = getAnimationTypeForDirection("Down");
+                        if(characterType == CharacterType.ZOMBIE) {
+                            System.out.println("Current animation type: " + currentAnimationType);
+                        }
                         break;
                     case "Up":
                         currentAnimationType = getAnimationTypeForDirection("Up");
+                        if(characterType == CharacterType.ZOMBIE) {
+                            System.out.println("Current animation type: " + currentAnimationType);
+                        }
                         break;
                     case "Left":
                         currentAnimationType = getAnimationTypeForDirection("Left");
+                        if(characterType == CharacterType.ZOMBIE) {
+                            System.out.println("Current animation type: " + currentAnimationType);
+                        }
                         break;
                     case "Right":
                         currentAnimationType = getAnimationTypeForDirection("Right");
+                        if(characterType == CharacterType.ZOMBIE) {
+                            System.out.println("Current animation type: " + currentAnimationType);
+                        }
                         break;
                 }
                 

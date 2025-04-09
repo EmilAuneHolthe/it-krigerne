@@ -1,5 +1,7 @@
 package inf112.skeleton.view;
 
+import java.io.OptionalDataException;
+
 public enum AnimationTypes {
 
     // Soilder
@@ -24,7 +26,14 @@ public enum AnimationTypes {
     OLD_LEFT("Player/Atlas/OldWalking.atlas", "Old", 0.5f, 1),
     OLD_RIGHT("Player/Atlas/OldWalking.atlas", "Old", 0.5f, 2),
     
-    OLD_ATTACK("Player/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0);
+    OLD_ATTACK("Player/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
+
+    ZOMBIE_DOWN("Player/Atlas/ZombieWalking.atlas", "Zombie", 0.5f, 0),
+    ZOMBIE_UP("Player/Atlas/ZombieWalking.atlas", "Zombie", 0.5f, 3),
+    ZOMBIE_LEFT("Player/Atlas/ZombieWalking.atlas", "Zombie", 0.5f, 1),
+    ZOMBIE_RIGHT("Player/Atlas/ZombieWalking.atlas", "Zombie", 0.5f, 2),
+    
+    ZOMBIE_ATTACK("Player/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0);
     
 
     private final String atlasPath;

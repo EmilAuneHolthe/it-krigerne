@@ -125,4 +125,7 @@ public class PlayerMovement {
     public boolean isMoving() {
         return xFactor != 0 || yFactor != 0;
     }
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
 } 
