@@ -51,10 +51,8 @@ public class Enemy extends AnimatedEntity {
         
         // Draw health bar
         Vector2 pos = body.getPosition();
-        batch.begin();
         batch.draw(backgroundTexture, pos.x - 0.5f, pos.y + 0.5f, 1, 0.1f);
         batch.draw(healthTexture, pos.x - 0.5f, pos.y + 0.5f, 1 * (health / 100f), 0.1f);
-        batch.end();
     }
 
     public void update(float deltaTime) {

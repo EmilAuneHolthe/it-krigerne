@@ -1,68 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-up" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="51">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-up" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="56">
  <tileset firstgid="1" source="GrassSprites.tsx"/>
  <tileset firstgid="529" source="DirtSprites.tsx"/>
  <tileset firstgid="865" source="Decorations.tsx"/>
  <tileset firstgid="1929" source="KeyAnimation.tsx"/>
- <layer id="1" name="Ground" width="64" height="64">
+ <layer id="1" name="Ground" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJztwzEJAAAMA7Ay/x5rpTL2JJBeUlVVVVVVVVVVVVVVVVVVVfX1AKEqENM=
+   eJzt0MEJgEAAxMDD/nu0Fd/+hQm4A2kg58zMzMzMzMzMzMzMzMzMzMzX7uvf1egfuhr9Q1ejf+hq9A9djf6hq9E/dDX6h65G/9DV6B+6Gv1DV6N/6Gr0D12N/qGr0T90NfqHrkb/0NXoH7oa/UNXo3/oavQPXY3+oavRP3Q1+oeuRv/Q1egfuhr9Q1ejf+hq9A9djf6hq9E/dDX6h65G/9DV6B+6Gv1DV6N/6Gr0D12N/qGr0T90NfqHrkb/0NXoH7oa/UNXo3/oavQPXY3+oavRP3Q1+oeuRv/Q1egfuhr9Q1ejf+hq9A9djf6hq9E/dDX6h65G/9DV6B+6Gv1DV6N/6Gr0D12N/qGr0T90NfqHbmZmZmZmZmZmZmZmZt4e5zcQ0w==
   </data>
  </layer>
- <layer id="2" name="Paths" width="64" height="64">
+ <layer id="2" name="Paths" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt0DEKgDAQRNGAoKnUSnP/xms6jWeIsO/B9Pu3NT7PMvuCeda0b1kv+oM93Ud2Fu2/0n1no2g/AAAAAAAAAAAAAAAAAAD8wQt06gFN
+   eJzt0TEKgDAABMGAEFMZK83/G7/pNb4hAWfg+oMtBQAAAAAAAADgP55t9gM+NS32rGmyhCMdenbqsYQrHe5s6AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMMUL/e0BTQ==
   </data>
  </layer>
- <layer id="3" name="Grass misc" width="64" height="64">
+ <layer id="3" name="Grass misc" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt0rEJACAQA0DB/QudWGwEC2sfcjdBSNIa2+i/E9QxdXH+kNCF798SNn9J/ULy5gAAAAAAAAAAAAAAAABALQsGoQSl
+   eJzt1LEJACAQBMEH+w+0YiNDUz10poKHY78KAAAAAAAAAOAPvd2+gJ1hmzirF9uc51dl00QOrWTQBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPCqCfUyBKU=
   </data>
  </layer>
- <layer id="4" name="Ground Collision" width="64" height="64">
+ <layer id="4" name="Ground Collision" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt0rEJACAMRcGAE+sg6g4uanoHSOEd/D7wEgGv06ovoMrK9js3/cA3erYeegMAAAAAAAAAAAAAAAAAlLuvowNG
+   eJzt08EJgEAMRcGAsP1qIWoPVuXetBLDgiVIPMxA7oHPiwAAAAAAAAAAgHrHVP0B/NOWbex5q0ZgmLOFRQ8AAAAAAAAAAAAAAAAAAADAB84W0Vv1F7yu3OK2BwAAAAAAAAAAAAAAUOgBVbsG1A==
   </data>
  </layer>
  <objectgroup id="9" name="Collision">
-  <object id="6" x="192" y="64" width="32" height="32"/>
-  <object id="7" x="224" y="128" width="32" height="32"/>
-  <object id="8" x="192" y="128" width="32" height="32"/>
-  <object id="9" x="160" y="128" width="32" height="32"/>
-  <object id="10" x="96" y="192" width="32" height="32"/>
-  <object id="12" x="64" y="192" width="32" height="32"/>
-  <object id="32" x="-0.00730248" y="2048">
+  <object id="6" x="832" y="704" width="32" height="32"/>
+  <object id="7" x="864" y="768" width="32" height="32"/>
+  <object id="8" x="832" y="768" width="32" height="32"/>
+  <object id="9" x="800" y="768" width="32" height="32"/>
+  <object id="10" x="736" y="832" width="32" height="32"/>
+  <object id="12" x="704" y="832" width="32" height="32"/>
+  <object id="32" x="639.993" y="2688">
    <polyline points="0,0 0.00730248,-2047.98"/>
   </object>
-  <object id="33" x="0.0273438" y="0">
+  <object id="33" x="640.027" y="640">
    <polyline points="0,0 2047.93,0"/>
   </object>
-  <object id="34" x="2048" y="0">
+  <object id="34" x="2688" y="640">
    <polyline points="0,0 -0.0035768,2048"/>
   </object>
-  <object id="35" x="2047.96" y="2048">
+  <object id="35" x="2687.96" y="2688">
    <polyline points="0,0 -2047.93,0.00247821"/>
   </object>
+  <object id="53" x="2304" y="2144" width="64" height="64"/>
  </objectgroup>
  <objectgroup id="6" name="Player">
-  <object id="2" x="110.526" y="111.842">
+  <object id="2" x="750.526" y="751.842">
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="11" name="Enemy">
+  <object id="49" name="Enemy 3" x="2343.77" y="2394.46">
+   <point/>
+  </object>
+  <object id="50" x="2588.42" y="2852.92">
+   <point/>
+  </object>
+  <object id="51" x="1603.19" y="2101.32">
+   <point/>
+  </object>
+  <object id="52" x="1843.44" y="31.6685">
    <point/>
   </object>
  </objectgroup>
  <objectgroup id="7" name="Items">
-  <object id="1" gid="1929" x="191.237" y="222.579" width="32" height="32"/>
+  <object id="1" gid="1929" x="831.237" y="862.579" width="32" height="32"/>
  </objectgroup>
- <layer id="5" name="Ground Foreground" width="64" height="64">
+ <layer id="5" name="Ground Foreground" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJztzkENAAAIBKDbTKv9AxjDh5CABOC3rmTqegEAAAAAAAAAAAAAAAAAwHcLPWwA2g==
+   eJztzlEJACAQBbAHgl21rSaygH4fyJZgCQAAAAAAAAAAAPAyWjJb9QIAAAAAAAAAAAAAAAAAAAD40erJ7tULAAAAAAAAAAAAAAAA4OYAOScCiQ==
   </data>
  </layer>
- <objectgroup id="11" name="Enemy">
-  <object id="49" name="Enemy 3" x="1703.77" y="1754.46">
-   <point/>
-  </object>
-  <object id="50" x="1948.42" y="2212.92">
-   <point/>
-  </object>
- </objectgroup>
 </map>
