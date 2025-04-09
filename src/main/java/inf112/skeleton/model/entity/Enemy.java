@@ -142,6 +142,7 @@ public class Enemy extends GameEntity {
         this.direction = direction;
     }
     public int getDamage() {
+      System.out.println("Damage: " + damage);
         return damage;
     }
     public void setLinearVelocity(float x, float y) {
