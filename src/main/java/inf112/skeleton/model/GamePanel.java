@@ -61,16 +61,16 @@ public class GamePanel extends Game {
 
 
     // Pixel to meter ratio
-    public static final short BIT_PLAYER = 1<<0;
+    public static final short BIT_Player = 1<<0;
     public static final float UNIT_SCALE = 1/32f; // 1 meter = 32 pixels
-    public static final short BIT_BOX = 1<<1;
-    public static final short BIT_GROUND = 1<<2;
+    public static final short BIT_Box = 1<<1;
+    public static final short BIT_Ground = 1<<2;
     private static final float FIXED_TIME_STEP = 1/60f;
     private float accumulator;
 
     public static final BodyDef BODY_DEF = new BodyDef();
     public static final FixtureDef FIXTURE_DEF = new FixtureDef();
-    
+    public static final short BIT_GROUND = GamePanel.BIT_Ground;
 
     private AssetManager assetManager;
     private KeyHandler keyHandler;
