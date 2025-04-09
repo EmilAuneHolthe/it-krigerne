@@ -2,14 +2,8 @@ package inf112.skeleton.view.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-
 import inf112.skeleton.controller.Keys;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
@@ -31,23 +25,17 @@ public class GameScreen extends AbstractScreen implements MapListener {
     private float dTime = 0;
     private Player player;
     private Array<Enemy> enemies;
-    private final World world;
-    private final AssetManager assetManager;
     private final OrthographicCamera camera;
     private final MapManager mapManager;
     private final GameRenderer gameRenderer;
     private final PlayerInteractions playerInteractions;
     private final EnemyController enemyController;
-    private final KeyHandler keyHandler;
 
     public GameScreen(GamePanel context) {
         super(context);
-        assetManager = context.getAssetManager();
         this.camera = context.getCamera();
-        this.world = context.getWorld();
         this.mapManager = context.getMapManager();
         this.gameRenderer = context.getGameRenderer();
-        this.keyHandler = context.getKeyHandler();
 
         mapManager.addListener(this);
         mapManager.setMap(MapType.MAP_1);

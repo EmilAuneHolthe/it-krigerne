@@ -5,10 +5,8 @@ import com.badlogic.gdx.utils.Array;
 import inf112.skeleton.model.GamePanel;
 
 public class PlayerInteractions {
-  private final GamePanel context;
   private final float attackRange;
   public PlayerInteractions(GamePanel context) {
-    this.context = context;
     this.attackRange = 2.0f;
   }
   public void attackEnemy(Player player, Array<Enemy> enemies) {

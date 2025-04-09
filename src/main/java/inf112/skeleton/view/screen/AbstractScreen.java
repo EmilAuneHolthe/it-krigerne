@@ -1,9 +1,5 @@
 package inf112.skeleton.view.screen;
 
-import javax.swing.Box;
-
-import com.badlogic.gdx.Audio;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;

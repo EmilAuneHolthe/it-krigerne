@@ -2,22 +2,16 @@ package inf112.skeleton.model.entity;
 
 import com.badlogic.gdx.utils.Array;
 
-import java.util.Vector;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
-import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.model.GamePanel;
 
 public class EnemyController {
-  private final GamePanel context;
-  private final World world;
   private final Array<Enemy> enemies;
   private final Player player;
   public EnemyController(GamePanel context, World world, Array<Enemy> enemies, Player player) {
-    this.context = context;
-    this.world = world;
     this.enemies = enemies;
     this.player = player;
     // Constructor logic here

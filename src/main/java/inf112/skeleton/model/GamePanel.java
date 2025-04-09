@@ -1,21 +1,14 @@
 package inf112.skeleton.model;
 
 import com.badlogic.gdx.Application;
-import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.assets.loaders.MusicLoader;
-import com.badlogic.gdx.assets.loaders.SoundLoader;
-import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -30,10 +23,7 @@ import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
-import java.security.Key;
 import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Map;
 
 import inf112.skeleton.audio.AudioHandler;
 import inf112.skeleton.audio.AudioTypes;
@@ -44,7 +34,6 @@ import inf112.skeleton.model.entity.PlayerInteractions;
 import inf112.skeleton.model.map.MapManager;
 import inf112.skeleton.view.GameRenderer;
 import inf112.skeleton.view.screen.*; 
-import inf112.skeleton.view.debug;
 public class GamePanel extends Game {
     private static final String TAG = GamePanel.class.getSimpleName();
 
@@ -64,13 +53,12 @@ public class GamePanel extends Game {
     public static final short BIT_Player = 1<<0;
     public static final float UNIT_SCALE = 1/32f; // 1 meter = 32 pixels
     public static final short BIT_Box = 1<<1;
-    public static final short BIT_Ground = 1<<2;
+    public static final short BIT_GROUND = 1<<2;
     private static final float FIXED_TIME_STEP = 1/60f;
     private float accumulator;
 
     public static final BodyDef BODY_DEF = new BodyDef();
     public static final FixtureDef FIXTURE_DEF = new FixtureDef();
-    public static final short BIT_GROUND = GamePanel.BIT_Ground;
 
     private AssetManager assetManager;
     private KeyHandler keyHandler;

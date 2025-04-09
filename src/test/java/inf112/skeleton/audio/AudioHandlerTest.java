@@ -1,6 +1,5 @@
 package inf112.skeleton.audio;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import com.badlogic.gdx.audio.Music;

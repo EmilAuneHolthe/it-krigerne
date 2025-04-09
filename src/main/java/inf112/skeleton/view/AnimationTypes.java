@@ -1,7 +1,5 @@
 package inf112.skeleton.view;
 
-import java.io.OptionalDataException;
-
 public enum AnimationTypes {
 
     // Soilder
