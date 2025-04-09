@@ -10,24 +10,29 @@ public class PlayerInteractions {
     this.attackRange = 2.0f;
   }
   public void attackEnemy(Player player, Array<Enemy> enemies) {
-    String enemyName = distanceToPlayer(player, enemies);
+    Array<String> enemyName = distanceToPlayer(player, enemies);
     if (enemyName != null) {
         for(Enemy enemy : enemies) {
-            if (enemy.getName().equals(enemyName)) {
+            if (enemyName.contains(enemy.getName(), false)) {
                 System.out.println("Enemy " + enemy.getName() + " is within range!");
                 enemy.takeDamage(player.attack());
             }
           }
   }
 }
-  private String distanceToPlayer(Player player,
+  private Array<String> distanceToPlayer(Player player,
   Array<Enemy> enemies) {
+    Array<String> enemyNames = new Array<>();
     for (Enemy enemy : enemies) {
         float distance = enemy.getPosition().dst(player.getPosition());
         System.out.println("Distance to player: " + distance + enemy.getName());
         if(distance < attackRange) {
-            return enemy.getName();
+            enemyNames.add(enemy.getName());
         }
+    }
+    if (enemyNames.size > 0) {
+      System.out.println("Enemies within range: " + enemyNames);
+        return enemyNames;
     }
     return null;
 

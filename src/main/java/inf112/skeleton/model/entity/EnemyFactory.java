@@ -21,13 +21,13 @@ public class EnemyFactory {
         this.keyHandler = keyHandler;
     }
     
-    public Array<Enemy> createEnemiesFromMap(Map map, CharacterType characterType) {
+    public Array<Enemy> createEnemiesFromMap(Map map) {
         Array<Enemy> enemies = new Array<>();
         for (EnemySpawn spawn : map.getEnemySpawn()) {
             Enemy enemy = createEnemy(
                 spawn.getPosition().x * GamePanel.UNIT_SCALE,
                 spawn.getPosition().y * GamePanel.UNIT_SCALE,
-                characterType,
+                spawn.getCharacterType(),
                 spawn.getName()
             );
             enemies.add(enemy);
@@ -58,6 +58,6 @@ public class EnemyFactory {
         shape.dispose();
         
         // Create and return enemy
-        return new Enemy(context, world, body, 100, 10, x, y, characterType, name, keyHandler);
+        return new Enemy(context, world, body, x, y, characterType, name, keyHandler);
     }
 }

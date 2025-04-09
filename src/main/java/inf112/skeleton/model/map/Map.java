@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
+import inf112.skeleton.model.entity.CharacterType;
 import inf112.skeleton.model.entity.EnemySpawn;
 
 public class Map {
@@ -104,9 +105,10 @@ public class Map {
               final Rectangle rectangle = spawn.getRectangle();
               Gdx.app.debug(TAG, "Enemy spawn found at: " + rectangle.x + ", " + rectangle.y);
               String name = spawn.getName();
+              CharacterType characterType = CharacterType.valueOf(spawn.getProperties().get("Type").toString().toUpperCase());
               Vector2 position = new Vector2(rectangle.x, rectangle.y);
               System.out.println(name);
-              enemySpawns.add(new EnemySpawn(position, name));
+              enemySpawns.add(new EnemySpawn(position, name, characterType ));
           }
           return enemySpawns;
         }

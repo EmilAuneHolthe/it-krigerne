@@ -1521,11 +1521,14 @@
    <polyline points="0,0 160,0"/>
   </object>
   <object id="796" x="2016.28" y="2400.55">
+  <object id="796" x="2016.28" y="2400.55">
    <polyline points="0,0 -0.188274,15.815 128.027,16.1916 127.65,-0.376549"/>
   </object>
   <object id="797" x="2399.91" y="2176.35">
+  <object id="797" x="2399.91" y="2176.35">
    <polyline points="0,0 -15.0116,-0.322831 -15.0116,127.518 0.322831,127.679"/>
   </object>
+  <object id="798" x="2304.35" y="2304.35">
   <object id="798" x="2304.35" y="2304.35">
    <polyline points="0,0 15.6573,-0.161415 15.6573,-128.325 0,-128.325"/>
   </object>
@@ -1533,11 +1536,17 @@
   <object id="800" x="1856" y="2496" width="32" height="32"/>
   <object id="801" x="1984" y="1984" width="64" height="128"/>
   <object id="802" x="1920" y="2368">
+  <object id="799" x="1792" y="2368" width="32" height="64"/>
+  <object id="800" x="1856" y="2496" width="32" height="32"/>
+  <object id="801" x="1984" y="1984" width="64" height="128"/>
+  <object id="802" x="1920" y="2368">
    <polyline points="0,0 0,64"/>
   </object>
   <object id="803" x="1920" y="2464">
+  <object id="803" x="1920" y="2464">
    <polyline points="0,0 0,64"/>
   </object>
+  <object id="804" x="2082.1" y="1962.41">
   <object id="804" x="2082.1" y="1962.41">
    <polyline points="0,0 0.255193,19.6499 126.321,20.4155 126.065,-1.53116"/>
   </object>
@@ -1613,11 +1622,85 @@
   <object id="874" x="1152" y="1856" width="64" height="64"/>
   <object id="875" x="1184" y="1792" width="32" height="64"/>
   <object id="876" x="1218.99" y="1663.06">
+  <object id="805" x="1770.64" y="2380.28" width="12.1738" height="10.2716"/>
+  <object id="806" x="2247.9" y="2379.91" width="16.8073" height="17.5076"/>
+  <object id="807" x="2247.55" y="2507.71" width="16.8073" height="17.5076"/>
+  <object id="808" x="2440.13" y="2379.21" width="16.8073" height="17.5076"/>
+  <object id="809" x="2439.08" y="2506.66" width="16.8073" height="17.5076"/>
+  <object id="810" x="1952" y="1344" width="64" height="96"/>
+  <object id="811" x="1952" y="1440" width="32" height="32"/>
+  <object id="812" x="1728" y="1696" width="64" height="160"/>
+  <object id="813" x="1504" y="1664" width="224" height="192"/>
+  <object id="814" x="2240" y="1792" width="32" height="32"/>
+  <object id="815" x="2400" y="1792" width="32" height="32"/>
+  <object id="816" x="2048" y="1216" width="32" height="32"/>
+  <object id="817" x="1472" y="640" width="128" height="64"/>
+  <object id="818" x="1472" y="704" width="96" height="128"/>
+  <object id="819" x="1440" y="736" width="32" height="96"/>
+  <object id="820" x="1408" y="832" width="128" height="64"/>
+  <object id="821" x="1408" y="896" width="96" height="32"/>
+  <object id="822" x="1376" y="928" width="128" height="32"/>
+  <object id="823" x="1376" y="960" width="96" height="64"/>
+  <object id="824" x="1376" y="1024" width="64" height="96"/>
+  <object id="825" x="1344" y="1024" width="32" height="224"/>
+  <object id="826" x="1376" y="1120" width="32" height="64"/>
+  <object id="827" x="1312" y="1056" width="32" height="288"/>
+  <object id="828" x="1056" y="1248" width="256" height="96"/>
+  <object id="829" x="1056" y="1344" width="256" height="64"/>
+  <object id="830" x="1120" y="1408" width="192" height="32"/>
+  <object id="831" x="1184" y="1440" width="160" height="32"/>
+  <object id="832" x="1216" y="1472" width="128" height="96"/>
+  <object id="833" x="1344" y="1536" width="32" height="32"/>
+  <object id="834" x="928" y="1280" width="128" height="96"/>
+  <object id="835" x="640" y="1216" width="64" height="128"/>
+  <object id="836" x="704" y="1248" width="96" height="96"/>
+  <object id="837" x="800" y="1280" width="32" height="64"/>
+  <object id="838" x="1152" y="1216" width="160" height="32"/>
+  <object id="839" x="1216" y="1184" width="96" height="32"/>
+  <object id="840" x="1248" y="1152" width="64" height="32"/>
+  <object id="841" x="1280" y="1120" width="32" height="32"/>
+  <object id="842" x="1472" y="960" width="32" height="64"/>
+  <object id="843" x="1600" y="928" width="32" height="32"/>
+  <object id="844" x="1760" y="832" width="32" height="32"/>
+  <object id="845" x="1248" y="1664" width="96" height="256"/>
+  <object id="846" x="1344" y="1664" width="32" height="32"/>
+  <object id="847" x="1344" y="1760" width="32" height="192"/>
+  <object id="848" x="1376" y="1824" width="32" height="192"/>
+  <object id="849" x="1408" y="1856" width="32" height="160"/>
+  <object id="850" x="1440" y="1888" width="64" height="160"/>
+  <object id="851" x="1504" y="1920" width="32" height="96"/>
+  <object id="852" x="1536" y="1952" width="32" height="64"/>
+  <object id="853" x="1440" y="2080" width="128" height="64"/>
+  <object id="854" x="1536" y="2048" width="32" height="32"/>
+  <object id="855" x="1408" y="2112" width="32" height="32"/>
+  <object id="856" x="1344" y="2144" width="192" height="32"/>
+  <object id="857" x="1344" y="2176" width="96" height="64"/>
+  <object id="858" x="1152" y="2176" width="192" height="96"/>
+  <object id="859" x="1152" y="2272" width="160" height="32"/>
+  <object id="860" x="1152" y="2304" width="96" height="32"/>
+  <object id="861" x="1152" y="2336" width="32" height="32"/>
+  <object id="862" x="992" y="2144" width="160" height="256"/>
+  <object id="863" x="960" y="2208" width="32" height="224"/>
+  <object id="864" x="928" y="2272" width="32" height="128"/>
+  <object id="865" x="992" y="2400" width="128" height="128"/>
+  <object id="866" x="1120" y="2464" width="32" height="96"/>
+  <object id="867" x="1024" y="2528" width="96" height="32"/>
+  <object id="868" x="1024" y="2048" width="128" height="32"/>
+  <object id="869" x="1024" y="2080" width="96" height="64"/>
+  <object id="870" x="1056" y="2016" width="96" height="32"/>
+  <object id="871" x="1088" y="1952" width="96" height="64"/>
+  <object id="872" x="1152" y="1920" width="96" height="32"/>
+  <object id="873" x="1216" y="1728" width="32" height="192"/>
+  <object id="874" x="1152" y="1856" width="64" height="64"/>
+  <object id="875" x="1184" y="1792" width="32" height="64"/>
+  <object id="876" x="1218.99" y="1663.06">
    <polygon points="0,0 0.267187,-21.9093 184.893,-22.4437 184.893,0.267187"/>
   </object>
   <object id="877" x="833.647" y="1376.12">
+  <object id="877" x="833.647" y="1376.12">
    <polygon points="0,0 14.9214,0 15.9162,-120.366 -1.32635,-120.034"/>
   </object>
+  <object id="878" x="910.243" y="1255.09">
   <object id="878" x="910.243" y="1255.09">
    <polygon points="0,0 17.2425,-0.331587 16.9109,142.582 1.98952,143.246"/>
   </object>
@@ -1691,11 +1774,83 @@
   <object id="946" x="1152" y="928" width="32" height="32"/>
   <object id="947" x="1088" y="992" width="64" height="32"/>
   <object id="948" x="1120" y="896">
+  <object id="879" x="1952" y="1120" width="32" height="96"/>
+  <object id="880" x="2016" y="1120" width="32" height="96"/>
+  <object id="881" x="1920" y="1088" width="32" height="32"/>
+  <object id="882" x="1888" y="992" width="32" height="96"/>
+  <object id="883" x="1792" y="896" width="32" height="96"/>
+  <object id="884" x="1824" y="928" width="64" height="96"/>
+  <object id="885" x="1632" y="640" width="64" height="64"/>
+  <object id="886" x="1664" y="704" width="32" height="32"/>
+  <object id="887" x="1728" y="672" width="32" height="64"/>
+  <object id="888" x="1760" y="736" width="32" height="96"/>
+  <object id="889" x="1856" y="640" width="64" height="64"/>
+  <object id="890" x="1920" y="704" width="32" height="96"/>
+  <object id="891" x="1952" y="736" width="32" height="96"/>
+  <object id="892" x="1984" y="768" width="32" height="96"/>
+  <object id="893" x="2016" y="800" width="32" height="96"/>
+  <object id="894" x="2048" y="832" width="64" height="64"/>
+  <object id="895" x="2048" y="896" width="64" height="32"/>
+  <object id="896" x="2112" y="800" width="64" height="64"/>
+  <object id="897" x="2112" y="864" width="64" height="32"/>
+  <object id="898" x="2176" y="768" width="64" height="64"/>
+  <object id="899" x="2176" y="832" width="32" height="32"/>
+  <object id="900" x="2208" y="736" width="32" height="32"/>
+  <object id="901" x="2240" y="704" width="32" height="96"/>
+  <object id="902" x="2272" y="736" width="32" height="96"/>
+  <object id="903" x="2304" y="736" width="32" height="32"/>
+  <object id="904" x="2336" y="768" width="32" height="96"/>
+  <object id="905" x="2368" y="800" width="32" height="64"/>
+  <object id="906" x="2400" y="864" width="32" height="64"/>
+  <object id="907" x="2432" y="896" width="32" height="96"/>
+  <object id="908" x="2464" y="928" width="32" height="96"/>
+  <object id="909" x="2528" y="928" width="32" height="96"/>
+  <object id="910" x="2048" y="1056" width="64" height="96"/>
+  <object id="911" x="2112" y="1088" width="32" height="96"/>
+  <object id="912" x="2144" y="1120" width="32" height="96"/>
+  <object id="913" x="2176" y="1088" width="96" height="64"/>
+  <object id="914" x="2176" y="1152" width="32" height="32"/>
+  <object id="915" x="2208" y="1056" width="64" height="32"/>
+  <object id="916" x="2304" y="1056" width="64" height="96"/>
+  <object id="917" x="2368" y="1088" width="32" height="96"/>
+  <object id="918" x="2400" y="1152" width="64" height="96"/>
+  <object id="919" x="2464" y="1184" width="32" height="64"/>
+  <object id="920" x="2496" y="1216" width="64" height="96"/>
+  <object id="921" x="2496" y="704" width="64" height="64"/>
+  <object id="922" x="2336" y="640" width="96" height="32"/>
+  <object id="923" x="2368" y="672" width="96" height="32"/>
+  <object id="924" x="2432" y="704" width="32" height="32"/>
+  <object id="925" x="2112" y="640" width="32" height="32"/>
+  <object id="926" x="2496" y="1344" width="32" height="32"/>
+  <object id="927" x="1376" y="1536" width="32" height="32"/>
+  <object id="928" x="1184" y="1664" width="32" height="32"/>
+  <object id="929" x="1472" y="1536" width="32" height="32"/>
+  <object id="930" x="1120" y="1504" width="32" height="32"/>
+  <object id="931" x="1248" y="2016" width="32" height="32"/>
+  <object id="932" x="992" y="1472" width="64" height="32"/>
+  <object id="933" x="672" y="1344" width="160" height="160"/>
+  <object id="934" x="800" y="1504" width="32" height="32"/>
+  <object id="935" x="832" y="1472" width="32" height="32"/>
+  <object id="936" x="896" y="896" width="160" height="64"/>
+  <object id="937" x="1088" y="896" width="32" height="64"/>
+  <object id="938" x="672" y="736" width="32" height="224"/>
+  <object id="939" x="704" y="928" width="160" height="32"/>
+  <object id="940" x="896" y="960" width="64" height="32"/>
+  <object id="941" x="800" y="992" width="32" height="32"/>
+  <object id="942" x="704" y="736" width="192" height="32"/>
+  <object id="943" x="864" y="768" width="32" height="96"/>
+  <object id="944" x="1120" y="832" width="64" height="64"/>
+  <object id="945" x="1120" y="896" width="32" height="64"/>
+  <object id="946" x="1152" y="928" width="32" height="32"/>
+  <object id="947" x="1088" y="992" width="64" height="32"/>
+  <object id="948" x="1120" y="896">
    <polyline points="0,0 0,-128 -224,-128 -224,0"/>
   </object>
   <object id="949" x="640" y="640">
+  <object id="949" x="640" y="640">
    <polyline points="0,0 0,1920 1920,1920 1920,0"/>
   </object>
+  <object id="950" x="2559.01" y="640.053">
   <object id="950" x="2559.01" y="640.053">
    <polyline points="0,0 -1918.7,-0.129511"/>
   </object>
@@ -1705,6 +1860,7 @@
   </object>
   <object id="960" x="2368" y="1984" width="32" height="128"/>
  </objectgroup>
+ <layer id="19" name="building_foreground" width="100" height="100">
  <layer id="19" name="building_foreground" width="100" height="100">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -1809,6 +1965,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <layer id="16" name="Tree Foreground" width="100" height="100">
  <layer id="16" name="Tree Foreground" width="100" height="100">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
