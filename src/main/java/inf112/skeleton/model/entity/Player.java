@@ -17,8 +17,9 @@ public class Player extends GameEntity {
     private DeathOverlay deathOverlay;
     private final KeyHandler keyHandler;
     protected boolean alive;
+
     public Player(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType, KeyHandler keyHandler) {
-        super(context, world, body, health, damage, x, y, characterType);
+        super(context, world, body, health, damage, x, y, characterType, keyHandler);
         isDead = false;
         deathOverlay = new DeathOverlay(context);
         this.keyHandler = keyHandler;

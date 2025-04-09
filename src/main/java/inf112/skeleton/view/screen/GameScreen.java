@@ -55,6 +55,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
         spawnEnemy();
         spawnPlayer();
         playerInteractions = new PlayerInteractions(context);
+        enemies = context.getEnemy();
         enemyController = new EnemyController(context, world, enemies, player);
         context.setPlayerInteractions(playerInteractions);
     }
@@ -139,7 +140,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
             context.setPlayer(factory.createPlayer(
                 mapManager.getCurrentMap().getPlayerSpawn().x * UNIT_SCALE,
                 mapManager.getCurrentMap().getPlayerSpawn().y * UNIT_SCALE,
-                CharacterType.SOLDIER
+                CharacterType.OLD
             ));
         }
         player = context.getPlayer();
@@ -147,9 +148,9 @@ public class GameScreen extends AbstractScreen implements MapListener {
     }
 
     private void spawnEnemy() {
-        context.setEnemy(EnemyFactory.createEnemy(context, world, mapManager.getCurrentMap()));
-        //System.out.println("Spawning enemy at" + context.getEnemy().getX() + " " + context.getEnemy().getY());
-        enemies = context.getEnemy();
+        EnemyFactory factory = new EnemyFactory(context, world, keyHandler);
+        Array<Enemy> enemies = factory.createEnemiesFromMap(mapManager.getCurrentMap(), CharacterType.HERO);
+        context.setEnemy(enemies);
         gameRenderer.updateEnemy(enemies);
     }
 }

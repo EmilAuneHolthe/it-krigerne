@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.controller.Keys;
+import inf112.skeleton.controller.KeyHandler;
 
 public class PlayerMovement {
     private Body body;
@@ -16,6 +17,7 @@ public class PlayerMovement {
     
     public PlayerMovement(World world, Body body, KeyHandler keyHandler) {
         this.body = body;
+        this.keyHandler = keyHandler;
         this.direction = "Down";
         this.keyHandler = keyHandler;
     }
@@ -110,7 +112,7 @@ public class PlayerMovement {
     }
     
     private void dontAccelerate() {
-        float speed = 3.0f;
+        float speed = 2.5f;
         float magnitude = (float) Math.sqrt(xFactor * xFactor + yFactor * yFactor);
         if (magnitude > 0) {
             xFactor = (xFactor / magnitude) * speed;
@@ -124,5 +126,8 @@ public class PlayerMovement {
     
     public boolean isMoving() {
         return xFactor != 0 || yFactor != 0;
+    }
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 } 
