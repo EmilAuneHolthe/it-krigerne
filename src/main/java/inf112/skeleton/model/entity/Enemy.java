@@ -2,6 +2,7 @@ package inf112.skeleton.model.entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -15,7 +16,7 @@ public class Enemy extends AnimatedEntity {
     private String direction;
     public Texture playerIdleFrontTexture, playerIdleUpTexture, playerIdleRightTexture, playerIdleLeftTexture;
     private String name;
-    private  Texture healthTexture;
+    private Texture healthTexture;
     private Texture backgroundTexture;
     private float speed = 2f;
     private boolean isDead;
@@ -26,11 +27,14 @@ public class Enemy extends AnimatedEntity {
     private float y;
     private final GamePanel context;
     private final World world;
-    
+    private Body body;
+    private Sprite playerSprite;
+
     public Enemy(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType, String name, KeyHandler keyHandler) {
         super(body, characterType, keyHandler, world);
         this.context = context;
         this.world = world;
+        this.body = body;
         this.health = health;
         this.damage = damage;
         this.x = x;
@@ -43,6 +47,7 @@ public class Enemy extends AnimatedEntity {
         // Load health bar textures
         this.healthTexture = new Texture(Gdx.files.internal("redtexture.png"));
         this.backgroundTexture = new Texture(Gdx.files.internal("graytexture.png"));
+        loadTextures();
     }
 
     @Override
@@ -152,6 +157,20 @@ public class Enemy extends AnimatedEntity {
 
     public void setDirection(String direction) {
         this.direction = direction;
+        switch (direction) {
+            case "Front":
+                playerSprite.setTexture(playerIdleFrontTexture);
+                break;
+            case "Up":
+                playerSprite.setTexture(playerIdleUpTexture);
+                break;
+            case "Left":
+                playerSprite.setTexture(playerIdleLeftTexture);
+                break;
+            case "Right":
+                playerSprite.setTexture(playerIdleRightTexture);
+                break;
+        }
     }
 
     public int getDamage() {
@@ -193,5 +212,15 @@ public class Enemy extends AnimatedEntity {
         if (backgroundTexture != null) {
             backgroundTexture.dispose();
         }
+    }
+
+    public void loadTextures() {
+        playerIdleFrontTexture = new Texture(Gdx.files.internal("Player/PlayerIdle/PlayerIdleFront.png"));
+        playerIdleUpTexture = new Texture(Gdx.files.internal("Player/PlayerIdle/PlayerIdleUp.png"));
+        playerIdleLeftTexture = new Texture(Gdx.files.internal("Player/PlayerIdle/PlayerIdleLeft.png"));
+        playerIdleRightTexture = new Texture(Gdx.files.internal("Player/PlayerIdle/PlayerIdleRight.png"));
+        playerSprite = new Sprite(playerIdleFrontTexture);
+        playerSprite.setSize(1, 1);
+        playerSprite.setTexture(playerIdleFrontTexture);
     }
 }
