@@ -46,11 +46,11 @@ public class EnemyFactory {
         
         // Create enemy fixture
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(0.5f, 0.5f);
+        shape.setAsBox(0.3f, 0.3f);
         
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = 40f;
+        fixtureDef.density = 100f;
         fixtureDef.friction = 0.0f;
         fixtureDef.restitution = 0.0f;
         

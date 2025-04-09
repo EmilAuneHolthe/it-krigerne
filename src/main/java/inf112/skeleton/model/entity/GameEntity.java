@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Disposable;
 
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.controller.KeyHandler;
 
 public abstract class GameEntity implements entity, Disposable {
     // Core properties
@@ -17,6 +18,7 @@ public abstract class GameEntity implements entity, Disposable {
     protected float y;
     protected World world;
     protected Body body;
+    protected CharacterType characterType;
     protected final GamePanel context;
     
     // Animation and movement
@@ -24,7 +26,7 @@ public abstract class GameEntity implements entity, Disposable {
     protected PlayerMovement movement;
     protected KeyHandler keyHandler;
     
-    public GameEntity(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType) {
+    public GameEntity(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType, KeyHandler keyHandler) {
         this.context = context;
         this.world = world;
         this.body = body;
@@ -32,6 +34,8 @@ public abstract class GameEntity implements entity, Disposable {
         this.damage = damage;
         this.x = x;
         this.y = y;
+        this.characterType = characterType;
+        this.keyHandler = keyHandler;
         
         // Initialize components
         this.animation = new PlayerAnimation(characterType);
@@ -87,6 +91,12 @@ public abstract class GameEntity implements entity, Disposable {
     
     // Common rendering method
     public void render(SpriteBatch batch) {
+        if(characterType == CharacterType.ZOMBIE) {
+            animation.update(Gdx.graphics.getDeltaTime());
+            animation.setMoving(movement.isMoving());
+            animation.render(batch, body);
+            return;
+        }
         if (isActive()) {
             movement.update();
             animation.update(Gdx.graphics.getDeltaTime());
