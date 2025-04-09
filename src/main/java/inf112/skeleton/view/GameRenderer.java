@@ -93,30 +93,82 @@ public class GameRenderer implements Disposable, MapListener {
         viewport.apply();
         spriteBatch.setProjectionMatrix(camera.combined);
 
-        // Render map
+        // Render map with layer-based rendering
         if (mapRenderer.getMap() != null) {
             mapRenderer.setView(camera);
-            mapRenderer.render();
+            
+            // Get all layers
+            com.badlogic.gdx.maps.MapLayers layers = mapRenderer.getMap().getLayers();
+            boolean playerLayerRendered = false;
+            
+            // Begin sprite batch for map rendering
+            spriteBatch.begin();
+            
+            // Render each layer
+            for (int i = 0; i < layers.getCount(); i++) {
+                com.badlogic.gdx.maps.MapLayer layer = layers.get(i);
+                
+                // If we hit the "Player" layer, render the player and enemies
+                if (layer.getName().equals("Player") && !playerLayerRendered) {
+                    // End batch for map rendering
+                    spriteBatch.end();
+                    
+                    // Render player and enemies
+                    spriteBatch.begin();
+                    if (player != null) {
+                        player.render(spriteBatch);
+                        if(showDebug) {
+                            debug.playerDebug(player);
+                        }
+                    }
+                    if(enemies != null) {
+                        for (Enemy enemy : enemies) {
+                            enemy.render(spriteBatch);
+                            if(showDebug) {
+                                debug.enemyDebug(enemy);
+                            }
+                        }
+                    }
+                    spriteBatch.end();
+                    
+                    // Begin batch for next layer
+                    spriteBatch.begin();
+                    playerLayerRendered = true;
+                }
+                
+                // Render the current layer if it's a tile layer
+                if (layer instanceof com.badlogic.gdx.maps.tiled.TiledMapTileLayer) {
+                    mapRenderer.renderTileLayer((com.badlogic.gdx.maps.tiled.TiledMapTileLayer) layer);
+                }
+            }
+            
+            // End batch for map rendering
+            spriteBatch.end();
+            
+            // If no "Player" layer was found, render player and enemies at the end
+            if (!playerLayerRendered) {
+                spriteBatch.begin();
+                if (player != null) {
+                    player.render(spriteBatch);
+                    if(showDebug) {
+                        debug.playerDebug(player);
+                    }
+                }
+                if(enemies != null) {
+                    for (Enemy enemy : enemies) {
+                        enemy.render(spriteBatch);
+                        if(showDebug) {
+                            debug.enemyDebug(enemy);
+                        }
+                    }
+                }
+                spriteBatch.end();
+            }
         }
 
         // Render Box2D debug only when explicitly enabled
         if (showDebug) {
             box2DDebugRenderer.render(world, camera.combined);
-        }
-        if(enemies != null) {
-            for (Enemy enemy : enemies) {
-                enemy.render(spriteBatch);
-                if(showDebug) {
-                    debug.enemyDebug(enemy);
-                }
-            }
-        }
-        // Render player
-        if (player != null) {
-            player.render(spriteBatch);
-            if(showDebug) {
-            debug.playerDebug(player);
-            }
         }
 
         // Render UI with fixed position

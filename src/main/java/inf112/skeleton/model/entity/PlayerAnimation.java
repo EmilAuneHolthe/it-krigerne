@@ -104,13 +104,11 @@ public class PlayerAnimation {
         float width = currentFrame.getRegionWidth() / 32f;
         float height = currentFrame.getRegionHeight() / 32f;
         
-        batch.begin();
         batch.draw(currentFrame, 
             body.getPosition().x - width/2, 
             body.getPosition().y - height/2,
             width,
             height);
-        batch.end();
     }
     
     public void startAttack() {
