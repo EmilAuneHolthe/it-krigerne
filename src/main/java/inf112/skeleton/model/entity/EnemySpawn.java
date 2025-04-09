@@ -1,22 +1,22 @@
-package inf112.skeleton.model.map;
+package inf112.skeleton.model.entity;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.maps.MapProperties;
 
 public class EnemySpawn {
     private final Vector2 position;
-    private final MapProperties properties;
+    private final String name;
 
-    public EnemySpawn(Vector2 position, MapProperties properties) {
+    public EnemySpawn(Vector2 position, String name) {
         this.position = position;
-        this.properties = properties;
+        this.name = name;
     }
 
     public Vector2 getPosition() {
         return position;
     }
 
-    public MapProperties getProperties() {
-        return properties;
+    public String getName() {
+        return name;
     }
 } 

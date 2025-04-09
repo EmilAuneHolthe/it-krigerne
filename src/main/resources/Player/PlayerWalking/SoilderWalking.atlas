@@ -1,0 +1,12 @@
+SoilderWalking.png
+size: 96, 128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Soldier 01-1
+  rotate: false
+  xy: 0, 0
+  size: 96, 128
+  orig: 96, 128
+  offset: 0, 0
+  index: -1

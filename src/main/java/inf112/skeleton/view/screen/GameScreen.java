@@ -13,10 +13,14 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import inf112.skeleton.controller.Keys;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
+import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
 import inf112.skeleton.model.entity.Enemy;
+import inf112.skeleton.model.entity.EnemyController;
 import inf112.skeleton.model.entity.EnemyFactory;
 import inf112.skeleton.model.entity.Player;
 import inf112.skeleton.model.entity.PlayerFactory;
+import inf112.skeleton.model.entity.PlayerInteractions;
+import inf112.skeleton.model.entity.CharacterType;
 import inf112.skeleton.model.map.Map;
 import inf112.skeleton.model.map.MapListener;
 import inf112.skeleton.model.map.MapManager;
@@ -24,6 +28,7 @@ import inf112.skeleton.model.map.MapType;
 import inf112.skeleton.view.GameRenderer;
 
 public class GameScreen extends AbstractScreen implements MapListener {
+    private float dTime = 0;
     private Player player;
     private Array<Enemy> enemies;
     private final World world;
@@ -31,6 +36,9 @@ public class GameScreen extends AbstractScreen implements MapListener {
     private final OrthographicCamera camera;
     private final MapManager mapManager;
     private final GameRenderer gameRenderer;
+    private final PlayerInteractions playerInteractions;
+    private final EnemyController enemyController;
+    private final KeyHandler keyHandler;
 
     public GameScreen(GamePanel context) {
         super(context);
@@ -39,26 +47,38 @@ public class GameScreen extends AbstractScreen implements MapListener {
         this.world = context.getWorld();
         this.mapManager = context.getMapManager();
         this.gameRenderer = context.getGameRenderer();
-        
+        this.keyHandler = context.getKeyHandler();
+
         mapManager.addListener(this);
         mapManager.setMap(MapType.MAP_1);
         
         spawnEnemy();
         spawnPlayer();
+        playerInteractions = new PlayerInteractions(context);
+        enemyController = new EnemyController(context, world, enemies, player);
+        context.setPlayerInteractions(playerInteractions);
     }
 
     @Override
     public void render(float delta) {
         gameRenderer.render(delta);
 
+        dTime += 0.5;
+        if (dTime >= 25) {
+            //System.out.println("Enemy sight");
+            enemyController.sight();
+            dTime = 0;
+        }
         //Gdx.app.log("Debug", "FPS: " + Gdx.graphics.getFramesPerSecond());
-   
 
         // Test map switching - should be moved to a proper input handler
-        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-            mapManager.setMap(MapType.MAP_1);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+            playerInteractions.attackEnemy(player, enemies);
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             mapManager.setMap(MapType.MAP_2);
+        }
+        else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            gameRenderer.setShowDebug(!gameRenderer.isShowDebug());
         }
     }
 
@@ -114,7 +134,14 @@ public class GameScreen extends AbstractScreen implements MapListener {
     }
 
     private void spawnPlayer() {
-        context.setPlayer(PlayerFactory.createPlayer(context, world, mapManager.getCurrentMap()));
+        if (context.getPlayer() == null) {
+            PlayerFactory factory = new PlayerFactory(context, world, keyHandler);
+            context.setPlayer(factory.createPlayer(
+                mapManager.getCurrentMap().getPlayerSpawn().x * UNIT_SCALE,
+                mapManager.getCurrentMap().getPlayerSpawn().y * UNIT_SCALE,
+                CharacterType.SOLDIER
+            ));
+        }
         player = context.getPlayer();
         gameRenderer.updatePlayer(player);
     }
@@ -126,6 +153,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
         gameRenderer.updateEnemy(enemies);
     }
 }
+
 
 
 

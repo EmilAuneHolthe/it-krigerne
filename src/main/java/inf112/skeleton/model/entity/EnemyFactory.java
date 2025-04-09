@@ -7,7 +7,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 import inf112.skeleton.model.GamePanel;
-import inf112.skeleton.model.map.EnemySpawn;
 import inf112.skeleton.model.map.Map;
 
 import static inf112.skeleton.model.GamePanel.*;
@@ -22,7 +21,8 @@ public class EnemyFactory {
         BODY_DEF.type = BodyDef.BodyType.DynamicBody;
 
         Body body = world.createBody(BODY_DEF);
-        body.setUserData(spawn.getProperties().get("name"));
+        body.setUserData(spawn.getName());
+        //body.setGravityScale(1);
 
         FIXTURE_DEF.filter.categoryBits = BIT_Player;
         FIXTURE_DEF.filter.maskBits = BIT_Ground;
@@ -35,7 +35,8 @@ public class EnemyFactory {
 
         Enemy enemy = new Enemy(context, world, body, 100, 10,
                 spawn.getPosition().x * UNIT_SCALE,
-                spawn.getPosition().y * UNIT_SCALE);
+                spawn.getPosition().y * UNIT_SCALE,
+                spawn.getName());
         enemy.loadTextures();
         enemies.add(enemy);
     }

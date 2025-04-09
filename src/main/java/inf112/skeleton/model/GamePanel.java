@@ -40,10 +40,11 @@ import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.entity.Enemy;
 import inf112.skeleton.model.entity.Player;
+import inf112.skeleton.model.entity.PlayerInteractions;
 import inf112.skeleton.model.map.MapManager;
 import inf112.skeleton.view.GameRenderer;
 import inf112.skeleton.view.screen.*; 
-
+import inf112.skeleton.view.debug;
 public class GamePanel extends Game {
     private static final String TAG = GamePanel.class.getSimpleName();
 
@@ -78,7 +79,8 @@ public class GamePanel extends Game {
     private GameRenderer gameRenderer;
     private Player player;
     private Array<Enemy> enemies;
-
+    private PlayerInteractions playerInteractions;
+    
     @Override
     public void create() {
         Gdx.app.setLogLevel(Application.LOG_INFO);
@@ -233,6 +235,10 @@ public class GamePanel extends Game {
         FIXTURE_DEF.filter.maskBits = -1;
 
     }
-
-    
+    public PlayerInteractions getPlayerInteractions() {
+        return playerInteractions;
+    }
+    public void setPlayerInteractions(PlayerInteractions playerInteractions) {
+        this.playerInteractions = playerInteractions;
+    }
 }

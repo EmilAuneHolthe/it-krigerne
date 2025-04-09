@@ -18,6 +18,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.utils.Array;
 
+import inf112.skeleton.model.entity.EnemySpawn;
+
 public class Map {
   private final TiledMap tiledMap;
   public static final String TAG = Map.class.getSimpleName();
@@ -105,9 +107,10 @@ public class Map {
               final RectangleMapObject spawn = (RectangleMapObject) object;
               final Rectangle rectangle = spawn.getRectangle();
               Gdx.app.debug(TAG, "Enemy spawn found at: " + rectangle.x + ", " + rectangle.y);
-              MapProperties properties = spawn.getProperties();
+              String name = spawn.getName();
               Vector2 position = new Vector2(rectangle.x, rectangle.y);
-              enemySpawns.add(new EnemySpawn(position, properties));
+              System.out.println(name);
+              enemySpawns.add(new EnemySpawn(position, name));
           }
           return enemySpawns;
         }
