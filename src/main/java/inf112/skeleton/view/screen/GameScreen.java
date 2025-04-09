@@ -69,7 +69,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
             enemyController.sight();
             dTime = 0;
         }
-        //Gdx.app.log("Debug", "FPS: " + Gdx.graphics.getFramesPerSecond());
+        Gdx.app.log("Debug", "FPS: " + Gdx.graphics.getFramesPerSecond());
 
         // Test map switching - should be moved to a proper input handler
         if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {

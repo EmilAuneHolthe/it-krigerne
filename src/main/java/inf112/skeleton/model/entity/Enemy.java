@@ -10,35 +10,40 @@ import com.badlogic.gdx.physics.box2d.World;
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.view.ui.DeathOverlay;
 
-
 public class Enemy extends GameEntity {
-    private String direction;
-    public Texture playerIdleFrontTexture, playerIdleUpTexture, playerIdleRightTexture, playerIdleLeftTexture;
     private String name;
-    private  Texture healthTexture;
+    private Texture healthTexture;
     private Texture backgroundTexture;
     private float speed = 2f;
     private boolean isDead;
     private DeathOverlay deathOverlay;
-    private PlayerAnimation animation;
-    private PlayerMovement movement;
+    private EnemyAnimation animation;
+    private EnemyMovement movement;
     
     public Enemy(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType, String name) {
         super(context, world, body, health, damage, x, y, characterType);
         this.isDead = false;
         this.deathOverlay = new DeathOverlay(context);
         this.name = name;
-        this.direction = "Down";
         
         // Load health bar textures
         this.healthTexture = new Texture(Gdx.files.internal("redtexture.png"));
         this.backgroundTexture = new Texture(Gdx.files.internal("graytexture.png"));
+        
+        // Initialize animation and movement
+        this.animation = new EnemyAnimation(characterType);
+        this.movement = new EnemyMovement(body, speed);
     }
 
     @Override
     public void render(SpriteBatch batch) {
         if (body == null) return;
-        super.render(batch);
+        
+        // Update animation
+        animation.update(Gdx.graphics.getDeltaTime());
+        animation.setMoving(movement.isMoving());
+        animation.setDirection(movement.getDirection());
+        animation.render(batch, body);
         
         // Draw health bar
         batch.begin();
@@ -104,36 +109,11 @@ public class Enemy extends GameEntity {
         return name;
     }
     public void moveEnemy(float x, float y) {
-        // Calculate direction vector
-        Vector2 target = new Vector2(x - body.getPosition().x, y - body.getPosition().y);
-        
-        // Only move if we're not already at the target
-        if (target.len2() > 0.01f) {  // Small threshold to prevent jittering
-            target.nor(); // Normalize to get unit vector
-            target.scl(speed); // Scale by speed
-            body.setLinearVelocity(target);
-            
-            // Update direction based on movement
-            if (Math.abs(target.x) > Math.abs(target.y)) {
-                direction = target.x > 0 ? "Right" : "Left";
-            } else {
-                direction = target.y > 0 ? "Up" : "Down";
-            }
-            
-            movement.setDirection(direction);
-            animation.setMoving(true);
-            animation.setDirection(direction);
-        } else {
-            body.setLinearVelocity(0, 0);
-            animation.setMoving(false);
-        }
+        movement.moveTo(x, y);
     }
-    public void setDirection(String direction) {
-        this.direction = direction;
-    }
-    public int getDamage() {
-      System.out.println("Damage: " + damage);
-        return damage;
+    public void setSpeed(float speed) {
+        this.speed = speed;
+        movement.setSpeed(speed);
     }
     public void setLinearVelocity(float x, float y) {
         body.setLinearVelocity(x, y);
