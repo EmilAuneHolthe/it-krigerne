@@ -52,6 +52,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
         spawnEnemy();
         spawnPlayer();
         playerInteractions = new PlayerInteractions(context);
+        enemies = context.getEnemy();
         enemyController = new EnemyController(context, world, enemies, player);
         context.setPlayerInteractions(playerInteractions);
     }
@@ -66,7 +67,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
             enemyController.sight();
             dTime = 0;
         }
-        Gdx.app.log("Debug", "FPS: " + Gdx.graphics.getFramesPerSecond());
+        //Gdx.app.log("Debug", "FPS: " + Gdx.graphics.getFramesPerSecond());
 
         // Test map switching - should be moved to a proper input handler
         if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
@@ -132,7 +133,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
 
     private void spawnPlayer() {
         if (context.getPlayer() == null) {
-            PlayerFactory factory = new PlayerFactory(context, world);
+            PlayerFactory factory = new PlayerFactory(context, world, keyHandler);
             context.setPlayer(factory.createPlayer(
                 mapManager.getCurrentMap().getPlayerSpawn().x * UNIT_SCALE,
                 mapManager.getCurrentMap().getPlayerSpawn().y * UNIT_SCALE,
@@ -144,8 +145,9 @@ public class GameScreen extends AbstractScreen implements MapListener {
     }
 
     private void spawnEnemy() {
-        context.setEnemy(EnemyFactory.createEnemy(context, world, mapManager.getCurrentMap(), CharacterType.ZOMBIE));
-        enemies = context.getEnemy();
+        EnemyFactory factory = new EnemyFactory(context, world, keyHandler);
+        Array<Enemy> enemies = factory.createEnemiesFromMap(mapManager.getCurrentMap(), CharacterType.HERO);
+        context.setEnemy(enemies);
         gameRenderer.updateEnemy(enemies);
     }
 }

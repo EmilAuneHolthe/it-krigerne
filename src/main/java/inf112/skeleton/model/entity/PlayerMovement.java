@@ -3,6 +3,7 @@ package inf112.skeleton.model.entity;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import inf112.skeleton.controller.Keys;
+import inf112.skeleton.controller.KeyHandler;
 
 public class PlayerMovement {
     private Body body;
@@ -10,9 +11,11 @@ public class PlayerMovement {
     private float yFactor;
     private boolean directionChange;
     private String direction;
+    private final KeyHandler keyHandler;
     
-    public PlayerMovement(World world, Body body) {
+    public PlayerMovement(World world, Body body, KeyHandler keyHandler) {
         this.body = body;
+        this.keyHandler = keyHandler;
         this.direction = "Down";
     }
     

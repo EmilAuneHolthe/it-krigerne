@@ -2,45 +2,62 @@ package inf112.skeleton.model.entity;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.controller.KeyHandler;
+import inf112.skeleton.model.map.Map;
 import com.badlogic.gdx.utils.Array;
 
-import inf112.skeleton.model.GamePanel;
-import inf112.skeleton.model.map.Map;
-import inf112.skeleton.model.entity.CharacterType;
-
-import static inf112.skeleton.model.GamePanel.*;
 public class EnemyFactory {
-  private static Array<Enemy> enemies = new Array<>();
-      public static Array<Enemy> createEnemy(GamePanel context, World world, Map map, CharacterType characterType) {
-        for (EnemySpawn spawn : map.getEnemySpawn()) {
-        resetBodyAndFixtureDefinition();
-
-        BODY_DEF.position.set(spawn.getPosition().x * UNIT_SCALE, spawn.getPosition().y * UNIT_SCALE);
-        BODY_DEF.fixedRotation = true;
-        BODY_DEF.type = BodyDef.BodyType.DynamicBody;
-
-        Body body = world.createBody(BODY_DEF);
-        body.setUserData(spawn.getName());
-        //body.setGravityScale(1);
-
-        FIXTURE_DEF.filter.categoryBits = BIT_Player;
-        FIXTURE_DEF.filter.maskBits = BIT_Ground;
-
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(0.4f, 0.4f);
-        FIXTURE_DEF.shape = shape;
-        body.createFixture(FIXTURE_DEF);
-        shape.dispose();
-
-        Enemy enemy = new Enemy(context, world, body, 100, 10,
-                spawn.getPosition().x * UNIT_SCALE,
-                spawn.getPosition().y * UNIT_SCALE,
-                 characterType, spawn.getName()
-                 );
-        enemies.add(enemy);
+    private final GamePanel context;
+    private final World world;
+    private final KeyHandler keyHandler;
+    
+    public EnemyFactory(GamePanel context, World world, KeyHandler keyHandler) {
+        this.context = context;
+        this.world = world;
+        this.keyHandler = keyHandler;
     }
-    return enemies;
-}
+    
+    public Array<Enemy> createEnemiesFromMap(Map map, CharacterType characterType) {
+        Array<Enemy> enemies = new Array<>();
+        for (EnemySpawn spawn : map.getEnemySpawn()) {
+            Enemy enemy = createEnemy(
+                spawn.getPosition().x * GamePanel.UNIT_SCALE,
+                spawn.getPosition().y * GamePanel.UNIT_SCALE,
+                characterType,
+                spawn.getName()
+            );
+            enemies.add(enemy);
+        }
+        return enemies;
+    }
+    
+    public Enemy createEnemy(float x, float y, CharacterType characterType, String name) {
+        // Create enemy body
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(x, y);
+        bodyDef.fixedRotation = true;
+        
+        Body body = world.createBody(bodyDef);
+        
+        // Create enemy fixture
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(0.5f, 0.5f);
+        
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+        fixtureDef.density = 40f;
+        fixtureDef.friction = 0.0f;
+        fixtureDef.restitution = 0.0f;
+        
+        body.createFixture(fixtureDef);
+        shape.dispose();
+        
+        // Create and return enemy
+        return new Enemy(context, world, body, 100, 10, x, y, characterType, name, keyHandler);
+    }
 }
