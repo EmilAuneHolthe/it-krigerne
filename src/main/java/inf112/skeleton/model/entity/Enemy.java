@@ -160,6 +160,7 @@ public class Enemy implements entity {
         }
     }
     public int getDamage() {
+      System.out.println("Damage: " + damage);
         return damage;
     }
     public void setLinearVelocity(float x, float y) {
