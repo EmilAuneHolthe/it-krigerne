@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-up" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="47">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-up" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="51">
  <tileset firstgid="1" source="GrassSprites.tsx"/>
  <tileset firstgid="529" source="DirtSprites.tsx"/>
  <tileset firstgid="865" source="Decorations.tsx"/>
  <tileset firstgid="1929" source="KeyAnimation.tsx"/>
  <layer id="1" name="Ground" width="64" height="64">
   <data encoding="base64" compression="zlib">
-   eJztw0ENAAAMA6Hzb7qTsQ8krJqqqqqqqqqqqqqqqqqqqqr6+gAFovDi
+   eJztwzEJAAAMA7Ay/x5rpTL2JJBeUlVVVVVVVVVVVVVVVVVVVfX1AKEqENM=
   </data>
  </layer>
  <layer id="2" name="Paths" width="64" height="64">
@@ -57,4 +57,12 @@
    eJztzkENAAAIBKDbTKv9AxjDh5CABOC3rmTqegEAAAAAAAAAAAAAAAAAwHcLPWwA2g==
   </data>
  </layer>
+ <objectgroup id="11" name="Enemy">
+  <object id="49" name="Enemy 3" x="1703.77" y="1754.46">
+   <point/>
+  </object>
+  <object id="50" x="1948.42" y="2212.92">
+   <point/>
+  </object>
+ </objectgroup>
 </map>

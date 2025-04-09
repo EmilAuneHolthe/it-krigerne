@@ -120,7 +120,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
     @Override
     public void keyPressed(KeyHandler keyHandler, Keys key) {
         player.playerInput(keyHandler, key);
-        player.playerTakeDamage(keyHandler, key);
+
     }
 
     @Override
