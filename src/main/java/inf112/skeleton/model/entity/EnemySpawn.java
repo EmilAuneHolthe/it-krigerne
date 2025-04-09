@@ -1,7 +1,6 @@
 package inf112.skeleton.model.entity;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.maps.MapProperties;
 
 public class EnemySpawn {
     private final Vector2 position;
