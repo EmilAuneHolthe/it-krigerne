@@ -50,6 +50,7 @@ public class GameRenderer implements Disposable, MapListener {
     private boolean showDebug = false;
     private Array<Enemy> enemies;
     private final EnumMap<AnimationTypes, Animation<Sprite>> animationChache;
+    private debug debug;
 
     public GameRenderer(final GamePanel context) {
         assetManager = context.getAssetManager();
@@ -73,6 +74,9 @@ public class GameRenderer implements Disposable, MapListener {
         healthTexture = new Texture(Gdx.files.internal("redtexture.png"));
         backgroundTexture = new Texture(Gdx.files.internal("graytexture.png"));
         createPlayerHUD();
+        
+        // Initialize debug instance
+        debug = new debug(spriteBatch, player, camera);
     }
 
     private void createPlayerHUD() {
@@ -112,11 +116,17 @@ public class GameRenderer implements Disposable, MapListener {
         if(enemies != null) {
             for (Enemy enemy : enemies) {
                 enemy.render(spriteBatch);
+                if(showDebug) {
+                    debug.enemyDebug(enemy);
+                }
             }
         }
         // Render player
         if (player != null) {
             player.render(spriteBatch);
+            if(showDebug) {
+            debug.playerDebug(player);
+            }
         }
 
         // Render UI with fixed position
@@ -144,6 +154,10 @@ public class GameRenderer implements Disposable, MapListener {
         this.showDebug = showDebug;
     }
 
+    public boolean isShowDebug() {
+        return showDebug;
+    }
+
     public void updatePlayer(Player player) {
         this.player = player;
         createPlayerHUD();
@@ -159,6 +173,9 @@ public class GameRenderer implements Disposable, MapListener {
         uiStage.dispose();
         healthTexture.dispose();
         backgroundTexture.dispose();
+        if (debug != null) {
+            debug.dispose();
+        }
     }
 
     @Override

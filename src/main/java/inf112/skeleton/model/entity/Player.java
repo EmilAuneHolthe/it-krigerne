@@ -38,27 +38,27 @@ public class Player extends GameEntity {
         return !isDead;
     }
     
-    @Override
-    public boolean takeDamage(int damage) {
-        boolean alive = super.takeDamage(damage);
-        if (!alive && !isDead) {
-            isDead = true;
-            die();
-        }
-        return alive;
-    }
+    // @Override
+    // public boolean takeDamage(int damage) {
+    //     boolean alive = super.takeDamage(damage);
+    //     if (!alive && !isDead) {
+    //         isDead = true;
+    //         die();
+    //     }
+    //     return alive;
+    // }
     
-    @Override
-    public void die() {
-        if (deathOverlay != null) {
-            deathOverlay.show();
-        }
-    }
+    // @Override
+    // public void die() {
+    //     if (deathOverlay != null) {
+    //         deathOverlay.show();
+    //     }
+    // }
     
-    @Override
-    public int attack() {
-        return damage;
-    }
+    // @Override
+    // public int attack() {
+    //     return damage;
+    // }
     
     public void playerInput(KeyHandler keyHandler, Keys key) {
         if (isDead) {
@@ -99,6 +99,70 @@ public class Player extends GameEntity {
                 Gdx.app.log("DAMAGE", "Player has died!");
             }
         }
+    }
+    
+    @Override
+    public int attack() {
+        return damage;
+    }
+    
+    @Override
+    public void die() {
+        if (deathOverlay != null) {
+            deathOverlay.show();
+        }
+    }
+    
+    @Override
+    public int getHealth() {
+        if (health < 0) {
+            return 0;
+        }
+        return health;
+    }
+    
+    @Override
+    public boolean takeDamage(int damage) {
+        health -= 0;
+        boolean alive = health > 0;
+        if (!alive && !isDead) {
+            isDead = true;
+            die();
+        }
+        return alive;
+    }
+    
+    @Override
+    public void setHealth(int health) {
+        this.health = health;
+    }
+    
+    @Override
+    public void setSpawn(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+    
+    @Override
+    public float getX() {
+        return x;
+    }
+    
+    @Override
+    public float getY() {
+        return y;
+    }
+    
+    @Override
+    public void create(int health, int damage, float x, float y) {
+        this.health = health;
+        this.damage = damage;
+        this.x = x;
+        this.y = y;
+    }
+    
+    public Body getBody() {
+        return body;
     }
     
     @Override
