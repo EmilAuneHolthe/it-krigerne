@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Disposable;
 
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.controller.KeyHandler;
 
 public abstract class GameEntity implements entity, Disposable {
     // Core properties
@@ -19,13 +20,14 @@ public abstract class GameEntity implements entity, Disposable {
     protected Body body;
     protected CharacterType characterType;
     protected final GamePanel context;
+    protected final KeyHandler keyHandler;
     
     // Animation and movement
     protected PlayerAnimation animation;
     protected PlayerMovement movement;
     protected KeyHandler keyHandler;
     
-    public GameEntity(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType) {
+    public GameEntity(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType, KeyHandler keyHandler) {
         this.context = context;
         this.world = world;
         this.body = body;
@@ -34,6 +36,7 @@ public abstract class GameEntity implements entity, Disposable {
         this.x = x;
         this.y = y;
         this.characterType = characterType;
+        this.keyHandler = keyHandler;
         
         // Initialize components
         this.animation = new PlayerAnimation(characterType);

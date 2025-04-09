@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.controller.Keys;
+import inf112.skeleton.controller.KeyHandler;
 
 public class PlayerMovement {
     private Body body;
@@ -16,6 +17,7 @@ public class PlayerMovement {
     
     public PlayerMovement(World world, Body body, KeyHandler keyHandler) {
         this.body = body;
+        this.keyHandler = keyHandler;
         this.direction = "Down";
         this.keyHandler = keyHandler;
     }
