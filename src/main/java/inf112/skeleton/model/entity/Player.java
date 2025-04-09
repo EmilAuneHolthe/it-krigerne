@@ -15,11 +15,13 @@ import inf112.skeleton.view.ui.DeathOverlay;
 public class Player extends GameEntity {
     private boolean isDead;
     private DeathOverlay deathOverlay;
-    
-    public Player(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType) {
+    private final KeyHandler keyHandler;
+    public Player(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType, KeyHandler keyHandler) {
         super(context, world, body, health, damage, x, y, characterType);
         isDead = false;
         deathOverlay = new DeathOverlay(context);
+        this.keyHandler = keyHandler;
+        this.movement = new PlayerMovement(world, body, keyHandler);
     }
     
     @Override

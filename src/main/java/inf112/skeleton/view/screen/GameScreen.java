@@ -38,6 +38,8 @@ public class GameScreen extends AbstractScreen implements MapListener {
     private final GameRenderer gameRenderer;
     private final PlayerInteractions playerInteractions;
     private final EnemyController enemyController;
+    private final KeyHandler keyHandler;
+
     public GameScreen(GamePanel context) {
         super(context);
         assetManager = context.getAssetManager();
@@ -45,7 +47,8 @@ public class GameScreen extends AbstractScreen implements MapListener {
         this.world = context.getWorld();
         this.mapManager = context.getMapManager();
         this.gameRenderer = context.getGameRenderer();
-        
+        this.keyHandler = context.getKeyHandler();
+
         mapManager.addListener(this);
         mapManager.setMap(MapType.MAP_1);
         
@@ -123,7 +126,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
 
     private void spawnPlayer() {
         if (context.getPlayer() == null) {
-            PlayerFactory factory = new PlayerFactory(context, world);
+            PlayerFactory factory = new PlayerFactory(context, world, keyHandler);
             context.setPlayer(factory.createPlayer(
                 mapManager.getCurrentMap().getPlayerSpawn().x * UNIT_SCALE,
                 mapManager.getCurrentMap().getPlayerSpawn().y * UNIT_SCALE,

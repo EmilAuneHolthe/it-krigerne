@@ -2,6 +2,8 @@ package inf112.skeleton.model.entity;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+
+import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.controller.Keys;
 
 public class PlayerMovement {
@@ -10,10 +12,12 @@ public class PlayerMovement {
     private float yFactor;
     private boolean directionChange;
     private String direction;
+    private KeyHandler keyHandler;
     
-    public PlayerMovement(World world, Body body) {
+    public PlayerMovement(World world, Body body, KeyHandler keyHandler) {
         this.body = body;
         this.direction = "Down";
+        this.keyHandler = keyHandler;
     }
     
     public void update() {
@@ -57,19 +61,49 @@ public class PlayerMovement {
     public void handleInputRelease(Keys key) {
         switch (key) {
             case LEFT:
-                xFactor = 0;
+                if(keyHandler.isKeyPressed(Keys.RIGHT)) {
+                    xFactor = 3;
+                    direction = "Right";
+                } else {
+                    xFactor = 0;
+                }
                 break;
             case RIGHT:
                 xFactor = 0;
+                if(keyHandler.isKeyPressed(Keys.LEFT)) {
+                    xFactor = -3;
+                    direction = "Left";
+                } else {
+                    xFactor = 0;
+                }
                 break;
             case UP:
                 yFactor = 0;
+                if(keyHandler.isKeyPressed(Keys.DOWN)) {
+                    yFactor = -3;
+                    direction = "Down";
+                } else {
+                    yFactor = 0;
+                }
                 break;
             case DOWN:
                 yFactor = 0;
+                if(keyHandler.isKeyPressed(Keys.UP)) {
+                    yFactor = 3;
+                    direction = "Up";
+                } else {
+                    yFactor = 0;
+                }
                 break;
             default:
                 break;
+        }
+        if (xFactor == 0 && yFactor == 0) {
+            directionChange = false;
+        } else if (Math.abs(xFactor) > Math.abs(yFactor)) {
+            direction = xFactor > 0 ? "Right" : "Left";
+        } else {
+            direction = yFactor > 0 ? "Up" : "Down";
         }
         directionChange = true;
         dontAccelerate();

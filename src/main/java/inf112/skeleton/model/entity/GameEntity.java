@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
+
+import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
 
 public abstract class GameEntity implements entity, Disposable {
@@ -20,6 +22,7 @@ public abstract class GameEntity implements entity, Disposable {
     // Animation and movement
     protected PlayerAnimation animation;
     protected PlayerMovement movement;
+    protected KeyHandler keyHandler;
     
     public GameEntity(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType) {
         this.context = context;
@@ -32,7 +35,7 @@ public abstract class GameEntity implements entity, Disposable {
         
         // Initialize components
         this.animation = new PlayerAnimation(characterType);
-        this.movement = new PlayerMovement(world, body);
+        this.movement = new PlayerMovement(world, body, keyHandler);
     }
     
     // Common implementation of entity interface methods
