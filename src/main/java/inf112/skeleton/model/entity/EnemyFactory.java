@@ -8,11 +8,12 @@ import com.badlogic.gdx.utils.Array;
 
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.map.Map;
+import inf112.skeleton.model.entity.CharacterType;
 
 import static inf112.skeleton.model.GamePanel.*;
 public class EnemyFactory {
   private static Array<Enemy> enemies = new Array<>();
-      public static Array<Enemy> createEnemy(GamePanel context, World world, Map map) {
+      public static Array<Enemy> createEnemy(GamePanel context, World world, Map map, CharacterType characterType) {
         for (EnemySpawn spawn : map.getEnemySpawn()) {
         resetBodyAndFixtureDefinition();
 
@@ -36,8 +37,8 @@ public class EnemyFactory {
         Enemy enemy = new Enemy(context, world, body, 100, 10,
                 spawn.getPosition().x * UNIT_SCALE,
                 spawn.getPosition().y * UNIT_SCALE,
-                spawn.getName());
-        enemy.loadTextures();
+                 characterType, spawn.getName()
+                 );
         enemies.add(enemy);
     }
     return enemies;

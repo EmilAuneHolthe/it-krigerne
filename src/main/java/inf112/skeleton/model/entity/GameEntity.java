@@ -15,6 +15,7 @@ public abstract class GameEntity implements entity, Disposable {
     protected float y;
     protected World world;
     protected Body body;
+    protected CharacterType characterType;
     protected final GamePanel context;
     
     // Animation and movement
@@ -29,6 +30,7 @@ public abstract class GameEntity implements entity, Disposable {
         this.damage = damage;
         this.x = x;
         this.y = y;
+        this.characterType = characterType;
         
         // Initialize components
         this.animation = new PlayerAnimation(characterType);
@@ -84,6 +86,11 @@ public abstract class GameEntity implements entity, Disposable {
     
     // Common rendering method
     public void render(SpriteBatch batch) {
+        if(characterType == CharacterType.ZOMBIE) {
+            animation.update(Gdx.graphics.getDeltaTime());
+            animation.render(batch, body);
+            return;
+        }
         if (isActive()) {
             movement.update();
             animation.update(Gdx.graphics.getDeltaTime());
