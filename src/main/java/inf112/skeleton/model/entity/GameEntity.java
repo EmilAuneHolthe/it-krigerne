@@ -88,6 +88,7 @@ public abstract class GameEntity implements entity, Disposable {
     public void render(SpriteBatch batch) {
         if(characterType == CharacterType.ZOMBIE) {
             animation.update(Gdx.graphics.getDeltaTime());
+            animation.setMoving(movement.isMoving());
             animation.render(batch, body);
             return;
         }

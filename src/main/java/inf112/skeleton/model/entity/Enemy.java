@@ -17,7 +17,7 @@ public class Enemy extends GameEntity {
     private String name;
     private  Texture healthTexture;
     private Texture backgroundTexture;
-    private float speed = 0.8f;
+    private float speed = 2f;
     private boolean isDead;
     private DeathOverlay deathOverlay;
     private PlayerAnimation animation;
@@ -27,9 +27,6 @@ public class Enemy extends GameEntity {
         super(context, world, body, health, damage, x, y, characterType);
         this.isDead = false;
         this.deathOverlay = new DeathOverlay(context);
-        this.animation = new PlayerAnimation(characterType);
-        this.movement = new PlayerMovement(world, body);
-        this.characterType = characterType;
         this.name = name;
         this.direction = "Down";
         
@@ -41,14 +38,7 @@ public class Enemy extends GameEntity {
     @Override
     public void render(SpriteBatch batch) {
         if (body == null) return;
-        
-        // Update animation state
-        animation.update(Gdx.graphics.getDeltaTime());
-        animation.setMoving(movement.isMoving());
-        animation.setDirection(direction);
-        
-        // Render the animation
-        animation.render(batch, body);
+        super.render(batch);
         
         // Draw health bar
         batch.begin();
