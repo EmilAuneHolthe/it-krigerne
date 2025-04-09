@@ -16,6 +16,7 @@ public class Player extends GameEntity {
     private boolean isDead;
     private DeathOverlay deathOverlay;
     private final KeyHandler keyHandler;
+    protected boolean alive;
     public Player(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType, KeyHandler keyHandler) {
         super(context, world, body, health, damage, x, y, characterType);
         isDead = false;
@@ -37,28 +38,6 @@ public class Player extends GameEntity {
     protected boolean isActive() {
         return !isDead;
     }
-    
-    // @Override
-    // public boolean takeDamage(int damage) {
-    //     boolean alive = super.takeDamage(damage);
-    //     if (!alive && !isDead) {
-    //         isDead = true;
-    //         die();
-    //     }
-    //     return alive;
-    // }
-    
-    // @Override
-    // public void die() {
-    //     if (deathOverlay != null) {
-    //         deathOverlay.show();
-    //     }
-    // }
-    
-    // @Override
-    // public int attack() {
-    //     return damage;
-    // }
     
     public void playerInput(KeyHandler keyHandler, Keys key) {
         if (isDead) {
@@ -89,18 +68,24 @@ public class Player extends GameEntity {
         animation.setDirection(movement.getDirection());
     }
     
-    public void playerTakeDamage(KeyHandler keyHandler, Keys key) {
-        if (key == Keys.INTERACT) {
-            boolean alive = takeDamage(10);
+    public void playerTakeDamage(Enemy enemy) {
+        if (alive) {
             context.getAudioHandler().playAudio(AudioTypes.HURT);
-            Gdx.app.log("DAMAGE", "Player took 10 damage. Current HP: " + getHealth());
-            
-            if (!alive) {
-                Gdx.app.log("DAMAGE", "Player has died!");
-            }
+          }
+          alive = takeDamage(enemy.getDamage());
+          if (!alive) {
+            killPlayer();
+          }
         }
-    }
+
+
+    public void killPlayer() {
+            Gdx.app.log("DAMAGE", "Player has died!");
+            isDead = true;
+            die();
+        }
     
+
     @Override
     public int attack() {
         return damage;
@@ -120,18 +105,7 @@ public class Player extends GameEntity {
         }
         return health;
     }
-    
-    @Override
-    public boolean takeDamage(int damage) {
-        health -= 0;
-        boolean alive = health > 0;
-        if (!alive && !isDead) {
-            isDead = true;
-            die();
-        }
-        return alive;
-    }
-    
+   
     @Override
     public void setHealth(int health) {
         this.health = health;

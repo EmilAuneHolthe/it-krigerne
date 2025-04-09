@@ -7,6 +7,7 @@ import java.util.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
+import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.model.GamePanel;
 
 public class EnemyController {
@@ -56,8 +57,11 @@ public class EnemyController {
           System.out.println("Down");
         }
         enemy.moveEnemy(playerPosition.x, playerPosition.y);
+
+        // Check if the enemy is within attack range, then player take damage
         if(distance < 0.8) {
-          player.takeDamage(enemy.getDamage());
+          player.playerTakeDamage(enemy);
+
         }
       }
       else {
