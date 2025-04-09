@@ -31,7 +31,6 @@ public class GameScreen extends AbstractScreen implements MapListener {
     private float dTime = 0;
     private Player player;
     private Array<Enemy> enemies;
-    private final World world;
     private final AssetManager assetManager;
     private final OrthographicCamera camera;
     private final MapManager mapManager;
@@ -44,7 +43,6 @@ public class GameScreen extends AbstractScreen implements MapListener {
         super(context);
         assetManager = context.getAssetManager();
         this.camera = context.getCamera();
-        this.world = context.getWorld();
         this.mapManager = context.getMapManager();
         this.gameRenderer = context.getGameRenderer();
         this.keyHandler = context.getKeyHandler();
