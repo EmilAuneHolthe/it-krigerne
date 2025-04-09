@@ -2,4 +2,4 @@ ZombieWalking.png
 size:128,256
 repeat:none
 Zombie
-bounds:2,2,96,128
+bounds:2,2,95,127

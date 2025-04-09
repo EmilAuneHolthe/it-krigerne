@@ -110,7 +110,7 @@ public class PlayerMovement {
     }
     
     private void dontAccelerate() {
-        float speed = 3.0f;
+        float speed = 2.5f;
         float magnitude = (float) Math.sqrt(xFactor * xFactor + yFactor * yFactor);
         if (magnitude > 0) {
             xFactor = (xFactor / magnitude) * speed;
