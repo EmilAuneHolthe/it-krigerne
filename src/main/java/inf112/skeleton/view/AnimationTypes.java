@@ -28,6 +28,7 @@ public enum AnimationTypes {
     
     OLD_ATTACK("Player/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
 
+    // Zombie
     ZOMBIE_DOWN("Player/Atlas/ZombieWalking.atlas", "Zombie", 0.5f, 0),
     ZOMBIE_UP("Player/Atlas/ZombieWalking.atlas", "Zombie", 0.5f, 3),
     ZOMBIE_LEFT("Player/Atlas/ZombieWalking.atlas", "Zombie", 0.5f, 1),
