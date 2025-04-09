@@ -27,12 +27,12 @@ public class Enemy extends AnimatedEntity {
     private final GamePanel context;
     private final World world;
     
-    public Enemy(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType, String name, KeyHandler keyHandler) {
+    public Enemy(GamePanel context, World world, Body body, float x, float y, CharacterType characterType, String name, KeyHandler keyHandler) {
         super(body, characterType, keyHandler, world);
         this.context = context;
         this.world = world;
-        this.health = health;
-        this.damage = damage;
+        this.health = EnemyTypes.getEnemyHealth(characterType);
+        this.damage = EnemyTypes.getEnemyDamage(characterType);
         this.x = x;
         this.y = y;
         this.isDead = false;

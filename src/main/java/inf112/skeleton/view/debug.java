@@ -3,29 +3,24 @@ package inf112.skeleton.view;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.Array;
 
 import inf112.skeleton.model.entity.Enemy;
 import inf112.skeleton.model.entity.Player;
 
 public class debug {
     private SpriteBatch spriteBatch;
-    private Player player;
     private OrthographicCamera camera;
-    private Array<Enemy> enemies;
     private ShapeRenderer shapeRenderer;
     private final float ATTACK_RANGE = 2.0f; // Same as in PlayerInteractions
     
     public debug(SpriteBatch spriteBatch, Player player, OrthographicCamera camera) {
         this.spriteBatch = spriteBatch;
-        this.player = player;
+
         this.camera = camera;
-        this.enemies = enemies;
         this.shapeRenderer = new ShapeRenderer();
     }
     
     public void playerDebug(Player player) {
-        this.player = player;
         if (player == null || player.getBody() == null) return;
         
         // Draw a rectangle around the player's body
