@@ -60,4 +60,13 @@ public class EnemyFactory {
         // Create and return enemy
         return new Enemy(context, world, body, x, y, characterType, name, keyHandler);
     }
+
+    public Body createEnemyBody(float x, float y) {
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(x, y);
+        bodyDef.fixedRotation = true;
+
+        return world.createBody(bodyDef);
+    }
 }

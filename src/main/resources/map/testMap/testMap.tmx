@@ -52,15 +52,9 @@
  </objectgroup>
  <objectgroup id="11" name="Enemy">
   <object id="49" name="Enemy 3" x="2343.77" y="2394.46">
-   <point/>
-  </object>
-  <object id="50" x="2588.42" y="2852.92">
-   <point/>
-  </object>
-  <object id="51" x="1603.19" y="2101.32">
-   <point/>
-  </object>
-  <object id="52" x="1843.44" y="31.6685">
+   <properties>
+    <property name="Type" value="Soldier"/>
+   </properties>
    <point/>
   </object>
  </objectgroup>

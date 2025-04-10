@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.Enemy;
 import inf112.skeleton.model.entity.Player;
+import inf112.skeleton.model.entity.boss.Boss;
 import inf112.skeleton.model.map.Map;
 import inf112.skeleton.model.map.MapListener;
 import inf112.skeleton.view.ui.PlayerHUD;
@@ -42,6 +43,7 @@ public class GameRenderer implements Disposable, MapListener {
     private final Texture backgroundTexture;
     private boolean showDebug = false;
     private Array<Enemy> enemies;
+    private Boss boss;
     private debug debug;
 
     public GameRenderer(final GamePanel context) {
@@ -113,7 +115,7 @@ public class GameRenderer implements Disposable, MapListener {
                     // End batch for map rendering
                     spriteBatch.end();
                     
-                    // Render player and enemies
+                    // Render player, enemies, and boss
                     spriteBatch.begin();
                     if (player != null) {
                         player.render(spriteBatch);
@@ -127,6 +129,12 @@ public class GameRenderer implements Disposable, MapListener {
                             if(showDebug) {
                                 debug.enemyDebug(enemy);
                             }
+                        }
+                    }
+                    if (boss != null) {
+                        boss.render(spriteBatch);
+                        if(showDebug) {
+                            debug.enemyDebug(boss);
                         }
                     }
                     spriteBatch.end();
@@ -160,6 +168,12 @@ public class GameRenderer implements Disposable, MapListener {
                         if(showDebug) {
                             debug.enemyDebug(enemy);
                         }
+                    }
+                }
+                if (boss != null) {
+                    boss.render(spriteBatch);
+                    if(showDebug) {
+                        debug.enemyDebug(boss);
                     }
                 }
                 spriteBatch.end();
@@ -206,6 +220,10 @@ public class GameRenderer implements Disposable, MapListener {
     }
     public void updateEnemy(Array<Enemy> enemies) {
         this.enemies = enemies;
+    }
+
+    public void updateBoss(Boss boss) {
+        this.boss = boss;
     }
 
     @Override
