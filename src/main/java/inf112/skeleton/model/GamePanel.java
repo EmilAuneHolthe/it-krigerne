@@ -229,4 +229,5 @@ public class GamePanel extends Game {
     public void setPlayerInteractions(PlayerInteractions playerInteractions) {
         this.playerInteractions = playerInteractions;
     }
+
 }

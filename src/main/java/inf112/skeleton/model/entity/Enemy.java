@@ -1,5 +1,6 @@
 package inf112.skeleton.model.entity;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,7 +12,7 @@ import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.view.ui.DeathOverlay;
 import inf112.skeleton.controller.KeyHandler;
 
-public class Enemy extends AnimatedEntity {
+public class Enemy extends GameEntity {
     private String direction;
     public Texture playerIdleFrontTexture, playerIdleUpTexture, playerIdleRightTexture, playerIdleLeftTexture;
     private String name;
@@ -19,24 +20,15 @@ public class Enemy extends AnimatedEntity {
     private Texture backgroundTexture;
     private float speed = 2f;
     private boolean isDead;
-    private DeathOverlay deathOverlay;
-    private int health;
-    private int damage;
-    private float x;
-    private float y;
-    private final GamePanel context;
-    private final World world;
+    private final CharacterType characterType;
     
-    public Enemy(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType, String name, KeyHandler keyHandler) {
-        super(body, characterType, keyHandler, world);
-        this.context = context;
+    public Enemy(GamePanel context, World world, Body body, CharacterType characterType, String name) {
+        super(context, world, body, EnemyTypes.getEnemyHealth(characterType), EnemyTypes.getEnemyDamage(characterType), characterType);
         this.world = world;
-        this.health = health;
-        this.damage = damage;
-        this.x = x;
-        this.y = y;
+        this.characterType = characterType;
+        this.health = EnemyTypes.getEnemyHealth(characterType);
+        this.damage = EnemyTypes.getEnemyDamage(characterType);
         this.isDead = false;
-        this.deathOverlay = new DeathOverlay(context);
         this.direction = "Down";
         this.name = name;
         
@@ -51,10 +43,8 @@ public class Enemy extends AnimatedEntity {
         
         // Draw health bar
         Vector2 pos = body.getPosition();
-        batch.begin();
         batch.draw(backgroundTexture, pos.x - 0.5f, pos.y + 0.5f, 1, 0.1f);
         batch.draw(healthTexture, pos.x - 0.5f, pos.y + 0.5f, 1 * (health / 100f), 0.1f);
-        batch.end();
     }
 
     public void update(float deltaTime) {
@@ -78,6 +68,9 @@ public class Enemy extends AnimatedEntity {
                 // Remove from the enemy list
                 context.getEnemy().removeIndex(index);
                 System.out.println("Enemy removed from list: " + name);
+                if( characterType == CharacterType.BOSS) {
+                    System.out.println("Boss defeated!");
+                }
             }
         }
         return health > 0;
@@ -93,14 +86,6 @@ public class Enemy extends AnimatedEntity {
         if (body != null) {
             body.setTransform(x, y, 0);
         }
-    }
-
-    public float getX() {
-        return x;
-    }
-
-    public float getY() {
-        return y;
     }
 
     public void create(int health, int damage, float x, float y) {
@@ -166,24 +151,9 @@ public class Enemy extends AnimatedEntity {
     public boolean isActive() {
         return !isDead;
     }
-
-    public void die() {
-        isDead = true;
-        if (deathOverlay != null) {
-            deathOverlay.show();
-        }
-        if (body != null) {
-            world.destroyBody(body);
-            body = null;
-        }
-    }
-
     @Override
     public void dispose() {
         super.dispose();
-        if (deathOverlay != null) {
-            deathOverlay.dispose();
-        }
         if (animation != null) {
             animation.dispose();
         }
@@ -193,5 +163,17 @@ public class Enemy extends AnimatedEntity {
         if (backgroundTexture != null) {
             backgroundTexture.dispose();
         }
+    }
+
+    @Override
+    public int attack() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'attack'");
+    }
+
+    @Override
+    public void die() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'die'");
     }
 }

@@ -31,7 +31,14 @@ public enum AnimationTypes {
     ZOMBIE_LEFT("Player/Atlas/ZombieWalking.atlas", "Zombie", 0.5f, 1),
     ZOMBIE_RIGHT("Player/Atlas/ZombieWalking.atlas", "Zombie", 0.5f, 2),
     
-    ZOMBIE_ATTACK("Player/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0);
+    ZOMBIE_ATTACK("Player/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
+
+    BOSS_DOWN("Player/Atlas/zombie-1.1/Boss.atlas", "Boss", 0.5f, 3),
+    BOSS_UP("Player/Atlas/zombie-1.1/Boss.atlas", "Boss", 0.5f, 3),
+    BOSS_LEFT("Player/Atlas/zombie-1.1/Boss.atlas", "Boss", 0.5f, 3),
+    BOSS_RIGHT("Player/Atlas/zombie-1.1/Boss.atlas", "Boss", 0.5f, 3),
+    BOSS_ATTACK("Player/Atlas/zombie-1.1/Boss.atlas", "Boss", 0.5f, 3);
+
     
 
     private final String atlasPath;

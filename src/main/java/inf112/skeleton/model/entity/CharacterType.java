@@ -6,7 +6,8 @@ public enum CharacterType {
     SOLDIER(AnimationTypes.SOLDIER_DOWN),
     OLD(AnimationTypes.OLD_DOWN),
     HERO(AnimationTypes.HERO_DOWN),
-    ZOMBIE(AnimationTypes.ZOMBIE_DOWN);
+    ZOMBIE(AnimationTypes.ZOMBIE_DOWN),
+    BOSS(AnimationTypes.BOSS_DOWN);
     
     private final AnimationTypes defaultAnimation;
     

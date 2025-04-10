@@ -13,21 +13,19 @@ import com.badlogic.gdx.utils.Array;
 public class EnemyFactory {
     private final GamePanel context;
     private final World world;
-    private final KeyHandler keyHandler;
     
-    public EnemyFactory(GamePanel context, World world, KeyHandler keyHandler) {
+    public EnemyFactory(GamePanel context, World world) {
         this.context = context;
         this.world = world;
-        this.keyHandler = keyHandler;
     }
     
-    public Array<Enemy> createEnemiesFromMap(Map map, CharacterType characterType) {
+    public Array<Enemy> createEnemiesFromMap(Map map) {
         Array<Enemy> enemies = new Array<>();
         for (EnemySpawn spawn : map.getEnemySpawn()) {
             Enemy enemy = createEnemy(
                 spawn.getPosition().x * GamePanel.UNIT_SCALE,
                 spawn.getPosition().y * GamePanel.UNIT_SCALE,
-                characterType,
+                spawn.getCharacterType(),
                 spawn.getName()
             );
             enemies.add(enemy);
@@ -58,6 +56,15 @@ public class EnemyFactory {
         shape.dispose();
         
         // Create and return enemy
-        return new Enemy(context, world, body, 100, 10, x, y, characterType, name, keyHandler);
+        return new Enemy(context, world, body, characterType, name);
+    }
+
+    public Body createEnemyBody(float x, float y) {
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(x, y);
+        bodyDef.fixedRotation = true;
+
+        return world.createBody(bodyDef);
     }
 }

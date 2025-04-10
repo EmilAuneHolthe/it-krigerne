@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL20;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -93,30 +94,82 @@ public class GameRenderer implements Disposable, MapListener {
         viewport.apply();
         spriteBatch.setProjectionMatrix(camera.combined);
 
-        // Render map
+        // Render map with layer-based rendering
         if (mapRenderer.getMap() != null) {
             mapRenderer.setView(camera);
-            mapRenderer.render();
+            
+            // Get all layers
+            com.badlogic.gdx.maps.MapLayers layers = mapRenderer.getMap().getLayers();
+            boolean playerLayerRendered = false;
+            
+            // Begin sprite batch for map rendering
+            spriteBatch.begin();
+            
+            // Render each layer
+            for (int i = 0; i < layers.getCount(); i++) {
+                com.badlogic.gdx.maps.MapLayer layer = layers.get(i);
+                
+                // If we hit the "Player" layer, render the player and enemies
+                if (layer.getName().equals("Player") && !playerLayerRendered) {
+                    // End batch for map rendering
+                    spriteBatch.end();
+                    
+                    // Render player, enemies, and boss
+                    spriteBatch.begin();
+                    if (player != null) {
+                        player.render(spriteBatch);
+                        if(showDebug) {
+                            debug.playerDebug(player);
+                        }
+                    }
+                    if(enemies != null) {
+                        for (Enemy enemy : enemies) {
+                            enemy.render(spriteBatch);
+                            if(showDebug) {
+                                debug.enemyDebug(enemy);
+                            }
+                        }
+                    }
+                    spriteBatch.end();
+                    
+                    // Begin batch for next layer
+                    spriteBatch.begin();
+                    playerLayerRendered = true;
+                }
+                
+                // Render the current layer if it's a tile layer
+                if (layer instanceof com.badlogic.gdx.maps.tiled.TiledMapTileLayer) {
+                    mapRenderer.renderTileLayer((com.badlogic.gdx.maps.tiled.TiledMapTileLayer) layer);
+                }
+            }
+            
+            // End batch for map rendering
+            spriteBatch.end();
+            
+            // If no "Player" layer was found, render player and enemies at the end
+            if (!playerLayerRendered) {
+                spriteBatch.begin();
+                if (player != null) {
+                    player.render(spriteBatch);
+                    if(showDebug) {
+                        debug.playerDebug(player);
+                    }
+                }
+                if(enemies != null) {
+                    for (Enemy enemy : enemies) {
+                        enemy.render(spriteBatch);
+                        if(showDebug) {
+                            debug.enemyDebug(enemy);
+                        }
+                    }
+                }
+                spriteBatch.end();
+            }
         }
 
         // Render Box2D debug only when explicitly enabled
         if (showDebug) {
             box2DDebugRenderer.render(world, camera.combined);
-        }
-        if(enemies != null) {
-            for (Enemy enemy : enemies) {
-                enemy.render(spriteBatch);
-                if(showDebug) {
-                    debug.enemyDebug(enemy);
-                }
-            }
-        }
-        // Render player
-        if (player != null) {
-            player.render(spriteBatch);
-            if(showDebug) {
-            debug.playerDebug(player);
-            }
         }
 
         // Render UI with fixed position
@@ -126,15 +179,17 @@ public class GameRenderer implements Disposable, MapListener {
         if (playerHUD != null) {
             playerHUD.update();
         }
-
+        
+        if(player != null) {
+            player.renderDeathOverlay(spriteBatch);
+        }
         // Debug info
         if (profiler.isEnabled()) {
             Gdx.app.debug(TAG, "Bindings: " + profiler.getTextureBindings());
             Gdx.app.debug(TAG, "Draw calls: " + profiler.getDrawCalls());
             profiler.reset();
-        }
     }
-
+}
     public void resize(int width, int height) {
         viewport.update(width, height);
         uiStage.getViewport().update(width, height, true);
@@ -155,7 +210,6 @@ public class GameRenderer implements Disposable, MapListener {
     public void updateEnemy(Array<Enemy> enemies) {
         this.enemies = enemies;
     }
-
     @Override
     public void dispose() {
         box2DDebugRenderer.dispose();

@@ -28,11 +28,6 @@ public class debug {
         float x = player.getBody().getPosition().x - width/2;
         float y = player.getBody().getPosition().y - height/2;
         
-        // End any active sprite batch
-        if (spriteBatch.isDrawing()) {
-            spriteBatch.end();
-        }
-        
         // Draw the outline
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -51,11 +46,6 @@ public class debug {
         );
         
         shapeRenderer.end();
-        
-        // Restart sprite batch if it was active
-        if (spriteBatch.isDrawing()) {
-            spriteBatch.begin();
-        }
     }
     
     public void enemyDebug(Enemy enemy) { 
@@ -67,22 +57,12 @@ public class debug {
         float x = enemy.getBody().getPosition().x - width/2;
         float y = enemy.getBody().getPosition().y - height/2;
         
-        // End any active sprite batch
-        if (spriteBatch.isDrawing()) {
-            spriteBatch.end();
-        }
-        
         // Draw the outline
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(1, 0, 0, 1); // Red color
         shapeRenderer.rect(x, y, width, height);
         shapeRenderer.end();
-        
-        // Restart sprite batch if it was active
-        if (spriteBatch.isDrawing()) {
-            spriteBatch.begin();
-        }
     }
     
     public void dispose() {

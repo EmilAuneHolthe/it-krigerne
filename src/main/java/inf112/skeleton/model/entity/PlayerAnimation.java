@@ -104,13 +104,11 @@ public class PlayerAnimation {
         float width = currentFrame.getRegionWidth() / 32f;
         float height = currentFrame.getRegionHeight() / 32f;
         
-        batch.begin();
         batch.draw(currentFrame, 
             body.getPosition().x - width/2, 
             body.getPosition().y - height/2,
             width,
             height);
-        batch.end();
     }
     
     public void startAttack() {
@@ -152,27 +150,15 @@ public class PlayerAnimation {
                 switch (direction) {
                     case "Down":
                         currentAnimationType = getAnimationTypeForDirection("Down");
-                        if(characterType == CharacterType.ZOMBIE) {
-                            System.out.println("Current animation type: " + currentAnimationType);
-                        }
                         break;
                     case "Up":
                         currentAnimationType = getAnimationTypeForDirection("Up");
-                        if(characterType == CharacterType.ZOMBIE) {
-                            System.out.println("Current animation type: " + currentAnimationType);
-                        }
                         break;
                     case "Left":
                         currentAnimationType = getAnimationTypeForDirection("Left");
-                        if(characterType == CharacterType.ZOMBIE) {
-                            System.out.println("Current animation type: " + currentAnimationType);
-                        }
                         break;
                     case "Right":
                         currentAnimationType = getAnimationTypeForDirection("Right");
-                        if(characterType == CharacterType.ZOMBIE) {
-                            System.out.println("Current animation type: " + currentAnimationType);
-                        }
                         break;
                 }
                 
