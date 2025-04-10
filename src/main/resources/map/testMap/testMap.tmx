@@ -50,15 +50,10 @@
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="12" name="Boss">
-  <object id="56" x="2080" y="2336">
-   <point/>
-  </object>
- </objectgroup>
  <objectgroup id="11" name="Enemy">
   <object id="49" name="Enemy 3" x="2343.77" y="2394.46">
    <properties>
-    <property name="Type" value="SOLDIER"/>
+    <property name="Type" value="boss"/>
    </properties>
    <point/>
   </object>

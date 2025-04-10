@@ -171,6 +171,9 @@ public class Enemy extends AnimatedEntity {
             deathOverlay.show();
         }
         if (body != null) {
+            if(characterType == CharacterType.BOSS) {
+                System.out.println("Zombie is dead");
+            }
             world.destroyBody(body);
             body = null;
         }

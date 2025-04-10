@@ -4,7 +4,8 @@ public enum EnemyTypes {
     SOLDIER("Soldier"),
     OLD("Old"),
     HERO("Hero"),
-    ZOMBIE("Zombie");
+    ZOMBIE("Zombie"),
+    BOSS("Boss");
 
     private final String name;
 
@@ -33,6 +34,8 @@ public enum EnemyTypes {
                 return 200;
             case ZOMBIE:
                 return 50  ;
+            case BOSS:
+                return 500;
             default:
                 throw new IllegalArgumentException("Unknown enemy type: " + type);
         }
@@ -47,6 +50,8 @@ public enum EnemyTypes {
                 return 25;
             case ZOMBIE:
                 return 10;
+            case BOSS:
+                return 50;
             default:
                 throw new IllegalArgumentException("Unknown enemy type: " + type);
         }

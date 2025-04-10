@@ -21,13 +21,11 @@ import inf112.skeleton.model.map.MapManager;
 import inf112.skeleton.model.map.MapType;
 import inf112.skeleton.view.GameRenderer;
 import inf112.skeleton.model.map.MapChanger;
-import inf112.skeleton.model.entity.boss.Boss;
 
 public class GameScreen extends AbstractScreen implements MapListener {
     private float dTime = 0;
     private Player player;
     private Array<Enemy> enemies;
-    private Boss boss;
     private final OrthographicCamera camera;
     private final MapManager mapManager;
     private final GameRenderer gameRenderer;
@@ -59,13 +57,6 @@ public class GameScreen extends AbstractScreen implements MapListener {
         dTime += 0.5;
         if (dTime >= 25) {
             enemyController.sight();
-            if (boss != null) {
-                boss.update(delta);
-                // Make boss attack periodically
-                if (Math.random() < 0.01) { // 1% chance per frame
-                    boss.startGridAttack();
-                }
-            }
             dTime = 0;
         }
         //Gdx.app.log("Debug", "FPS: " + Gdx.graphics.getFramesPerSecond());
@@ -82,7 +73,6 @@ public class GameScreen extends AbstractScreen implements MapListener {
             spawnEnemy();
             enemies = context.getEnemy();
             enemyController.updateEnemies(enemies);
-            spawnBoss();
         }
         else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             gameRenderer.setShowDebug(!gameRenderer.isShowDebug());
@@ -158,18 +148,6 @@ public class GameScreen extends AbstractScreen implements MapListener {
         Array<Enemy> enemies = factory.createEnemiesFromMap(mapManager.getCurrentMap());
         context.setEnemy(enemies);
         gameRenderer.updateEnemy(enemies);
-    }
-
-    private void spawnBoss() {
-        if (boss == null) {
-            EnemyFactory factory = new EnemyFactory(context, world, keyHandler);
-            float x = mapManager.getCurrentMap().getBossSpawn().x;
-            float y = mapManager.getCurrentMap().getBossSpawn().y;
-            boss = new Boss(context, world, 
-                 factory.createEnemyBody(x, y), // Spawn at position 10,10
-                 x, y, "Boss", keyHandler);
-                 gameRenderer.updateBoss(boss);
-        }
     }
 }
 

@@ -22,7 +22,6 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.Enemy;
 import inf112.skeleton.model.entity.Player;
-import inf112.skeleton.model.entity.boss.Boss;
 import inf112.skeleton.model.map.Map;
 import inf112.skeleton.model.map.MapListener;
 import inf112.skeleton.view.ui.PlayerHUD;
@@ -44,7 +43,6 @@ public class GameRenderer implements Disposable, MapListener {
     private final Texture backgroundTexture;
     private boolean showDebug = false;
     private Array<Enemy> enemies;
-    private Boss boss;
     private debug debug;
 
     public GameRenderer(final GamePanel context) {
@@ -165,9 +163,6 @@ public class GameRenderer implements Disposable, MapListener {
                         }
                     }
                 }
-                if (boss != null) {
-                    System.out.println("Rendering boss");
-                    boss.render(spriteBatch);
                 spriteBatch.end();
             }
         }
@@ -195,7 +190,6 @@ public class GameRenderer implements Disposable, MapListener {
             profiler.reset();
     }
 }
-    }
     public void resize(int width, int height) {
         viewport.update(width, height);
         uiStage.getViewport().update(width, height, true);
@@ -216,12 +210,6 @@ public class GameRenderer implements Disposable, MapListener {
     public void updateEnemy(Array<Enemy> enemies) {
         this.enemies = enemies;
     }
-
-    public void updateBoss(Boss boss) {
-        this.boss = boss;
-        System.out.println("Updating boss in GameRenderer" + boss.getName());
-    }
-
     @Override
     public void dispose() {
         box2DDebugRenderer.dispose();
