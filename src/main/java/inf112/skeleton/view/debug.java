@@ -53,9 +53,6 @@ public class debug {
         shapeRenderer.end();
         
         // Restart sprite batch if it was active
-        if (spriteBatch.isDrawing()) {
-            spriteBatch.begin();
-        }
     }
     
     public void enemyDebug(Enemy enemy) { 
@@ -78,11 +75,6 @@ public class debug {
         shapeRenderer.setColor(1, 0, 0, 1); // Red color
         shapeRenderer.rect(x, y, width, height);
         shapeRenderer.end();
-        
-        // Restart sprite batch if it was active
-        if (spriteBatch.isDrawing()) {
-            spriteBatch.begin();
-        }
     }
     
     public void dispose() {

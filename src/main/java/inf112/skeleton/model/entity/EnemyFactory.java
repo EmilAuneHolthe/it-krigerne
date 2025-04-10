@@ -13,12 +13,10 @@ import com.badlogic.gdx.utils.Array;
 public class EnemyFactory {
     private final GamePanel context;
     private final World world;
-    private final KeyHandler keyHandler;
     
-    public EnemyFactory(GamePanel context, World world, KeyHandler keyHandler) {
+    public EnemyFactory(GamePanel context, World world) {
         this.context = context;
         this.world = world;
-        this.keyHandler = keyHandler;
     }
     
     public Array<Enemy> createEnemiesFromMap(Map map) {
@@ -58,6 +56,15 @@ public class EnemyFactory {
         shape.dispose();
         
         // Create and return enemy
-        return new Enemy(context, world, body, x, y, characterType, name, keyHandler);
+        return new Enemy(context, world, body, characterType, name);
+    }
+
+    public Body createEnemyBody(float x, float y) {
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(x, y);
+        bodyDef.fixedRotation = true;
+
+        return world.createBody(bodyDef);
     }
 }

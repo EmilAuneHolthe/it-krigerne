@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL20;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -113,7 +114,7 @@ public class GameRenderer implements Disposable, MapListener {
                     // End batch for map rendering
                     spriteBatch.end();
                     
-                    // Render player and enemies
+                    // Render player, enemies, and boss
                     spriteBatch.begin();
                     if (player != null) {
                         player.render(spriteBatch);
@@ -178,15 +179,17 @@ public class GameRenderer implements Disposable, MapListener {
         if (playerHUD != null) {
             playerHUD.update();
         }
-
+        
+        if(player != null) {
+            player.renderDeathOverlay(spriteBatch);
+        }
         // Debug info
         if (profiler.isEnabled()) {
             Gdx.app.debug(TAG, "Bindings: " + profiler.getTextureBindings());
             Gdx.app.debug(TAG, "Draw calls: " + profiler.getDrawCalls());
             profiler.reset();
-        }
     }
-
+}
     public void resize(int width, int height) {
         viewport.update(width, height);
         uiStage.getViewport().update(width, height, true);
@@ -207,7 +210,6 @@ public class GameRenderer implements Disposable, MapListener {
     public void updateEnemy(Array<Enemy> enemies) {
         this.enemies = enemies;
     }
-
     @Override
     public void dispose() {
         box2DDebugRenderer.dispose();

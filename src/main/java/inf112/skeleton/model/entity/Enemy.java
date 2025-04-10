@@ -1,5 +1,6 @@
 package inf112.skeleton.model.entity;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,7 +12,7 @@ import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.view.ui.DeathOverlay;
 import inf112.skeleton.controller.KeyHandler;
 
-public class Enemy extends AnimatedEntity {
+public class Enemy extends GameEntity {
     private String direction;
     public Texture playerIdleFrontTexture, playerIdleUpTexture, playerIdleRightTexture, playerIdleLeftTexture;
     private String name;
@@ -26,11 +27,13 @@ public class Enemy extends AnimatedEntity {
     private float y;
     private final GamePanel context;
     private final World world;
+    private final CharacterType characterType;
     
-    public Enemy(GamePanel context, World world, Body body, float x, float y, CharacterType characterType, String name, KeyHandler keyHandler) {
-        super(body, characterType, keyHandler, world);
+    public Enemy(GamePanel context, World world, Body body, CharacterType characterType, String name) {
+        super(context, world, body, EnemyTypes.getEnemyHealth(characterType), EnemyTypes.getEnemyDamage(characterType), characterType);
         this.context = context;
         this.world = world;
+        this.characterType = characterType;
         this.health = EnemyTypes.getEnemyHealth(characterType);
         this.damage = EnemyTypes.getEnemyDamage(characterType);
         this.x = x;
@@ -76,6 +79,9 @@ public class Enemy extends AnimatedEntity {
                 // Remove from the enemy list
                 context.getEnemy().removeIndex(index);
                 System.out.println("Enemy removed from list: " + name);
+                if( characterType == CharacterType.BOSS) {
+                    System.out.println("Boss defeated!");
+                }
             }
         }
         return health > 0;
@@ -91,14 +97,6 @@ public class Enemy extends AnimatedEntity {
         if (body != null) {
             body.setTransform(x, y, 0);
         }
-    }
-
-    public float getX() {
-        return x;
-    }
-
-    public float getY() {
-        return y;
     }
 
     public void create(int health, int damage, float x, float y) {
@@ -164,18 +162,6 @@ public class Enemy extends AnimatedEntity {
     public boolean isActive() {
         return !isDead;
     }
-
-    public void die() {
-        isDead = true;
-        if (deathOverlay != null) {
-            deathOverlay.show();
-        }
-        if (body != null) {
-            world.destroyBody(body);
-            body = null;
-        }
-    }
-
     @Override
     public void dispose() {
         super.dispose();
@@ -191,5 +177,17 @@ public class Enemy extends AnimatedEntity {
         if (backgroundTexture != null) {
             backgroundTexture.dispose();
         }
+    }
+
+    @Override
+    public int attack() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'attack'");
+    }
+
+    @Override
+    public void die() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'die'");
     }
 }

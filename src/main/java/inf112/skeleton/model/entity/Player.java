@@ -18,7 +18,7 @@ public class Player extends GameEntity {
     protected boolean alive;
 
     public Player(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType, KeyHandler keyHandler) {
-        super(context, world, body, health, damage, x, y, characterType, keyHandler);
+        super(context, world, body, health, damage, characterType);
         isDead = false;
         deathOverlay = new DeathOverlay(context);
         this.movement = new PlayerMovement(world, body, keyHandler);
@@ -27,12 +27,15 @@ public class Player extends GameEntity {
     @Override
     public void render(SpriteBatch batch) {
         if (isDead) {
-            deathOverlay.render(batch);
             return;
         }
         super.render(batch);
     }
-    
+    public void renderDeathOverlay(SpriteBatch batch) {
+        if (isDead && deathOverlay != null) {
+            deathOverlay.render(batch);
+        }
+    }
     @Override
     protected boolean isActive() {
         return !isDead;
@@ -114,12 +117,12 @@ public class Player extends GameEntity {
     public void setSpawn(float x, float y) {
         this.x = x;
         this.y = y;
-        // if (body != null) {
-        //     // Reset velocity to prevent sliding
-        //     body.setLinearVelocity(0, 0);
-        //     // Set the new position
-        //     body.setTransform(x, y, 0);
-        // }
+        if (body != null) {
+            // Reset velocity to prevent sliding
+            body.setLinearVelocity(0, 0);
+            // Set the new position
+            body.setTransform(x, y, 0);
+        }
     }
     
     @Override
