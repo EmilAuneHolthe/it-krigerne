@@ -28,11 +28,6 @@ public class debug {
         float x = player.getBody().getPosition().x - width/2;
         float y = player.getBody().getPosition().y - height/2;
         
-        // End any active sprite batch
-        if (spriteBatch.isDrawing()) {
-            spriteBatch.end();
-        }
-        
         // Draw the outline
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
@@ -51,8 +46,6 @@ public class debug {
         );
         
         shapeRenderer.end();
-        
-        // Restart sprite batch if it was active
     }
     
     public void enemyDebug(Enemy enemy) { 
@@ -63,11 +56,6 @@ public class debug {
         float height = 0.8f; // Enemy body height
         float x = enemy.getBody().getPosition().x - width/2;
         float y = enemy.getBody().getPosition().y - height/2;
-        
-        // End any active sprite batch
-        if (spriteBatch.isDrawing()) {
-            spriteBatch.end();
-        }
         
         // Draw the outline
         shapeRenderer.setProjectionMatrix(camera.combined);
