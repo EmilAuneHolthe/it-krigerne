@@ -72,8 +72,9 @@ public class PlayerHUD {
         // Place using Table
         Table table = new Table();
         table.setFillParent(true);
-        //table.bottom().center().padTop(5).padLeft(5);
-        table.bottom().padLeft(Gdx.graphics.getWidth() / 100);
+        table.align(Align.bottom | Align.center);
+        table.padBottom(20);
+
 
         table.add(healthStack).width(maxHealthBarWidth).height(healthBarHeight).padBottom(5).row();
         table.add(manaStack).width(maxHealthBarWidth).height(healthBarHeight);
