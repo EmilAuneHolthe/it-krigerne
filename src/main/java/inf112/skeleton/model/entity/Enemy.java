@@ -20,26 +20,15 @@ public class Enemy extends GameEntity {
     private Texture backgroundTexture;
     private float speed = 2f;
     private boolean isDead;
-    private DeathOverlay deathOverlay;
-    private int health;
-    private int damage;
-    private float x;
-    private float y;
-    private final GamePanel context;
-    private final World world;
     private final CharacterType characterType;
     
     public Enemy(GamePanel context, World world, Body body, CharacterType characterType, String name) {
         super(context, world, body, EnemyTypes.getEnemyHealth(characterType), EnemyTypes.getEnemyDamage(characterType), characterType);
-        this.context = context;
         this.world = world;
         this.characterType = characterType;
         this.health = EnemyTypes.getEnemyHealth(characterType);
         this.damage = EnemyTypes.getEnemyDamage(characterType);
-        this.x = x;
-        this.y = y;
         this.isDead = false;
-        this.deathOverlay = new DeathOverlay(context);
         this.direction = "Down";
         this.name = name;
         
@@ -165,9 +154,6 @@ public class Enemy extends GameEntity {
     @Override
     public void dispose() {
         super.dispose();
-        if (deathOverlay != null) {
-            deathOverlay.dispose();
-        }
         if (animation != null) {
             animation.dispose();
         }
