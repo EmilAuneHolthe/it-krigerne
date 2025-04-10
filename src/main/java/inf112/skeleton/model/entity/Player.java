@@ -37,11 +37,7 @@ public class Player extends GameEntity {
             return;
         }
         super.render(batch);
-        if(mana >= 20) {
-            canAttack = true;
-        } else {
-            canAttack = false;
-        }
+        
     }
     public void renderDeathOverlay(SpriteBatch batch) {
         if (isDead && deathOverlay != null) {
@@ -59,7 +55,7 @@ public class Player extends GameEntity {
             return;
         }
         
-        if (key == Keys.ATTACK) {
+        if (key == Keys.ATTACK && canAttack) {
             if (mana >= 20) {
                 animation.startAttack();
                 mana -= 20;
@@ -201,6 +197,12 @@ public class Player extends GameEntity {
             int manaToAdd = (int) manaRegenAccumulator;
             setMana(getMana() + manaToAdd);
             manaRegenAccumulator -= manaToAdd;
+            
+            if(mana >= 20) {
+                canAttack = true;
+            } else {
+                canAttack = false;
+            }
         }
     }
 
