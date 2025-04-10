@@ -21,7 +21,7 @@ public class Enemy extends GameEntity {
     private float speed = 2f;
     private boolean isDead;
     private final CharacterType characterType;
-    
+    private float maxHealth;
     public Enemy(GamePanel context, World world, Body body, CharacterType characterType, String name) {
         super(context, world, body, EnemyTypes.getEnemyHealth(characterType), EnemyTypes.getEnemyDamage(characterType), characterType);
         this.world = world;
@@ -31,6 +31,7 @@ public class Enemy extends GameEntity {
         this.isDead = false;
         this.direction = "Down";
         this.name = name;
+        this.maxHealth = EnemyTypes.getEnemyHealth(characterType);
         
         // Load health bar textures
         this.healthTexture = new Texture(Gdx.files.internal("redtexture.png"));
@@ -43,8 +44,13 @@ public class Enemy extends GameEntity {
         
         // Draw health bar
         Vector2 pos = body.getPosition();
-        batch.draw(backgroundTexture, pos.x - 0.5f, pos.y + 0.5f, 1, 0.1f);
-        batch.draw(healthTexture, pos.x - 0.5f, pos.y + 0.5f, 1 * (health / 100f), 0.1f);
+        float barWidth = maxHealth/100;
+        float barHeight = 0.1f;
+        float x = pos.x - (barWidth / 2); // Center the bar horizontally
+        float y = pos.y + 0.5f; // Position above the enemy
+        
+        batch.draw(backgroundTexture, pos.x - barWidth/2.3f, pos.y + 0.5f, barWidth, 0.1f);
+        batch.draw(healthTexture, pos.x - barWidth/2.3f, pos.y + 0.5f, 1 * (health / 100f), 0.1f);
     }
 
     public void update(float deltaTime) {
