@@ -4,19 +4,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.Keys;
@@ -29,11 +27,14 @@ public class MainMenuScreen extends AbstractScreen {
     private ImageButton startButton;
     private ImageButton optionsButton;
     private ImageButton exitButton;
-    private boolean debugMode = true; // Toggle for debug outlines
+    private boolean debugMode = false; // Toggle for debug outlines
+    private float originalWidth = 960; // Original window width
+    private float originalHeight = 540; // Original window height
 
     public MainMenuScreen(GamePanel context) {
         super(context);
-        stage = new Stage(new ScreenViewport());
+        // Use FitViewport instead of ScreenViewport to maintain aspect ratio
+        stage = new Stage(new FitViewport(originalWidth, originalHeight));
         Gdx.input.setInputProcessor(stage);
         createUI();
     }
@@ -83,12 +84,9 @@ public class MainMenuScreen extends AbstractScreen {
         optionsButton = new ImageButton(buttonDrawable);
         exitButton = new ImageButton(buttonDrawable);
         
-        // Set button sizes
-        float buttonWidth = 200;
-        float buttonHeight = 80;
-        startButton.setSize(buttonWidth, buttonHeight);
-        optionsButton.setSize(buttonWidth, buttonHeight);
-        exitButton.setSize(buttonWidth, buttonHeight);
+        // Set button sizes relative to the original window size
+        float buttonWidth = originalWidth * 0.208f; // 200/960 ≈ 0.208
+        float buttonHeight = originalHeight * 0.148f; // 80/540 ≈ 0.148
         
         // Add debug borders if enabled
         if (debugMode) {
@@ -98,8 +96,8 @@ public class MainMenuScreen extends AbstractScreen {
         }
         
         // Add buttons to table with spacing
-        buttonTable.add(startButton).size(buttonWidth, buttonHeight).padBottom(25).row();
-        buttonTable.add(optionsButton).size(buttonWidth, buttonHeight).padBottom(25).row();
+        buttonTable.add(startButton).size(buttonWidth, buttonHeight).padBottom(originalHeight * 0.046f).row(); // 25/540 ≈ 0.046
+        buttonTable.add(optionsButton).size(buttonWidth, buttonHeight).padBottom(originalHeight * 0.046f).row();
         buttonTable.add(exitButton).size(buttonWidth, buttonHeight);
         
         // Add button click listeners
@@ -171,8 +169,8 @@ public class MainMenuScreen extends AbstractScreen {
     
     @Override
     public void keyPressed(KeyHandler keyHandler, Keys key) {
-        // Toggle debug mode with F3 key
-        if (key == Keys.BACK) { // Using BACK key (BACKSPACE) instead of INTERACT
+        // Toggle debug mode with BACKSPACE key
+        if (key == Keys.BACK) {
             debugMode = !debugMode;
             System.out.println("Debug mode: " + (debugMode ? "ON" : "OFF"));
             // Recreate UI to update debug visuals
