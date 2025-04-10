@@ -41,16 +41,17 @@ public class Enemy extends GameEntity {
     @Override
     public void render(SpriteBatch batch) {
         super.render(batch);
-        
-        // Draw health bar
-        Vector2 pos = body.getPosition();
-        float barWidth = maxHealth/100;
-        float barHeight = 0.1f;
-        float x = pos.x - (barWidth / 2); // Center the bar horizontally
-        float y = pos.y + 0.5f; // Position above the enemy
-        
-        batch.draw(backgroundTexture, pos.x - barWidth/2.3f, pos.y + 0.5f, barWidth, 0.1f);
-        batch.draw(healthTexture, pos.x - barWidth/2.3f, pos.y + 0.5f, 1 * (health / 100f), 0.1f);
+        if(characterType != CharacterType.BOSS) {
+            // Draw health bar for regular enemies
+            Vector2 pos = body.getPosition();
+            float barWidth = maxHealth/100;
+            float barHeight = 0.1f;
+            float x = pos.x - (barWidth / 2); // Center the bar horizontally
+            float y = pos.y + 0.5f; // Position above the enemy
+            
+            batch.draw(backgroundTexture, pos.x - barWidth/2.3f, pos.y + 0.5f, barWidth, 0.2f);
+            batch.draw(healthTexture, pos.x - barWidth/2.3f, pos.y + 0.5f, 1 * (health / 100f), 0.2f);
+        }
     }
 
     public void update(float deltaTime) {
@@ -181,5 +182,9 @@ public class Enemy extends GameEntity {
     public void die() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'die'");
+    }
+
+    public int getMaxHealth() {
+        return (int)maxHealth;
     }
 }
