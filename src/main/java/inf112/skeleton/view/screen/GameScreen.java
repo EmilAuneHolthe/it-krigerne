@@ -20,6 +20,7 @@ import inf112.skeleton.model.map.MapListener;
 import inf112.skeleton.model.map.MapManager;
 import inf112.skeleton.model.map.MapType;
 import inf112.skeleton.view.GameRenderer;
+import inf112.skeleton.model.map.MapChanger;
 
 public class GameScreen extends AbstractScreen implements MapListener {
     private float dTime = 0;
@@ -30,7 +31,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
     private final GameRenderer gameRenderer;
     private final PlayerInteractions playerInteractions;
     private final EnemyController enemyController;
-
+    private final MapChanger mapChanger;
     public GameScreen(GamePanel context) {
         super(context);
         this.camera = context.getCamera();
@@ -46,6 +47,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
         enemies = context.getEnemy();
         enemyController = new EnemyController(context, world, enemies, player);
         context.setPlayerInteractions(playerInteractions);
+        mapChanger = new MapChanger();
     }
 
     @Override
@@ -65,6 +67,13 @@ public class GameScreen extends AbstractScreen implements MapListener {
             playerInteractions.attackEnemy(player, enemies);
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             mapManager.setMap(MapType.MAP_2);
+            mapChanger.removeObjects(world, mapManager.getCurrentMap(), enemies);
+            enemies.clear();
+            context.setEnemy(enemies);
+            mapChanger.movePlayer(world, mapManager.getCurrentMap(), player);
+            spawnEnemy();
+            enemies = context.getEnemy();
+            enemyController.updateEnemies(enemies);
         }
         else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             gameRenderer.setShowDebug(!gameRenderer.isShowDebug());
