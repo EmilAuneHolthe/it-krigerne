@@ -205,9 +205,35 @@ Videreutvikle funksjoner i spillet:
 
 * Hva skal vi gjøre neste gang
 
+- Starte å jobbe på egne klasser for spiller og enemies
+
+# 27.03.25: Emil, Martin, Vemund, Daniel
+
+* Hva gjorde vi
+
+- Jobbet med egne klasser for spiller og enemies
+
+- Fikset litt på grafikken for gøy og lagde flere metoder for entity interfacet
+
+- Jobbed med GameScreen for å implementere nye endringene for Player klassen
+
+- smp endringer og fiksing av tester
+
+- Implementert Healthbar, samsvarer med playerhealth
+
+- Lagt til bakgrunn på healthbar og tallene på healthbar
+
+- Lagt til sound effect når du tar skade.
+
+- Fikset krasj ved map-bytte ved å filtrere duplikate punkter i ChainShape
+
+* Hva skal vi gjøre neste gang
+
 # 07.04.25: Emil, Martin, Vemund, Daniel
 
 * Hva gjorde vi
+
+
 
 - Ryddet opp i gameScreen. Laget ny klasse for å lage player, og ny klassse for å render spillet.
 - Kan nå lage og vise en enemy. men man kan ikke interact med denne enemien
