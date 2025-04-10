@@ -9,13 +9,18 @@ import com.badlogic.gdx.physics.box2d.World;
 import inf112.skeleton.model.GamePanel;
 
 public class EnemyController {
-  private final Array<Enemy> enemies;
+  private Array<Enemy> enemies;
   private final Player player;
   public EnemyController(GamePanel context, World world, Array<Enemy> enemies, Player player) {
     this.enemies = enemies;
     this.player = player;
     // Constructor logic here
   }
+
+  public void updateEnemies(Array<Enemy> newEnemies) {
+    this.enemies = newEnemies;
+  }
+  
   public void sight() {
     for (Enemy enemy : enemies) {
       Vector2 enemyPosition = enemy.getPosition();

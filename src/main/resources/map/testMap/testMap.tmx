@@ -46,14 +46,14 @@
   <object id="53" x="2304" y="2144" width="64" height="64"/>
  </objectgroup>
  <objectgroup id="6" name="Player">
-  <object id="2" x="750.526" y="751.842">
+  <object id="2" x="2144" y="2240">
    <point/>
   </object>
  </objectgroup>
  <objectgroup id="11" name="Enemy">
   <object id="49" name="Enemy 3" x="2343.77" y="2394.46">
    <properties>
-    <property name="Type" value="Soldier"/>
+    <property name="Type" value="SOLDIER"/>
    </properties>
    <point/>
   </object>
