@@ -26,11 +26,13 @@ public class Enemy extends AnimatedEntity {
     private float y;
     private final GamePanel context;
     private final World world;
+    private final CharacterType characterType;
     
     public Enemy(GamePanel context, World world, Body body, float x, float y, CharacterType characterType, String name, KeyHandler keyHandler) {
         super(body, characterType, keyHandler, world);
         this.context = context;
         this.world = world;
+        this.characterType = characterType;
         this.health = EnemyTypes.getEnemyHealth(characterType);
         this.damage = EnemyTypes.getEnemyDamage(characterType);
         this.x = x;
@@ -76,6 +78,9 @@ public class Enemy extends AnimatedEntity {
                 // Remove from the enemy list
                 context.getEnemy().removeIndex(index);
                 System.out.println("Enemy removed from list: " + name);
+                if( characterType == CharacterType.BOSS) {
+                    System.out.println("Boss defeated!");
+                }
             }
         }
         return health > 0;
@@ -91,14 +96,6 @@ public class Enemy extends AnimatedEntity {
         if (body != null) {
             body.setTransform(x, y, 0);
         }
-    }
-
-    public float getX() {
-        return x;
-    }
-
-    public float getY() {
-        return y;
     }
 
     public void create(int health, int damage, float x, float y) {
@@ -164,21 +161,6 @@ public class Enemy extends AnimatedEntity {
     public boolean isActive() {
         return !isDead;
     }
-
-    public void die() {
-        isDead = true;
-        if (deathOverlay != null) {
-            deathOverlay.show();
-        }
-        if (body != null) {
-            if(characterType == CharacterType.BOSS) {
-                System.out.println("Zombie is dead");
-            }
-            world.destroyBody(body);
-            body = null;
-        }
-    }
-
     @Override
     public void dispose() {
         super.dispose();
