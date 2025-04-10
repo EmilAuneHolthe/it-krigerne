@@ -1,4 +1,4 @@
-package inf112.skeleton.model.entity;
+package inf112.skeleton.model.entity.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,6 +9,8 @@ import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.controller.Keys;
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.entity.GameEntity;
+import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.view.screen.ScreenType;
 import inf112.skeleton.view.ui.DeathOverlay;
 

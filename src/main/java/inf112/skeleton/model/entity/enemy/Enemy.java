@@ -1,4 +1,4 @@
-package inf112.skeleton.model.entity;
+package inf112.skeleton.model.entity.enemy;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -9,6 +9,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.entity.GameEntity;
+import inf112.skeleton.model.entity.player.CharacterType;
 import inf112.skeleton.view.ui.DeathOverlay;
 import inf112.skeleton.controller.KeyHandler;
 

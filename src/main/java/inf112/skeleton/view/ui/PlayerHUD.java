@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 
-import inf112.skeleton.model.entity.Player;
+import inf112.skeleton.model.entity.player.Player;
 
 public class PlayerHUD {
     private final Player player;

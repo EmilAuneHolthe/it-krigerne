@@ -1,8 +1,9 @@
-package inf112.skeleton.model.entity;
+package inf112.skeleton.model.entity.player;
 
 import com.badlogic.gdx.utils.Array;
 
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.entity.enemy.Enemy;
 
 public class PlayerInteractions {
   private final float attackRange;

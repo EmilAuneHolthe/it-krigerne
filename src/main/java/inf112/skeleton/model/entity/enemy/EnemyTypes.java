@@ -1,4 +1,6 @@
-package inf112.skeleton.model.entity;
+package inf112.skeleton.model.entity.enemy;
+
+import inf112.skeleton.model.entity.player.CharacterType;
 
 public enum EnemyTypes {
     SOLDIER("Soldier"),

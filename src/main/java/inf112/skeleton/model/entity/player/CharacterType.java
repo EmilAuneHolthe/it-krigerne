@@ -1,4 +1,4 @@
-package inf112.skeleton.model.entity;
+package inf112.skeleton.model.entity.player;
 
 import inf112.skeleton.view.AnimationTypes;
 

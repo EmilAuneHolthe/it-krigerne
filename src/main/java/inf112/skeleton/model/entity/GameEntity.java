@@ -8,6 +8,9 @@ import com.badlogic.gdx.utils.Disposable;
 
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.entity.player.CharacterType;
+import inf112.skeleton.model.entity.player.PlayerAnimation;
+import inf112.skeleton.model.entity.player.PlayerMovement;
 
 public abstract class GameEntity implements entity, Disposable {
     // Core properties

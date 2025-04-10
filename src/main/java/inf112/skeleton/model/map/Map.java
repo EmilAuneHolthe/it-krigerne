@@ -14,8 +14,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-import inf112.skeleton.model.entity.CharacterType;
-import inf112.skeleton.model.entity.EnemySpawn;
+import inf112.skeleton.model.entity.enemy.EnemySpawn;
+import inf112.skeleton.model.entity.player.CharacterType;
 
 public class Map {
   private final TiledMap tiledMap;

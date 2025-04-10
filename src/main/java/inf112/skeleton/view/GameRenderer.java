@@ -21,9 +21,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import inf112.skeleton.model.GamePanel;
-import inf112.skeleton.model.entity.Enemy;
-import inf112.skeleton.model.entity.Player;
-import inf112.skeleton.model.entity.CharacterType;
+import inf112.skeleton.model.entity.enemy.Enemy;
+import inf112.skeleton.model.entity.player.CharacterType;
+import inf112.skeleton.model.entity.player.Player;
 import inf112.skeleton.model.map.Map;
 import inf112.skeleton.model.map.MapListener;
 import inf112.skeleton.view.ui.PlayerHUD;

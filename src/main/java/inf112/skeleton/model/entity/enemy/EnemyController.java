@@ -1,4 +1,4 @@
-package inf112.skeleton.model.entity;
+package inf112.skeleton.model.entity.enemy;
 
 import com.badlogic.gdx.utils.Array;
 
@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.entity.player.Player;
 
 public class EnemyController {
   private Array<Enemy> enemies;
