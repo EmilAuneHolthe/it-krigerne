@@ -1,5 +1,6 @@
 package inf112.skeleton.model.entity;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,7 +12,7 @@ import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.view.ui.DeathOverlay;
 import inf112.skeleton.controller.KeyHandler;
 
-public class Enemy extends AnimatedEntity {
+public class Enemy extends GameEntity {
     private String direction;
     public Texture playerIdleFrontTexture, playerIdleUpTexture, playerIdleRightTexture, playerIdleLeftTexture;
     private String name;
@@ -28,8 +29,8 @@ public class Enemy extends AnimatedEntity {
     private final World world;
     private final CharacterType characterType;
     
-    public Enemy(GamePanel context, World world, Body body, float x, float y, CharacterType characterType, String name, KeyHandler keyHandler) {
-        super(body, characterType, keyHandler, world);
+    public Enemy(GamePanel context, World world, Body body, CharacterType characterType, String name) {
+        super(context, world, body, EnemyTypes.getEnemyHealth(characterType), EnemyTypes.getEnemyDamage(characterType), characterType);
         this.context = context;
         this.world = world;
         this.characterType = characterType;
@@ -176,5 +177,17 @@ public class Enemy extends AnimatedEntity {
         if (backgroundTexture != null) {
             backgroundTexture.dispose();
         }
+    }
+
+    @Override
+    public int attack() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'attack'");
+    }
+
+    @Override
+    public void die() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'die'");
     }
 }

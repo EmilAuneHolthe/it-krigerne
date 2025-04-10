@@ -25,7 +25,7 @@ public abstract class GameEntity implements entity, Disposable {
     protected PlayerMovement movement;
     protected KeyHandler keyHandler;
     
-    public GameEntity(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType, KeyHandler keyHandler) {
+    public GameEntity(GamePanel context, World world, Body body, int health, int damage, CharacterType characterType) {
         this.context = context;
         this.world = world;
         this.body = body;
@@ -40,7 +40,7 @@ public abstract class GameEntity implements entity, Disposable {
         this.animation = new PlayerAnimation(characterType);
         this.movement = new PlayerMovement(world, body, keyHandler);
     }
-    
+
     // Common implementation of entity interface methods
     @Override
     public int getHealth() {

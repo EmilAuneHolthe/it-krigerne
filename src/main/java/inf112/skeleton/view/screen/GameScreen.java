@@ -144,7 +144,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
     }
 
     private void spawnEnemy() {
-        EnemyFactory factory = new EnemyFactory(context, world, keyHandler);
+        EnemyFactory factory = new EnemyFactory(context, world);
         Array<Enemy> enemies = factory.createEnemiesFromMap(mapManager.getCurrentMap());
         context.setEnemy(enemies);
         gameRenderer.updateEnemy(enemies);
