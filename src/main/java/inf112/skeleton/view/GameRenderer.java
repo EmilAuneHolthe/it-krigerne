@@ -43,6 +43,7 @@ public class GameRenderer implements Disposable, MapListener {
     private Player player;
     private final Texture healthTexture;
     private final Texture backgroundTexture;
+    private final Texture manaTexture;
     private final BitmapFont font;
     private boolean showDebug = false;
     private Array<Enemy> enemies;
@@ -67,6 +68,7 @@ public class GameRenderer implements Disposable, MapListener {
         uiStage = new Stage(new ScreenViewport(), spriteBatch);
         healthTexture = new Texture(Gdx.files.internal("redtexture.png"));
         backgroundTexture = new Texture(Gdx.files.internal("graytexture.png"));
+        manaTexture = new Texture(Gdx.files.internal("bluetexture.png"));
         font = new BitmapFont();
         font.getData().setScale(1.5f); // Make the text larger
         createPlayerHUD();
@@ -81,7 +83,7 @@ public class GameRenderer implements Disposable, MapListener {
             uiStage.clear();
         }
         if (player != null) {
-            playerHUD = new PlayerHUD(uiStage, player, healthTexture, backgroundTexture);
+            playerHUD = new PlayerHUD(uiStage, player, healthTexture, backgroundTexture, manaTexture, backgroundTexture);
         }
     }
 
@@ -261,6 +263,7 @@ public class GameRenderer implements Disposable, MapListener {
         uiStage.dispose();
         healthTexture.dispose();
         backgroundTexture.dispose();
+        manaTexture.dispose();
         if (debug != null) {
             debug.dispose();
         }
