@@ -136,7 +136,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
             context.setPlayer(factory.createPlayer(
                 mapManager.getCurrentMap().getPlayerSpawn().x * UNIT_SCALE,
                 mapManager.getCurrentMap().getPlayerSpawn().y * UNIT_SCALE,
-                CharacterType.SOLDIER
+                CharacterType.OLD
             ));
         }
         player = context.getPlayer();

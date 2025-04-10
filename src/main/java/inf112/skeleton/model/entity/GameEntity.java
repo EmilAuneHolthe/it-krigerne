@@ -23,7 +23,6 @@ public abstract class GameEntity implements entity, Disposable {
     // Animation and movement
     protected PlayerAnimation animation;
     protected PlayerMovement movement;
-    protected KeyHandler keyHandler;
     
     public GameEntity(GamePanel context, World world, Body body, int health, int damage, CharacterType characterType) {
         this.context = context;
