@@ -54,6 +54,11 @@ public class GameScreen extends AbstractScreen implements MapListener {
     public void render(float delta) {
         gameRenderer.render(delta);
 
+        // Update player for mana regeneration
+        if (player != null) {
+            player.regenerateMana(delta);
+        }
+
         dTime += 0.5;
         if (dTime >= 25) {
             enemyController.sight();

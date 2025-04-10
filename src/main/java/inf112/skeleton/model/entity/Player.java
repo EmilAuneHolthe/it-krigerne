@@ -16,12 +16,18 @@ public class Player extends GameEntity {
     private boolean isDead;
     private DeathOverlay deathOverlay;
     protected boolean alive;
+    private int mana;
+    private int maxMana;
+    private float manaRegenRate = 5.0f; // Mana per second
+    private float manaRegenAccumulator = 0.0f;
 
     public Player(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType, KeyHandler keyHandler) {
         super(context, world, body, health, damage, characterType);
         isDead = false;
         deathOverlay = new DeathOverlay(context);
         this.movement = new PlayerMovement(world, body, keyHandler);
+        this.mana = 100;
+        this.maxMana = 100;
     }
     
     @Override
@@ -48,7 +54,10 @@ public class Player extends GameEntity {
         }
         
         if (key == Keys.ATTACK) {
-            animation.startAttack();
+            if (mana >= 20) {
+                animation.startAttack();
+                mana -= 20;
+            }
         } else {
             movement.handleInput(key);
             animation.setMoving(movement.isMoving());
@@ -160,5 +169,40 @@ public class Player extends GameEntity {
     }
     public Vector2 getPosition() {
         return new Vector2(body.getPosition().x, body.getPosition().y);
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public void setMana(int mana) {
+        this.mana = Math.min(Math.max(0, mana), maxMana);
+    }
+
+    public int getMaxMana() {
+        return maxMana;
+    }
+
+    public void setMaxMana(int maxMana) {
+        this.maxMana = maxMana;
+    }
+
+
+    public void regenerateMana(float deltaTime) {
+        // Update mana regeneration
+        manaRegenAccumulator += manaRegenRate * deltaTime;
+        if (manaRegenAccumulator >= 1.0f) {
+            int manaToAdd = (int) manaRegenAccumulator;
+            setMana(getMana() + manaToAdd);
+            manaRegenAccumulator -= manaToAdd;
+        }
+    }
+
+    public float getManaRegenRate() {
+        return manaRegenRate;
+    }
+
+    public void setManaRegenRate(float manaRegenRate) {
+        this.manaRegenRate = manaRegenRate;
     }
 }

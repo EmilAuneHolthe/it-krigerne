@@ -1,5 +1,6 @@
 package inf112.skeleton.view.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -19,8 +20,10 @@ public class PlayerHUD {
     private final Label healthLabel;
     private final float maxHealthBarWidth = 240f;
     private final float healthBarHeight = 24f;
+    private final Image manaBar;
+    private final Label manaLabel;
 
-    public PlayerHUD(Stage stage, Player player, Texture healthTexture, Texture backgroundTexture) {
+    public PlayerHUD(Stage stage, Player player, Texture healthTexture, Texture backgroundTexture, Texture manaTexture, Texture manaBackgroundTexture) {
         this.player = player;
 
         // Health bar (foreground)
@@ -46,11 +49,34 @@ public class PlayerHUD {
         healthStack.add(healthLabel);
         healthStack.setSize(maxHealthBarWidth, healthBarHeight);
 
+        // Mana bar (foreground)
+        manaBar = new Image(manaTexture);
+        manaBar.setSize(maxHealthBarWidth, healthBarHeight);
+        manaBar.setOrigin(Align.bottomLeft);
+
+        // Mana bar background
+        Image manaBg = new Image(manaBackgroundTexture);
+        manaBg.setSize(maxHealthBarWidth, healthBarHeight);
+
+        // Mana label
+        manaLabel = new Label("100 / 100", style);
+        manaLabel.setAlignment(Align.center);
+
+        // Stack everything for mana
+        Stack manaStack = new Stack();
+        manaStack.add(manaBg);
+        manaStack.add(manaBar);
+        manaStack.add(manaLabel);
+        manaStack.setSize(maxHealthBarWidth, healthBarHeight);
+
         // Place using Table
         Table table = new Table();
         table.setFillParent(true);
-        table.top().left().padTop(5).padLeft(5);
-        table.add(healthStack).width(maxHealthBarWidth).height(healthBarHeight);
+        //table.bottom().center().padTop(5).padLeft(5);
+        table.bottom().padLeft(Gdx.graphics.getWidth() / 100);
+
+        table.add(healthStack).width(maxHealthBarWidth).height(healthBarHeight).padBottom(5).row();
+        table.add(manaStack).width(maxHealthBarWidth).height(healthBarHeight);
         stage.addActor(table);
     }
 
@@ -59,5 +85,11 @@ public class PlayerHUD {
         float percent = Math.max(0f, health / 100f);
         healthBar.setSize(maxHealthBarWidth * percent, healthBarHeight);
         healthLabel.setText((int) health + " / 100");
+        
+        // Update mana bar
+        float mana = player.getMana();
+        float manaPercent = Math.max(0f, mana / 100f);
+        manaBar.setSize(maxHealthBarWidth * manaPercent, healthBarHeight);
+        manaLabel.setText((int) mana + " / 100");
     }
 }

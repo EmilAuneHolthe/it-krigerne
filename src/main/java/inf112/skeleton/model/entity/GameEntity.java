@@ -106,6 +106,10 @@ public abstract class GameEntity implements entity, Disposable {
     // Abstract methods that subclasses must implement
     protected abstract boolean isActive();
     
+    public CharacterType getCharacterType() {
+        return characterType;
+    }
+    
     @Override
     public void dispose() {
         if (animation != null) {

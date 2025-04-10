@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -22,6 +23,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.Enemy;
 import inf112.skeleton.model.entity.Player;
+import inf112.skeleton.model.entity.CharacterType;
 import inf112.skeleton.model.map.Map;
 import inf112.skeleton.model.map.MapListener;
 import inf112.skeleton.view.ui.PlayerHUD;
@@ -41,6 +43,8 @@ public class GameRenderer implements Disposable, MapListener {
     private Player player;
     private final Texture healthTexture;
     private final Texture backgroundTexture;
+    private final Texture manaTexture;
+    private final BitmapFont font;
     private boolean showDebug = false;
     private Array<Enemy> enemies;
     private debug debug;
@@ -64,6 +68,9 @@ public class GameRenderer implements Disposable, MapListener {
         uiStage = new Stage(new ScreenViewport(), spriteBatch);
         healthTexture = new Texture(Gdx.files.internal("redtexture.png"));
         backgroundTexture = new Texture(Gdx.files.internal("graytexture.png"));
+        manaTexture = new Texture(Gdx.files.internal("bluetexture.png"));
+        font = new BitmapFont();
+        font.getData().setScale(1.5f); // Make the text larger
         createPlayerHUD();
         
         // Initialize debug instance
@@ -76,7 +83,7 @@ public class GameRenderer implements Disposable, MapListener {
             uiStage.clear();
         }
         if (player != null) {
-            playerHUD = new PlayerHUD(uiStage, player, healthTexture, backgroundTexture);
+            playerHUD = new PlayerHUD(uiStage, player, healthTexture, backgroundTexture, manaTexture, backgroundTexture);
         }
     }
 
@@ -180,6 +187,44 @@ public class GameRenderer implements Disposable, MapListener {
             playerHUD.update();
         }
         
+        // Render boss health bar if boss exists
+        if (enemies != null) {
+            for (Enemy enemy : enemies) {
+                if (enemy.getCharacterType() == CharacterType.BOSS) {
+                    // Switch to screen coordinates for UI elements
+
+                    spriteBatch.setProjectionMatrix(uiStage.getCamera().combined);
+                    spriteBatch.begin();
+                    
+                    // Fixed size for boss health bar
+                    float barWidth = Gdx.graphics.getWidth() * 0.4f;
+                    float barHeight = Gdx.graphics.getHeight() * 0.05f;
+                    float x = (Gdx.graphics.getWidth() - barWidth) / 2;
+                    float y = Gdx.graphics.getHeight() - barHeight - 20;
+                    
+                    // Draw background (full width)
+                    spriteBatch.draw(backgroundTexture, x, y, barWidth, barHeight);
+                    
+                    // Calculate health percentage and draw health bar
+                    float healthPercent = enemy.getHealth() / (float)enemy.getMaxHealth();
+                    spriteBatch.draw(healthTexture, x, y, barWidth * healthPercent, barHeight);
+                    font.getData().setScale((float) (Gdx.graphics.getWidth())/(Gdx.graphics.getHeight())); // Set font size
+                    // Draw health text
+                    String healthText = enemy.getHealth() + " / " + enemy.getMaxHealth();
+                    float textWidth = font.getXHeight() * healthText.length()*0.6f;
+                    float textX = x + (barWidth - textWidth) / 2.5f;
+                    float textY = y + 25;
+                    font.draw(spriteBatch, healthText, textX, textY);
+                    
+                    spriteBatch.end();
+                    
+                    // Switch back to world coordinates
+                    spriteBatch.setProjectionMatrix(camera.combined);
+                    break; // Only render for first boss found
+                }
+            }
+        }
+        
         if(player != null) {
             player.renderDeathOverlay(spriteBatch);
         }
@@ -188,8 +233,9 @@ public class GameRenderer implements Disposable, MapListener {
             Gdx.app.debug(TAG, "Bindings: " + profiler.getTextureBindings());
             Gdx.app.debug(TAG, "Draw calls: " + profiler.getDrawCalls());
             profiler.reset();
+        }
     }
-}
+
     public void resize(int width, int height) {
         viewport.update(width, height);
         uiStage.getViewport().update(width, height, true);
@@ -217,6 +263,7 @@ public class GameRenderer implements Disposable, MapListener {
         uiStage.dispose();
         healthTexture.dispose();
         backgroundTexture.dispose();
+        manaTexture.dispose();
         if (debug != null) {
             debug.dispose();
         }
