@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL20;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -131,12 +132,6 @@ public class GameRenderer implements Disposable, MapListener {
                             }
                         }
                     }
-                    if (boss != null) {
-                        boss.render(spriteBatch);
-                        if(showDebug) {
-                            debug.enemyDebug(boss);
-                        }
-                    }
                     spriteBatch.end();
                     
                     // Begin batch for next layer
@@ -171,11 +166,8 @@ public class GameRenderer implements Disposable, MapListener {
                     }
                 }
                 if (boss != null) {
+                    System.out.println("Rendering boss");
                     boss.render(spriteBatch);
-                    if(showDebug) {
-                        debug.enemyDebug(boss);
-                    }
-                }
                 spriteBatch.end();
             }
         }
@@ -192,15 +184,18 @@ public class GameRenderer implements Disposable, MapListener {
         if (playerHUD != null) {
             playerHUD.update();
         }
-
+        
+        if(player != null) {
+            player.renderDeathOverlay(spriteBatch);
+        }
         // Debug info
         if (profiler.isEnabled()) {
             Gdx.app.debug(TAG, "Bindings: " + profiler.getTextureBindings());
             Gdx.app.debug(TAG, "Draw calls: " + profiler.getDrawCalls());
             profiler.reset();
-        }
     }
-
+}
+    }
     public void resize(int width, int height) {
         viewport.update(width, height);
         uiStage.getViewport().update(width, height, true);
@@ -224,6 +219,7 @@ public class GameRenderer implements Disposable, MapListener {
 
     public void updateBoss(Boss boss) {
         this.boss = boss;
+        System.out.println("Updating boss in GameRenderer" + boss.getName());
     }
 
     @Override

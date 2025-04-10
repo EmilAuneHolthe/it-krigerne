@@ -163,9 +163,11 @@ public class GameScreen extends AbstractScreen implements MapListener {
     private void spawnBoss() {
         if (boss == null) {
             EnemyFactory factory = new EnemyFactory(context, world, keyHandler);
+            float x = mapManager.getCurrentMap().getBossSpawn().x;
+            float y = mapManager.getCurrentMap().getBossSpawn().y;
             boss = new Boss(context, world, 
-                 factory.createEnemyBody(10, 10), // Spawn at position 10,10
-                 10, 10, "Boss", keyHandler);
+                 factory.createEnemyBody(x, y), // Spawn at position 10,10
+                 x, y, "Boss", keyHandler);
                  gameRenderer.updateBoss(boss);
         }
     }

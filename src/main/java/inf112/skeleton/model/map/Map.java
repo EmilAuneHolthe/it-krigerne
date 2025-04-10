@@ -21,13 +21,11 @@ public class Map {
   private final TiledMap tiledMap;
   public static final String TAG = Map.class.getSimpleName();
   private final Array<CollisionArea> collisionAreas;
-  private final Vector2 playerspawn;
   private final ArrayList<EnemySpawn>  enemySpawn;
   
   public Map(TiledMap tiledMap) {
     this.tiledMap = tiledMap;
     collisionAreas = new Array<CollisionArea>();
-    playerspawn = findPlayerSpawnVector2();
     enemySpawn = findEnemySpawn();
     getCollisionLayer();
   }
@@ -86,8 +84,8 @@ public class Map {
   public Array<CollisionArea> getColissionAreas() {
     return collisionAreas;
   }
-  private Vector2 findPlayerSpawnVector2() {
-    MapObjects objects = tiledMap.getLayers().get("Player").getObjects();
+  private Vector2 findPlayerSpawnVector2(String name) {
+    MapObjects objects = tiledMap.getLayers().get(name).getObjects();
           for (final MapObject object : objects) {
             final RectangleMapObject spawn = (RectangleMapObject) object;
             final Rectangle rectangle = spawn.getRectangle();
@@ -112,8 +110,9 @@ public class Map {
           }
           return enemySpawns;
         }
+
   public Vector2 getPlayerSpawn() {
-    return playerspawn;
+    return findPlayerSpawnVector2("Player");
   }
 
   public TiledMap getTiledMap() {
@@ -121,5 +120,8 @@ public class Map {
 }
 public ArrayList<EnemySpawn> getEnemySpawn() {
   return enemySpawn;
+}
+public Vector2 getBossSpawn(){
+  return findPlayerSpawnVector2("Boss");
 }
 }

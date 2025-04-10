@@ -1,5 +1,7 @@
 package inf112.skeleton.model.entity.boss;
 
+import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,13 +14,15 @@ import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.CharacterType;
 import inf112.skeleton.model.entity.Enemy;
-import inf112.skeleton.model.entity.Player;
 
 public class Boss extends Enemy {
     private static final float GRID_SIZE = 1.0f; // Size of each grid cell
     private static final float ATTACK_DURATION = 2.0f; // Time before damage is dealt
-    private Array<Vector2> attackGridPositions;
+    private static final float ATTACK_COOLDOWN = 5.0f;
+    
+    private Array<Vector2> gridPositions;
     private float attackTimer;
+    private float cooldownTimer;
     private boolean isAttacking;
     private ShapeRenderer shapeRenderer;
     private GamePanel context;
@@ -26,27 +30,39 @@ public class Boss extends Enemy {
 
     public Boss(GamePanel context, World world, Body body, float x, float y, String name, KeyHandler keyHandler) {
         super(context, world, body, x, y, CharacterType.OLD, name, keyHandler);
-        Gdx.app.log("Boss", "Boss created");
         this.context = context;
-        this.damage = 50; // Boss deals more damage
-        this.attackGridPositions = new Array<>();
-        this.attackTimer = 0f;
+        this.damage = 50;
+        this.gridPositions = new Array<>();
+        this.attackTimer = 0;
+        this.cooldownTimer = 0;
         this.isAttacking = false;
         this.shapeRenderer = new ShapeRenderer();
+        System.out.println("Boss created at position: " + x*UNIT_SCALE + ", " + y*UNIT_SCALE);
+        
+        // Set boss stats
+        setHealth(500);
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public int getDamage() {
+        return damage;
     }
 
     @Override
     public void render(SpriteBatch batch) {
         super.render(batch);
         
-        // Draw attack grid if attacking
+        // Render grid attack if active
         if (isAttacking) {
             batch.end();
             shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer.setColor(Color.RED);
             
-            for (Vector2 pos : attackGridPositions) {
+            for (Vector2 pos : gridPositions) {
                 shapeRenderer.rect(pos.x, pos.y, GRID_SIZE, GRID_SIZE);
             }
             
@@ -55,46 +71,36 @@ public class Boss extends Enemy {
         }
     }
 
-    public void update(float deltaTime) {
+    public void update(float delta) {
+        // Update attack timers
         if (isAttacking) {
-            attackTimer += deltaTime;
+            attackTimer += delta;
             if (attackTimer >= ATTACK_DURATION) {
-                // Check if player is in any of the attack positions
-                Player player = context.getPlayer();
-                if (player != null) {
-                    Vector2 playerPos = player.getPosition();
-                    for (Vector2 attackPos : attackGridPositions) {
-                        if (isInGridCell(playerPos, attackPos)) {
-                            player.takeDamage(damage);
-                            break;
-                        }
-                    }
-                }
-                // Reset attack
-                isAttacking = false;
-                attackTimer = 0f;
-                attackGridPositions.clear();
+                endGridAttack();
             }
+        } else {
+            cooldownTimer += delta;
         }
+        
+        // Move towards player
+        Vector2 playerPos = context.getPlayer().getPosition();
+        moveEnemy(playerPos.x, playerPos.y);
     }
 
     public void startGridAttack() {
-        Gdx.app.log("Boss", "Starting grid attack");
-        if (!isAttacking) {
+        if (!isAttacking && cooldownTimer >= ATTACK_COOLDOWN) {
             isAttacking = true;
-            attackTimer = 0f;
-            attackGridPositions.clear();
+            attackTimer = 0;
+            cooldownTimer = 0;
+            gridPositions.clear();
             
-            // Create a 3x3 grid around the boss
+            // Create 3x3 grid around boss
             Vector2 bossPos = getPosition();
-            for (float x = -1; x <= 1; x++) {
-                for (float y = -1; y <= 1; y++) {
-                    // Skip the center (boss position)
-                    if (x == 0 && y == 0) continue;
-                    
-                    // Add random grid positions (you can modify this to create different patterns)
-                    if (Math.random() > 0.5) {
-                        attackGridPositions.add(new Vector2(
+            for (int x = -1; x <= 1; x++) {
+                for (int y = -1; y <= 1; y++) {
+                    if (x == 0 && y == 0) continue; // Skip center position
+                    if (Math.random() < 0.7) { // 70% chance for each cell to be red
+                        gridPositions.add(new Vector2(
                             bossPos.x + x * GRID_SIZE,
                             bossPos.y + y * GRID_SIZE
                         ));
@@ -104,9 +110,23 @@ public class Boss extends Enemy {
         }
     }
 
-    private boolean isInGridCell(Vector2 position, Vector2 gridCell) {
-        return position.x >= gridCell.x && position.x < gridCell.x + GRID_SIZE &&
-               position.y >= gridCell.y && position.y < gridCell.y + GRID_SIZE;
+    private void endGridAttack() {
+        isAttacking = false;
+        gridPositions.clear();
+        
+        // Check if player is in any red square
+        Vector2 playerPos = context.getPlayer().getPosition();
+        for (Vector2 pos : gridPositions) {
+            if (isInGridCell(playerPos, pos)) {
+                context.getPlayer().playerTakeDamage(this);
+                break;
+            }
+        }
+    }
+
+    private boolean isInGridCell(Vector2 position, Vector2 cellPos) {
+        return position.x >= cellPos.x && position.x < cellPos.x + GRID_SIZE &&
+               position.y >= cellPos.y && position.y < cellPos.y + GRID_SIZE;
     }
 
     @Override

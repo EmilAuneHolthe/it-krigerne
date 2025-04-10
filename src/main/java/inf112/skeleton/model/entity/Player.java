@@ -27,12 +27,15 @@ public class Player extends GameEntity {
     @Override
     public void render(SpriteBatch batch) {
         if (isDead) {
-            deathOverlay.render(batch);
             return;
         }
         super.render(batch);
     }
-    
+    public void renderDeathOverlay(SpriteBatch batch) {
+        if (isDead && deathOverlay != null) {
+            deathOverlay.render(batch);
+        }
+    }
     @Override
     protected boolean isActive() {
         return !isDead;
@@ -114,12 +117,12 @@ public class Player extends GameEntity {
     public void setSpawn(float x, float y) {
         this.x = x;
         this.y = y;
-        // if (body != null) {
-        //     // Reset velocity to prevent sliding
-        //     body.setLinearVelocity(0, 0);
-        //     // Set the new position
-        //     body.setTransform(x, y, 0);
-        // }
+        if (body != null) {
+            // Reset velocity to prevent sliding
+            body.setLinearVelocity(0, 0);
+            // Set the new position
+            body.setTransform(x, y, 0);
+        }
     }
     
     @Override
