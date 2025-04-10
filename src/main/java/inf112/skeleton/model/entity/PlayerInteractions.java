@@ -10,6 +10,7 @@ public class PlayerInteractions {
     this.attackRange = 2.0f;
   }
   public void attackEnemy(Player player, Array<Enemy> enemies) {
+    if(player.canAttack) {
     Array<String> enemyName = distanceToPlayer(player, enemies);
     if (enemyName != null) {
         for(Enemy enemy : enemies) {
@@ -18,6 +19,7 @@ public class PlayerInteractions {
                 enemy.takeDamage(player.attack());
             }
           }
+    }
   }
 }
   private Array<String> distanceToPlayer(Player player,

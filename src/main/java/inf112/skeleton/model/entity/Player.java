@@ -20,6 +20,7 @@ public class Player extends GameEntity {
     private int maxMana;
     private float manaRegenRate = 5.0f; // Mana per second
     private float manaRegenAccumulator = 0.0f;
+    public boolean canAttack = true; 
 
     public Player(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType, KeyHandler keyHandler) {
         super(context, world, body, health, damage, characterType);
@@ -36,6 +37,11 @@ public class Player extends GameEntity {
             return;
         }
         super.render(batch);
+        if(mana >= 20) {
+            canAttack = true;
+        } else {
+            canAttack = false;
+        }
     }
     public void renderDeathOverlay(SpriteBatch batch) {
         if (isDead && deathOverlay != null) {
