@@ -150,27 +150,15 @@ public class PlayerAnimation {
                 switch (direction) {
                     case "Down":
                         currentAnimationType = getAnimationTypeForDirection("Down");
-                        if(characterType == CharacterType.ZOMBIE) {
-                            System.out.println("Current animation type: " + currentAnimationType);
-                        }
                         break;
                     case "Up":
                         currentAnimationType = getAnimationTypeForDirection("Up");
-                        if(characterType == CharacterType.ZOMBIE) {
-                            System.out.println("Current animation type: " + currentAnimationType);
-                        }
                         break;
                     case "Left":
                         currentAnimationType = getAnimationTypeForDirection("Left");
-                        if(characterType == CharacterType.ZOMBIE) {
-                            System.out.println("Current animation type: " + currentAnimationType);
-                        }
                         break;
                     case "Right":
                         currentAnimationType = getAnimationTypeForDirection("Right");
-                        if(characterType == CharacterType.ZOMBIE) {
-                            System.out.println("Current animation type: " + currentAnimationType);
-                        }
                         break;
                 }
                 
