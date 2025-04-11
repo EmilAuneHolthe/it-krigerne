@@ -82,7 +82,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
         if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
             playerInteractions.attackEnemy(player, enemies);
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.O)) {
             changeMap();
         }
         else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
