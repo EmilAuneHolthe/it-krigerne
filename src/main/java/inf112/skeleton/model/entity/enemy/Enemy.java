@@ -24,7 +24,7 @@ public class Enemy extends GameEntity {
     private boolean isDead;
     private final CharacterType characterType;
     private float maxHealth;
-    public Enemy(GamePanel context, World world, Body body, CharacterType characterType, String name) {
+    public Enemy(GamePanel context, World world, Body body, CharacterType characterType) {
         super(context, world, body, EnemyTypes.getEnemyHealth(characterType), EnemyTypes.getEnemyDamage(characterType), characterType);
         this.world = world;
         this.characterType = characterType;
@@ -32,7 +32,6 @@ public class Enemy extends GameEntity {
         this.damage = EnemyTypes.getEnemyDamage(characterType);
         this.isDead = false;
         this.direction = "Down";
-        this.name = name;
         this.maxHealth = EnemyTypes.getEnemyHealth(characterType);
         
         // Load health bar textures

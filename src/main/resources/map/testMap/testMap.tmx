@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-up" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="57">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-up" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="58">
  <tileset firstgid="1" source="GrassSprites.tsx"/>
  <tileset firstgid="529" source="DirtSprites.tsx"/>
  <tileset firstgid="865" source="Decorations.tsx"/>
@@ -59,7 +59,12 @@
   </object>
  </objectgroup>
  <objectgroup id="7" name="Items">
-  <object id="1" gid="1929" x="831.237" y="862.579" width="32" height="32"/>
+  <object id="57" x="1984" y="2368">
+   <properties>
+    <property name="Type" value="HEALTH"/>
+   </properties>
+   <point/>
+  </object>
  </objectgroup>
  <layer id="5" name="Ground Foreground" width="100" height="100">
   <data encoding="base64" compression="zlib">

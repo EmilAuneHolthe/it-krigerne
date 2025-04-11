@@ -29,6 +29,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
     private float dTime = 0;
     private Player player;
     private Array<Enemy> enemies;
+    private Array<Item> items;
     private final OrthographicCamera camera;
     private final MapManager mapManager;
     private final GameRenderer gameRenderer;
@@ -46,6 +47,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
         
         spawnEnemy();
         spawnPlayer();
+        spawnItem();
         playerInteractions = new PlayerInteractions(context);
         enemies = context.getEnemy();
         enemyController = new EnemyController(context, world, enemies, player);
@@ -81,6 +83,8 @@ public class GameScreen extends AbstractScreen implements MapListener {
             spawnEnemy();
             enemies = context.getEnemy();
             enemyController.updateEnemies(enemies);
+            spawnItem();
+            items = context.getItems(); 
         }
         else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             gameRenderer.setShowDebug(!gameRenderer.isShowDebug());

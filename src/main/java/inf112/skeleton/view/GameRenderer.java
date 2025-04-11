@@ -125,6 +125,11 @@ public class GameRenderer implements Disposable, MapListener {
                     
                     // Render player, enemies, and boss
                     spriteBatch.begin();
+                    if(items != null) {
+                        for (Item item : items) {
+                            item.render(spriteBatch);
+                        }
+                    }
                     if (player != null) {
                         player.render(spriteBatch);
                         if(showDebug) {
@@ -137,11 +142,6 @@ public class GameRenderer implements Disposable, MapListener {
                             if(showDebug) {
                                 debug.enemyDebug(enemy);
                             }
-                        }
-                    }
-                    if(items != null) {
-                        for (Item item : items) {
-                            item.render(spriteBatch);
                         }
                     }
                     spriteBatch.end();
@@ -175,6 +175,11 @@ public class GameRenderer implements Disposable, MapListener {
                         if(showDebug) {
                             debug.enemyDebug(enemy);
                         }
+                    }
+                }
+                if(items != null) {
+                    for (Item item : items) {
+                        item.render(spriteBatch);
                     }
                 }
                 spriteBatch.end();

@@ -4,6 +4,8 @@ import com.badlogic.gdx.utils.Array;
 
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.enemy.Enemy;
+import inf112.skeleton.model.entity.item.Item;
+import inf112.skeleton.model.entity.item.ItemSpawn;
 
 public class PlayerInteractions {
   private final float attackRange;
@@ -23,8 +25,7 @@ public class PlayerInteractions {
     }
   }
 }
-  private Array<String> distanceToPlayer(Player player,
-  Array<Enemy> enemies) {
+  private Array<String> distanceToPlayer(Player player, Array<Enemy> enemies) {
     Array<String> enemyNames = new Array<>();
     for (Enemy enemy : enemies) {
         float distance = enemy.getPosition().dst(player.getPosition());
@@ -38,6 +39,13 @@ public class PlayerInteractions {
         return enemyNames;
     }
     return null;
-
+}
+public void pickUpItem(Player player, Array<Item> items) {
+  for (Item item : items) {
+    if (player.getPosition().dst(item.getPosition()) < 1.0f) {
+      item.remove();
+      player.pickUpItem(item.getItemType());
+    }
+  }
 }
 }

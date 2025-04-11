@@ -11,6 +11,7 @@ import inf112.skeleton.controller.Keys;
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.GameEntity;
 import inf112.skeleton.model.entity.enemy.Enemy;
+import inf112.skeleton.model.entity.item.ItemType;
 import inf112.skeleton.view.screen.ScreenType;
 import inf112.skeleton.view.ui.DeathOverlay;
 
@@ -23,6 +24,8 @@ public class Player extends GameEntity {
     private float manaRegenRate = 5.0f; // Mana per second
     private float manaRegenAccumulator = 0.0f;
     public boolean canAttack = true; 
+    private int maxHealth;
+    private PlayerInteractions playerInteractions;
 
     public Player(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType, KeyHandler keyHandler) {
         super(context, world, body, health, damage, characterType);
@@ -31,6 +34,8 @@ public class Player extends GameEntity {
         this.movement = new PlayerMovement(world, body, keyHandler);
         this.mana = 100;
         this.maxMana = 100;
+        this.playerInteractions = new PlayerInteractions(context);
+        maxHealth = health;
     }
     
     @Override
@@ -66,6 +71,9 @@ public class Player extends GameEntity {
             movement.handleInput(key);
             animation.setMoving(movement.isMoving());
             animation.setDirection(movement.getDirection());
+        }
+        if (key == Keys.INTERACT) {
+            playerInteractions.pickUpItem(this, context.getItems());
         }
     }
     
@@ -211,8 +219,25 @@ public class Player extends GameEntity {
     public float getManaRegenRate() {
         return manaRegenRate;
     }
-
+    public int getMaxHealth() {
+        return maxHealth;
+    }
     public void setManaRegenRate(float manaRegenRate) {
         this.manaRegenRate = manaRegenRate;
+    }
+    public void pickUpItem(ItemType itemType) {
+        System.out.println("Picked up item: " + itemType);
+        String action = ItemType.getItemAction(itemType);
+        if (action.equals("Heal")) {
+            maxHealth += 50;
+            health += 50;
+        } else if (action.equals("maxMana")) {
+            maxMana += 50;
+            mana = maxMana;
+        } else if (action.equals("AttackDMG")) {
+            this.damage += 10;
+        } else if (action.equals("Speed")) {
+            //unimplemented
+        }
     }
 }

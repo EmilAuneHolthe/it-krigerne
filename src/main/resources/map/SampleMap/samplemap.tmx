@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="26" nextobjectid="961">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="26" nextobjectid="963">
  <tileset firstgid="1" source="[A]WaterFall_pipo.tsx"/>
  <tileset firstgid="577" name="[Base]BaseChip_pipo" tilewidth="32" tileheight="32" tilecount="1064" columns="8">
   <image source="[Base]BaseChip_pipo.png" width="256" height="4256"/>
@@ -1923,7 +1923,17 @@
 </data>
  </layer>
  <objectgroup id="20" name="Items">
-  <object id="528" gid="5337" x="992" y="832" width="32" height="32"/>
-  <object id="958" x="1152" y="1056"/>
+  <object id="961" x="1888" y="1472">
+   <properties>
+    <property name="Type" value="HEALTH"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="962" x="2304" y="2144">
+   <properties>
+    <property name="Type" value="HEALTH"/>
+   </properties>
+   <point/>
+  </object>
  </objectgroup>
 </map>

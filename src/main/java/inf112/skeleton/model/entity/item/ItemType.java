@@ -30,4 +30,17 @@ public static Texture getItemTexture(ItemType itemType) {
 public static String getItemType(ItemType itemType) {
   return itemType.type;
 }
+public static String getItemAction(ItemType itemType) {
+  switch (itemType) {
+    case HEALTH:
+      return "Heal";
+    case SPEED:
+      return "Speed";
+    case ATTACK:
+      return "AttackDMG";
+    case MANA:
+      return "maxMana";
+  }
+  return "Heal";
+}
 }

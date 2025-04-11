@@ -26,15 +26,14 @@ public class EnemyFactory {
             Enemy enemy = createEnemy(
                 spawn.getPosition().x * GamePanel.UNIT_SCALE,
                 spawn.getPosition().y * GamePanel.UNIT_SCALE,
-                spawn.getCharacterType(),
-                spawn.getName()
+                spawn.getCharacterType()
             );
             enemies.add(enemy);
         }
         return enemies;
     }
     
-    public Enemy createEnemy(float x, float y, CharacterType characterType, String name) {
+    public Enemy createEnemy(float x, float y, CharacterType characterType) {
         // Create enemy body
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -57,7 +56,7 @@ public class EnemyFactory {
         shape.dispose();
         
         // Create and return enemy
-        return new Enemy(context, world, body, characterType, name);
+        return new Enemy(context, world, body, characterType);
     }
 
     public Body createEnemyBody(float x, float y) {

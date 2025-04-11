@@ -98,14 +98,12 @@ public class Map {
           }
           return new Vector2(0, 0);
         }
-
         private ArrayList<EnemySpawn> findEnemySpawn() {
           ArrayList<EnemySpawn> enemySpawns = new ArrayList<>();
           MapObjects objects = tiledMap.getLayers().get("Enemy").getObjects();
           for (final MapObject object : objects) {
               final RectangleMapObject spawn = (RectangleMapObject) object;
               final Rectangle rectangle = spawn.getRectangle();
-              Gdx.app.debug(TAG, "Enemy spawn found at: " + rectangle.x + ", " + rectangle.y);
               String name = spawn.getName();
               CharacterType characterType = CharacterType.valueOf(spawn.getProperties().get("Type").toString().toUpperCase());
               Vector2 position = new Vector2(rectangle.x, rectangle.y);
@@ -118,6 +116,7 @@ public class Map {
           ArrayList<ItemSpawn> itemSpawns = new ArrayList<>();
           MapObjects objects = tiledMap.getLayers().get("Items").getObjects();
           for (final MapObject object : objects) {
+            System.out.println("Item spawn found at: " + object.getProperties().get("Type").toString().toUpperCase());
             final RectangleMapObject spawn = (RectangleMapObject) object;
             final Rectangle rectangle = spawn.getRectangle();
             Gdx.app.debug(TAG, "Item spawn found at: " + rectangle.x + ", " + rectangle.y);
