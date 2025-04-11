@@ -22,6 +22,10 @@ public class EnemyController {
     this.enemies = newEnemies;
   }
   
+  public Array<Enemy> getEnemies() {
+    return enemies;
+  }
+  
   public void sight() {
     for (Enemy enemy : enemies) {
       Vector2 enemyPosition = enemy.getPosition();
