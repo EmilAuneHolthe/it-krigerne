@@ -1,5 +1,6 @@
 package inf112.skeleton.model.map;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 import com.badlogic.gdx.math.Vector2;
@@ -63,10 +64,56 @@ class MapChangerTest extends BaseTest {
     }
     
     @Test
+    void testRemoveObjectsWithEmptyArray() {
+        Array<Enemy> enemies = new Array<>();
+        
+        mapChanger.removeObjects(mockWorld, mockMap, enemies);
+        
+        // Verify no interactions with world or enemies
+        verifyNoInteractions(mockWorld);
+    }
+    
+    @Test
+    void testRemoveObjectsWithNullBody() {
+        Array<Enemy> enemies = new Array<>();
+        when(mockEnemy1.getBody()).thenReturn(null);
+        enemies.add(mockEnemy1);
+        
+        mapChanger.removeObjects(mockWorld, mockMap, enemies);
+        
+        // Should still dispose the enemy even if body is null
+        verify(mockEnemy1).dispose();
+        // No interaction with world since body was null
+        verifyNoMoreInteractions(mockWorld);
+    }
+    
+    @Test
     void testMovePlayer() {
         mapChanger.movePlayer(mockWorld, mockMap, mockPlayer);
         
         // Verify player was moved to spawn point (scaled by UNIT_SCALE)
         verify(mockPlayer).setSpawn(10 * UNIT_SCALE, 20 * UNIT_SCALE);
+    }
+    
+    @Test
+    void testMovePlayerWithZeroSpawnPoint() {
+        // Setup spawn point at origin
+        when(mockMap.getPlayerSpawn()).thenReturn(new Vector2(0, 0));
+        
+        mapChanger.movePlayer(mockWorld, mockMap, mockPlayer);
+        
+        // Verify player was moved to origin
+        verify(mockPlayer).setSpawn(0, 0);
+    }
+    
+    @Test
+    void testMovePlayerWithNegativeSpawnPoint() {
+        // Setup spawn point with negative coordinates
+        when(mockMap.getPlayerSpawn()).thenReturn(new Vector2(-10, -20));
+        
+        mapChanger.movePlayer(mockWorld, mockMap, mockPlayer);
+        
+        // Verify player was moved to negative coordinates (scaled)
+        verify(mockPlayer).setSpawn(-10 * UNIT_SCALE, -20 * UNIT_SCALE);
     }
 } 
