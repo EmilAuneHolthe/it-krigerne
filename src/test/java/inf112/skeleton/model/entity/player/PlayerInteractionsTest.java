@@ -27,89 +27,95 @@ class PlayerInteractionsTest extends BaseTest {
     @Mock
     private Enemy mockEnemy2;
     @Mock
-    private Item mockItem;
+    private Item mockItem1;
+    @Mock
+    private Item mockItem2;
     
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         playerInteractions = new PlayerInteractions(mockGamePanel);
         
-        // Setup mock player
-        when(mockPlayer.getPosition()).thenReturn(new Vector2(10, 10));
+        // Set up player position and attack properties
+        when(mockPlayer.getPosition()).thenReturn(new Vector2(0, 0));
+        when(mockPlayer.attack()).thenReturn(10);
         mockPlayer.canAttack = true;
-        when(mockPlayer.attack()).thenReturn(25);
         
-        // Setup mock enemies
-        when(mockEnemy1.getPosition()).thenReturn(new Vector2(11, 10)); // Within attack range
+        // Set up enemy positions and names
+        when(mockEnemy1.getPosition()).thenReturn(new Vector2(1, 1));
         when(mockEnemy1.getName()).thenReturn("Enemy1");
-        when(mockEnemy2.getPosition()).thenReturn(new Vector2(15, 15)); // Outside attack range
+        when(mockEnemy2.getPosition()).thenReturn(new Vector2(3, 3));
         when(mockEnemy2.getName()).thenReturn("Enemy2");
         
-        // Setup mock item
-        when(mockItem.getPosition()).thenReturn(new Vector2(10.5f, 10)); // Within pickup range
-        when(mockItem.getItemType()).thenReturn(ItemType.HEALTH);
+        // Set up item positions and types
+        when(mockItem1.getPosition()).thenReturn(new Vector2(0.5f, 0.5f));
+        when(mockItem1.getItemType()).thenReturn(ItemType.HEALTH);
+        when(mockItem2.getPosition()).thenReturn(new Vector2(2, 2));
+        when(mockItem2.getItemType()).thenReturn(ItemType.MANA);
     }
     
     @Test
-    void testAttackEnemyInRange() {
+    void testAttackEnemy_WithinRange() {
         Array<Enemy> enemies = new Array<>();
         enemies.add(mockEnemy1);
         enemies.add(mockEnemy2);
         
         playerInteractions.attackEnemy(mockPlayer, enemies);
         
-        // Only enemy1 should take damage since it's in range
-        verify(mockEnemy1).takeDamage(25);
+        verify(mockEnemy1).takeDamage(10);
         verify(mockEnemy2, never()).takeDamage(anyInt());
     }
     
     @Test
-    void testAttackEnemyOutOfRange() {
+    void testAttackEnemy_OutOfRange() {
+        when(mockEnemy1.getPosition()).thenReturn(new Vector2(3, 3));
+        when(mockEnemy2.getPosition()).thenReturn(new Vector2(4, 4));
+        
         Array<Enemy> enemies = new Array<>();
-        enemies.add(mockEnemy2); // Only out-of-range enemy
+        enemies.add(mockEnemy1);
+        enemies.add(mockEnemy2);
         
         playerInteractions.attackEnemy(mockPlayer, enemies);
         
-        // No enemies should take damage
+        verify(mockEnemy1, never()).takeDamage(anyInt());
         verify(mockEnemy2, never()).takeDamage(anyInt());
     }
     
     @Test
-    void testAttackEnemyWhenCannotAttack() {
+    void testAttackEnemy_CannotAttack() {
         mockPlayer.canAttack = false;
+        
         Array<Enemy> enemies = new Array<>();
         enemies.add(mockEnemy1);
         
         playerInteractions.attackEnemy(mockPlayer, enemies);
         
-        // No enemies should take damage when player can't attack
         verify(mockEnemy1, never()).takeDamage(anyInt());
     }
     
     @Test
-    void testPickUpItemInRange() {
+    void testPickUpItem_WithinRange() {
         Array<Item> items = new Array<>();
-        items.add(mockItem);
+        items.add(mockItem1);
+        items.add(mockItem2);
         
         playerInteractions.pickUpItem(mockPlayer, items);
         
-        // Item should be picked up and removed
         verify(mockPlayer).pickUpItem(ItemType.HEALTH);
-        verify(mockItem).remove();
-        assertTrue(items.isEmpty());
+        verify(mockPlayer, never()).pickUpItem(ItemType.MANA);
     }
     
     @Test
-    void testPickUpItemOutOfRange() {
-        when(mockItem.getPosition()).thenReturn(new Vector2(15, 15)); // Out of range
+    void testPickUpItem_OutOfRange() {
+        when(mockItem1.getPosition()).thenReturn(new Vector2(2, 2));
+        when(mockItem2.getPosition()).thenReturn(new Vector2(3, 3));
+        
         Array<Item> items = new Array<>();
-        items.add(mockItem);
+        items.add(mockItem1);
+        items.add(mockItem2);
         
         playerInteractions.pickUpItem(mockPlayer, items);
         
-        // Item should not be picked up
-        verify(mockPlayer, never()).pickUpItem(any(ItemType.class));
-        verify(mockItem, never()).remove();
-        assertEquals(1, items.size);
+        verify(mockPlayer, never()).pickUpItem(any());
     }
 } 

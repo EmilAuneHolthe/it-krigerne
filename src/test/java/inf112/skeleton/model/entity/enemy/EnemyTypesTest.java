@@ -51,10 +51,8 @@ public class EnemyTypesTest {
         assertEquals(EnemyTypes.SKELETON, EnemyTypes.fromName("skeleton"));
         assertEquals(EnemyTypes.ZOMBIE, EnemyTypes.fromName("zombie"));
         assertEquals(EnemyTypes.BOSS, EnemyTypes.fromName("boss"));
-    }
-    
-    @Test
-    void testFromNameInvalid() {
+        
+        // Test invalid name
         assertThrows(IllegalArgumentException.class, () -> EnemyTypes.fromName("Invalid"));
     }
     
@@ -63,8 +61,8 @@ public class EnemyTypesTest {
         assertEquals(100, EnemyTypes.getEnemyHealth(CharacterType.SKELETON));
         assertEquals(50, EnemyTypes.getEnemyHealth(CharacterType.ZOMBIE));
         assertEquals(500, EnemyTypes.getEnemyHealth(CharacterType.BOSS));
-        
         assertThrows(IllegalArgumentException.class, () -> EnemyTypes.getEnemyHealth(null));
+        assertThrows(IllegalArgumentException.class, () -> EnemyTypes.getEnemyHealth(CharacterType.SOLDIER));
     }
     
     @Test
@@ -72,8 +70,8 @@ public class EnemyTypesTest {
         assertEquals(25, EnemyTypes.getEnemyDamage(CharacterType.SKELETON));
         assertEquals(10, EnemyTypes.getEnemyDamage(CharacterType.ZOMBIE));
         assertEquals(50, EnemyTypes.getEnemyDamage(CharacterType.BOSS));
-        
         assertThrows(IllegalArgumentException.class, () -> EnemyTypes.getEnemyDamage(null));
+        assertThrows(IllegalArgumentException.class, () -> EnemyTypes.getEnemyDamage(CharacterType.SOLDIER));
     }
     
     @Test
@@ -81,7 +79,7 @@ public class EnemyTypesTest {
         assertEquals(8, EnemyTypes.getEnemySight(CharacterType.SKELETON));
         assertEquals(8, EnemyTypes.getEnemySight(CharacterType.ZOMBIE));
         assertEquals(1000, EnemyTypes.getEnemySight(CharacterType.BOSS));
-        
         assertThrows(IllegalArgumentException.class, () -> EnemyTypes.getEnemySight(null));
+        assertThrows(IllegalArgumentException.class, () -> EnemyTypes.getEnemySight(CharacterType.SOLDIER));
     }
 } 
