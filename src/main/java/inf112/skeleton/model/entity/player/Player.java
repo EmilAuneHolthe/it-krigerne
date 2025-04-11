@@ -240,7 +240,7 @@ public class Player extends GameEntity {
             maxMana += 50;
             mana += 50;
         } else if (action.equals("AttackDMG")) {
-            this.damage += 10;
+            this.damage += 100;
         } else if (action.equals("key")) {
             hasKey = true;
         }

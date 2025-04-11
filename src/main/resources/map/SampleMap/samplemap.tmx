@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="26" nextobjectid="970">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="26" nextobjectid="971">
  <tileset firstgid="1" source="[A]WaterFall_pipo.tsx"/>
  <tileset firstgid="577" name="[Base]BaseChip_pipo" tilewidth="32" tileheight="32" tilecount="1064" columns="8">
   <image source="[Base]BaseChip_pipo.png" width="256" height="4256"/>
@@ -1956,6 +1956,12 @@
   <object id="965" name="KEY" x="928" y="832">
    <properties>
     <property name="Type" value="KEY"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="970" name="Knife" x="1280" y="2080">
+   <properties>
+    <property name="Type" value="ATTACK"/>
    </properties>
    <point/>
   </object>

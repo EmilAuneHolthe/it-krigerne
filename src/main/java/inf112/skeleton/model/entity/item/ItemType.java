@@ -21,7 +21,7 @@ public static Texture getItemTexture(ItemType itemType) {
     case KEY:
       return new Texture("key.png");
     case ATTACK:
-      return new Texture("attack.png");
+      return new Texture("knife.png");
     case MANA:
       return new Texture("mana.png");
   }
@@ -50,7 +50,7 @@ public static float getItemSize(ItemType itemType) {
     case KEY:
       return 0.75f;
     case ATTACK:
-      return 0.5f;
+      return 1f;
     case MANA:
       return 0.75f;
   }
