@@ -1,4 +1,4 @@
-package inf112.skeleton.model.entity;
+package inf112.skeleton.model.entity.enemy;
 
 import com.badlogic.gdx.utils.Array;
 
@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.entity.player.Player;
 
 public class EnemyController {
   private Array<Enemy> enemies;
@@ -28,7 +29,7 @@ public class EnemyController {
       // Calculate the distance between the enemy and the player
       float distance = enemyPosition.dst(playerPosition);
 
-      if (distance < 8) {
+      if (distance < enemy.getSightRange()) {
         // Calculate relative position
         float dx = playerPosition.x - enemyPosition.x;
         float dy = playerPosition.y - enemyPosition.y;

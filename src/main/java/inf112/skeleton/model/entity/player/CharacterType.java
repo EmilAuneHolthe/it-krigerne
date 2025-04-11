@@ -1,4 +1,4 @@
-package inf112.skeleton.model.entity;
+package inf112.skeleton.model.entity.player;
 
 import inf112.skeleton.view.AnimationTypes;
 
@@ -7,7 +7,8 @@ public enum CharacterType {
     OLD(AnimationTypes.OLD_DOWN),
     HERO(AnimationTypes.HERO_DOWN),
     ZOMBIE(AnimationTypes.ZOMBIE_DOWN),
-    BOSS(AnimationTypes.BOSS_DOWN);
+    BOSS(AnimationTypes.BOSS_DOWN),
+    SKELETON(AnimationTypes.SKELETON_DOWN);
     
     private final AnimationTypes defaultAnimation;
     

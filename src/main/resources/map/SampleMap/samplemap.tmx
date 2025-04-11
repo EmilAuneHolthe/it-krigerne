@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="26" nextobjectid="961">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="26" nextobjectid="971">
  <tileset firstgid="1" source="[A]WaterFall_pipo.tsx"/>
  <tileset firstgid="577" name="[Base]BaseChip_pipo" tilewidth="32" tileheight="32" tilecount="1064" columns="8">
   <image source="[Base]BaseChip_pipo.png" width="256" height="4256"/>
@@ -1267,21 +1267,39 @@
   </object>
  </objectgroup>
  <objectgroup id="22" name="Enemy">
-  <object id="953" name="Enemy1" x="2304" y="2048">
+  <object id="953" name="Skeleton1" x="2336" y="2080">
    <properties>
-    <property name="Type" value="OLD"/>
+    <property name="Type" value="SKELETON"/>
    </properties>
    <point/>
   </object>
-  <object id="954" name="Enemy2" x="1984" y="2432">
+  <object id="954" name="Zombie1" x="1568" y="896">
    <properties>
-    <property name="Type" value="SOLDIER"/>
+    <property name="Type" value="Zombie"/>
    </properties>
    <point/>
   </object>
-  <object id="955" name="Enemy3" x="1696" y="1408">
+  <object id="966" name="Zombie2" x="1632" y="896">
    <properties>
-    <property name="Type" value="ZOMBIE"/>
+    <property name="Type" value="Zombie"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="967" name="ZombieDefendingKey" x="992" y="832">
+   <properties>
+    <property name="Type" value="Zombie"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="968" name="Skeleton" x="1696" y="1408">
+   <properties>
+    <property name="Type" value="Skeleton"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="969" name="SkeletonAtBridge" x="1408" y="1632">
+   <properties>
+    <property name="Type" value="Skeleton"/>
    </properties>
    <point/>
   </object>
@@ -1923,7 +1941,29 @@
 </data>
  </layer>
  <objectgroup id="20" name="Items">
-  <object id="528" gid="5337" x="992" y="832" width="32" height="32"/>
-  <object id="958" x="1152" y="1056"/>
+  <object id="961" name="Manapotion" x="1600" y="768">
+   <properties>
+    <property name="Type" value="Mana"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="962" x="2304" y="2144">
+   <properties>
+    <property name="Type" value="HEALTH"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="965" name="KEY" x="928" y="832">
+   <properties>
+    <property name="Type" value="KEY"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="970" name="Knife" x="1295.84" y="2033.94">
+   <properties>
+    <property name="Type" value="ATTACK"/>
+   </properties>
+   <point/>
+  </object>
  </objectgroup>
 </map>

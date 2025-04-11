@@ -1,4 +1,6 @@
-package inf112.skeleton.model.entity;
+package inf112.skeleton.model.entity.player;
+
+import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,6 +11,10 @@ import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.controller.Keys;
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.entity.GameEntity;
+import inf112.skeleton.model.entity.enemy.Enemy;
+import inf112.skeleton.model.entity.item.ItemType;
+import inf112.skeleton.view.screen.GameScreen;
 import inf112.skeleton.view.screen.ScreenType;
 import inf112.skeleton.view.ui.DeathOverlay;
 
@@ -20,6 +26,10 @@ public class Player extends GameEntity {
     private int maxMana;
     private float manaRegenRate = 5.0f; // Mana per second
     private float manaRegenAccumulator = 0.0f;
+    public boolean canAttack = true; 
+    private int maxHealth;
+    private boolean hasKey = false;
+    private PlayerInteractions playerInteractions;
 
     public Player(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType, KeyHandler keyHandler) {
         super(context, world, body, health, damage, characterType);
@@ -28,6 +38,8 @@ public class Player extends GameEntity {
         this.movement = new PlayerMovement(world, body, keyHandler);
         this.mana = 100;
         this.maxMana = 100;
+        this.playerInteractions = new PlayerInteractions(context);
+        maxHealth = health;
     }
     
     @Override
@@ -36,6 +48,7 @@ public class Player extends GameEntity {
             return;
         }
         super.render(batch);
+        
     }
     public void renderDeathOverlay(SpriteBatch batch) {
         if (isDead && deathOverlay != null) {
@@ -53,7 +66,7 @@ public class Player extends GameEntity {
             return;
         }
         
-        if (key == Keys.ATTACK) {
+        if (key == Keys.ATTACK && canAttack) {
             if (mana >= 20) {
                 animation.startAttack();
                 mana -= 20;
@@ -62,6 +75,9 @@ public class Player extends GameEntity {
             movement.handleInput(key);
             animation.setMoving(movement.isMoving());
             animation.setDirection(movement.getDirection());
+        }
+        if (key == Keys.INTERACT) {
+            playerInteractions.pickUpItem(this, context.getItems());
         }
     }
     
@@ -195,14 +211,41 @@ public class Player extends GameEntity {
             int manaToAdd = (int) manaRegenAccumulator;
             setMana(getMana() + manaToAdd);
             manaRegenAccumulator -= manaToAdd;
+            
+            if(mana >= 20) {
+                canAttack = true;
+            } else {
+                canAttack = false;
+            }
         }
     }
 
     public float getManaRegenRate() {
         return manaRegenRate;
     }
-
+    public int getMaxHealth() {
+        return maxHealth;
+    }
     public void setManaRegenRate(float manaRegenRate) {
         this.manaRegenRate = manaRegenRate;
+    }
+    public void pickUpItem(ItemType itemType) {
+        String action = ItemType.getItemAction(itemType);
+        if (action.equals("Heal")) {
+            health += 20;
+            if(health > maxHealth) {
+                health = maxHealth;
+            }
+        } else if (action.equals("maxMana")) {
+            maxMana += 50;
+            mana += 50;
+        } else if (action.equals("AttackDMG")) {
+            this.damage += 100;
+        } else if (action.equals("key")) {
+            hasKey = true;
+        }
+    }
+    public boolean hasKey() {
+        return hasKey;
     }
 }

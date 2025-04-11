@@ -8,13 +8,16 @@ import inf112.skeleton.controller.Keys;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
 import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
-import inf112.skeleton.model.entity.Enemy;
-import inf112.skeleton.model.entity.EnemyController;
-import inf112.skeleton.model.entity.EnemyFactory;
-import inf112.skeleton.model.entity.Player;
-import inf112.skeleton.model.entity.PlayerFactory;
-import inf112.skeleton.model.entity.PlayerInteractions;
-import inf112.skeleton.model.entity.CharacterType;
+
+import inf112.skeleton.model.entity.enemy.Enemy;
+import inf112.skeleton.model.entity.enemy.EnemyController;
+import inf112.skeleton.model.entity.enemy.EnemyFactory;
+import inf112.skeleton.model.entity.item.Item;
+import inf112.skeleton.model.entity.item.ItemFactory;
+import inf112.skeleton.model.entity.player.CharacterType;
+import inf112.skeleton.model.entity.player.Player;
+import inf112.skeleton.model.entity.player.PlayerFactory;
+import inf112.skeleton.model.entity.player.PlayerInteractions;
 import inf112.skeleton.model.map.Map;
 import inf112.skeleton.model.map.MapListener;
 import inf112.skeleton.model.map.MapManager;
@@ -26,6 +29,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
     private float dTime = 0;
     private Player player;
     private Array<Enemy> enemies;
+    private Array<Item> items;
     private final OrthographicCamera camera;
     private final MapManager mapManager;
     private final GameRenderer gameRenderer;
@@ -43,6 +47,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
         
         spawnEnemy();
         spawnPlayer();
+        spawnItem();
         playerInteractions = new PlayerInteractions(context);
         enemies = context.getEnemy();
         enemyController = new EnemyController(context, world, enemies, player);
@@ -64,20 +69,21 @@ public class GameScreen extends AbstractScreen implements MapListener {
             enemyController.sight();
             dTime = 0;
         }
+        if(player.hasKey()){
+            float playerX = player.getBody().getPosition().x ;
+            float playerY = player.getBody().getPosition().y ;
+            if (playerX >= 72.4 && playerX <= 72.6 && playerY >= 75.3 && playerY <= 75.5){
+            changeMap();
+        }
+    }
         //Gdx.app.log("Debug", "FPS: " + Gdx.graphics.getFramesPerSecond());
 
         // Test map switching - should be moved to a proper input handler
         if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
             playerInteractions.attackEnemy(player, enemies);
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-            mapManager.setMap(MapType.MAP_2);
-            mapChanger.removeObjects(world, mapManager.getCurrentMap(), enemies);
-            enemies.clear();
-            context.setEnemy(enemies);
-            mapChanger.movePlayer(world, mapManager.getCurrentMap(), player);
-            spawnEnemy();
-            enemies = context.getEnemy();
-            enemyController.updateEnemies(enemies);
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+            changeMap();
         }
         else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             gameRenderer.setShowDebug(!gameRenderer.isShowDebug());
@@ -154,6 +160,23 @@ public class GameScreen extends AbstractScreen implements MapListener {
         context.setEnemy(enemies);
         gameRenderer.updateEnemy(enemies);
     }
+    private void spawnItem() {
+        ItemFactory factory = new ItemFactory(context, world);
+        Array<Item> items = factory.createItemFromMap(mapManager.getCurrentMap());
+        context.setItems(items);
+        gameRenderer.updateItem(items);
+    }
+    public void changeMap() {
+        mapManager.setMap(MapType.MAP_2);
+        mapChanger.removeObjects(world, mapManager.getCurrentMap(), enemies);
+        enemies.clear();
+        context.setEnemy(enemies);
+        mapChanger.movePlayer(world, mapManager.getCurrentMap(), player);
+        spawnEnemy();
+        enemies = context.getEnemy();
+        enemyController.updateEnemies(enemies);
+        spawnItem();
+        }
 }
 
 

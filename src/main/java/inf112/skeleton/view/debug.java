@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-import inf112.skeleton.model.entity.Enemy;
-import inf112.skeleton.model.entity.Player;
+import inf112.skeleton.model.entity.enemy.Enemy;
+import inf112.skeleton.model.entity.player.Player;
 
 public class debug {
     private SpriteBatch spriteBatch;

@@ -1,4 +1,4 @@
-package inf112.skeleton.model.entity;
+package inf112.skeleton.model.entity.enemy;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -9,6 +9,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.entity.GameEntity;
+import inf112.skeleton.model.entity.player.CharacterType;
 import inf112.skeleton.view.ui.DeathOverlay;
 import inf112.skeleton.controller.KeyHandler;
 
@@ -22,7 +24,8 @@ public class Enemy extends GameEntity {
     private boolean isDead;
     private final CharacterType characterType;
     private float maxHealth;
-    public Enemy(GamePanel context, World world, Body body, CharacterType characterType, String name) {
+    private int sight;
+    public Enemy(GamePanel context, World world, Body body, CharacterType characterType, String Name) {
         super(context, world, body, EnemyTypes.getEnemyHealth(characterType), EnemyTypes.getEnemyDamage(characterType), characterType);
         this.world = world;
         this.characterType = characterType;
@@ -30,8 +33,9 @@ public class Enemy extends GameEntity {
         this.damage = EnemyTypes.getEnemyDamage(characterType);
         this.isDead = false;
         this.direction = "Down";
-        this.name = name;
         this.maxHealth = EnemyTypes.getEnemyHealth(characterType);
+        this.name = Name;
+        this.sight = EnemyTypes.getEnemySight(characterType);
         
         // Load health bar textures
         this.healthTexture = new Texture(Gdx.files.internal("redtexture.png"));
@@ -74,9 +78,10 @@ public class Enemy extends GameEntity {
                 world.destroyBody(body);
                 // Remove from the enemy list
                 context.getEnemy().removeIndex(index);
-                System.out.println("Enemy removed from list: " + name);
                 if( characterType == CharacterType.BOSS) {
                     System.out.println("Boss defeated!");
+                    // Handle boss defeat logic here
+                    //context.setGameState(GamePanel.GameState.WIN);
                 }
             }
         }
@@ -147,7 +152,6 @@ public class Enemy extends GameEntity {
     }
 
     public int getDamage() {
-        System.out.println("Damage: " + damage);
         return damage;
     }
 
@@ -186,5 +190,8 @@ public class Enemy extends GameEntity {
 
     public int getMaxHealth() {
         return (int)maxHealth;
+    }
+    public int getSightRange() {
+        return sight;
     }
 }
