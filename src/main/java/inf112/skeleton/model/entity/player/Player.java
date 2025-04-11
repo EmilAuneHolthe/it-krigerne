@@ -25,7 +25,7 @@ public class Player extends GameEntity {
     protected boolean alive;
     private int mana;
     private int maxMana;
-    private float manaRegenRate = 5.0f; // Mana per second
+    private float manaRegenRate = 10f; // Mana per second
     private float manaRegenAccumulator = 0.0f;
     public boolean canAttack = true; 
     private int maxHealth;
@@ -87,9 +87,9 @@ public class Player extends GameEntity {
         }
         // Handle other inputs
         else if (key == Keys.ATTACK && canAttack) {
-            if (mana >= 20) {
+            if (mana >= 30) {
                 animation.startAttack();
-                mana -= 20;
+                mana -= 30;
             }
         } else {
             movement.handleInput(key);
@@ -305,6 +305,7 @@ public class Player extends GameEntity {
                 break;
             case MANA:
                 mana = Math.min(mana + 20, maxMana);
+                manaRegenRate += 5f;
                 break;
             case ATTACK:
                 damage += 5;
