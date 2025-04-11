@@ -29,7 +29,7 @@ public class EnemyController {
       // Calculate the distance between the enemy and the player
       float distance = enemyPosition.dst(playerPosition);
 
-      if (distance < 8) {
+      if (distance < enemy.getSightRange()) {
         // Calculate relative position
         float dx = playerPosition.x - enemyPosition.x;
         float dy = playerPosition.y - enemyPosition.y;

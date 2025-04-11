@@ -48,5 +48,17 @@ public enum EnemyTypes {
                 throw new IllegalArgumentException("Unknown enemy type: " + type);
         }
     }
+    public static int getEnemySight(CharacterType type) {
+        switch (type) {
+            case SKELETON:
+                return 8;
+            case ZOMBIE:
+                return 8;
+            case BOSS:
+                return 1000;
+            default:
+                throw new IllegalArgumentException("Unknown enemy type: " + type);
+        }
+    }
   }
 
