@@ -25,21 +25,26 @@ public enum AnimationTypes {
     OLD_RIGHT("Player/Atlas/OldWalking.atlas", "Old", 0.5f, 2),
     
     OLD_ATTACK("Player/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
-
-    ZOMBIE_DOWN("Player/Atlas/ZombieWalking.atlas", "Zombie", 0.5f, 0),
-    ZOMBIE_UP("Player/Atlas/ZombieWalking.atlas", "Zombie", 0.5f, 3),
-    ZOMBIE_LEFT("Player/Atlas/ZombieWalking.atlas", "Zombie", 0.5f, 1),
-    ZOMBIE_RIGHT("Player/Atlas/ZombieWalking.atlas", "Zombie", 0.5f, 2),
+    // Zombie
+    ZOMBIE_DOWN("Player/Atlas/zombie.atlas", "Zombie", 0.5f, 0),
+    ZOMBIE_UP("Player/Atlas/zombie.atlas", "Zombie", 0.5f, 3),
+    ZOMBIE_LEFT("Player/Atlas/zombie.atlas", "Zombie", 0.5f, 1),
+    ZOMBIE_RIGHT("Player/Atlas/zombie.atlas", "Zombie", 0.5f, 2),
     
     ZOMBIE_ATTACK("Player/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
+    // Skeleton
+    SKELETON_DOWN("Player/Atlas/Skeleton.atlas", "Skeleton", 0.5f, 0),
+    SKELETON_UP("Player/Atlas/Skeleton.atlas", "Skeleton", 0.5f, 3),
+    SKELETON_LEFT("Player/Atlas/Skeleton.atlas", "Skeleton", 0.5f, 1),
+    SKELETON_RIGHT("Player/Atlas/Skeleton.atlas", "Skeleton", 0.5f, 2),
+    SKELETON_ATTACK("Player/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
 
-    BOSS_DOWN("Player/Atlas/zombie-1.1/Boss.atlas", "Boss", 0.5f, 3),
-    BOSS_UP("Player/Atlas/zombie-1.1/Boss.atlas", "Boss", 0.5f, 3),
-    BOSS_LEFT("Player/Atlas/zombie-1.1/Boss.atlas", "Boss", 0.5f, 3),
-    BOSS_RIGHT("Player/Atlas/zombie-1.1/Boss.atlas", "Boss", 0.5f, 3),
-    BOSS_ATTACK("Player/Atlas/zombie-1.1/Boss.atlas", "Boss", 0.5f, 3);
+    BOSS_DOWN("Player/Atlas/Boss.atlas", "Boss", 0.5f, 3),
+    BOSS_UP("Player/Atlas/Boss.atlas", "Boss", 0.5f, 3),
+    BOSS_LEFT("Player/Atlas/Boss.atlas", "Boss", 0.5f, 3),
+    BOSS_RIGHT("Player/Atlas/Boss.atlas", "Boss", 0.5f, 3),
+    BOSS_ATTACK("Player/Atlas/Boss.atlas", "Boss", 0.5f, 3);
 
-    
 
     private final String atlasPath;
     private final String atlasKey;
