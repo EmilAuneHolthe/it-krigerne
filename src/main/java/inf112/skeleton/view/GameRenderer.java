@@ -28,6 +28,7 @@ import inf112.skeleton.model.entity.player.Player;
 import inf112.skeleton.model.map.Map;
 import inf112.skeleton.model.map.MapListener;
 import inf112.skeleton.view.ui.PlayerHUD;
+import inf112.skeleton.view.ui.ItemBar;
 
 public class GameRenderer implements Disposable, MapListener {
 
@@ -50,6 +51,7 @@ public class GameRenderer implements Disposable, MapListener {
     private Array<Enemy> enemies;
     private debug debug;
     private Array<Item> items;
+    private ItemBar itemBar;
 
     public GameRenderer(final GamePanel context) {
         viewport = context.getViewport();
@@ -77,6 +79,9 @@ public class GameRenderer implements Disposable, MapListener {
         
         // Initialize debug instance
         debug = new debug(spriteBatch, player, camera);
+
+        // Create item bar
+        createItemBar();
     }
 
     private void createPlayerHUD() {
@@ -86,6 +91,12 @@ public class GameRenderer implements Disposable, MapListener {
         }
         if (player != null) {
             playerHUD = new PlayerHUD(uiStage, player, healthTexture, backgroundTexture, manaTexture, backgroundTexture);
+        }
+    }
+
+    private void createItemBar() {
+        if (player != null) {
+            itemBar = new ItemBar(uiStage, player, 20, 20, 32, 0);
         }
     }
 
@@ -240,6 +251,12 @@ public class GameRenderer implements Disposable, MapListener {
         if(player != null) {
             player.renderDeathOverlay(spriteBatch);
         }
+
+        // Update and draw item bar
+        if (itemBar != null) {
+            itemBar.update();
+        }
+        
         // Debug info
         if (profiler.isEnabled()) {
             Gdx.app.debug(TAG, "Bindings: " + profiler.getTextureBindings());
@@ -264,6 +281,7 @@ public class GameRenderer implements Disposable, MapListener {
     public void updatePlayer(Player player) {
         this.player = player;
         createPlayerHUD();
+        createItemBar();
     }
     public void updateEnemy(Array<Enemy> enemies) {
         this.enemies = enemies;
@@ -282,6 +300,7 @@ public class GameRenderer implements Disposable, MapListener {
         if (debug != null) {
             debug.dispose();
         }
+        itemBar.dispose();
     }
 
     @Override
