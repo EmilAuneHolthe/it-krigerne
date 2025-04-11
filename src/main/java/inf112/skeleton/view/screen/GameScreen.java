@@ -69,6 +69,14 @@ public class GameScreen extends AbstractScreen implements MapListener {
             enemyController.sight();
             dTime = 0;
         }
+        if(player.hasKey()){
+            float playerX = player.getBody().getPosition().x ;
+            float playerY = player.getBody().getPosition().y ;
+            Gdx.app.log("Debug", "Player position: " + playerX + ", " + playerY);
+            if (playerX >= 72.4 && playerX <= 72.6 && playerY >= 75.3 && playerY <= 75.5){
+            changeMap();
+        }
+    }
         //Gdx.app.log("Debug", "FPS: " + Gdx.graphics.getFramesPerSecond());
 
         // Test map switching - should be moved to a proper input handler
@@ -156,7 +164,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
         context.setItems(items);
         gameRenderer.updateItem(items);
     }
-    public void changemap() {
+    public void changeMap() {
         mapManager.setMap(MapType.MAP_2);
         mapChanger.removeObjects(world, mapManager.getCurrentMap(), enemies);
         enemies.clear();

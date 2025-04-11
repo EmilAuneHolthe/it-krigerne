@@ -1949,7 +1949,7 @@
   </object>
   <object id="965" x="2208" y="2432">
    <properties>
-    <property name="Type" value="Key"/>
+    <property name="Type" value="KEY"/>
    </properties>
    <point/>
   </object>

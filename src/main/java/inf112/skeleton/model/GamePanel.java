@@ -29,7 +29,10 @@ import inf112.skeleton.audio.AudioHandler;
 import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.entity.enemy.Enemy;
+import inf112.skeleton.model.entity.enemy.EnemyController;
+import inf112.skeleton.model.entity.enemy.EnemyFactory;
 import inf112.skeleton.model.entity.item.Item;
+import inf112.skeleton.model.entity.item.ItemFactory;
 import inf112.skeleton.model.entity.player.Player;
 import inf112.skeleton.model.entity.player.PlayerInteractions;
 import inf112.skeleton.model.map.MapChanger;
@@ -37,6 +40,7 @@ import inf112.skeleton.model.map.MapManager;
 import inf112.skeleton.model.map.MapType;
 import inf112.skeleton.view.GameRenderer;
 import inf112.skeleton.view.screen.*; 
+
 public class GamePanel extends Game {
     private static final String TAG = GamePanel.class.getSimpleName();
 
@@ -50,7 +54,6 @@ public class GamePanel extends Game {
     private FitViewport screenViewport;
     private World world;
     private Box2DDebugRenderer box2DDebugRenderer;
-
 
     // Pixel to meter ratio
     public static final short BIT_Player = 1<<0;
@@ -72,6 +75,8 @@ public class GamePanel extends Game {
     private Array<Enemy> enemies;
     private PlayerInteractions playerInteractions;
     private Array<Item> items;
+    private MapChanger mapChanger;
+    private EnemyController enemyController;
     
     
     @Override
@@ -108,6 +113,11 @@ public class GamePanel extends Game {
         //GameRenderer
         gameRenderer = new GameRenderer(this);
         gameRenderer.setShowDebug(false);
+
+        // Initialize MapChanger and EnemyController
+        mapChanger = new MapChanger();
+        enemies = new Array<>();
+        enemyController = new EnemyController(this, world, enemies, player);
 
         setScreen(ScreenType.MAIN_MENU);
     }
@@ -239,5 +249,73 @@ public class GamePanel extends Game {
     }
     public void setPlayerInteractions(PlayerInteractions playerInteractions) {
         this.playerInteractions = playerInteractions;
+    }
+
+    public void changemap(MapType newMapType) {
+        if (newMapType == null) {
+            Gdx.app.error(TAG, "Cannot change map: newMapType is null");
+            return;
+        }
+
+        if (mapManager == null) {
+            Gdx.app.error(TAG, "Cannot change map: mapManager is null");
+            return;
+        }
+
+        if (world == null) {
+            Gdx.app.error(TAG, "Cannot change map: world is null");
+            return;
+        }
+
+        if (player == null) {
+            Gdx.app.error(TAG, "Cannot change map: player is null");
+            return;
+        }
+
+        // Change the map
+        mapManager.setMap(newMapType);
+
+        // Remove existing objects
+        if (enemies != null) {
+            mapChanger.removeObjects(world, mapManager.getCurrentMap(), enemies);
+            enemies.clear();
+            setEnemy(enemies);
+        }
+
+        // Move player to new spawn point
+        mapChanger.movePlayer(world, mapManager.getCurrentMap(), player);
+
+        // Spawn new enemies
+        spawnEnemy();
+        enemies = getEnemy();
+        if (enemyController != null) {
+            enemyController.updateEnemies(enemies);
+        }
+
+        // Spawn new items
+        spawnItem();
+        items = getItems();
+    }
+
+    private void spawnEnemy() {
+        if (mapManager == null || mapManager.getCurrentMap() == null) {
+            Gdx.app.error(TAG, "Cannot spawn enemies: mapManager or current map is null");
+            return;
+        }
+
+        EnemyFactory factory = new EnemyFactory(this, world);
+        Array<Enemy> newEnemies = factory.createEnemiesFromMap(mapManager.getCurrentMap());
+        setEnemy(newEnemies);
+    }
+
+    private void spawnItem() {
+        if (mapManager == null || mapManager.getCurrentMap() == null) {
+            Gdx.app.error(TAG, "Cannot spawn items: mapManager or current map is null");
+            return;
+        }
+
+        ItemFactory factory = new ItemFactory(this, world);
+        Array<Item> newItems = factory.createItemFromMap(mapManager.getCurrentMap());
+        setItems(newItems);
     }
 }

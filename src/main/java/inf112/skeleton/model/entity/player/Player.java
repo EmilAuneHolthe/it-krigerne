@@ -14,6 +14,7 @@ import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.GameEntity;
 import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.model.entity.item.ItemType;
+import inf112.skeleton.view.screen.GameScreen;
 import inf112.skeleton.view.screen.ScreenType;
 import inf112.skeleton.view.ui.DeathOverlay;
 
@@ -76,14 +77,6 @@ public class Player extends GameEntity {
             animation.setDirection(movement.getDirection());
         }
         if (key == Keys.INTERACT) {
-            if (hasKey) {
-                float playerX = body.getPosition().x * UNIT_SCALE;
-                float playerY = body.getPosition().y * UNIT_SCALE;
-        
-                if (playerX >= 2308 && playerX <= 2334 && playerY >= 770 && playerY <= 862) {
-                    context.get();
-                }
-            }
             playerInteractions.pickUpItem(this, context.getItems());
         }
     }
