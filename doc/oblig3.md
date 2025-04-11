@@ -65,7 +65,7 @@ Vi har fullført kravene vi satt til MVP
 5. Kan plukke opp items
 6. Spiller interagerer med terreng
 7. Vise fiender/monstre; de skal interagere med terreng og spiller
-8. Spiller kan dø (Miste alle “healthpoints” til en fiende)
+8. Spiller kan dø (Miste alle "healthpoints" til en fiende)
 9. Mål for spillbrett (Beseire bosser)
 10. Start-skjerm ved oppstart / game over
 
@@ -102,7 +102,7 @@ Arbeidsoppgaver:
 Oppdatere kartet for bossen
 Designe og implementere nye angrepsmønster
 Skrive logikk for hvordan bossen velger angrep
-Lage «triggers» og animasjoner for bossens død
+Lage "triggers" og animasjoner for bossens død
 
 Kjente bugs:
 Man kan plukke opp liv selv om man har fullt liv.
@@ -115,7 +115,7 @@ Brukerhistorie:
 Som spiller vil jeg vite hva som er målet med spillet og hva ulike items gjør, slik at jeg forstår hva jeg bør gjøre og hvorfor jeg bør plukke opp items.
 
 Akseptansekriterier:
-Spillet viser en beskjed første gang du plukker opp en nøkkel («Denne nøkkelen gir deg tilgang til bossområdet»).
+Spillet viser en beskjed første gang du plukker opp en nøkkel ("Denne nøkkelen gir deg tilgang til bossområdet").
 Spilleren får en kort forklaring (f.eks via tooltips, tekst eller ikonforklaring) når de plukker opp items.
 Det er en indikasjon (tekst, ikon, oppgave) på at målet er å finne nøkkelen for å komme til bossen.
 
@@ -389,6 +389,16 @@ Videreutvikle funksjoner i spillet:
 * Ferdigstille MVP
 * Spillet skal være gjennomførbart og skal kunne spilles som et spill. Det skal ha et sluttmål med utfordringer underveis. Få inn animasjoner, fiender og måter å angripe på. Dette skal være en god base som vi skal kunne viderebygge på. (En bedre versjon av MVP)
 * Flinkere til å notere underveis, altså møte-referat, trello og skrive ned nye mål.
+
+`Klassediagram:`
+![klassediagram](src/main/resources/Klassediagram.png)
+
+`Trello:`
+https://trello.com/invite/b/67ac74696ca3c27aff52a1d7/ATTI467b528223728134f82517d0d72f93b690C1C875/inf112-it-krigerne
+
+
+
+
 
 
 
