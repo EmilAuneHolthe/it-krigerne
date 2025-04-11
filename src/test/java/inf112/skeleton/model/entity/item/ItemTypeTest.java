@@ -33,24 +33,17 @@ class ItemTypeTest extends BaseTest {
     }
     
     @Test
-    void testGetItemTexturePaths() {
-        // Instead of mocking Texture, we'll verify the paths are correct
-        // by checking that the textures are created with the expected paths
-        Texture healthTexture = ItemType.getItemTexture(ItemType.HEALTH);
-        Texture keyTexture = ItemType.getItemTexture(ItemType.KEY);
-        Texture attackTexture = ItemType.getItemTexture(ItemType.ATTACK);
-        Texture manaTexture = ItemType.getItemTexture(ItemType.MANA);
+    void testGetItemTexture() {
+        // Test that textures are loaded correctly
+        assertNotNull(ItemType.getItemTexture(ItemType.HEALTH));
+        assertNotNull(ItemType.getItemTexture(ItemType.KEY));
+        assertNotNull(ItemType.getItemTexture(ItemType.ATTACK));
+        assertNotNull(ItemType.getItemTexture(ItemType.MANA));
         
-        // Verify textures are not null
-        assertNotNull(healthTexture);
-        assertNotNull(keyTexture);
-        assertNotNull(attackTexture);
-        assertNotNull(manaTexture);
-        
-        // Clean up textures
-        healthTexture.dispose();
-        keyTexture.dispose();
-        attackTexture.dispose();
-        manaTexture.dispose();
+        // Test that textures are of the correct type
+        assertTrue(ItemType.getItemTexture(ItemType.HEALTH) instanceof Texture);
+        assertTrue(ItemType.getItemTexture(ItemType.KEY) instanceof Texture);
+        assertTrue(ItemType.getItemTexture(ItemType.ATTACK) instanceof Texture);
+        assertTrue(ItemType.getItemTexture(ItemType.MANA) instanceof Texture);
     }
 } 
