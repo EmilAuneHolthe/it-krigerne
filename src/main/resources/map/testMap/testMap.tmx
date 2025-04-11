@@ -1,36 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-up" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="13" nextobjectid="58">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-up" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="94">
  <tileset firstgid="1" source="GrassSprites.tsx"/>
  <tileset firstgid="529" source="DirtSprites.tsx"/>
  <tileset firstgid="865" source="Decorations.tsx"/>
  <tileset firstgid="1929" source="KeyAnimation.tsx"/>
+ <tileset firstgid="1933" source="../SampleMap/[Base]BaseChip_pipo.tsx"/>
+ <tileset firstgid="2997" source="../SampleMap/[A]Water_pipo.tsx"/>
+ <tileset firstgid="6069" source="../SampleMap/[A]WaterFall_pipo.tsx"/>
+ <tileset firstgid="6645" source="../SampleMap/[A]Grass_pipo.tsx"/>
  <layer id="1" name="Ground" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt0MEJgEAAxMDD/nu0Fd/+hQm4A2kg58zMzMzMzMzMzMzMzMzMzMzX7uvf1egfuhr9Q1ejf+hq9A9djf6hq9E/dDX6h65G/9DV6B+6Gv1DV6N/6Gr0D12N/qGr0T90NfqHrkb/0NXoH7oa/UNXo3/oavQPXY3+oavRP3Q1+oeuRv/Q1egfuhr9Q1ejf+hq9A9djf6hq9E/dDX6h65G/9DV6B+6Gv1DV6N/6Gr0D12N/qGr0T90NfqHrkb/0NXoH7oa/UNXo3/oavQPXY3+oavRP3Q1+oeuRv/Q1egfuhr9Q1ejf+hq9A9djf6hq9E/dDX6h65G/9DV6B+6Gv1DV6N/6Gr0D12N/qGr0T90NfqHbmZmZmZmZmZmZmZmZt4e5zcQ0w==
+   eJzt0bEJA0EQBMFHYSgN5R+LUpEt562DGvguGOPM672uJEmSJEmSJEmSJEly2vf17K3RPfTW6B56a3QPvTW6h94a3UNvje6ht0b30Fuje+it0T301ugeemt0D701uofeGt1Db43uobdG9/i879/d41lbo3vordE99Nac/pvu2z26x0ndY0v32NI9tnSPLd1jS/fY0j22dI8tuofeGt1Db43uobdG99Bbo3vordE99NboHnprdA+9NbqH3hrdQ2+N7qG3RvfQW6N76K3RPfTW6B56a3QPvTW6h94a3UNvje6ht0b30Fuje+it0T301ugeemt0D701uofeGt1Db43uobdG99Bbo3vordE99NboHnprdA+9NbqH3hrdQ2+N7qGXJEmSJEmSJEmSfz+wqgbh
+  </data>
+ </layer>
+ <layer id="15" name="waterbehind" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztzrENACAMBLFfIAsThqdFDEAaW7r+EgAAAAAAAAAAAAAAAADgtSrpq13TRwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAvBzRjAqk=
   </data>
  </layer>
  <layer id="2" name="Paths" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt0TEKgDAABMGAEFMZK83/G7/pNb4hAWfg+oMtBQAAAAAAAADgP55t9gM+NS32rGmyhCMdenbqsYQrHe5s6AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMMUL/e0BTQ==
+   eJzt2E9OwkAYhnFjFy68gMf0Sv4DV+oGJe6UnRzCAxh0YWRtJ2DSr5amM23nnYHnl0xIFOqHj9NWjo4AAAAAAAAAAAAAAAAAAMA++jxRTzAc9152rdfCb714Pt9nLYr2WbusHNAjLfRICz3SQo+00CMt9EgLPdIyRo8PegQbsse6fM1b+fhdbB6HXOueLQ6tx7IYf9YfenReIS6O/V+zokcSe+MPPbrvjfeAv3dffc5ZOejbYxm5hxPaJAd9e1TF6uGEnLdy0KdH/bpBj/5CeywaruFj9Nh1DxZyzspB6j3a+O6RHOTcw3eP5CBWj5D//brw2SM5iL0/JuVzptt1O0Ajnz2Sg5g9XIv72orZJAcxe9w19Ghrcll+/apc19vv37Qcnx7+P+txR495uc5Pu71+WunT9X3k1ChmD6feZD7QdT70c8bUxO7huCZPlRZD3HvRQz25RQ/15BY97HHa7n1ioIc9zkzQY1K5V6ZH8/HG+lykibsveKCH/PpRbT6jh7xHE3qoJ7fooZ7cOoQebesrsfdCj//Hej7bLIVV7XdMDy32h3pyix7qyS16qCe36KGe3KKHenKLHurJLXqoJ7fooZ7cood6cose6skteqgnt+ihntyih3pyix7qyS16qCe36KGe3KKHenKLHurJLXqoJ7f2pQcAAAAAAAAAAIDaLxpJK74=
   </data>
  </layer>
- <layer id="3" name="Grass misc" width="100" height="100">
+ <layer id="13" name="Water" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt1LEJACAQBMEH+w+0YiNDUz10poKHY78KAAAAAAAAAOAPvd2+gJ1hmzirF9uc51dl00QOrWTQBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPCqCfUyBKU=
+   eJzt17FNw0AUgOFbwN4DStqwBXRU1NAQ6GADKJkAqCIaEBMhKqbAJrHCRTg2Ccq94vukJ6eIouj9sU9JCQAAAAAAAAAAAAAAAAAgtvcqpYM6pcdqPk9V6W/EbNFir+nyoUdxM/dGKHrE0p4h+7UekTy4P0KZ6RGKHrHoEUt7pr80Z/pZcz3XJYTPxX/1Zz3CaJ9besShRyx6xKJHLHrEokcsesSiRyx6xKJHLHrEokcsesSiRyyrPabN68ueudItM6nWz+EG+/rZo20xrVO6rn6fNz0yfXvq5uaP++r2f1HPf/9Dn9+9b6LLt6F9nTb7OmquxyP39TqiQd8wvKPbxdwP7Ks7IzZtocfc2B53A/va5r7QY2lsj/a5dVL1z7ozW4/xxvbYdtd6jDOmhR6707f/1dFjN4Za7KKDHku73Lcew0o30CNXuoEeudIN9MiVbqBHrnQDPXKlG+iRK91Aj1zpBnrkSjfQI1e6gR650g30AAAAAAAA+H9feTCtGw==
+  </data>
+ </layer>
+ <layer id="14" name="WaterFall" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2CESwkAQRNF1qPicFTgJcJKQM+GJYgUCbEjVNPBeVdsV8922BgAAAAAAAABs7bb776Wpvkf10lTfo3ppqu9RvTTV96hemup7VI93+6G1w8uOw7p39NiGHln0yDL1+y/PFve+WY9yp7G1c99lXP+GHtvRI4seWfTIokcWPbJMvcO1b9bjZ+iRRY8semTRI4seWfTIokcWPbLokUWPLHpk0SOLHgAAAAAA38+/LQAAAAAAAAAAAAAAAADwiQeXfM1Q
   </data>
  </layer>
  <layer id="4" name="Ground Collision" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt08EJgEAMRcGAsP1qIWoPVuXetBLDgiVIPMxA7oHPiwAAAAAAAAAAgHrHVP0B/NOWbex5q0ZgmLOFRQ8AAAAAAAAAAAAAAAAAAADAB84W0Vv1F7yu3OK2BwAAAAAAAAAAAAAAUOgBVbsG1A==
+   eJzt1bEJADAIAEG7FFnWXV0oKwQsBLmb4LuPAAAAAAAAAAAAAAAAAAAA4Efe6QIAoMPLAWC3OtMFAAAAAAAAAAAAAAAAAAAAAAAAAGzyAAWEAdE=
+  </data>
+ </layer>
+ <layer id="3" name="Grass misc" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt27tOwzAUgOGoQ6nES/BMMDGyMXZkgb4El4WLkCgIECOo4lLYYAFeBDbYGHDUVEqdY8eJnaRR/0+KKrVRW51jn2MnbRQBAAAAAAAAAAAAAAAAAAAA7TNeavobYOqVXNTijzgDuZgnQLF54HKudA5zDW321Z08fneb/R6Y+FF5GHai6Fc9DkrUFvaF4d2ofKyl4vrsGeMP+oiX2072uVEqfu9CLKV5IZ0HM9sYPRVyEnshxpWT6snUynKYz7gO9D6LamiYHy5M/WZXywk9xC5di+5UPs4ccxLH/0Edj+q4z4nxiBx40ecJ/aM+0nooXmuZertkOv7JW1hxDXLt5dsFY6/nnT5STt8QN5d9PPNFpo/FInvvVeHcfjKHNnPex3ePD5k+F7ZSNW2vF0X7yXHQq/d7IetI5eA4OU7IR6PW1bwZqhycJ8cF+Shtuka1Xf/L69kbqdf1a4su1xVZY7nb0WLVD3gtij7vPxbTPTyeN6Z1MOZP3r7Ddm0ZmHd6fc+r9/FveV1/z8u13lkhaoVej54Kvuch96ky/byJe3eX5MFKv3dXBWkfoo+FRd+HmH4vJdUyl33d2LIvdP1soE2kcfwZcGwzT7LeHGIyoAdXruh//8qsxUzjn/8d2rnWjStLTnxivOhrK19l6r5LXcSsOusIvdyPa/yIc7OoQ2FJ41l6jjVRe5E7f2XqDr2i/cghgCqxpgUAAAAAAAAAAAAAAADQpH92umuC
   </data>
  </layer>
  <objectgroup id="9" name="Collision">
-  <object id="6" x="832" y="704" width="32" height="32"/>
-  <object id="7" x="864" y="768" width="32" height="32"/>
-  <object id="8" x="832" y="768" width="32" height="32"/>
-  <object id="9" x="800" y="768" width="32" height="32"/>
-  <object id="10" x="736" y="832" width="32" height="32"/>
-  <object id="12" x="704" y="832" width="32" height="32"/>
   <object id="32" x="639.993" y="2688">
    <polyline points="0,0 0.00730248,-2047.98"/>
   </object>
@@ -43,15 +56,53 @@
   <object id="35" x="2687.96" y="2688">
    <polyline points="0,0 -2047.93,0.00247821"/>
   </object>
-  <object id="53" x="2304" y="2144" width="64" height="64"/>
+  <object id="61" x="1472" y="2144">
+   <polyline points="320,-128 288,-128 288,-64 224,-64 224,0 0,0 0,-96 -64,-96 -64,-160 -352,-160 -352,-768"/>
+  </object>
+  <object id="62" x="1856" y="2016">
+   <polyline points="0,0 32,0 32,-32 64,-32 64,-64 320,-64 320,0 384,0 384,-448 352,-448 352,-480 320,-480 320,-544 288,-544 288,-608 256,-608 256,-704 224,-704 224,-736 192,-736 192,-832 160,-832 160,-864 -32,-864"/>
+  </object>
+  <object id="63" x="1664" y="1152">
+   <polyline points="0,0 -320,0"/>
+  </object>
+  <object id="64" x="1312" y="1152">
+   <polyline points="32,0 32,-64 0,-64 0,0 -64,0 -64,32 -96,32 -96,96 -128,96 -128,160 -160,160 -160,224 -192,224"/>
+  </object>
+  <object id="66" x="1536" y="1504" width="32" height="32"/>
+  <object id="67" x="1664" y="1504" width="32" height="32"/>
+  <object id="68" x="1664" y="1632" width="32" height="64"/>
+  <object id="69" x="1536" y="1632" width="32" height="64"/>
+  <object id="70" x="1664" y="1152" width="160" height="32"/>
+  <object id="71" x="1696" y="1184" width="128" height="32"/>
+  <object id="72" x="1696" y="1216" width="96" height="96"/>
+  <object id="73" x="1728" y="1312" width="64" height="32"/>
+  <object id="74" x="1728" y="1376" width="64" height="96"/>
+  <object id="75" x="1792" y="1440" width="64" height="96"/>
+  <object id="76" x="1760" y="1472" width="32" height="32"/>
+  <object id="77" x="1792" y="1632" width="64" height="160"/>
+  <object id="78" x="1792" y="1856" width="64" height="160"/>
+  <object id="79" x="1824" y="1824" width="32" height="32"/>
+  <object id="82" x="1856.16" y="1632.13">
+   <polyline points="0,0 -0.326099,-7.98943 31.6316,-7.98943 32.1208,-31.9577 16.305,-31.9577 16.1419,-22.6639 -78.916,-23.1531 -79.0791,-32.4469 -95.3841,-31.9577 -96.0363,-0.489149 -79.2421,-0.16305 -78.916,-10.2721"/>
+  </object>
+  <object id="84" x="1600" y="1984" width="32" height="32"/>
+  <object id="85" x="1344" y="1920" width="32" height="32"/>
+  <object id="86" x="1120" y="1824" width="32" height="32"/>
+  <object id="87" x="1408" y="1280" width="32" height="32"/>
+  <object id="88" x="1344" y="1152" width="32" height="32"/>
+  <object id="89" x="1280" y="1152" width="32" height="32"/>
+  <object id="90" x="1376" y="1440" width="32" height="32"/>
+  <object id="91" x="1184" y="1280" width="32" height="32"/>
+  <object id="92" x="1952" y="1184" width="32" height="32"/>
+  <object id="93" x="2176" y="1728" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="6" name="Player">
-  <object id="2" x="2144" y="2240">
+  <object id="58" x="1328.17" y="1150.19">
    <point/>
   </object>
  </objectgroup>
  <objectgroup id="11" name="Enemy">
-  <object id="49" name="Enemy 3" x="2343.77" y="2394.46">
+  <object id="49" name="Enemy 3" x="1616.33" y="1587.59">
    <properties>
     <property name="Type" value="boss"/>
    </properties>
@@ -59,7 +110,7 @@
   </object>
  </objectgroup>
  <objectgroup id="7" name="Items">
-  <object id="57" x="1984" y="2368">
+  <object id="57" x="1696" y="1760">
    <properties>
     <property name="Type" value="HEALTH"/>
    </properties>
@@ -68,7 +119,12 @@
  </objectgroup>
  <layer id="5" name="Ground Foreground" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJztzlEJACAQBbAHgl21rSaygH4fyJZgCQAAAAAAAAAAAPAyWjJb9QIAAAAAAAAAAAAAAAAAAAD40erJ7tULAAAAAAAAAAAAAAAA4OYAOScCiQ==
+   eJzt1aEKwDAMRdH6+DFVuf//xMnCRCgtNBPnuOdCzG0NAAAAAAAAAAAAAAAAAACAGXdUXwAA7NDy/7si35zVI9+c9US+gUE/an3/rx+19AMAAAAAAAAAAAAAAAAAAAAAAADWvR8GAgo=
+  </data>
+ </layer>
+ <layer id="16" name="FOre" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztx6ENADAIADA8lyD5/zk+QJJlaV0jAAAAAAAAAAAAAAAAAAAAAAAAAIDfVO7nVud+AAAAAAAAAAAAAAAAAAAAAAAA3jIzcgDh
   </data>
  </layer>
 </map>
