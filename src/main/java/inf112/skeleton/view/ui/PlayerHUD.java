@@ -75,22 +75,24 @@ public class PlayerHUD {
         table.align(Align.bottom | Align.center);
         table.padBottom(20);
 
-
         table.add(healthStack).width(maxHealthBarWidth).height(healthBarHeight).padBottom(5).row();
         table.add(manaStack).width(maxHealthBarWidth).height(healthBarHeight);
         stage.addActor(table);
     }
 
     public void update() {
+        // Update health bar - using percentage of max health
         float health = player.getHealth();
-        float percent = Math.max(0f, health / 100f);
-        healthBar.setSize(maxHealthBarWidth * percent, healthBarHeight);
-        healthLabel.setText((int) health + " / 100");
+        float maxHealth = 100f; // Assuming max health is 100
+        float healthPercent = Math.max(0f, health / maxHealth);
+        healthBar.setSize(maxHealthBarWidth * healthPercent, healthBarHeight);
+        healthLabel.setText((int) health + " / " + (int) maxHealth);
         
-        // Update mana bar
+        // Update mana bar - using percentage of max mana
         float mana = player.getMana();
-        float manaPercent = Math.max(0f, mana / 100f);
+        float maxMana = player.getMaxMana();
+        float manaPercent = Math.max(0f, mana / maxMana);
         manaBar.setSize(maxHealthBarWidth * manaPercent, healthBarHeight);
-        manaLabel.setText((int) mana + " / 100");
+        manaLabel.setText((int) mana + " / " + (int) maxMana);
     }
 }
