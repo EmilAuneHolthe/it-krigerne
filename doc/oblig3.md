@@ -1,153 +1,145 @@
-# Rapport – innlevering 2
+# Rapport – innlevering 3
 **Team:** *IT-Krigerne* – *Martin, Emil, Vemmund, Daniel*...
-
 
 ### A1: Oppsett av Git-gruppe/repo, README-fil, teamorganisering
 
-
 # Navn/ Team navn
-
 
 * Emil Aune Holthe / Map tester
 * Martin Rønning   / Pixel-art
 * Daniel Bjørnstad / Team leader
 * Vemund Handeland / Custumer support
 
-
 ### A2: Beskrivelse av konsept
-
 
 # Spillet er et 2D-fugleperspektiv action-RPG inspirert av The Legend of Zelda (1986).
 
-
-* Dette er et action adventure med RPG element spill der du må bekjempe flere bosses. For å nå disse bossene så må du kjempe deg gjennom fiender og hindre. Utforsk, samle gjenstander og finn hemmeligheter for å gjøre deg sterkere. Dør du så er du ute, og spillet må startes på nytt. Hvert run av spillet vil kreve at du finner våpen og annet loot slik at du kan beseire fiendene. Kan du klare denne utfordringen?
-
+* Dette er et rouge-like RGG spill der du må bekjempe flere bosses. For å nå disse bossene så må du kjempe deg gjennom fiender og hindre. Utforsk, samle gjenstander og finn hemmeligheter for å gjøre deg sterkere. Dør du så er du ute, og spillet må startes på nytt. Hvert run av spillet vil være forskjellige, med random fiender, våpen og annet loot. Kan du klare denne utfordringen?
 
 * Kontroll: Spilleren kan bevege seg i fire retninger: opp, ned, venstre, høyre.
 * Gameplay: Inneholder items, upgrades, quests, bosser og poengsystem.
 * Ingen lagring: Spillet er run-based, der hver gjennomspilling starter fra begynnelsen.
 * Referanse: The Legend of Zelda:  https://en.wikipedia.org/wiki/The_Legend_of_Zelda_(video_game)
 
-
 ### A3: Prosess og prosjektorganisering
-
 
 # Vi har organisert prosjektet med:
 
-
 * Parprogrammering for effektiv kodeutvikling
-  Fordeler:
-  - Kan hjelpe hverandre med forskjellig kunnskap.
-  - Mer motiverende/morsommere å jobbe i lag med noe andre.
-  - Pushe hverandre, lettere å sette krav til sidemann.
+   Fordeler:
+   - Kan hjelpe hverandre med forskjellig kunnskap.
+   - Mer motiverende/morsommere å jobbe i lag med noe andre.
+   - Pushe hverandre, lettere å sette krav til sidemann.
 
-
-  Ulemper:
-  - En i paret kan for bli passiv og ikke bidrar.
-  - Hvis en i paret har mye mer kunnskap enn den andre så kan det bli vanskelig å henge med.
- * Idémyldring for å iterere over designvalg
-  - Alle sine ideer skal bli hørt.
-  - Spillet skal være et resultat av kreativiteten på hele gruppen, og ikke bare noen få.
-  - Finne gode løsninger på problemer som oppstår.
-
+   Ulemper:
+   - En i paret kan for bli passiv og ikke bidrar.
+   - Hvis en i paret har mye mer kunnskap enn den andre så kan det bli vanskelig å henge med.
+  
+* Idémyldring for å iterere over designvalg
+   - Alle sine ideer skal bli hørt.
+   - Spillet skal være et resultat av kreativiteten på hele gruppen, og ikke bare noen få.
+   - Finne gode løsninger på problemer som oppstår.
 
 * Ukentlige møter (minst to ganger i uken) for oppfølging og oppdateringer
-  - Pushe hverandre til å møte opp å jobbe sammen.
-  - Uten fysiske ukentlige møter kan man lett bli passiv i utviklingen av spillet.
-  - Hjelpe hverandre og være aktiv i samarbeid, ikke like lett over feks discoard.
-
+   - Pushe hverandre til å møte opp å jobbe sammen.
+   - Uten fysiske ukentlige møter kan man lett bli passiv i utviklingen av spillet.
+   - Hjelpe hverandre og være aktiv i samarbeid, ikke like lett over feks discoard.
 
 * Trello for oppgavehåndtering
-  - Holde et system på hva vi vil få gjort.
-  - Lett å oppdatere andre hva som er gjort.
-
+   - Holde et system på hva vi vil få gjort.
+   - Lett å oppdatere andre hva som er gjort.
 
 ### A4: Oppsett av kodeskjelett og eksperimentering
 
-
 # Vi har opprettet et grunnleggende kodeskjelett i repositoryet. Dette inkluderer:
 
+* Mappestruktur: src/ for kildekode, assets/ for grafikk, doc/ for dokumentasjon
+* Eksperimentering med rammeverk: Vi har testet ulike verktøy og biblioteker for å håndtere 2D-grafikk og spillmotor
+* Foreløpig utvikling av spillkart og bevegelsessystem
 
 Vi har fullført kravene vi satt til MVP
-1. Vise spillebrett
+1. Vise et spillebrett
 2. Vise spiller på spillebrett
 3. Flytte spiller
 4. Kan angripe
 5. Kan plukke opp items
 6. Spiller interagerer med terreng
-7. Fiender vises og interagerer med terreng og spiller
-8. Spiller kan dø
-9. Spillet har mål (beseire bosser)
-10. Start- og Game Over-skjerm er implementert.
+7. Vise fiender/monstre; de skal interagere med terreng og spiller
+8. Spiller kan dø (Miste alle “healthpoints” til en fiende)
+9. Mål for spillbrett (Beseire bosser)
+10. Start-skjerm ved oppstart / game over
+
 1. 
-Vi jobber nå med å fikse et inventory system. BrukerHistorie:som bruke ønsker jeg å ha en oversikt over hvilke items jeg har plukket opp slik at jeg vet hva jeg kan bruke og når.Akseptanskriterier:
+Inventory-system:
 
+Brukerhistorie: 
+Som spiller ønsker jeg å ha en oversikt over hvilke items jeg har plukket opp, slik at jeg vet hva jeg kan bruke og når.
 
-Når spilleren plukker opp items vises de i Inventory
-
-
-Inventory skal alltid vises enten på bunnen av skjermen eller vises ved å f.eks trykke «I»
-
-
-spiller kan se «healing-potion», «mana-potion», sverd og rusting i inventory
-2. 
-Inventory skal oppdateres korrekt ved plukk op og bruk av items.
-
+Akseptansekriterier: 
+Når spilleren plukker opp items vises de i Inventory.
+Inventory skal alltid vises enten på bunnen av skjermen eller vises ved å f.eks trykke «I».
+Spilleren kan se «healing-potion», «mana-potion», sverd og rustning i inventory.
+Inventory skal oppdateres korrekt ved plukk opp og bruk av items.
 
 Arbeidsoppgaver:
-Lage datastruktur for Items«gjort»
-Koble når spiller plukker opp items til inventory
+Lage datastruktur for Items (gjort)
+Koble når spiller plukker opp items til inventoryLage GUI som viser inventory
+Legge til logikk for bruk av items (i gang)
 
+2. 
+Bossfight
 
-lage GUI som viser inventory
+Brukerhistorie: 
+Som spiller ønsker jeg en utfordrende og variert bossfight, slik at det føles som en ekte finale i spillet.
 
+Akseptansekriterier:
+Bossene har flere angrepsmønster
+Bossen beveger seg på et eget designet kart
+Kampen blir gradvis vanskeligere
+Bossen dør og utløser en klar seier når livet går til 0
 
-legge til logikk for bruk av items «igang»
+Arbeidsoppgaver:
+Oppdatere kartet for bossen
+Designe og implementere nye angrepsmønster
+Skrive logikk for hvordan bossen velger angrep
+Lage «triggers» og animasjoner for bossens død
 
+Kjente bugs:
+Man kan plukke opp liv selv om man har fullt liv.
+Fiender kan bli sittende fast bak gjenstander (har ikke logikk til å gå rundt)
 
-2.Forbedre bossfight
-brukerhistorie:
-som spiller ønsker jeg en utfordrende og variert bossfight, slik at det føles som en ekte finale i spilelt.
-
-
-AksepanseKriterier
-Bosses har flere angrepsmønsterbossen beveger seg på et eget designet kart
-
-
-kampen blir gradvis vanskeligere
-
-
-bossen dør og utløser en klar seier når livet går til 0
-
-
-arbeidsoppgaver
-oppdatere kartet for bossendesigne og implementere nye angrepsmønsterskrive logikk for hvordan bossen velger angreplage «triggers» og animasjoner for bossens dødKjente bugsman kan plukke opp liv selvom man har fullt liv.
-fiender kan bli sittende fast bak gjennstander(har ikke logikk til å gå rundt)
 3. 
-tydligere mål for items
-brukerhistorie:
-som spiller vil jeg vite hva som er målet med spillet og hva ulike items gjør, slik at jeg forstår hva jeg bør gjøre og hvorfor jeg bør plukke opp itemsAkseptanskriterierSpillet viser en beskjed første gang du plukker opp en nøkkel(«denne nøkkelen gir deg tilgang til bossområdet») Spilleren får en kort forklaring(f.eks via tooltips, tekst eller ikonforklaring) når de plukker opp itemsdet er en indikasjon(tekst, ikon, oppgave) på at målet er å finne nøkkelen for å komme til bossenArbeisdoppgaver:
-lage en tutorialtekst eller dialogboks vd nøkkelpickup eller gamestart
-legge til en beskrivelsesboks når spilleren plukker opp hjerte og mana potions. 
+Tydeligere mål og items
 
+Brukerhistorie: 
+Som spiller vil jeg vite hva som er målet med spillet og hva ulike items gjør, slik at jeg forstår hva jeg bør gjøre og hvorfor jeg bør plukke opp items.
 
-vurdere å ha en npc eller tavle som forklarer målet
-kunne velge hva slags karakter man vil ha i starten av spilletsom spiller ønsker jeg å kunne velge hva slags karakter jeg skal bruke før spillet begynner.
+Akseptansekriterier:
+Spillet viser en beskjed første gang du plukker opp en nøkkel («Denne nøkkelen gir deg tilgang til bossområdet»).
+Spilleren får en kort forklaring (f.eks via tooltips, tekst eller ikonforklaring) når de plukker opp items.
+Det er en indikasjon (tekst, ikon, oppgave) på at målet er å finne nøkkelen for å komme til bossen.
 
+Arbeidsoppgaver:
+Lage en tutorialtekst eller dialogboks ved nøkkelpickup eller gamestart
+Legge til en beskrivelsesboks når spilleren plukker opp hjerte og mana-potions
+Vurdere å ha en NPC eller tavle som forklarer målet
 
-AkseptansKriterierSpillet viser karakteren som brukeren har valgt og animasjoner og sprites blir satt til riktig karakter.
+4. 
+Lage GUI for valg av karakter
 
+Brukerhistorie: 
+Som spiller ønsker jeg å kunne velge hva slags karakter jeg skal bruke før spillet begynner.
 
-Arbeidspoppgaverlage en meny før spillet begynner hvor brukeren kan velge karakter
+Akseptansekriterier:
+Spillet viser karakteren som brukeren har valgt, og animasjoner og sprites blir satt til riktig karakter.
 
-
-lage GUI for valg av karakter
-sette spillerkarakter ut ifra valget
-flere bugs blir loggført fortløpendePrioriteringer fremovervi prioriterer funksjonalitet i spillet som gir  mer dybde og variasjon i gameplay, spesielt rundt inventory og bossfight. 
-
-
-
-
+Arbeidsoppgaver:
+Lage en meny før spillet begynner hvor brukeren kan velge karakter
+Lage GUI for valg av karakter
+Sette spillerkarakter ut ifra valget
+Prioriteringer fremover:
+Vi prioriterer funksjonalitet i spillet som gir mer dybde og variasjon i gameplay, spesielt rundt inventory og bossfight.
+Flere bugs blir loggført fortløpende
 
 
 
@@ -169,210 +161,148 @@ Arbeidsoppgave: Implementere box2d og få det til å fungere i samspill med hitb
 
 ### A5: Oppsummering / retrospektiv
 
-
 - Se prosjektrapport nedenfor.
-
 
 # DEl B:
 
-
 `TEAM-MØTER`
-
 
 # 03.03.2025: Martin, Emil
 
-
 * Hva gjorde vi:
-
 
 Endret spillet til liggdx
 - Vi brukte først jframe, men vi bestemte oss på dette møte å bytte til libgdx
 - Satte opp basic funksjon for å bytte mellom screens (loadingscreen, gamescreen ect)
 
-
 * Hva skal vi gjøre neste gang:
-
 
 Videreutvikle basic funksjoner i spillet:
 - Bevege på karakter
 - Main menu
 - Collison med spiller
 
-
 # 07.03.2025: Martin, Emil, Daniel, Vemund
 
-
 * Hva gjorde vi:
-
 
 Ferdigstilte MVP:
 - Fikk collision til å funke med box2d, men ikke klart å implementert det med tile-mappet vårt enda.
 - Lå grafikk for spillerkart og spiller
 
-
 * Hva skal vi gjøre neste gang:
-
 
 Videreutvikle funksjoner i spillet:
 - tile-map
 - box2d kollisjon med tilemap
 
-
 # 08.03.2025: Emil, Daniel, Vemund
 
-
 * Hva gjorde vi:
-
 
 Ferdigstilte MVP:
 - Lagde spillerkart med tilemap-editor som at man enkelt kan endre mappet senere.
 - Main menu med startknapp
 - Lå inn kollisjon med spiller og tile.mappet, men støtter på bugs.
 
-
 * Hva skal vi gjøre neste gang:
-
 
 Videreutvikle funksjoner i spillet:
 - Fikse kollisjon bugs
 - Oppdater oblig2.md
 
-
 # 09.03.2025: Martin, Emil, Daniel, Vemund
-
 
 * Hva gjorde vi:
 
-
 Ferdigstilte MVP:
 - Spiller kan bevege seg med kollisjon til tile-mappet uten problemer
-
 
 Rapport skriving
 - Ferdig stilte oblig2.md der vi diskuterte alle punktene. Kom frem til ting som funket og ikke funket.
 God diskusjon.
 
-
 * Hva skal vi gjøre neste gang:
-
 
 Videreutvikle funksjoner i spillet:
 - Jobbe med MVP punktene som vi ikke ble ferdig med.
 
-
 # 20.03.25: Vemund, Martin, Emil
-
 
 * Hva gjorde vi:
 
-
 - Startet å jobbe med entity kontroller og hvordan vi tar inn bruker innput
-
 
 - Laget kollisjon på tile kartet
 
-
-- Startet prosessen med  mocke ulike klasser, slik at de kunne bli testet uten at spillet kjørte.
-
+- Startet prosessen med  mocke ulike klasser, slik at de kunne bli testet uten at spillet kjørte. 
 
 * Hva skal vi gjøre neste gang:
 
-
 - Fikse MVC, altså filstrukturen. Få relevant kode inn i deres allegerte plass
-
 
 - Lage entity kontroller
 
-
 * Hva skal vi gjøre neste gang
-
 
 - Lage flere sprites til player + enemys
 
-
 - Implementere healthbar og toolslot i GameScreen.
 
-
--
-
-
+- 
 
 
 # 24.03.25: Emil, Martin, Vemund, Daniel
 
-
 * Hva gjorde vi
 
-
-- Fikset filstruktur og fikk laget litt mer tester.
-
+- Fikset filstruktur og fikk laget litt mer tester. 
 
 - Implementerte entity kontroller
-
 
 - Implementert healthbar og toolslot i GameScreen
 
 
-
-
 * Hva skal vi gjøre neste gang
-
 
 - Begynne på dynamisk Healthbar koblet opp til livet til spilleren.
 
-
 # 26.03.25: Emil, Martin, Vemund, Daniel
 
-
 * Hva gjorde vi
-
 
 - Begynt på dynamisk Healthbar koblet opp til livet til spilleren.
 
-
 * Hva skal vi gjøre neste gang
-
 
 - Starte å jobbe på egne klasser for spiller og enemies
 
-
 # 27.03.25: Emil, Martin, Vemund, Daniel
 
-
 * Hva gjorde vi
-
 
 - Jobbet med egne klasser for spiller og enemies
 
-
 - Fikset litt på grafikken for gøy og lagde flere metoder for entity interfacet
-
 
 - Jobbed med GameScreen for å implementere nye endringene for Player klassen
 
-
 - smp endringer og fiksing av tester
-
 
 - Implementert Healthbar, samsvarer med playerhealth
 
-
 - Lagt til bakgrunn på healthbar og tallene på healthbar
-
 
 - Lagt til sound effect når du tar skade.
 
-
 - Fikset krasj ved map-bytte ved å filtrere duplikate punkter i ChainShape
-
 
 * Hva skal vi gjøre neste gang
 
-
 # 07.04.25: Emil, Martin, Vemund, Daniel
 
-
 * Hva gjorde vi
+
 
 
 - Ryddet opp i gameScreen. Laget ny klasse for å lage player, og ny klassse for å render spillet.
@@ -383,24 +313,18 @@ Videreutvikle funksjoner i spillet:
 - startet å jobbe med å få fiender til å bevege seg
 - startet å jobbe med fienders angrep
 
-
 * Hva skal vi gjøre neste gang
-
 
 - Jobbe videre med enemys, slik at de kan angripe + bevege seg
 - Kategorisere enemys, slik at vi kan gi dem ulike egenskaper
 - Finpusse kode, dele den mer opp
 - Starte implementasjonen av items
 
-
 # 09.04.25: Emil, Martin, Vemund, Daniel
-
 
 * Hva gjorde vi
 
-
 - Fysisk møte med hele gruppen hvor vi delte ideer og implementerte dette
-
 
 - Fikset slik at vi kan lage ulike enemys på map
 - At de kan ha ulik mengde liv ut i fra hvilke enemy de er
@@ -410,44 +334,43 @@ Videreutvikle funksjoner i spillet:
 - Prøvde oss på items
 - Fått inn at enemys kan bevege seg mot player + angripe
 
-
 * Hva skal vi gjøre neste gang
-
 
 - Fortsette på dannelsen av items
 - Fortsette med UI (inventory + health + tiledmap)
 - Fikse map change, ettersom det krasjet
--
-
+- 
 
 # 10.04.25: Emil, Martin, Vemund, Daniel
 
-
 * Hva gjorde vi
-
 
 - Satt fysisk sammen, hele gruppen
 - Litt programmering hver for oss med felles møter, etterfulgt av parprogrammering på noen ac pcéne
-
 
 - Fått til å lage en boss
 - Forbedret UI, healthbar til player og enemy´s
 - Satt lenge med items. Prøver å implementere det på en måte som minner om dannelsen av characters
 - Fikse map change, ettersom det krasjet
 
+* Hva skal vi gjøre neste gang
+
+-
+
+
 
 # Prosjektrapport/Oppsumering:
 
-
 `Hva har fungert bra?`
-* Parprogrammering: Vi har jobbet godt sammen to og to. Når vi jobber i par så utfyller vi kunnskapen til hverandre og det er lettere å komme til gode løsninger.
+* Parprogrammering: Vi har jobbet godt sammen to og to. Når vi jobber i par så utfyller   vi kunnskapen til hverandre og det er lettere å komme til gode løsninger.
+
 * Dele opp arbeidsoppgaver og forklare hva vi har gjort til hverandre. 
+
 * Vi har fått jobbet en god del og er fornøyde med det vi har klart så langt.
 
 
 `Hva gikk dårlig`
 * Vi laget en del tester, men mangler litt når det kommer til coverage. Vi skal bli flinkere til å lage tester både før vi jobber og mens vi jobber.
-
 
 `Dette har vi fikset siden sist`
 * MVC: vi har satt opp en bedre struktur i koden.
@@ -458,31 +381,14 @@ Videreutvikle funksjoner i spillet:
 * Map: Fikset rendering av mappet, oppdatert hvordan mappet ser ut og laget et boss map.
 * Tester:
 
-
-
-
 `Oppsumering:`
 * Rollene vi har er litt for spesifikke. Vi gjør masse mer enn hva bare de rollene sier. Emil som har map-tester for eksempel gjør mye mer enn bare det, så navnet på rollen er ikke helt optimal. Det samme gjelder for pixel art-rollen. Vi har ferdigstilt MVP som vårt mål vi satte oss sist, og forbedret spillet en god del videre. Vi har fått en god struktur i koden og implementert MVC. 
 
 
 `Forbedringer til neste sprint:`
-* Flere fiender, blant annet fiender som kan skyte.
-* Flere bosser:
-* Vidreutvikle mappet: Vi har nå laget et start map og første bossfight, men vi vil videreutvikle slik at vi kommer til flere maps og flere bossfights.
-* Powerups og items: Vi vil ha flere Items vi kan legge til slik at vi kan oppgradere spilleren mere. 
-* Klart nål for spillet og en klar slutt. Det skal være tydelig hva målet for spilleren er. Hvorfor er han på eventyr og hvordan ender eventyret.
-
-
-
-
-
-
-
-
-
-
-
-
+* Ferdigstille MVP
+* Spillet skal være gjennomførbart og skal kunne spilles som et spill. Det skal ha et sluttmål med utfordringer underveis. Få inn animasjoner, fiender og måter å angripe på. Dette skal være en god base som vi skal kunne viderebygge på. (En bedre versjon av MVP)
+* Flinkere til å notere underveis, altså møte-referat, trello og skrive ned nye mål.
 
 
 
