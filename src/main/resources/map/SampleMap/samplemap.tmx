@@ -1959,7 +1959,7 @@
    </properties>
    <point/>
   </object>
-  <object id="970" name="Knife" x="1280" y="2080">
+  <object id="970" name="Knife" x="1295.84" y="2033.94">
    <properties>
     <property name="Type" value="ATTACK"/>
    </properties>
