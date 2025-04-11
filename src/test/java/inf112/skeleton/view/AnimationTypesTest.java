@@ -40,4 +40,4 @@ public class AnimationTypesTest {
         assertEquals(1, AnimationTypes.SOLDIER_LEFT.getRowIndex());
         assertEquals(2, AnimationTypes.SOLDIER_RIGHT.getRowIndex());
     }
-} 
+}
