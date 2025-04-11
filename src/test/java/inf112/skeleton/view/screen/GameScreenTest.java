@@ -1,5 +1,11 @@
 package inf112.skeleton.view.screen;
 
-public class GameScreenTest {
-    
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+class GameScreenTest {
+    @Test
+    void testSkeleton() {
+        assertTrue(true);
+    }
 }
