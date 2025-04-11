@@ -17,7 +17,7 @@ public enum ItemType {
 public static Texture getItemTexture(ItemType itemType) {
   switch (itemType) {
     case HEALTH:
-      return new Texture("mario.jpeg");
+      return new Texture("heart.png");
     case SPEED:
       return new Texture("speed.png");
     case ATTACK:

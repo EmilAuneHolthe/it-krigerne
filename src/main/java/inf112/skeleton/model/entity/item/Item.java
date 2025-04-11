@@ -27,8 +27,8 @@ public class Item extends GameEntity{
     this.y = y;
   }
   public void render(SpriteBatch batch) {
-    float spriteWidth = 1.0f; // Set the desired width
-    float spriteHeight = 1.0f; // Set the desired height
+    float spriteWidth = 0.5f; // Set the desired width
+    float spriteHeight = 0.5f; // Set the desired height
     batch.draw(itemTexture, x - spriteWidth / 2, y - spriteHeight / 2, spriteWidth, spriteHeight);
   }
   @Override
