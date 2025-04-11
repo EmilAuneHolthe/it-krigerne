@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.enemy.Enemy;
+import inf112.skeleton.model.entity.item.Item;
 import inf112.skeleton.model.entity.player.CharacterType;
 import inf112.skeleton.model.entity.player.Player;
 import inf112.skeleton.model.map.Map;
@@ -48,6 +49,7 @@ public class GameRenderer implements Disposable, MapListener {
     private boolean showDebug = false;
     private Array<Enemy> enemies;
     private debug debug;
+    private Array<Item> items;
 
     public GameRenderer(final GamePanel context) {
         viewport = context.getViewport();
@@ -55,7 +57,7 @@ public class GameRenderer implements Disposable, MapListener {
         spriteBatch = context.getSpriteBatch();
         player = context.getPlayer();
         enemies = context.getEnemy();
-
+        items = context.getItems();
         mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, spriteBatch);
         context.getMapManager().addListener(this);
 
@@ -135,6 +137,11 @@ public class GameRenderer implements Disposable, MapListener {
                             if(showDebug) {
                                 debug.enemyDebug(enemy);
                             }
+                        }
+                    }
+                    if(items != null) {
+                        for (Item item : items) {
+                            item.render(spriteBatch);
                         }
                     }
                     spriteBatch.end();
@@ -255,6 +262,9 @@ public class GameRenderer implements Disposable, MapListener {
     }
     public void updateEnemy(Array<Enemy> enemies) {
         this.enemies = enemies;
+    }
+    public void updateItem(Array<Item> items) {
+        this.items = items;
     }
     @Override
     public void dispose() {

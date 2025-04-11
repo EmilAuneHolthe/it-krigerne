@@ -15,6 +15,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 import inf112.skeleton.model.entity.enemy.EnemySpawn;
+import inf112.skeleton.model.entity.item.ItemSpawn;
+import inf112.skeleton.model.entity.item.ItemType;
 import inf112.skeleton.model.entity.player.CharacterType;
 
 public class Map {
@@ -22,11 +24,13 @@ public class Map {
   public static final String TAG = Map.class.getSimpleName();
   private final Array<CollisionArea> collisionAreas;
   private final ArrayList<EnemySpawn>  enemySpawn;
+  private final ArrayList<ItemSpawn> itemSpawn;
   
   public Map(TiledMap tiledMap) {
     this.tiledMap = tiledMap;
     collisionAreas = new Array<CollisionArea>();
     enemySpawn = findEnemySpawn();
+    itemSpawn = findItemSpawn();
     getCollisionLayer();
   }
 
@@ -110,6 +114,19 @@ public class Map {
           }
           return enemySpawns;
         }
+        private ArrayList<ItemSpawn> findItemSpawn() {
+          ArrayList<ItemSpawn> itemSpawns = new ArrayList<>();
+          MapObjects objects = tiledMap.getLayers().get("Items").getObjects();
+          for (final MapObject object : objects) {
+            final RectangleMapObject spawn = (RectangleMapObject) object;
+            final Rectangle rectangle = spawn.getRectangle();
+            Gdx.app.debug(TAG, "Item spawn found at: " + rectangle.x + ", " + rectangle.y);
+            ItemType itemType = ItemType.valueOf(spawn.getProperties().get("Type").toString().toUpperCase());
+            Vector2 position = new Vector2(rectangle.x, rectangle.y);
+            itemSpawns.add(new ItemSpawn(position, itemType));
+          }
+          return itemSpawns;
+        }
 
   public Vector2 getPlayerSpawn() {
     return findPlayerSpawnVector2("Player");
@@ -123,5 +140,8 @@ public ArrayList<EnemySpawn> getEnemySpawn() {
 }
 public Vector2 getBossSpawn(){
   return findPlayerSpawnVector2("Boss");
+}
+public ArrayList<ItemSpawn> getItemSpawn() {
+  return itemSpawn;
 }
 }

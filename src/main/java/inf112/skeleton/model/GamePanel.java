@@ -29,6 +29,7 @@ import inf112.skeleton.audio.AudioHandler;
 import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.entity.enemy.Enemy;
+import inf112.skeleton.model.entity.item.Item;
 import inf112.skeleton.model.entity.player.Player;
 import inf112.skeleton.model.entity.player.PlayerInteractions;
 import inf112.skeleton.model.map.MapManager;
@@ -68,6 +69,8 @@ public class GamePanel extends Game {
     private Player player;
     private Array<Enemy> enemies;
     private PlayerInteractions playerInteractions;
+    private Array<Item> items;
+    
     
     @Override
     public void create() {
@@ -131,6 +134,12 @@ public class GamePanel extends Game {
     }
     public Array<Enemy> getEnemy() {
         return enemies;
+    }
+    public void setItems(Array<Item> items) {
+        this.items = items;
+    }
+    public Array<Item> getItems() {
+        return items;
     }
     /**
      * Resets the player by setting it to null.

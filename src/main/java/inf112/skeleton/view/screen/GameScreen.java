@@ -12,6 +12,8 @@ import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
 import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.model.entity.enemy.EnemyController;
 import inf112.skeleton.model.entity.enemy.EnemyFactory;
+import inf112.skeleton.model.entity.item.Item;
+import inf112.skeleton.model.entity.item.ItemFactory;
 import inf112.skeleton.model.entity.player.CharacterType;
 import inf112.skeleton.model.entity.player.Player;
 import inf112.skeleton.model.entity.player.PlayerFactory;
@@ -154,6 +156,12 @@ public class GameScreen extends AbstractScreen implements MapListener {
         Array<Enemy> enemies = factory.createEnemiesFromMap(mapManager.getCurrentMap());
         context.setEnemy(enemies);
         gameRenderer.updateEnemy(enemies);
+    }
+    private void spawnItem() {
+        ItemFactory factory = new ItemFactory(context, world);
+        Array<Item> items = factory.createItemFromMap(mapManager.getCurrentMap());
+        context.setItems(items);
+        gameRenderer.updateItem(items);
     }
 }
 
