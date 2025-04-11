@@ -1,5 +1,7 @@
 package inf112.skeleton.model.entity.player;
 
+import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -25,6 +27,7 @@ public class Player extends GameEntity {
     private float manaRegenAccumulator = 0.0f;
     public boolean canAttack = true; 
     private int maxHealth;
+    private boolean hasKey = false;
     private PlayerInteractions playerInteractions;
 
     public Player(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType, KeyHandler keyHandler) {
@@ -73,6 +76,14 @@ public class Player extends GameEntity {
             animation.setDirection(movement.getDirection());
         }
         if (key == Keys.INTERACT) {
+            if (hasKey) {
+                float playerX = body.getPosition().x * UNIT_SCALE;
+                float playerY = body.getPosition().y * UNIT_SCALE;
+        
+                if (playerX >= 2308 && playerX <= 2334 && playerY >= 770 && playerY <= 862) {
+                    context.get();
+                }
+            }
             playerInteractions.pickUpItem(this, context.getItems());
         }
     }
@@ -235,8 +246,11 @@ public class Player extends GameEntity {
             mana += 50;
         } else if (action.equals("AttackDMG")) {
             this.damage += 10;
-        } else if (action.equals("Speed")) {
-            //unimplemented
+        } else if (action.equals("key")) {
+            hasKey = true;
         }
+    }
+    public boolean hasKey() {
+        return hasKey;
     }
 }

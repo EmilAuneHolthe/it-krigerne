@@ -74,17 +74,6 @@ public class GameScreen extends AbstractScreen implements MapListener {
         // Test map switching - should be moved to a proper input handler
         if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
             playerInteractions.attackEnemy(player, enemies);
-        } else if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-            mapManager.setMap(MapType.MAP_2);
-            mapChanger.removeObjects(world, mapManager.getCurrentMap(), enemies);
-            enemies.clear();
-            context.setEnemy(enemies);
-            mapChanger.movePlayer(world, mapManager.getCurrentMap(), player);
-            spawnEnemy();
-            enemies = context.getEnemy();
-            enemyController.updateEnemies(enemies);
-            spawnItem();
-            items = context.getItems(); 
         }
         else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             gameRenderer.setShowDebug(!gameRenderer.isShowDebug());
@@ -167,6 +156,17 @@ public class GameScreen extends AbstractScreen implements MapListener {
         context.setItems(items);
         gameRenderer.updateItem(items);
     }
+    public void changemap() {
+        mapManager.setMap(MapType.MAP_2);
+        mapChanger.removeObjects(world, mapManager.getCurrentMap(), enemies);
+        enemies.clear();
+        context.setEnemy(enemies);
+        mapChanger.movePlayer(world, mapManager.getCurrentMap(), player);
+        spawnEnemy();
+        enemies = context.getEnemy();
+        enemyController.updateEnemies(enemies);
+        spawnItem();
+        }
 }
 
 

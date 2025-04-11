@@ -43,8 +43,9 @@ public class PlayerInteractions {
 public void pickUpItem(Player player, Array<Item> items) {
   for (Item item : items) {
     if (player.getPosition().dst(item.getPosition()) < 1.0f) {
-      item.remove();
       player.pickUpItem(item.getItemType());
+      item.remove();
+      items.removeValue(item, true);
     }
   }
 }

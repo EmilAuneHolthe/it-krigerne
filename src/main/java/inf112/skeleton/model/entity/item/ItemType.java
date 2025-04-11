@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public enum ItemType {
   HEALTH("health"),
-  SPEED("speed"),
+  KEY("key"),
   ATTACK("attack"),
   MANA("mana");
 
@@ -18,8 +18,8 @@ public static Texture getItemTexture(ItemType itemType) {
   switch (itemType) {
     case HEALTH:
       return new Texture("heart.png");
-    case SPEED:
-      return new Texture("speed.png");
+    case KEY:
+      return new Texture("key.png");
     case ATTACK:
       return new Texture("attack.png");
     case MANA:
@@ -34,8 +34,8 @@ public static String getItemAction(ItemType itemType) {
   switch (itemType) {
     case HEALTH:
       return "Heal";
-    case SPEED:
-      return "Speed";
+    case KEY:
+      return "key";
     case ATTACK:
       return "AttackDMG";
     case MANA:

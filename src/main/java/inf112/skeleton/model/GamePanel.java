@@ -32,7 +32,9 @@ import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.model.entity.item.Item;
 import inf112.skeleton.model.entity.player.Player;
 import inf112.skeleton.model.entity.player.PlayerInteractions;
+import inf112.skeleton.model.map.MapChanger;
 import inf112.skeleton.model.map.MapManager;
+import inf112.skeleton.model.map.MapType;
 import inf112.skeleton.view.GameRenderer;
 import inf112.skeleton.view.screen.*; 
 public class GamePanel extends Game {
@@ -238,5 +240,4 @@ public class GamePanel extends Game {
     public void setPlayerInteractions(PlayerInteractions playerInteractions) {
         this.playerInteractions = playerInteractions;
     }
-
 }

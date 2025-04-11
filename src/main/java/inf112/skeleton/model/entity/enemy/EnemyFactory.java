@@ -26,7 +26,8 @@ public class EnemyFactory {
             Enemy enemy = createEnemy(
                 spawn.getPosition().x * GamePanel.UNIT_SCALE,
                 spawn.getPosition().y * GamePanel.UNIT_SCALE,
-                spawn.getCharacterType()
+                spawn.getCharacterType(),
+                spawn.getName()
             );
             enemies.add(enemy);
         }
