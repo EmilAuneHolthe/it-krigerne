@@ -20,7 +20,7 @@ public class AnimationTypesTest {
         assertEquals("Player/Atlas/SoldierWalking3.atlas", AnimationTypes.SOLDIER_DOWN.getAtlasPath());
         assertEquals("Player/Atlas/HeroWalking.atlas", AnimationTypes.HERO_DOWN.getAtlasPath());
         assertEquals("Player/Atlas/OldWalking.atlas", AnimationTypes.OLD_DOWN.getAtlasPath());
-        assertEquals("Player/Atlas/ZombieWalking.atlas", AnimationTypes.ZOMBIE_DOWN.getAtlasPath());
+        assertEquals("Player/Atlas/zombie.atlas", AnimationTypes.ZOMBIE_DOWN.getAtlasPath());
     }
 
     @Test
