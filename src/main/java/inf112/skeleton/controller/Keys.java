@@ -15,7 +15,14 @@ public enum Keys {
 
     //Player interaction keys
     INTERACT (Input.Keys.E, Input.Keys.ENTER),
-    ATTACK (Input.Keys.F);
+    ATTACK (Input.Keys.F),
+    
+    //Item keys
+    NUM_1 (Input.Keys.NUM_1),
+    NUM_2 (Input.Keys.NUM_2),
+    NUM_3 (Input.Keys.NUM_3),
+    NUM_4 (Input.Keys.NUM_4),
+    USE_ITEM (Input.Keys.Q);
 
     final int[] keyCode;
     

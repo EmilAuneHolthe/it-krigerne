@@ -25,18 +25,24 @@ public enum EnemyTypes {
         throw new IllegalArgumentException("No enemy type found with name: " + name);
     }
     public static int getEnemyHealth(CharacterType type) {
+        if (type == null) {
+            throw new IllegalArgumentException("CharacterType cannot be null");
+        }
         switch (type) {
             case SKELETON:
                 return 100;
             case ZOMBIE:
-                return 50  ;
+                return 50;
             case BOSS:
                 return 500;
             default:
                 throw new IllegalArgumentException("Unknown enemy type: " + type);
         }
-      }
-      public static int getEnemyDamage(CharacterType type) {
+    }
+    public static int getEnemyDamage(CharacterType type) {
+        if (type == null) {
+            throw new IllegalArgumentException("CharacterType cannot be null");
+        }
         switch (type) {
             case SKELETON:
                 return 25;
@@ -49,6 +55,9 @@ public enum EnemyTypes {
         }
     }
     public static int getEnemySight(CharacterType type) {
+        if (type == null) {
+            throw new IllegalArgumentException("CharacterType cannot be null");
+        }
         switch (type) {
             case SKELETON:
                 return 8;

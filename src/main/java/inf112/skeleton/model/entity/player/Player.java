@@ -13,6 +13,7 @@ import inf112.skeleton.controller.Keys;
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.GameEntity;
 import inf112.skeleton.model.entity.enemy.Enemy;
+import inf112.skeleton.model.entity.item.Item;
 import inf112.skeleton.model.entity.item.ItemType;
 import inf112.skeleton.view.screen.GameScreen;
 import inf112.skeleton.view.screen.ScreenType;
@@ -24,12 +25,14 @@ public class Player extends GameEntity {
     protected boolean alive;
     private int mana;
     private int maxMana;
-    private float manaRegenRate = 5.0f; // Mana per second
+    private float manaRegenRate = 10f; // Mana per second
     private float manaRegenAccumulator = 0.0f;
     public boolean canAttack = true; 
     private int maxHealth;
     private boolean hasKey = false;
     private PlayerInteractions playerInteractions;
+    private final Item[] items;
+    private int selectedItemIndex;
 
     public Player(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType, KeyHandler keyHandler) {
         super(context, world, body, health, damage, characterType);
@@ -40,6 +43,8 @@ public class Player extends GameEntity {
         this.maxMana = 100;
         this.playerInteractions = new PlayerInteractions(context);
         maxHealth = health;
+        items = new Item[4]; // 4 slots for items
+        selectedItemIndex = 0;
     }
     
     @Override
@@ -66,10 +71,25 @@ public class Player extends GameEntity {
             return;
         }
         
-        if (key == Keys.ATTACK && canAttack) {
-            if (mana >= 20) {
+        // Handle item selection
+        if (key == Keys.NUM_1) {
+            selectItem(0);
+        } else if (key == Keys.NUM_2) {
+            selectItem(1);
+        } else if (key == Keys.NUM_3) {
+            selectItem(2);
+        } else if (key == Keys.NUM_4) {
+            selectItem(3);
+        }
+        // Handle item usage
+        else if (key == Keys.USE_ITEM) {
+            useSelectedItem();
+        }
+        // Handle other inputs
+        else if (key == Keys.ATTACK && canAttack) {
+            if (mana >= 30) {
                 animation.startAttack();
-                mana -= 20;
+                mana -= 30;
             }
         } else {
             movement.handleInput(key);
@@ -230,22 +250,101 @@ public class Player extends GameEntity {
         this.manaRegenRate = manaRegenRate;
     }
     public void pickUpItem(ItemType itemType) {
-        String action = ItemType.getItemAction(itemType);
-        if (action.equals("Heal")) {
-            health += 20;
-            if(health > maxHealth) {
-                health = maxHealth;
+        if (itemType == null) {
+            Gdx.app.log("Player", "Cannot pick up null item type");
+            return;
+        }
+        
+        // Create a new item instance
+        Item newItem = new Item(context, world, itemType, 0, 0);
+        
+        // Add the item to inventory
+        addItem(newItem);
+    }
+
+    private void addItem(Item item) {
+        if (item == null) {
+            Gdx.app.log("Player", "Cannot add null item");
+            return;
+        }
+
+        // Try to find an empty slot
+        for (int i = 0; i < items.length; i++) {
+            if (items[i] == null) {
+                items[i] = item;
+                Gdx.app.log("Player", "Added item to slot " + i);
+                return;
             }
-        } else if (action.equals("maxMana")) {
-            maxMana += 50;
-            mana += 50;
-        } else if (action.equals("AttackDMG")) {
-            this.damage += 100;
-        } else if (action.equals("key")) {
-            hasKey = true;
+        }
+
+        // If no empty slot, replace the selected slot
+        if (selectedItemIndex >= 0 && selectedItemIndex < items.length) {
+            items[selectedItemIndex] = item;
+            Gdx.app.log("Player", "Replaced item in slot " + selectedItemIndex);
+        } else {
+            Gdx.app.log("Player", "No available slots for item");
         }
     }
+
+    public void useSelectedItem() {
+        if (selectedItemIndex < 0 || selectedItemIndex >= items.length) {
+            Gdx.app.log("Player", "Invalid selected item index");
+            return;
+        }
+
+        Item item = items[selectedItemIndex];
+        if (item == null) {
+            Gdx.app.log("Player", "No item in selected slot");
+            return;
+        }
+
+        // Apply item effects
+        switch (item.getItemType()) {
+            case HEALTH:
+                setHealth(Math.min(health + 20, maxHealth));
+                break;
+            case MANA:
+                mana = Math.min(mana + 20, maxMana);
+                manaRegenRate += 5f;
+                break;
+            case ATTACK:
+                damage += 5;
+                break;
+            case KEY:
+                hasKey = true;
+                break;
+        }
+
+        // Remove the used item
+        items[selectedItemIndex] = null;
+        Gdx.app.log("Player", "Used and removed item from slot " + selectedItemIndex);
+    }
+
     public boolean hasKey() {
         return hasKey;
+    }
+
+    public Item[] getItems() {
+        return items;
+    }
+
+    public void removeItem(int index) {
+        if (index >= 0 && index < items.length) {
+            items[index] = null;
+        }
+    }
+
+    public void selectItem(int index) {
+        if (index >= 0 && index < items.length) {
+            selectedItemIndex = index;
+        }
+    }
+
+    public Item getSelectedItem() {
+        return items[selectedItemIndex];
+    }
+
+    public int getSelectedItemIndex() {
+        return selectedItemIndex;
     }
 }

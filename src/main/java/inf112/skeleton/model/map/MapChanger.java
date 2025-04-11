@@ -15,7 +15,9 @@ public class MapChanger {
 
   public void removeObjects(World world, Map map, Array<Enemy> enemies) {
     for (Enemy enemy : enemies) {
-      world.destroyBody(enemy.getBody());
+      if (enemy.getBody() != null) {
+        world.destroyBody(enemy.getBody());
+      }
       enemy.dispose();
     }
   }

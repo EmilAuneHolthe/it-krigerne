@@ -52,4 +52,7 @@ public class Item extends GameEntity{
   public void remove() {
     context.getItems().removeValue(this, true);
   }
+  public Texture getTexture() {
+    return itemTexture;
+  }
 }
