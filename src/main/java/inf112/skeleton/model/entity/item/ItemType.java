@@ -43,4 +43,17 @@ public static String getItemAction(ItemType itemType) {
   }
   return "Heal";
 }
+public static float getItemSize(ItemType itemType) {
+  switch (itemType) {
+    case HEALTH:
+      return 0.5f;
+    case KEY:
+      return 0.75f;
+    case ATTACK:
+      return 0.5f;
+    case MANA:
+      return 0.75f;
+  }
+  return 0.5f;
+}
 }

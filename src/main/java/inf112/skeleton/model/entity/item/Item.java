@@ -3,7 +3,6 @@ package inf112.skeleton.model.entity.item;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.skeleton.model.GamePanel;
@@ -12,8 +11,6 @@ import inf112.skeleton.model.entity.GameEntity;
 public class Item extends GameEntity{
   private ItemType itemType;
   private GamePanel context;
-  private World world;
-  private Body body;
   private Texture itemTexture;
   private float x;
   private float y;
@@ -27,8 +24,8 @@ public class Item extends GameEntity{
     this.y = y;
   }
   public void render(SpriteBatch batch) {
-    float spriteWidth = 0.5f; // Set the desired width
-    float spriteHeight = 0.5f; // Set the desired height
+    float spriteWidth = ItemType.getItemSize(itemType);
+    float spriteHeight = ItemType.getItemSize(itemType);
     batch.draw(itemTexture, x - spriteWidth / 2, y - spriteHeight / 2, spriteWidth, spriteHeight);
   }
   @Override
