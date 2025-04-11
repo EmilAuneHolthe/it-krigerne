@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="26" nextobjectid="963">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="26" nextobjectid="965">
  <tileset firstgid="1" source="[A]WaterFall_pipo.tsx"/>
  <tileset firstgid="577" name="[Base]BaseChip_pipo" tilewidth="32" tileheight="32" tilecount="1064" columns="8">
   <image source="[Base]BaseChip_pipo.png" width="256" height="4256"/>
@@ -1285,6 +1285,18 @@
    </properties>
    <point/>
   </object>
+  <object id="963" x="1568" y="864">
+   <properties>
+    <property name="Type" value="OLD"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="964" x="1632" y="864">
+   <properties>
+    <property name="Type" value="OLD"/>
+   </properties>
+   <point/>
+  </object>
  </objectgroup>
  <objectgroup id="21" name="Collision">
   <object id="556" x="672" y="672" width="32" height="32"/>
@@ -1923,9 +1935,9 @@
 </data>
  </layer>
  <objectgroup id="20" name="Items">
-  <object id="961" x="1888" y="1472">
+  <object id="961" x="1600" y="768">
    <properties>
-    <property name="Type" value="HEALTH"/>
+    <property name="Type" value="Mana"/>
    </properties>
    <point/>
   </object>

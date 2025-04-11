@@ -229,11 +229,10 @@ public class Player extends GameEntity {
         System.out.println("Picked up item: " + itemType);
         String action = ItemType.getItemAction(itemType);
         if (action.equals("Heal")) {
-            maxHealth += 50;
-            health += 50;
+            health += 20;
         } else if (action.equals("maxMana")) {
             maxMana += 50;
-            mana = maxMana;
+            mana += 50;
         } else if (action.equals("AttackDMG")) {
             this.damage += 10;
         } else if (action.equals("Speed")) {

@@ -33,7 +33,7 @@ public class EnemyFactory {
         return enemies;
     }
     
-    public Enemy createEnemy(float x, float y, CharacterType characterType) {
+    public Enemy createEnemy(float x, float y, CharacterType characterType, String name) {
         // Create enemy body
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -56,7 +56,7 @@ public class EnemyFactory {
         shape.dispose();
         
         // Create and return enemy
-        return new Enemy(context, world, body, characterType);
+        return new Enemy(context, world, body, characterType, name);
     }
 
     public Body createEnemyBody(float x, float y) {
