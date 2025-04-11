@@ -234,6 +234,9 @@ public class Player extends GameEntity {
         String action = ItemType.getItemAction(itemType);
         if (action.equals("Heal")) {
             health += 20;
+            if(health > maxHealth) {
+                health = maxHealth;
+            }
         } else if (action.equals("maxMana")) {
             maxMana += 50;
             mana += 50;
