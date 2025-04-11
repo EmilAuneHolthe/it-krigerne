@@ -230,7 +230,6 @@ public class Player extends GameEntity {
         this.manaRegenRate = manaRegenRate;
     }
     public void pickUpItem(ItemType itemType) {
-        System.out.println("Picked up item: " + itemType);
         String action = ItemType.getItemAction(itemType);
         if (action.equals("Heal")) {
             health += 20;

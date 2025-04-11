@@ -76,9 +76,10 @@ public class Enemy extends GameEntity {
                 world.destroyBody(body);
                 // Remove from the enemy list
                 context.getEnemy().removeIndex(index);
-                System.out.println("Enemy removed from list: " + name);
                 if( characterType == CharacterType.BOSS) {
                     System.out.println("Boss defeated!");
+                    // Handle boss defeat logic here
+                    //context.setGameState(GamePanel.GameState.WIN);
                 }
             }
         }
@@ -149,7 +150,6 @@ public class Enemy extends GameEntity {
     }
 
     public int getDamage() {
-        System.out.println("Damage: " + damage);
         return damage;
     }
 
