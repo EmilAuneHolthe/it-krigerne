@@ -72,7 +72,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
         if(player.hasKey()){
             float playerX = player.getBody().getPosition().x ;
             float playerY = player.getBody().getPosition().y ;
-            if (playerX >= 72.4 && playerX <= 72.6 && playerY >= 75.3 && playerY <= 75.5){
+            if (playerX >= 70.4 && playerX <= 72.6 && playerY >= 75.3 && playerY <= 75.5){
             changeMap();
         }
     }

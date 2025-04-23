@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.entity.player.CharacterType;
 
 public class MapManager {
     private static final String TAG = MapManager.class.getSimpleName();
@@ -73,7 +74,8 @@ public class MapManager {
         }
 
         currentMapType = type;
-        spawnCollisionsAreas();
+        spawnCollisionsAreas("Collision");
+        spawnCollisionsAreas("Door");
 
         for (final MapListener listener : listners) {
             listener.mapChanged(currentMap);
@@ -94,18 +96,33 @@ public class MapManager {
         bodies.removeAll(toRemove, true);
         Gdx.app.debug(TAG, "Destroyed " + toRemove.size + " GROUND bodies");
     }
-
+    private void destroyDoorCollisionAreas() {
+        Array<Body> toRemove = new Array<>();
+        for (final Body body : bodies) {
+            if ("DOOR".equals(body.getUserData())) {
+                world.destroyBody(body);
+                toRemove.add(body);
+            }
+        }
+        bodies.removeAll(toRemove, true);
+        Gdx.app.debug(TAG, "Destroyed " + toRemove.size + " DOOR bodies");
+    }
     /**
      * Oppretter kollisjonsobjekter i verden basert på CollisionAreas i det nåværende kartet.
      * Sikrer at duplikate/nære punkter ikke fører til Box2D-krasj.
      */
-    private void spawnCollisionsAreas() {
+    private void spawnCollisionsAreas(String layer) {
         GamePanel.resetBodyAndFixtureDefinition();
-        for (final CollisionArea collisionArea : currentMap.getColissionAreas()) {
+        for (final CollisionArea collisionArea : currentMap.getColissionAreas(layer)) {
             GamePanel.BODY_DEF.position.set(collisionArea.getX(), collisionArea.getY());
             GamePanel.BODY_DEF.fixedRotation = true;
             final Body body = world.createBody(GamePanel.BODY_DEF);
-            body.setUserData("GROUND");
+            if(layer.equals("Door")){
+                body.setUserData("DOOR");
+            }
+            else{
+                body.setUserData("GROUND");
+            }
 
             GamePanel.FIXTURE_DEF.filter.categoryBits = GamePanel.BIT_GROUND;
             GamePanel.FIXTURE_DEF.filter.maskBits = -1;
@@ -136,7 +153,6 @@ public class MapManager {
             bodies.add(body);
         }
     }
-
     /**
      * Henter det nåværende kartet.
      *

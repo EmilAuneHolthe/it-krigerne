@@ -22,30 +22,30 @@ import inf112.skeleton.model.entity.player.CharacterType;
 public class Map {
   private final TiledMap tiledMap;
   public static final String TAG = Map.class.getSimpleName();
-  private final Array<CollisionArea> collisionAreas;
+  private Array<CollisionArea> collisionAreas;
   private final ArrayList<EnemySpawn>  enemySpawn;
   private final ArrayList<ItemSpawn> itemSpawn;
   
   public Map(TiledMap tiledMap) {
+    this.collisionAreas = new Array<>();
     this.tiledMap = tiledMap;
-    collisionAreas = new Array<CollisionArea>();
     enemySpawn = findEnemySpawn();
     itemSpawn = findItemSpawn();
-    getCollisionLayer();
+    collisionAreas = getCollisionLayer(collisionAreas, "Collision");
   }
 
-  private void getCollisionLayer() {
-    MapLayer collisionLayer = tiledMap.getLayers().get("Collision");
+  private Array<CollisionArea> getCollisionLayer(Array<CollisionArea> collisionAreas, String layerName) {
+    MapLayer collisionLayer = tiledMap.getLayers().get(layerName);
     
     if (collisionLayer == null) {
       Gdx.app.error(TAG, "Collision layer not found! Ensure 'collision' layer exists in the map.");
-      return;
+      return null;
     
     }
     final MapObjects mapObjects = collisionLayer.getObjects();
     if(mapObjects == null) {
       Gdx.app.error(TAG, "No collision objects found in 'collision' layer!");
-      return;
+      return null;
     }
 
     for(final MapObject mapObject : mapObjects) {
@@ -82,11 +82,12 @@ public class Map {
         Gdx.app.debug(TAG, "Collision object not supported: " + mapObject);
       }
     }
+    return collisionAreas;
    
   }
   
-  public Array<CollisionArea> getColissionAreas() {
-    return collisionAreas;
+  public Array<CollisionArea> getColissionAreas(String layerName) {
+    return getCollisionLayer(collisionAreas, layerName);
   }
   private Vector2 findPlayerSpawnVector2(String name) {
     MapObjects objects = tiledMap.getLayers().get(name).getObjects();
@@ -140,5 +141,8 @@ public Vector2 getBossSpawn(){
 }
 public ArrayList<ItemSpawn> getItemSpawn() {
   return itemSpawn;
+}
+public float getBorders(String layer){
+  return tiledMap.getLayers().get(layer).getObjects().get(0).getProperties().get("width", Float.class);
 }
 }
