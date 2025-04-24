@@ -27,9 +27,11 @@ public static Texture getItemTexture(ItemType itemType) {
   }
   return new Texture("health.png");
 }
+
 public static String getItemType(ItemType itemType) {
   return itemType.type;
 }
+
 public static String getItemAction(ItemType itemType) {
   switch (itemType) {
     case HEALTH:
@@ -43,6 +45,7 @@ public static String getItemAction(ItemType itemType) {
   }
   return "Heal";
 }
+
 public static float getItemSize(ItemType itemType) {
   switch (itemType) {
     case HEALTH:
