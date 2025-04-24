@@ -6,6 +6,8 @@ public enum ItemType {
   HEALTH("health"),
   KEY("key"),
   ATTACK("attack"),
+  EMERALD_SWORD("sword"),
+  DIAMOND_SWORD("sword2"),
   MANA("mana");
 
   private final String type;
@@ -24,6 +26,12 @@ public static Texture getItemTexture(ItemType itemType) {
       return new Texture("knife.png");
     case MANA:
       return new Texture("mana.png");
+    case DIAMOND_SWORD:
+      return new Texture("knife.png");
+    case EMERALD_SWORD:
+      return new Texture("knife.png");
+    default:
+      break;
   }
   return new Texture("health.png");
 }
@@ -40,6 +48,12 @@ public static String getItemAction(ItemType itemType) {
       return "AttackDMG";
     case MANA:
       return "maxMana";
+    case DIAMOND_SWORD:
+      break;
+    case EMERALD_SWORD:
+      break;
+    default:
+      break;
   }
   return "Heal";
 }
@@ -53,7 +67,26 @@ public static float getItemSize(ItemType itemType) {
       return 1f;
     case MANA:
       return 0.75f;
+    case DIAMOND_SWORD:
+      break;
+    case EMERALD_SWORD:
+      break;
+    default:
+      break;
   }
   return 0.5f;
+}
+
+public static String getSwordHUDTexturePath(ItemType itemType) {
+  switch (itemType) {
+    case ATTACK:
+      return "sword.png";
+    case DIAMOND_SWORD:
+      return "sword_diamond.png";
+    case EMERALD_SWORD:
+      return "sword_emerald.png";
+    default:
+      return null;
+  }
 }
 }

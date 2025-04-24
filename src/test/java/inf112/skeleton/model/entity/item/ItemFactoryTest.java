@@ -42,7 +42,7 @@ public class ItemFactoryTest {
         
         // Set up mock item types
         when(mockSpawn1.getItemType()).thenReturn(ItemType.HEALTH);
-        when(mockSpawn2.getItemType()).thenReturn(ItemType.ATTACK);
+        when(mockSpawn2.getItemType()).thenReturn(ItemType.GOLD_SWORD);
         
         // Create array of spawns
         ArrayList<ItemSpawn> spawns = new ArrayList<>();

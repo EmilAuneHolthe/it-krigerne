@@ -12,7 +12,7 @@ class ItemTypeTest extends BaseTest {
     void testGetItemType() {
         assertEquals("health", ItemType.getItemType(ItemType.HEALTH));
         assertEquals("key", ItemType.getItemType(ItemType.KEY));
-        assertEquals("attack", ItemType.getItemType(ItemType.ATTACK));
+        assertEquals("attack", ItemType.getItemType(ItemType.GOLD_SWORD));
         assertEquals("mana", ItemType.getItemType(ItemType.MANA));
     }
     
@@ -20,7 +20,7 @@ class ItemTypeTest extends BaseTest {
     void testGetItemAction() {
         assertEquals("Heal", ItemType.getItemAction(ItemType.HEALTH));
         assertEquals("key", ItemType.getItemAction(ItemType.KEY));
-        assertEquals("AttackDMG", ItemType.getItemAction(ItemType.ATTACK));
+        assertEquals("AttackDMG", ItemType.getItemAction(ItemType.GOLD_SWORD));
         assertEquals("maxMana", ItemType.getItemAction(ItemType.MANA));
     }
     
@@ -28,7 +28,7 @@ class ItemTypeTest extends BaseTest {
     void testGetItemSize() {
         assertEquals(0.5f, ItemType.getItemSize(ItemType.HEALTH));
         assertEquals(0.75f, ItemType.getItemSize(ItemType.KEY));
-        assertEquals(1f, ItemType.getItemSize(ItemType.ATTACK));
+        assertEquals(1f, ItemType.getItemSize(ItemType.GOLD_SWORD));
         assertEquals(0.75f, ItemType.getItemSize(ItemType.MANA));
     }
     
@@ -37,13 +37,13 @@ class ItemTypeTest extends BaseTest {
         // Test that textures are loaded correctly
         assertNotNull(ItemType.getItemTexture(ItemType.HEALTH));
         assertNotNull(ItemType.getItemTexture(ItemType.KEY));
-        assertNotNull(ItemType.getItemTexture(ItemType.ATTACK));
+        assertNotNull(ItemType.getItemTexture(ItemType.GOLD_SWORD));
         assertNotNull(ItemType.getItemTexture(ItemType.MANA));
         
         // Test that textures are of the correct type
         assertTrue(ItemType.getItemTexture(ItemType.HEALTH) instanceof Texture);
         assertTrue(ItemType.getItemTexture(ItemType.KEY) instanceof Texture);
-        assertTrue(ItemType.getItemTexture(ItemType.ATTACK) instanceof Texture);
+        assertTrue(ItemType.getItemTexture(ItemType.GOLD_SWORD) instanceof Texture);
         assertTrue(ItemType.getItemTexture(ItemType.MANA) instanceof Texture);
     }
 } 

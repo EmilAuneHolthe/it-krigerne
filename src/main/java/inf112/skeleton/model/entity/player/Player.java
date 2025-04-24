@@ -308,9 +308,19 @@ public class Player extends GameEntity {
                 break;
             case ATTACK:
                 damage += 5;
-                context.updateEquippedSwordHUD("sword.png");                break;
+                String swordHUDTexture = ItemType.getSwordHUDTexturePath(item.getItemType());
+                if (swordHUDTexture != null) {
+                    context.updateEquippedSwordHUD(swordHUDTexture);
+                }
+                break;
             case KEY:
                 hasKey = true;
+                break;
+            case DIAMOND_SWORD:
+                break;
+            case EMERALD_SWORD:
+                break;
+            default:
                 break;
         }
 
