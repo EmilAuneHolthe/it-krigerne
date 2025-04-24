@@ -308,7 +308,7 @@ public class Player extends GameEntity {
                 break;
             case ATTACK:
                 damage += 5;
-                break;
+                context.updateEquippedSwordHUD("sword.png");                break;
             case KEY:
                 hasKey = true;
                 break;
@@ -345,5 +345,9 @@ public class Player extends GameEntity {
 
     public int getSelectedItemIndex() {
         return selectedItemIndex;
+    }
+
+    public GamePanel getContext() {
+        return context;
     }
 }

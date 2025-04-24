@@ -39,7 +39,8 @@ import inf112.skeleton.model.map.MapChanger;
 import inf112.skeleton.model.map.MapManager;
 import inf112.skeleton.model.map.MapType;
 import inf112.skeleton.view.GameRenderer;
-import inf112.skeleton.view.screen.*; 
+import inf112.skeleton.view.screen.*;
+import inf112.skeleton.view.ui.PlayerHUD; 
 
 public class GamePanel extends Game {
     private static final String TAG = GamePanel.class.getSimpleName();
@@ -77,6 +78,8 @@ public class GamePanel extends Game {
     private Array<Item> items;
     private MapChanger mapChanger;
     private EnemyController enemyController;
+    private PlayerHUD playerHUD;
+
     
     
     @Override
@@ -315,5 +318,15 @@ public class GamePanel extends Game {
         ItemFactory factory = new ItemFactory(this, world);
         Array<Item> newItems = factory.createItemFromMap(mapManager.getCurrentMap());
         setItems(newItems);
+    }
+
+    public void setPlayerHUD(PlayerHUD playerHUD) {
+        this.playerHUD = playerHUD;
+    }
+    
+    public void updateEquippedSwordHUD(String texturePath) {
+        if (playerHUD != null) {
+            playerHUD.updateEquippedSword(texturePath);
+        }
     }
 }
