@@ -7,7 +7,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.player.CharacterType;
-import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.map.Map;
 import com.badlogic.gdx.utils.Array;
 
