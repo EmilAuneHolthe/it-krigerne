@@ -1,7 +1,7 @@
 package inf112.skeleton.model.entity;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+
 
 import com.badlogic.gdx.physics.box2d.Body;
 import org.junit.jupiter.api.BeforeEach;
