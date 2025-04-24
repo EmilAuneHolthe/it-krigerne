@@ -30,17 +30,16 @@ public class Item extends GameEntity{
   }
   @Override
   public int attack() {
-    // TODO Auto-generated method stub
+    
     throw new UnsupportedOperationException("Unimplemented method 'attack'");
   }
   @Override
   public void die() {
-    // TODO Auto-generated method stub
+    
     throw new UnsupportedOperationException("Unimplemented method 'die'");
   }
   @Override
   protected boolean isActive() {
-    // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'isActive'");
   }
   public ItemType getItemType() {

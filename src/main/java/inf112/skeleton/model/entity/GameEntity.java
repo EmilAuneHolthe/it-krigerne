@@ -36,16 +36,16 @@ public abstract class GameEntity implements entity, Disposable {
         this.body = body;
         this.health = health;
         this.damage = damage;
-        this.x = x;
-        this.y = y;
+        
+        
         this.characterType = characterType;
-        this.keyHandler = keyHandler;
+        
         
         // Initialize components
         this.animation = new PlayerAnimation(characterType);
         this.movement = new PlayerMovement(world, body, keyHandler);
     }
-    public GameEntity(GamePanel context, World world, ItemType itemType, float x, float y) {
+    protected GameEntity(GamePanel context, World world, ItemType itemType, float x, float y) {
         this.context = context;
         this.world = world;
         this.x = x;
