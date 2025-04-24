@@ -1,4 +1,4 @@
-# Rapport – innlevering 2
+# Rapport – innlevering 3
 **Team:** *IT-Krigerne* – *Martin, Emil, Vemmund, Daniel*...
 
 ### A1: Oppsett av Git-gruppe/repo, README-fil, teamorganisering
@@ -57,7 +57,7 @@
 * Eksperimentering med rammeverk: Vi har testet ulike verktøy og biblioteker for å håndtere 2D-grafikk og spillmotor
 * Foreløpig utvikling av spillkart og bevegelsessystem
 
-Krav til MVP
+Vi har fullført kravene vi satt til MVP
 1. Vise et spillebrett
 2. Vise spiller på spillebrett
 3. Flytte spiller
@@ -65,29 +65,99 @@ Krav til MVP
 5. Kan plukke opp items
 6. Spiller interagerer med terreng
 7. Vise fiender/monstre; de skal interagere med terreng og spiller
-8. Spiller kan dø (Miste alle “healthpoints” til en fiende)
+8. Spiller kan dø (Miste alle "healthpoints" til en fiende)
 9. Mål for spillbrett (Beseire bosser)
 10. Start-skjerm ved oppstart / game over
 
-Krav og spesifikasjon ovenfor MVP:
-- Punkt 1 til 3, 6 og 10 er løst, men kan videreutvikles. Vi har ikke fått inn animasjoner, spillbrettet er ikke ferdigutviklet og vi har ingen game-over.
-- Punkt 5, 7, 8 og 9 er ikke løst. Disse punktene er høyeste prioritet fremover. Disse er basic funksjoner i spillet vårt og må være på plass.
+1. 
+Inventory-system:
 
-Brukerhistorie: Som en ny spiller ønsker jeg å forstå hvordan spillet fungerer.
-Akseptansekriterie: Controls enkelte kunne vises på main menu. Spillet skal ha enkle funksjoner i starten slik at det er lett å forstå.
-Arbeidsoppgave: Implementere controls i main menu.
+Brukerhistorie: 
+Som spiller ønsker jeg å ha en oversikt over hvilke items jeg har plukket opp, slik at jeg vet hva jeg kan bruke og når.
+
+Akseptansekriterier: 
+Når spilleren plukker opp items vises de i Inventory.
+Inventory skal alltid vises enten på bunnen av skjermen eller vises ved å f.eks trykke «I».
+Spilleren kan se «healing-potion», «mana-potion», sverd og rustning i inventory.
+Inventory skal oppdateres korrekt ved plukk opp og bruk av items.
+
+Arbeidsoppgaver:
+Lage datastruktur for Items (gjort)
+Koble når spiller plukker opp items til inventoryLage GUI som viser inventory
+Legge til logikk for bruk av items (i gang)
+
+2. 
+Bossfight
+
+Brukerhistorie: 
+Som spiller ønsker jeg en utfordrende og variert bossfight, slik at det føles som en ekte finale i spillet.
+
+Akseptansekriterier:
+Bossene har flere angrepsmønster
+Bossen beveger seg på et eget designet kart
+Kampen blir gradvis vanskeligere
+Bossen dør og utløser en klar seier når livet går til 0
+
+Arbeidsoppgaver:
+Oppdatere kartet for bossen
+Designe og implementere nye angrepsmønster
+Skrive logikk for hvordan bossen velger angrep
+Lage "triggers" og animasjoner for bossens død
+
+Kjente bugs:
+Man kan plukke opp liv selv om man har fullt liv.
+Fiender kan bli sittende fast bak gjenstander (har ikke logikk til å gå rundt)
+
+3. 
+Tydeligere mål og items
+
+Brukerhistorie: 
+Som spiller vil jeg vite hva som er målet med spillet og hva ulike items gjør, slik at jeg forstår hva jeg bør gjøre og hvorfor jeg bør plukke opp items.
+
+Akseptansekriterier:
+Spillet viser en beskjed første gang du plukker opp en nøkkel ("Denne nøkkelen gir deg tilgang til bossområdet").
+Spilleren får en kort forklaring (f.eks via tooltips, tekst eller ikonforklaring) når de plukker opp items.
+Det er en indikasjon (tekst, ikon, oppgave) på at målet er å finne nøkkelen for å komme til bossen.
+
+Arbeidsoppgaver:
+Lage en tutorialtekst eller dialogboks ved nøkkelpickup eller gamestart
+Legge til en beskrivelsesboks når spilleren plukker opp hjerte og mana-potions
+Vurdere å ha en NPC eller tavle som forklarer målet
+
+4. 
+Lage GUI for valg av karakter
+
+Brukerhistorie: 
+Som spiller ønsker jeg å kunne velge hva slags karakter jeg skal bruke før spillet begynner.
+
+Akseptansekriterier:
+Spillet viser karakteren som brukeren har valgt, og animasjoner og sprites blir satt til riktig karakter.
+
+Arbeidsoppgaver:
+Lage en meny før spillet begynner hvor brukeren kan velge karakter
+Lage GUI for valg av karakter
+Sette spillerkarakter ut ifra valget
+Prioriteringer fremover:
+Vi prioriterer funksjonalitet i spillet som gir mer dybde og variasjon i gameplay, spesielt rundt inventory og bossfight.
+Flere bugs blir loggført fortløpende
+
+
+
 
 Brukerhistorie: Som en spiller ønsker jeg å forstå tydelig hva som befinner seg på spillerbrettet.
 Akseptansekriterie: Enkle, men detaljerte sprites.
 Arbeidsoppgave: Implementere tilemap som enkelt kan endres med tydelige sprites.
 
+
 Brukerhistorie: Som en spiller ønsker jeg å kunne bevege meg opp, ned, venstre og høyre.
 Akseptansekriterie: Karakteren må kunne bevege seg i alle nødvendige retninger.
 Arbeidsoppgave: Implementere kontroller som styrer bevegelse for karakteren og gode animasjoner.
 
+
 Brukerhistorie: Spiller interagerer med terreng.
 Akseptansekriterie: Spiller skal kunne bli stoppet ved å bevege seg i vegger, fiender også videre.
 Arbeidsoppgave: Implementere box2d og få det til å fungere i samspill med hitboxes til sprites.
+
 
 ### A5: Oppsummering / retrospektiv
 
@@ -292,27 +362,43 @@ Videreutvikle funksjoner i spillet:
 # Prosjektrapport/Oppsumering:
 
 `Hva har fungert bra?`
-* God kjemi mellom gruppemedlemmene
-* Jobbet ukentlig
-* Lært masse om libgdx
-* Vi lærte om hvilke prosesser som gjøres
-* God kommunikasjon, meldinger over snapchat og dicoard er effektivt og fungerer godt.
+* Parprogrammering: Vi har jobbet godt sammen to og to. Når vi jobber i par så utfyller   vi kunnskapen til hverandre og det er lettere å komme til gode løsninger.
+
+* Dele opp arbeidsoppgaver og forklare hva vi har gjort til hverandre. 
+
+* Vi har fått jobbet en god del og er fornøyde med det vi har klart så langt.
+
 
 `Hva gikk dårlig`
-* Ikke fått jobbet så mye vi hadde ønsket, flere på gruppen hadde flere konteeksamener som har blitt prioritert de siste ukene.
-* Har ikke kommet skikkelig i gang med parprogrammeringen. Mye på grunn av at vi ikke har fått møtt hverandre like mye som vi hadde ønsket før eksamenene vi hadde. Den siste uken har parprogammeringen vært effektiv derimot.
-* Vi har ikke fått kontakt med han siste på gruppen etter flere forsøk. Ser han er fjernet fra gruppen vår på mitt Uib så vi regner med dette er tatt hånd om.
-* Box2d slet vi lenge med å få implementert og vi har ikke enda klart helt å få kollisjon funksjon inn med i spillet.
-* Ikke klart å implementere alt vi ville i fra vår MVP.
+* Vi laget en del tester, men mangler litt når det kommer til coverage. Vi skal bli flinkere til å lage tester både før vi jobber og mens vi jobber.
 
+`Dette har vi fikset siden sist`
+* MVC: vi har satt opp en bedre struktur i koden.
+* Fiender: flere forskjellige fiender inkludert en boss.
+* Animasjoner: Slå, gå og animasjoner for fiender.
+* Items: Fått et system for items, inkludert potions og keys.
+* UI: Helthbar, mana bar, deathscreen….
+* Map: Fikset rendering av mappet, oppdatert hvordan mappet ser ut og laget et boss map.
+* Tester:
 
 `Oppsumering:`
-* Vi har ikke skikkelig fått testet rollene vi har satt, da vi i starten har jobbet jevnt med forskjellige deler av spillet for å få til en grunnleggende MVP. Dette har ført til at alle har tatt på seg oppgaver utenfor sine tiltenkte roller. For eksempel har det vært utfordrende å være map-tester uten et ferdig map å teste, og det har vært vanskelig å jobbe med pixel art uten å ha grunnleggende funksjonalitet på plass i spillet. Likevel har vi tro på at de rollene vi nå har definert, er gode, og vi forventer å få mer nytte av dem fremover. Kommunikasjonen har vært god, og vi samarbeider godt. Vi er flinke til å lytte til hverandre, og alle kan komme med innspill. Spesielt har Snapchat vist seg å være en effektiv kanal for kommunikasjon. Selv om vi er fornøyde med det vi har oppnådd så langt og har lagt en solid grunnmur vi er motiverte til å bygge videre på, har vi ikke nådd alle målene vi satte for MVP. Hovedårsaken til dette er at vi hadde eksamener mellom oblig1 og oblig2, noe som begrenset tiden vi kunne bruke på prosjektet. Likevel er vi motiverte til å ta igjen den tapte tiden og jobbe for å nå målene våre så raskt som mulig.
+* Rollene vi har er litt for spesifikke. Vi gjør masse mer enn hva bare de rollene sier. Emil som har map-tester for eksempel gjør mye mer enn bare det, så navnet på rollen er ikke helt optimal. Det samme gjelder for pixel art-rollen. Vi har ferdigstilt MVP som vårt mål vi satte oss sist, og forbedret spillet en god del videre. Vi har fått en god struktur i koden og implementert MVC. 
+
 
 `Forbedringer til neste sprint:`
 * Ferdigstille MVP
 * Spillet skal være gjennomførbart og skal kunne spilles som et spill. Det skal ha et sluttmål med utfordringer underveis. Få inn animasjoner, fiender og måter å angripe på. Dette skal være en god base som vi skal kunne viderebygge på. (En bedre versjon av MVP)
 * Flinkere til å notere underveis, altså møte-referat, trello og skrive ned nye mål.
+
+`Klassediagram:`
+![klassediagram](src/main/resources/Klassediagram.png)
+
+`Trello:`
+https://trello.com/invite/b/67ac74696ca3c27aff52a1d7/ATTI467b528223728134f82517d0d72f93b690C1C875/inf112-it-krigerne
+
+
+
+
 
 
 

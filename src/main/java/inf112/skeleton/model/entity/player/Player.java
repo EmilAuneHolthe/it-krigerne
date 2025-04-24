@@ -1,6 +1,6 @@
 package inf112.skeleton.model.entity.player;
 
-import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
+
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,7 +15,6 @@ import inf112.skeleton.model.entity.GameEntity;
 import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.model.entity.item.Item;
 import inf112.skeleton.model.entity.item.ItemType;
-import inf112.skeleton.view.screen.GameScreen;
 import inf112.skeleton.view.screen.ScreenType;
 import inf112.skeleton.view.ui.DeathOverlay;
 
