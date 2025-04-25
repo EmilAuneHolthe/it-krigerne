@@ -138,13 +138,14 @@ public class PlayerHUD {
         // Combine key and sword stack in a vertical column
         Table leftHUDTable = new Table();
         leftHUDTable.bottom().left().pad(10);
-        leftHUDTable.add(keyRow).left().padLeft(40).padBottom(0).row(); // more right, less vertical gap
+        leftHUDTable.add(keyRow).left().padLeft(40).padBottom(-20).row(); // more right, less vertical gap
         leftHUDTable.add(swordStack).size(128, 128).top();
 
         // Add the combined table to the stage
         stage.addActor(leftHUDTable);
 
         player.getContext().setPlayerHUD(this);
+        //leftHUDTable.setDebug(true);
     }
 
     public void update() {
