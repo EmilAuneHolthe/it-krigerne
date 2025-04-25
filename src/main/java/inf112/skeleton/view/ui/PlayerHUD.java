@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.ui.Container;
 
-
 import inf112.skeleton.model.entity.player.Player;
 
 public class PlayerHUD {
@@ -28,9 +27,11 @@ public class PlayerHUD {
     private final Image swordSlotCircle;
     private final Image equippedSwordIcon;
     private final Stack swordStack;
+    private final Image keyIcon;
+    private final Label keyLabel;
 
-
-    public PlayerHUD(Stage stage, Player player, Texture healthTexture, Texture backgroundTexture, Texture manaTexture, Texture manaBackgroundTexture) {
+    public PlayerHUD(Stage stage, Player player, Texture healthTexture, Texture backgroundTexture, Texture manaTexture,
+            Texture manaBackgroundTexture) {
         this.player = player;
         // Health bar (foreground)
         healthBar = new Image(healthTexture);
@@ -85,7 +86,6 @@ public class PlayerHUD {
         table.add(manaStack).width(maxHealthBarWidth).height(healthBarHeight);
         stage.addActor(table);
 
-
         // Load the circular slot frame and the player's initial sword icon
         Texture circleTexture = new Texture(Gdx.files.internal("sword_circle.png"));
         Texture swordTexture = new Texture(Gdx.files.internal("knife.png")); // change path as needed
@@ -98,8 +98,7 @@ public class PlayerHUD {
         equippedSwordIcon.setSize(48, 48); // slightly smaller to fit inside
         equippedSwordIcon.setOrigin(Align.center);
         equippedSwordIcon.setAlign(Align.center); // Center inside the stack
-        equippedSwordIcon.setRotation(135f); // angle in degrees
-
+        //equippedSwordIcon.setRotation(135f); // angle in degrees
 
         // Stack them: sword icon on top of circle
         swordStack = new Stack();
@@ -117,9 +116,35 @@ public class PlayerHUD {
         // Add the table to the stage
         stage.addActor(swordTable);
 
+        // Key icon and label
+        Texture keyTexture = new Texture(Gdx.files.internal("key.png"));
+        keyIcon = new Image(keyTexture);
+        keyIcon.setRotation(270f); // optional
+        keyIcon.setSize(32, 32); // adjust as needed
+        keyIcon.setOrigin(Align.center);
+
+        BitmapFont keyFont = new BitmapFont();
+        keyFont.getData().setScale(0.8f); // slightly larger than default
+        LabelStyle keyStyle = new LabelStyle(keyFont, Color.WHITE);
+
+        // Key label
+        keyLabel = new Label("0x", keyStyle);
+        keyLabel.setAlignment(Align.left);
+
+        Table keyRow = new Table();
+        keyRow.add(keyIcon).size(32, 32).padRight(5);
+        keyRow.add(keyLabel).align(Align.left).padLeft(5);
+
+        // Combine key and sword stack in a vertical column
+        Table leftHUDTable = new Table();
+        leftHUDTable.bottom().left().pad(10);
+        leftHUDTable.add(keyRow).left().padLeft(40).padBottom(0).row(); // more right, less vertical gap
+        leftHUDTable.add(swordStack).size(128, 128).top();
+
+        // Add the combined table to the stage
+        stage.addActor(leftHUDTable);
+
         player.getContext().setPlayerHUD(this);
-
-
     }
 
     public void update() {
@@ -129,18 +154,20 @@ public class PlayerHUD {
         float healthPercent = Math.max(0f, health / maxHealth);
         healthBar.setSize(maxHealthBarWidth * healthPercent, healthBarHeight);
         healthLabel.setText((int) health + " / " + (int) maxHealth);
-        
+
         // Update mana bar - using percentage of max mana
         float mana = player.getMana();
         float maxMana = player.getMaxMana();
         float manaPercent = Math.max(0f, mana / maxMana);
         manaBar.setSize(maxHealthBarWidth * manaPercent, healthBarHeight);
         manaLabel.setText((int) mana + " / " + (int) maxMana);
+
+        keyLabel.setText(player.hasKey() ? "1x" : "0x");
     }
 
     public void updateEquippedSword(String texturePath) {
         Texture newSwordTexture = new Texture(Gdx.files.internal(texturePath));
         equippedSwordIcon.setDrawable(new Image(newSwordTexture).getDrawable());
     }
-    
+
 }
