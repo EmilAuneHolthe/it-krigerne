@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.entity.door.Door;
 import inf112.skeleton.model.entity.player.CharacterType;
 
 public class MapManager {
@@ -74,8 +75,7 @@ public class MapManager {
         }
 
         currentMapType = type;
-        spawnCollisionsAreas("Collision");
-        spawnCollisionsAreas("Door");
+        spawnCollisionsAreas();
 
         for (final MapListener listener : listners) {
             listener.mapChanged(currentMap);
@@ -96,34 +96,35 @@ public class MapManager {
         bodies.removeAll(toRemove, true);
         Gdx.app.debug(TAG, "Destroyed " + toRemove.size + " GROUND bodies");
     }
-    private void destroyDoorCollisionAreas() {
-        Array<Body> toRemove = new Array<>();
-        for (final Body body : bodies) {
-            if ("DOOR".equals(body.getUserData())) {
-                world.destroyBody(body);
-                toRemove.add(body);
-            }
-        }
-        bodies.removeAll(toRemove, true);
-        Gdx.app.debug(TAG, "Destroyed " + toRemove.size + " DOOR bodies");
-    }
     /**
      * Oppretter kollisjonsobjekter i verden basert på CollisionAreas i det nåværende kartet.
      * Sikrer at duplikate/nære punkter ikke fører til Box2D-krasj.
      */
-    private void spawnCollisionsAreas(String layer) {
+    private void spawnDoors(){
+        for (final Borders door : currentMap.getDoorsAreas()) {
+            GamePanel.BODY_DEF.position.set(door.getX1(), door.getY1());
+            GamePanel.BODY_DEF.fixedRotation = true;
+            final Body body = world.createBody(GamePanel.BODY_DEF);
+            body.setUserData("DOOR");
+            GamePanel.FIXTURE_DEF.filter.categoryBits = GamePanel.BIT_GROUND;
+            GamePanel.FIXTURE_DEF.filter.maskBits = -1;
+
+            final ChainShape cShape = new ChainShape();
+            float[] doorVertices = new float[]{door.getX1(), door.getY1(), door.getX2(), door.getY2()};
+            cShape.createChain(doorVertices);
+            GamePanel.FIXTURE_DEF.shape = cShape;
+            body.createFixture(GamePanel.FIXTURE_DEF);
+            cShape.dispose();
+            bodies.add(body);
+        }
+    }
+    private void spawnCollisionsAreas() {
         GamePanel.resetBodyAndFixtureDefinition();
-        for (final CollisionArea collisionArea : currentMap.getColissionAreas(layer)) {
+        for (final CollisionArea collisionArea : currentMap.getColissionAreas()) {
             GamePanel.BODY_DEF.position.set(collisionArea.getX(), collisionArea.getY());
             GamePanel.BODY_DEF.fixedRotation = true;
             final Body body = world.createBody(GamePanel.BODY_DEF);
-            if(layer.equals("Door")){
-                body.setUserData("DOOR");
-            }
-            else{
-                body.setUserData("GROUND");
-            }
-
+            body.setUserData("GROUND");
             GamePanel.FIXTURE_DEF.filter.categoryBits = GamePanel.BIT_GROUND;
             GamePanel.FIXTURE_DEF.filter.maskBits = -1;
 

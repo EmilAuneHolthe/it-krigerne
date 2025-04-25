@@ -347,4 +347,7 @@ public class Player extends GameEntity {
     public int getSelectedItemIndex() {
         return selectedItemIndex;
     }
+    public void setKey(Boolean hasKey) {
+        this.hasKey = hasKey;
+    }
 }

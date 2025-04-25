@@ -52,7 +52,7 @@ public class debug {
         if (enemy == null || enemy.getBody() == null) return;
         
         // Draw a rectangle around the enemy's body
-        float width = 0.8f; // Enemy body width
+        float width = enemy.get; // Enemy body width
         float height = 0.8f; // Enemy body height
         float x = enemy.getBody().getPosition().x - width/2;
         float y = enemy.getBody().getPosition().y - height/2;

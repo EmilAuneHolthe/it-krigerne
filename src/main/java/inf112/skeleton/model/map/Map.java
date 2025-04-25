@@ -2,6 +2,8 @@ package inf112.skeleton.model.map;
 
 import java.util.ArrayList;
 
+import javax.swing.border.Border;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -14,6 +16,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
+import inf112.skeleton.model.entity.door.Door;
 import inf112.skeleton.model.entity.enemy.EnemySpawn;
 import inf112.skeleton.model.entity.item.ItemSpawn;
 import inf112.skeleton.model.entity.item.ItemType;
@@ -31,21 +34,21 @@ public class Map {
     this.tiledMap = tiledMap;
     enemySpawn = findEnemySpawn();
     itemSpawn = findItemSpawn();
-    collisionAreas = getCollisionLayer(collisionAreas, "Collision");
+    getCollisionLayer();
   }
 
-  private Array<CollisionArea> getCollisionLayer(Array<CollisionArea> collisionAreas, String layerName) {
-    MapLayer collisionLayer = tiledMap.getLayers().get(layerName);
+ private void getCollisionLayer() {
+    MapLayer collisionLayer = tiledMap.getLayers().get("Collision");
     
     if (collisionLayer == null) {
       Gdx.app.error(TAG, "Collision layer not found! Ensure 'collision' layer exists in the map.");
-      return null;
+      return;
     
     }
     final MapObjects mapObjects = collisionLayer.getObjects();
     if(mapObjects == null) {
       Gdx.app.error(TAG, "No collision objects found in 'collision' layer!");
-      return null;
+      return;
     }
 
     for(final MapObject mapObject : mapObjects) {
@@ -82,12 +85,11 @@ public class Map {
         Gdx.app.debug(TAG, "Collision object not supported: " + mapObject);
       }
     }
-    return collisionAreas;
    
   }
   
-  public Array<CollisionArea> getColissionAreas(String layerName) {
-    return getCollisionLayer(collisionAreas, layerName);
+  public Array<CollisionArea> getColissionAreas() {
+    return collisionAreas;
   }
   private Vector2 findPlayerSpawnVector2(String name) {
     MapObjects objects = tiledMap.getLayers().get(name).getObjects();
@@ -142,7 +144,38 @@ public Vector2 getBossSpawn(){
 public ArrayList<ItemSpawn> getItemSpawn() {
   return itemSpawn;
 }
-public float getBorders(String layer){
-  return tiledMap.getLayers().get(layer).getObjects().get(0).getProperties().get("width", Float.class);
+public ArrayList<Borders> getBorders(String layer){
+  ArrayList<Borders> borders = new ArrayList<>();
+  MapLayer collisionLayer = tiledMap.getLayers().get(layer);
+  if (collisionLayer == null) {
+    Gdx.app.error(TAG, "Collision layer not found! Ensure 'collision' layer exists in the map.");
+    return null;
+  }
+  final MapObjects mapObjects = collisionLayer.getObjects();
+  if(mapObjects == null) {
+    Gdx.app.error(TAG, "No collision objects found in 'collision' layer!");
+    return null;
+  }
+  for(final MapObject mapObject : mapObjects) {
+    if(mapObject instanceof RectangleMapObject) {
+      final RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;
+      final Rectangle rectangle = rectangleMapObject.getRectangle();
+      System.out.println(mapObject.getName());
+      borders.add(new Borders(rectangle.x, rectangle.y, rectangle.width, rectangle.height, mapObject.getName()));
+    }
+  }
+  return borders;
+}
+public ArrayList<Borders> getDoorsAreas() {
+  ArrayList<Borders> doors = new ArrayList<>();
+  for(final MapObject mapObject : tiledMap.getLayers().get("Doors").getObjects()) {
+    if (mapObject instanceof RectangleMapObject) {
+      final RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;
+      final Rectangle rectangle = rectangleMapObject.getRectangle();
+      Gdx.app.debug(TAG, "Door found at: " + rectangle.x + ", " + rectangle.y);
+      doors.add(new Borders(rectangle.x, rectangle.y, rectangle.width, rectangle.height, mapObject.getName()));
+    }
+  }
+  return doors;
 }
 }

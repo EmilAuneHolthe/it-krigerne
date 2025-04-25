@@ -170,6 +170,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
         mapManager.setMap(MapType.MAP_2);
         mapChanger.removeObjects(world, mapManager.getCurrentMap(), enemies);
         enemies.clear();
+        player.setKey(false);
         context.setEnemy(enemies);
         mapChanger.movePlayer(world, mapManager.getCurrentMap(), player);
         spawnEnemy();
