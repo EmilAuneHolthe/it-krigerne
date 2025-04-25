@@ -231,7 +231,7 @@ public class Player extends GameEntity {
             setMana(getMana() + manaToAdd);
             manaRegenAccumulator -= manaToAdd;
             
-            if(mana >= 20) {
+            if(mana >=30) {
                 canAttack = true;
             } else {
                 canAttack = false;
