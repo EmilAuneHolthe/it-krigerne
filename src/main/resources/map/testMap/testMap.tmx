@@ -10,7 +10,7 @@
  <tileset firstgid="6645" source="../SampleMap/[A]Grass_pipo.tsx"/>
  <layer id="1" name="Ground" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt0bEJA0EQBMFHYSgN5R+LUpEt562DGvguGOPM672uJEmSJEmSJEmSJEly2vf17K3RPfTW6B56a3QPvTW6h94a3UNvje6ht0b30Fuje+it0T301ugeemt0D701uofeGt1Db43uobdG9/i879/d41lbo3vordE99Nac/pvu2z26x0ndY0v32NI9tnSPLd1jS/fY0j22dI8tuofeGt1Db43uobdG99Bbo3vordE99NboHnprdA+9NbqH3hrdQ2+N7qG3RvfQW6N76K3RPfTW6B56a3QPvTW6h94a3UNvje6ht0b30Fuje+it0T301ugeemt0D701uofeGt1Db43uobdG99Bbo3vordE99NboHnprdA+9NbqH3hrdQ2+N7qGXJEmSJEmSJEmSfz+wqgbh
+   eJzt0bENAkEQBEGERwqkQR7k75EKNg7Woxr0XdIYZ17v5ZIkSZIkSZIkSZIkSY72up57a3QPvTW6h94a3UNvje6ht0b30Fuje+it0T301ugeemt0D701uofeml/88XnznbvHf26N7qG3RvfQW6N7PO7f393jXFuje+it0T301hz9N923e3SPI3WPLd1jS/fY0j22dI8t3WNL99jSPbboHnprdA+9NbqH3hrdQ2+N7qG3RvfQW6N76K3RPfTW6B56a3QPvTW6h94a3UNvje6ht0b30Fuje+it0T301ugeemt0D701uofeGt1Db43uobdG99Bbo3vordE99NboHnprdA+9NbqH3hrdQ2+N7qG3RvfQW6N76K3RPfTW6B56a3QPvTW6h16SJEmSJEmSJEk+vQHnhQZX
   </data>
  </layer>
  <layer id="15" name="waterbehind" width="100" height="100">
@@ -20,7 +20,7 @@
  </layer>
  <layer id="2" name="Paths" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt2E9OwkAYhnFjFy68gMf0Sv4DV+oGJe6UnRzCAxh0YWRtJ2DSr5amM23nnYHnl0xIFOqHj9NWjo4AAAAAAAAAAAAAAAAAAMA++jxRTzAc9152rdfCb714Pt9nLYr2WbusHNAjLfRICz3SQo+00CMt9EgLPdIyRo8PegQbsse6fM1b+fhdbB6HXOueLQ6tx7IYf9YfenReIS6O/V+zokcSe+MPPbrvjfeAv3dffc5ZOejbYxm5hxPaJAd9e1TF6uGEnLdy0KdH/bpBj/5CeywaruFj9Nh1DxZyzspB6j3a+O6RHOTcw3eP5CBWj5D//brw2SM5iL0/JuVzptt1O0Ajnz2Sg5g9XIv72orZJAcxe9w19Ghrcll+/apc19vv37Qcnx7+P+txR495uc5Pu71+WunT9X3k1ChmD6feZD7QdT70c8bUxO7huCZPlRZD3HvRQz25RQ/15BY97HHa7n1ioIc9zkzQY1K5V6ZH8/HG+lykibsveKCH/PpRbT6jh7xHE3qoJ7fooZ7cOoQebesrsfdCj//Hej7bLIVV7XdMDy32h3pyix7qyS16qCe36KGe3KKHenKLHurJLXqoJ7fooZ7cood6cose6skteqgnt+ihntyih3pyix7qyS16qCe36KGe3KKHenKLHurJLXqoJ7f2pQcAAAAAAAAAAIDaLxpJK74=
+   eJzt2E9OwkAYhnEiC2O8gKfyLF7Jv7hSNyhxp+zkEB7AoAsjazsBk361NJ1pO+8MPL9kQqJQP3yctjIaAQAAAAAAAAAAAAAAAACAXfR5qJ6gP+69bFuvY7/14vl8nzUfN8/aZuWAHmnpu0cZPfyxP9IyRI/TI3qEYn+khR5poUdahujxQY9gffZYFa95Kx6/x+vHPteqY4t967EYDz/rDz1arxDnB/6vWdIjib3xhx7t98Z7wN+7ry7nrBx07bGI3MMJbZKDrj3KYvVwQs5bOejSo3rdoEd3oT3mNdfwIXpsuwcLOWflIPUeTXz3SA5y7uG7R3IQq0fI/35t+OyRHMTeHzfFcyabddtDI589koOYPVyL+8qK2SQHMXvc1fRoanJRfP2yWFeb7183HJ8e/j/rcUuPWbHOjtu9flLq0/Z95NQoZg+n2mTW03U+9HPG1MTu4bgmT6UWfdx70UM9uUUP9eQWPexxmu59YqCHPc5U0OOmdK9Mj/rjDfW5SB13X/BAD/n1o9x8Sg95jzr0UE9u0UM9ubUPPZrWV2LvhR7/j/V8sl4Ky8rvmB5a7A/15BY91JNb9FBPbtFDPblFD/XkFj3Uk1v0UE9u0UM9uUUP9eQWPdSTW/RQT27RQz25RQ/15BY91JNb9FBPbtFDPblFD/XkFj3Uk1v0UE9u7UoPAAAAAAAAAAAAtV8SwSkB
   </data>
  </layer>
  <layer id="13" name="Water" width="100" height="100">
@@ -30,17 +30,17 @@
  </layer>
  <layer id="14" name="WaterFall" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt2CESwkAQRNF1qPicFTgJcJKQM+GJYgUCbEjVNPBeVdsV8922BgAAAAAAAABs7bb776Wpvkf10lTfo3ppqu9RvTTV96hemup7VI93+6G1w8uOw7p39NiGHln0yDL1+y/PFve+WY9yp7G1c99lXP+GHtvRI4seWfTIokcWPbJMvcO1b9bjZ+iRRY8semTRI4seWfTIokcWPbLokUWPLHpk0SOLHgAAAAAA38+/LQAAAAAAAAAAAAAAAADwiQeXfM1Q
+   eJzt2L0OAVEUhdHbiULvQVV4EjwJnklP5UoUdH5GzsZaye4mM8n5umkNAAAAAAAAABjaYfTfS1N9j+qlqb5H9dJU36N6aarvUb001feoHvfmk9YWN1tOXnuPHsPQI4senzcbP/7stt//dG1x7NvrMbjlEz0uVtPW1n2b6evf1GM4emTRI4seWfTIokeWbe+w69vr8TP0yKJHFj2y6JFFjyx6ZNEjix5Z9MiiRxY9suiRRQ8AAAAAgO/nvy0AAAAAAAAAAAAAAAAA8I4z9qTOUg==
   </data>
  </layer>
  <layer id="4" name="Ground Collision" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt1bEJADAIAEG7FFnWXV0oKwQsBLmb4LuPAAAAAAAAAAAAAAAAAAAA4Efe6QIAoMPLAWC3OtMFAAAAAAAAAAAAAAAAAAAAAAAAAGzyAAWEAdE=
+   eJzt1TEOAVEUhtGbaczE2oZKbMMmiCltBvuwAVRYhSum1Cney+Sc5O9v8hU3AgAAAAAAAAAAAADgq+8iFrllV/oSPvqxgx51WI0d1noUN7QRu9w2t88d2tIXcc0Gt9xdiyroURc96qJHXfSoyyM7PHMvPapwbCJOuXNT+hJ+2cxLXwAA/MMvB4Bpu8xKXwAAAAAAAAAAAAAAAAAAAAAAAADAlLwByhoZvA==
   </data>
  </layer>
  <layer id="3" name="Grass misc" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt27tOwzAUgOGoQ6nES/BMMDGyMXZkgb4El4WLkCgIECOo4lLYYAFeBDbYGHDUVEqdY8eJnaRR/0+KKrVRW51jn2MnbRQBAAAAAAAAAAAAAAAAAAAA7TNeavobYOqVXNTijzgDuZgnQLF54HKudA5zDW321Z08fneb/R6Y+FF5GHai6Fc9DkrUFvaF4d2ofKyl4vrsGeMP+oiX2072uVEqfu9CLKV5IZ0HM9sYPRVyEnshxpWT6snUynKYz7gO9D6LamiYHy5M/WZXywk9xC5di+5UPs4ccxLH/0Edj+q4z4nxiBx40ecJ/aM+0nooXmuZertkOv7JW1hxDXLt5dsFY6/nnT5STt8QN5d9PPNFpo/FInvvVeHcfjKHNnPex3ePD5k+F7ZSNW2vF0X7yXHQq/d7IetI5eA4OU7IR6PW1bwZqhycJ8cF+Shtuka1Xf/L69kbqdf1a4su1xVZY7nb0WLVD3gtij7vPxbTPTyeN6Z1MOZP3r7Ddm0ZmHd6fc+r9/FveV1/z8u13lkhaoVej54Kvuch96ky/byJe3eX5MFKv3dXBWkfoo+FRd+HmH4vJdUyl33d2LIvdP1soE2kcfwZcGwzT7LeHGIyoAdXruh//8qsxUzjn/8d2rnWjStLTnxivOhrK19l6r5LXcSsOusIvdyPa/yIc7OoQ2FJ41l6jjVRe5E7f2XqDr2i/cghgCqxpgUAAAAAAAAAAAAAAADQpH92umuC
+   eJzt27lOw0AQgGErDUF5CKhAlHkVqCjpKFPSQCpKOo6GQ0gEBNSgiCPQQQO8EAW2cISzmV2PvXYck/+TLJJgBTSzO7NrJ0EAAAAAAAAAAAAAAAAAAAAA1M9grur/4H9am/87tN7IBWbASsv9HJPVDuO/2/x9HP1sx/n4ph5VYq/pfo7JWmi5nydp5ox0DnNNL0s+UD7yMV2WjPgv58gH+8LyvXjG+JM+Urh+In4fQiyleSGdBzvXGD1vyK+/EuPSSfVkaLGgnn7L2sBLzzI/NGz9Zt/ICT3ELVmL7sN8XChzEsX/MTyewuMhJcZ9cuDFnCf0j8mR1kN3DXtvlwzHP3krVlSDtL18O2PszbzTR/LpWOLWVcST+SIzx2KWvfeqcG4nnkObKe/ju8eHzJwLW4madtAMgsP4OOLeSeVOwhycxscZ+ajUejhvemEOLuPjinzkNlyjuq7/pfXsjcTvzWuLmuuKrLH0doxYdQq8FkWf9x+LyR4ezRvbOhjTJ23f4bq2DEw7s76n1fvos7zaz/NyrXdUEbXCrEfPGd/zmPtUY/28int31+TBybx3VwZpH2KOhVnfh9g+LyXVMs2+buDYF2r/NlAn0jj+KnBsM0/GvSti0qUHly7rd//yrMVs45/vHbpp68aNIyc+MZ71tZWvPHVfUxcxapJ1hF7uRxs/4lwt6lCxpPEsvcaaqL7Inb88dYdeUX/kEECZWNMCAAAAAAAAAAAAAAAAqNIPXgtoTA==
   </data>
  </layer>
  <objectgroup id="9" name="Collision">
@@ -97,7 +97,7 @@
   <object id="93" x="2176" y="1728" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="6" name="Player">
-  <object id="58" x="1328.17" y="1150.19">
+  <object id="58" x="1331.28" y="1310.57">
    <point/>
   </object>
  </objectgroup>
@@ -119,7 +119,7 @@
  </objectgroup>
  <layer id="5" name="Ground Foreground" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt1aEKwDAMRdH6+DFVuf//xMnCRCgtNBPnuOdCzG0NAAAAAAAAAAAAAAAAAACAGXdUXwAA7NDy/7si35zVI9+c9US+gUE/an3/rx+19AMAAAAAAAAAAAAAAAAAAAAAAADWvR8GAgo=
+   eJzt1SEKgEAQBVDjynQxGb2QlxdPYzAIhg0KOwu+V4bfPlP+MAAAAAAAAAAAAAAA0KttzG4AfdrLdY+S2wMAAPifObIbAABf2PL+TVHPtLVEPdPWGvUM3OxHruf/7Ucu+wEAAAAAAAAAAAAAAAAAAAAAAADvnTLpBCg=
   </data>
  </layer>
  <layer id="16" name="FOre" width="100" height="100">
