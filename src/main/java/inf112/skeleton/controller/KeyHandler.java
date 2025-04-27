@@ -17,7 +17,7 @@ public class KeyHandler implements InputProcessor {
             }
         }
         this.keyState = new boolean[Keys.values().length];
-        listeners = new Array<KeyListener>();
+        listeners = new Array<>();
     }
 
     public void addListener(final KeyListener listener) {
