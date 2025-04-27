@@ -2,8 +2,6 @@ package inf112.skeleton.model.map;
 
 import java.util.ArrayList;
 
-import javax.swing.border.Border;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -15,8 +13,6 @@ import com.badlogic.gdx.math.Polyline;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-
-import inf112.skeleton.model.entity.door.Door;
 import inf112.skeleton.model.entity.enemy.EnemySpawn;
 import inf112.skeleton.model.entity.item.ItemSpawn;
 import inf112.skeleton.model.entity.item.ItemType;
@@ -52,8 +48,7 @@ public class Map {
     }
 
     for(final MapObject mapObject : mapObjects) {
-      if(mapObject instanceof RectangleMapObject) {
-        final RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;
+      if (mapObject instanceof RectangleMapObject rectangleMapObject) {
         final Rectangle rectangle = rectangleMapObject.getRectangle();
         final float[] rectVertices = new float[10];
         //rectangle left bottom

@@ -111,6 +111,7 @@ public class GameRenderer implements Disposable, MapListener {
         // Update camera position to follow player
         if (player != null && player.getBody() != null) {
             camera.position.set(player.getBody().getPosition().x, player.getBody().getPosition().y, 0);
+            camera.zoom = 0.7f;
             camera.update();
         }
 
