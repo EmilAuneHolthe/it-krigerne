@@ -3,7 +3,7 @@ package inf112.skeleton.model.entity.door;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 
-import inf112.skeleton.model.entity.item.ItemType;
+
 
 public enum DoorType {
   DOOR1("map/Door1.png", 2f),
