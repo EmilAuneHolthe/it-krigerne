@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-up" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="94">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-up" width="100" height="100" tilewidth="32" tileheight="32" infinite="0" nextlayerid="17" nextobjectid="98">
  <tileset firstgid="1" source="GrassSprites.tsx"/>
  <tileset firstgid="529" source="DirtSprites.tsx"/>
  <tileset firstgid="865" source="Decorations.tsx"/>
@@ -62,12 +62,6 @@
   <object id="62" x="1856" y="2016">
    <polyline points="0,0 32,0 32,-32 64,-32 64,-64 320,-64 320,0 384,0 384,-448 352,-448 352,-480 320,-480 320,-544 288,-544 288,-608 256,-608 256,-704 224,-704 224,-736 192,-736 192,-832 160,-832 160,-864 -32,-864"/>
   </object>
-  <object id="63" x="1664" y="1152">
-   <polyline points="0,0 -320,0"/>
-  </object>
-  <object id="64" x="1312" y="1152">
-   <polyline points="32,0 32,-64 0,-64 0,0 -64,0 -64,32 -96,32 -96,96 -128,96 -128,160 -160,160 -160,224 -192,224"/>
-  </object>
   <object id="66" x="1536" y="1504" width="32" height="32"/>
   <object id="67" x="1664" y="1504" width="32" height="32"/>
   <object id="68" x="1664" y="1632" width="32" height="64"/>
@@ -89,15 +83,19 @@
   <object id="85" x="1344" y="1920" width="32" height="32"/>
   <object id="86" x="1120" y="1824" width="32" height="32"/>
   <object id="87" x="1408" y="1280" width="32" height="32"/>
-  <object id="88" x="1344" y="1152" width="32" height="32"/>
-  <object id="89" x="1280" y="1152" width="32" height="32"/>
   <object id="90" x="1376" y="1440" width="32" height="32"/>
   <object id="91" x="1184" y="1280" width="32" height="32"/>
   <object id="92" x="1952" y="1184" width="32" height="32"/>
   <object id="93" x="2176" y="1728" width="32" height="32"/>
+  <object id="95" x="1121.26" y="1376.45">
+   <polyline points="0,0 29.2344,-12.181 29.8435,-64.5594 60.905,-75.5223 62.7322,-129.728 93.7938,-140.691 95.6209,-193.678 123.637,-205.25 125.464,-193.678 155.308,-193.678 157.744,-164.444 171.752,-163.226 171.752,-370.303 160.18,-370.303 158.962,-385.529 191.242,-384.92 191.242,-450.088 221.694,-449.479 223.522,-386.747 253.365,-385.529 254.583,-371.521 241.793,-369.085 242.402,-160.789 253.365,-162.007 253.974,-194.287 285.645,-193.678 288.081,-224.131"/>
+  </object>
+  <object id="97" x="1364.08" y="1151.74">
+   <polyline points="0,0 301.207,0.786442"/>
+  </object>
  </objectgroup>
  <objectgroup id="6" name="Player">
-  <object id="58" x="1331.28" y="1310.57">
+  <object id="58" x="1326.95" y="1010.93">
    <point/>
   </object>
  </objectgroup>
