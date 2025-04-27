@@ -13,11 +13,11 @@
                 22,
                 20
             ],
-            "scale": 2.3373,
-            "selectedLayer": 13,
+            "scale": 0.6799,
+            "selectedLayer": 17,
             "viewCenter": {
-                "x": 1565.0536944337484,
-                "y": 1112.608565438754
+                "x": 1297.2495955287545,
+                "y": 771.4369760258862
             }
         },
         "/Users/martin/Documents/Uib/SM4/Inf112/it-krigerne/src/main/resources/map/SampleMap/samplemap.tmx#[Base]BaseChip_pipo": {
@@ -29,11 +29,11 @@
                 4,
                 3
             ],
-            "scale": 0.5747,
-            "selectedLayer": 13,
+            "scale": 0.3294,
+            "selectedLayer": 12,
             "viewCenter": {
-                "x": 1447.7118496606925,
-                "y": 1972.3333913346096
+                "x": 1557.3770491803277,
+                "y": 1097.4499089253186
             }
         }
     },
