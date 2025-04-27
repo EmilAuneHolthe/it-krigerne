@@ -24,7 +24,7 @@ import inf112.skeleton.model.entity.player.CharacterType;
 import inf112.skeleton.model.entity.player.Player;
 import inf112.skeleton.model.entity.player.PlayerFactory;
 import inf112.skeleton.model.entity.player.PlayerInteractions;
-import inf112.skeleton.model.entity.taskBoard.taskBoard;
+import inf112.skeleton.model.entity.taskBoard.TaskBoard;
 import inf112.skeleton.model.map.Borders;
 import inf112.skeleton.model.map.Map;
 import inf112.skeleton.model.map.MapListener;
