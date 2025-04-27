@@ -106,30 +106,37 @@ public class MapManager {
      * Oppretter kollisjonsobjekter i verden basert på CollisionAreas i det nåværende kartet.
      * Sikrer at duplikate/nære punkter ikke fører til Box2D-krasj.
      */
-    private void spawnDoors(){
+    private void spawnDoors() {
         GamePanel.resetBodyAndFixtureDefinition();
         doors.clear();
-        for (final Borders door : currentMap.getDoorsAreas()) {
-            float x1 = door.getX1() * UNIT_SCALE;
-            float y1 = door.getY1() * UNIT_SCALE;
-            float x2 = (door.getX1()+door.getX2()) * UNIT_SCALE;
-            float y2 = (door.getY1()+door.getY2()) * UNIT_SCALE;
-            GamePanel.BODY_DEF.position.set(door.getX1(), door.getY1());
-            GamePanel.BODY_DEF.fixedRotation = true;
-            final Body body = world.createBody(GamePanel.BODY_DEF);
-            body.setUserData("DOOR");
-            GamePanel.FIXTURE_DEF.filter.categoryBits = GamePanel.BIT_GROUND;
-            GamePanel.FIXTURE_DEF.filter.maskBits = -1;
+    
+        for (Borders door : currentMap.getDoorsAreas()) {
+    
+            float x1 = door.getX1()*UNIT_SCALE;
+            float y1 = door.getY1()*UNIT_SCALE;
+            float x2 = door.getX2()*UNIT_SCALE;
+            float y2 = door.getY2()*UNIT_SCALE;
 
-            final ChainShape cShape = new ChainShape();
-            float[] doorVertices = new float[]{door.getX1(), door.getY1(), door.getX2(), door.getY2()};
-            cShape.createChain(doorVertices);
-            GamePanel.FIXTURE_DEF.shape = cShape;
+    
+            // -------- Body --------
+            GamePanel.BODY_DEF.position.set(x1, y1);
+            GamePanel.BODY_DEF.fixedRotation = true;
+            Body body = world.createBody(GamePanel.BODY_DEF);
+            body.setUserData("DOOR");
+    
+            GamePanel.FIXTURE_DEF.filter.categoryBits = GamePanel.BIT_GROUND;
+            GamePanel.FIXTURE_DEF.filter.maskBits     = -1;
+    
+            // -------- Shape (lokale koordinater) --------
+            ChainShape shape = new ChainShape();
+            shape.createChain(new float[]{0, 0,               
+                                          0, y2,
+                                          x2, y2,
+                                          x2, 0,
+                                          0, 0}); 
+            GamePanel.FIXTURE_DEF.shape = shape;
             body.createFixture(GamePanel.FIXTURE_DEF);
-            cShape.dispose();
-            System.out.println(door.getName());
-            System.out.printf("DOOR verts in meters: (%.2f,%.2f) -> (%.2f,%.2f)%n",
-                  x1, y1, x2, y2);
+            shape.dispose();
             float cx = (x1 + x2) * 0.5f;
             float cy = (y1 + y2) * 0.5f;
             doors.add(new Door(cx, cy, world, body, door.getName(), null));
