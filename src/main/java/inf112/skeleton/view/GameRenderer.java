@@ -171,7 +171,6 @@ public class GameRenderer implements Disposable, MapListener {
                         }
                     }
                     spriteBatch.end();
-                    
                     // Begin batch for next layer
                     spriteBatch.begin();
                     playerLayerRendered = true;
@@ -182,7 +181,6 @@ public class GameRenderer implements Disposable, MapListener {
                     mapRenderer.renderTileLayer((com.badlogic.gdx.maps.tiled.TiledMapTileLayer) layer);
                 }
             }
-            
             // End batch for map rendering
             spriteBatch.end();
             

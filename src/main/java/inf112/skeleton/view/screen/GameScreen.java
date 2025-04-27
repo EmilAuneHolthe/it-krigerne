@@ -85,15 +85,15 @@ public class GameScreen extends AbstractScreen implements MapListener {
                 if (name!= null) {
                     if(name.equals("TaskBoard")) {
                         context.getTaskBoard().setActive(true);
-                        continue;
                     }
-                    if(player.hasKey()){
-                    if(mapManager.openDoor(name)){
+                    else if(player.hasKey() && Boolean.TRUE.equals(mapManager.openDoor(name))){
                     player.removeKey();
                     }
-                }
+                    else{
+                        context.getTaskBoard().setActive(false);
+                    }
             }
-            context.getTaskBoard().setActive(false);
+            name = null;
         }
             float playerX = player.getBody().getPosition().x ;
             float playerY = player.getBody().getPosition().y ;

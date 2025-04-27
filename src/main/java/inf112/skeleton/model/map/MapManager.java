@@ -227,7 +227,7 @@ public class MapManager {
         
     }
     public TaskBoard getTaskBoard() {
-         spawnTaskBoard();
+         //spawnTaskBoard();
          return taskBoard;
     }
 }
