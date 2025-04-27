@@ -23,6 +23,7 @@ public class Enemy extends GameEntity {
     private final CharacterType characterType;
     private float maxHealth;
     private int sight;
+
     public Enemy(GamePanel context, World world, Body body, CharacterType characterType, String Name) {
         super(context, world, body, EnemyTypes.getEnemyHealth(characterType), EnemyTypes.getEnemyDamage(characterType), characterType);
         this.world = world;
@@ -85,7 +86,7 @@ public class Enemy extends GameEntity {
         }
         return health > 0;
     }
-
+    @Override
     public void setHealth(int health) {
         this.health = health;
     }
@@ -97,7 +98,7 @@ public class Enemy extends GameEntity {
             body.setTransform(x, y, 0);
         }
     }
-
+    @Override
     public void create(int health, int damage, float x, float y) {
         this.health = health;
         this.damage = damage;
@@ -125,7 +126,6 @@ public class Enemy extends GameEntity {
         Vector2 direction = targetPos.sub(currentPos).nor();
         
         // Set velocity based on direction
-        float speed = 2.0f;
         body.setLinearVelocity(direction.x * speed, direction.y * speed);
         
         // Update animation direction
