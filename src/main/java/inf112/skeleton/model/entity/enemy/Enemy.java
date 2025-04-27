@@ -56,11 +56,11 @@ public class Enemy extends GameEntity {
             batch.draw(healthTexture, pos.x - barWidth/2.3f, pos.y + 0.5f, 1 * (health / 100f), 0.2f);
         }
     }
-
+    
     public void update(float deltaTime) {
         // Add enemy-specific update logic here
     }
-
+    
     public int getHealth() {
         if (health < 0) {
             return 0;
