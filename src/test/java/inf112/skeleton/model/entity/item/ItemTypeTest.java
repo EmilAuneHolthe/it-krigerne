@@ -2,7 +2,6 @@ package inf112.skeleton.model.entity.item;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.badlogic.gdx.graphics.Texture;
 import inf112.skeleton.BaseTest;
 import org.junit.jupiter.api.Test;
 

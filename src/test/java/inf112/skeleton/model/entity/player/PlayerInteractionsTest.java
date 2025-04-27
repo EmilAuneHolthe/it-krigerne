@@ -16,8 +16,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 class PlayerInteractionsTest extends BaseTest {
-    private static final float ATTACK_RANGE = 2.0f;
-    private static final float PICKUP_RANGE = 1.0f;
     
     private PlayerInteractions playerInteractions;
     

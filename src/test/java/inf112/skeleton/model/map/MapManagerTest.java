@@ -17,7 +17,7 @@ import inf112.skeleton.model.GamePanel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class MapManagerTest {
+class MapManagerTest {
     private MapManager mapManager;
     private GamePanel mockGamePanel;
     private World mockWorld;
@@ -29,7 +29,7 @@ public class MapManagerTest {
     private TiledMapTileLayer mockTileLayer;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         // Create mocks
         mockGamePanel = mock(GamePanel.class);
         mockWorld = mock(World.class);
@@ -57,7 +57,7 @@ public class MapManagerTest {
     }
 
     @Test
-    public void testConstructor() {
+    void testConstructor() {
         assertNotNull(mapManager, "MapManager should be initialized");
         assertNull(mapManager.getCurrentMap(), "Current map should be null initially");
     }
