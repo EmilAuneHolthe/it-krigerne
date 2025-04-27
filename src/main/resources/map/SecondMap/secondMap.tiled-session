@@ -10,13 +10,14 @@
     "fileStates": {
         "/Users/martin/Documents/Uib/SM4/Inf112/it-krigerne/src/main/resources/map/SampleMap/samplemap.tmx": {
             "expandedObjectLayers": [
-                22
+                22,
+                20
             ],
-            "scale": 0.7245,
-            "selectedLayer": 13,
+            "scale": 0.6799,
+            "selectedLayer": 17,
             "viewCenter": {
-                "x": 790.8902691511387,
-                "y": 806.7632850241546
+                "x": 1297.2495955287545,
+                "y": 771.4369760258862
             }
         },
         "/Users/martin/Documents/Uib/SM4/Inf112/it-krigerne/src/main/resources/map/SampleMap/samplemap.tmx#[Base]BaseChip_pipo": {
@@ -25,13 +26,14 @@
         "SecondMap.tmx": {
             "expandedObjectLayers": [
                 2,
+                4,
                 3
             ],
-            "scale": 0.8991,
-            "selectedLayer": 14,
+            "scale": 0.3294,
+            "selectedLayer": 12,
             "viewCenter": {
-                "x": 2070.4037370704036,
-                "y": 1514.2920698476253
+                "x": 1557.3770491803277,
+                "y": 1097.4499089253186
             }
         }
     },

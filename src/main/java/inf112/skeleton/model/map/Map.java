@@ -98,6 +98,7 @@ public class Map {
           }
           return new Vector2(0, 0);
         }
+
         private ArrayList<EnemySpawn> findEnemySpawn() {
           ArrayList<EnemySpawn> enemySpawns = new ArrayList<>();
           MapObjects objects = tiledMap.getLayers().get("Enemy").getObjects();
@@ -111,6 +112,7 @@ public class Map {
           }
           return enemySpawns;
         }
+        
         private ArrayList<ItemSpawn> findItemSpawn() {
           ArrayList<ItemSpawn> itemSpawns = new ArrayList<>();
           MapObjects objects = tiledMap.getLayers().get("Items").getObjects();
