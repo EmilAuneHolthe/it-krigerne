@@ -10,31 +10,33 @@ public enum ItemType {
   DIAMOND_SWORD("sword2"),
   MANA("mana");
 
+  private static final String KNIFE_TEXTURE = "knife.png"; // <--- Add this line
+
   private final String type;
 
   ItemType(String string) {
     this.type = string;
-    }
-
-public static Texture getItemTexture(ItemType itemType) {
-  switch (itemType) {
-    case HEALTH:
-      return new Texture("heart.png");
-    case KEY:
-      return new Texture("key.png");
-    case ATTACK:
-      return new Texture("knife.png");
-    case MANA:
-      return new Texture("mana.png");
-    case DIAMOND_SWORD:
-      return new Texture("knife.png");
-    case EMERALD_SWORD:
-      return new Texture("knife.png");
-    default:
-      break;
   }
-  return new Texture("health.png");
-}
+
+  public static Texture getItemTexture(ItemType itemType) {
+    switch (itemType) {
+      case HEALTH:
+        return new Texture("heart.png");
+      case KEY:
+        return new Texture("key.png");
+      case ATTACK:
+        return new Texture(KNIFE_TEXTURE); // <--- Use constant
+      case MANA:
+        return new Texture("mana.png");
+      case DIAMOND_SWORD:
+        return new Texture(KNIFE_TEXTURE); // <--- Use constant
+      case EMERALD_SWORD:
+        return new Texture(KNIFE_TEXTURE); // <--- Use constant
+      default:
+        break;
+    }
+    return new Texture("health.png");
+  }
 
 public static String getItemType(ItemType itemType) {
   return itemType.type;
