@@ -39,7 +39,8 @@ import inf112.skeleton.model.map.MapChanger;
 import inf112.skeleton.model.map.MapManager;
 import inf112.skeleton.model.map.MapType;
 import inf112.skeleton.view.GameRenderer;
-import inf112.skeleton.view.screen.*; 
+import inf112.skeleton.view.screen.*;
+import inf112.skeleton.view.ui.PlayerHUD; 
 
 public class GamePanel extends Game {
     private static final String TAG = GamePanel.class.getSimpleName();
@@ -77,6 +78,8 @@ public class GamePanel extends Game {
     private Array<Item> items;
     private MapChanger mapChanger;
     private EnemyController enemyController;
+    private PlayerHUD playerHUD;
+
     
     
     @Override
@@ -191,7 +194,6 @@ public class GamePanel extends Game {
     public void render() {
         super.render();
 
-        //Gdx.app.debug(TAG, "" + Gdx.graphics.getDeltaTime());
         accumulator += Math.min(0.25f, Gdx.graphics.getDeltaTime());
         while (accumulator >= FIXED_TIME_STEP) {
             world.step(FIXED_TIME_STEP, 6, 2);
@@ -203,7 +205,6 @@ public class GamePanel extends Game {
             gameRenderer.render(accumulator / FIXED_TIME_STEP);
         }
 
-        // final float alpha = accumulator / FIXED_TIME_STEP; DO NOT USE yet
     }
 
     public void removeScreen(ScreenType type) {
@@ -317,5 +318,15 @@ public class GamePanel extends Game {
         ItemFactory factory = new ItemFactory(this, world);
         Array<Item> newItems = factory.createItemFromMap(mapManager.getCurrentMap());
         setItems(newItems);
+    }
+
+    public void setPlayerHUD(PlayerHUD playerHUD) {
+        this.playerHUD = playerHUD;
+    }
+    
+    public void updateEquippedSwordHUD(String texturePath) {
+        if (playerHUD != null) {
+            playerHUD.updateEquippedSword(texturePath);
+        }
     }
 }

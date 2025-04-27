@@ -1,12 +1,10 @@
 package inf112.skeleton;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.backends.headless.HeadlessFiles;
-import com.badlogic.gdx.backends.headless.HeadlessNativesLoader;
 import com.badlogic.gdx.backends.headless.HeadlessNet;
 import com.badlogic.gdx.backends.headless.mock.graphics.MockGraphics;
 import com.badlogic.gdx.graphics.GL20;

@@ -1,6 +1,6 @@
 package inf112.skeleton.model.entity.player;
 
-import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
+
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,7 +15,6 @@ import inf112.skeleton.model.entity.GameEntity;
 import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.model.entity.item.Item;
 import inf112.skeleton.model.entity.item.ItemType;
-import inf112.skeleton.view.screen.GameScreen;
 import inf112.skeleton.view.screen.ScreenType;
 import inf112.skeleton.view.ui.DeathOverlay;
 
@@ -232,7 +231,7 @@ public class Player extends GameEntity {
             setMana(getMana() + manaToAdd);
             manaRegenAccumulator -= manaToAdd;
             
-            if(mana >= 20) {
+            if(mana >=30) {
                 canAttack = true;
             } else {
                 canAttack = false;
@@ -309,9 +308,19 @@ public class Player extends GameEntity {
                 break;
             case ATTACK:
                 damage += 5;
+                String swordHUDTexture = ItemType.getSwordHUDTexturePath(item.getItemType());
+                if (swordHUDTexture != null) {
+                    context.updateEquippedSwordHUD(swordHUDTexture);
+                }
                 break;
             case KEY:
                 hasKey = true;
+                break;
+            case DIAMOND_SWORD:
+                break;
+            case EMERALD_SWORD:
+                break;
+            default:
                 break;
         }
 
@@ -352,5 +361,9 @@ public class Player extends GameEntity {
     }
     public void removeKey() {
         this.hasKey = false;
+    }
+
+    public GamePanel getContext() {
+        return context;
     }
 }

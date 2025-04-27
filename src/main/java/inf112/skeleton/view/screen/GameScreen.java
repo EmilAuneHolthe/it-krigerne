@@ -88,6 +88,12 @@ public class GameScreen extends AbstractScreen implements MapListener {
                     }
                 }
             }
+            float playerX = player.getBody().getPosition().x ;
+            float playerY = player.getBody().getPosition().y ;
+            if (playerX >= 72.4 && playerX <= 72.6 && playerY >= 75.3 && playerY <= 75.5){
+            changeMap();
+            }
+   
     }
         //Gdx.app.log("Debug", "FPS: " + Gdx.graphics.getFramesPerSecond());
 
@@ -96,7 +102,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
             playerInteractions.attackEnemy(player, enemies);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.O)) {
-            changeMap();
+            changeSecondMap();
         }
         else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             gameRenderer.setShowDebug(!gameRenderer.isShowDebug());
@@ -191,6 +197,19 @@ public class GameScreen extends AbstractScreen implements MapListener {
         enemyController.updateEnemies(enemies);
         spawnItem();
         }
+
+    public void changeSecondMap() {
+        mapManager.setMap(MapType.MAP_3);
+        mapChanger.removeObjects(world, mapManager.getCurrentMap(), enemies);
+        enemies.clear();
+        player.setKey(false);
+        context.setEnemy(enemies);
+        mapChanger.movePlayer(world, mapManager.getCurrentMap(), player);
+        spawnEnemy();
+        enemies = context.getEnemy();
+        enemyController.updateEnemies(enemies);
+        spawnItem();
+    }
 }
 
 

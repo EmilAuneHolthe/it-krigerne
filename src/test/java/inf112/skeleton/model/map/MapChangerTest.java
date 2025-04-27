@@ -1,6 +1,5 @@
 package inf112.skeleton.model.map;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 import com.badlogic.gdx.math.Vector2;
@@ -8,7 +7,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import inf112.skeleton.BaseTest;
-import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.model.entity.player.Player;
 import org.junit.jupiter.api.BeforeEach;

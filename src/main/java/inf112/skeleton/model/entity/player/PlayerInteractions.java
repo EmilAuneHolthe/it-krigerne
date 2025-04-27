@@ -5,7 +5,6 @@ import com.badlogic.gdx.utils.Array;
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.model.entity.item.Item;
-import inf112.skeleton.model.entity.item.ItemSpawn;
 
 public class PlayerInteractions {
   private final float attackRange;
