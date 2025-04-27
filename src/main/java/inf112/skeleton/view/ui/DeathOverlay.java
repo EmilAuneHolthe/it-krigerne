@@ -23,6 +23,7 @@ public class DeathOverlay {
     private final Texture blurTexture;
     private boolean isVisible;
     private final Label deathText;
+    private final Label instructionText;
 
     public DeathOverlay(GamePanel context) {
         this.context = context;
@@ -41,10 +42,17 @@ public class DeathOverlay {
         deathText = new Label("YOU DIED", new Label.LabelStyle(font, Color.RED));
         deathText.setAlignment(Align.center);
 
+        // Create instruction text
+        BitmapFont instructionFont = new BitmapFont();
+        instructionFont.getData().setScale(1.2f);
+        instructionText = new Label("Press ESCAPE to quit the game", new Label.LabelStyle(instructionFont, Color.WHITE));
+        instructionText.setAlignment(Align.center);
+
         // Layout
         Table table = new Table();
         table.setFillParent(true);
-        table.add(deathText).padBottom(50).row();
+        table.add(deathText).padBottom(30).row();
+        table.add(instructionText);
         stage.addActor(table);
 
         isVisible = false;
