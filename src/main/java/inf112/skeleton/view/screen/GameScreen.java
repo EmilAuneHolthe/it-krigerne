@@ -58,7 +58,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
     @Override
     public void render(float delta) {
         gameRenderer.render(delta);
-
+        
         // Update player for mana regeneration
         if (player != null) {
             player.regenerateMana(delta);
@@ -74,9 +74,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
             float playerY = player.getBody().getPosition().y ;
             if (playerX >= 72.4 && playerX <= 72.6 && playerY >= 75.3 && playerY <= 75.5){
             changeMap();
-        }
-
-   
+        }   
     }
         //Gdx.app.log("Debug", "FPS: " + Gdx.graphics.getFramesPerSecond());
 
@@ -90,6 +88,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
         else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             gameRenderer.setShowDebug(!gameRenderer.isShowDebug());
         }
+
     }
 
     @Override
@@ -98,7 +97,6 @@ public class GameScreen extends AbstractScreen implements MapListener {
         Gdx.input.setInputProcessor(keyHandler);
         
         // Always spawn a new player when showing the game screen
-        spawnPlayer();
     }
 
     @Override
