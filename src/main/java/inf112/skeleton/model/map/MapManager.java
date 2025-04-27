@@ -1,9 +1,14 @@
 package inf112.skeleton.model.map;
 
-import java.util.EnumMap;
+import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
 
+import java.util.EnumMap;
+import java.util.Objects;
+
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -11,12 +16,15 @@ import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.entity.door.Door;
+import inf112.skeleton.model.entity.player.CharacterType;
 
 public class MapManager {
     private static final String TAG = MapManager.class.getSimpleName();
 
     private World world;
     private Array<Body> bodies;
+    private Array<Door> doors;
     private AssetManager assetManager;
     private MapType currentMapType;
     private Map currentMap;
@@ -34,6 +42,7 @@ public class MapManager {
         world = context.getWorld();
         assetManager = context.getAssetManager();
         bodies = new Array<>();
+        doors = new Array<>();
         mapCache = new EnumMap<>(MapType.class);
         listners = new Array<>();
     }
@@ -74,6 +83,7 @@ public class MapManager {
 
         currentMapType = type;
         spawnCollisionsAreas();
+        spawnDoors();
 
         for (final MapListener listener : listners) {
             listener.mapChanged(currentMap);
@@ -94,11 +104,47 @@ public class MapManager {
         bodies.removeAll(toRemove, true);
         Gdx.app.debug(TAG, "Destroyed " + toRemove.size + " GROUND bodies");
     }
-
     /**
      * Oppretter kollisjonsobjekter i verden basert på CollisionAreas i det nåværende kartet.
      * Sikrer at duplikate/nære punkter ikke fører til Box2D-krasj.
      */
+        private void spawnDoors() {
+            if(currentMap.getDoorsAreas().isEmpty()) {
+                return;
+            }
+            GamePanel.resetBodyAndFixtureDefinition();
+            doors.clear();
+        
+            for (Borders door : currentMap.getDoorsAreas()) {
+        
+                float x1 = door.getX1();
+                float y1 = door.getY1();
+                float x2 = door.getWidth()*UNIT_SCALE;
+                float y2 = door.getHeight()*UNIT_SCALE;
+
+        
+                // -------- Body --------
+                GamePanel.BODY_DEF.position.set(x1, y1);
+                GamePanel.BODY_DEF.fixedRotation = true;
+                Body body = world.createBody(GamePanel.BODY_DEF);
+                body.setUserData("DOOR");
+        
+                GamePanel.FIXTURE_DEF.filter.categoryBits = GamePanel.BIT_GROUND;
+                GamePanel.FIXTURE_DEF.filter.maskBits     = -1;
+        
+                // -------- Shape (lokale koordinater) --------
+                ChainShape shape = new ChainShape();
+                shape.createChain(new float[]{0, 0,               
+                                            0, y2,
+                                            x2, y2,
+                                            x2, 0,
+                                            0, 0}); 
+                GamePanel.FIXTURE_DEF.shape = shape;
+                body.createFixture(GamePanel.FIXTURE_DEF);
+                shape.dispose();
+                doors.add(new Door(x1, x2, world, body, door.getName(), assetManager, x2, y2));
+            }
+        }
     private void spawnCollisionsAreas() {
         GamePanel.resetBodyAndFixtureDefinition();
         for (final CollisionArea collisionArea : currentMap.getColissionAreas()) {
@@ -106,7 +152,6 @@ public class MapManager {
             GamePanel.BODY_DEF.fixedRotation = true;
             final Body body = world.createBody(GamePanel.BODY_DEF);
             body.setUserData("GROUND");
-
             GamePanel.FIXTURE_DEF.filter.categoryBits = GamePanel.BIT_GROUND;
             GamePanel.FIXTURE_DEF.filter.maskBits = -1;
 
@@ -136,7 +181,6 @@ public class MapManager {
             bodies.add(body);
         }
     }
-
     /**
      * Henter det nåværende kartet.
      *
@@ -144,5 +188,19 @@ public class MapManager {
      */
     public Map getCurrentMap() {
         return currentMap;
+    }
+    public Boolean openDoor(String doorName){
+        for (Door d: doors){
+            System.out.println("Door name: " + d.getName());
+            if (Objects.equals(doorName, d.getName())){
+                d.removeDoor();
+                doors.removeValue(d, true);
+                return true;
+            }
+        }
+        return false;
+    }
+    public Array<Door> getDoors() {
+        return doors;
     }
 }

@@ -2,6 +2,7 @@ package inf112.skeleton.view.screen;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
@@ -20,6 +21,8 @@ public class LoadingScreen extends AbstractScreen   {
         assetManager.load("map/testMap/testMap.tmx", TiledMap.class);
         assetManager.load("map/SampleMap/samplemap.tmx", TiledMap.class);
         assetManager.load("map/SecondMap/SecondMap.tmx", TiledMap.class);
+        assetManager.load("map/Door1.png", Texture.class);
+
     }
     
     @Override

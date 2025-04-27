@@ -171,12 +171,12 @@ public class Player extends GameEntity {
     
     @Override
     public float getX() {
-        return x;
+        return body.getPosition().x * context.UNIT_SCALE;
     }
     
     @Override
     public float getY() {
-        return y;
+        return body.getPosition().y * context.UNIT_SCALE;
     }
     
     @Override
@@ -355,6 +355,12 @@ public class Player extends GameEntity {
 
     public int getSelectedItemIndex() {
         return selectedItemIndex;
+    }
+    public void setKey(Boolean hasKey) {
+        this.hasKey = hasKey;
+    }
+    public void removeKey() {
+        this.hasKey = false;
     }
 
     public GamePanel getContext() {
