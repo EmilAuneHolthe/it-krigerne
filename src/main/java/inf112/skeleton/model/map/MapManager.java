@@ -1,7 +1,10 @@
 package inf112.skeleton.model.map;
 
+import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
+
 import java.util.EnumMap;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -19,6 +22,7 @@ public class MapManager {
 
     private World world;
     private Array<Body> bodies;
+    private Array<Door> doors;
     private AssetManager assetManager;
     private MapType currentMapType;
     private Map currentMap;
@@ -36,6 +40,7 @@ public class MapManager {
         world = context.getWorld();
         assetManager = context.getAssetManager();
         bodies = new Array<>();
+        doors = new Array<>();
         mapCache = new EnumMap<>(MapType.class);
         listners = new Array<>();
     }
@@ -76,6 +81,7 @@ public class MapManager {
 
         currentMapType = type;
         spawnCollisionsAreas();
+        spawnDoors();
 
         for (final MapListener listener : listners) {
             listener.mapChanged(currentMap);
@@ -101,7 +107,13 @@ public class MapManager {
      * Sikrer at duplikate/nære punkter ikke fører til Box2D-krasj.
      */
     private void spawnDoors(){
+        GamePanel.resetBodyAndFixtureDefinition();
+        doors.clear();
         for (final Borders door : currentMap.getDoorsAreas()) {
+            float x1 = door.getX1() * UNIT_SCALE;
+            float y1 = door.getY1() * UNIT_SCALE;
+            float x2 = (door.getX1()+door.getX2()) * UNIT_SCALE;
+            float y2 = (door.getY1()+door.getY2()) * UNIT_SCALE;
             GamePanel.BODY_DEF.position.set(door.getX1(), door.getY1());
             GamePanel.BODY_DEF.fixedRotation = true;
             final Body body = world.createBody(GamePanel.BODY_DEF);
@@ -115,7 +127,12 @@ public class MapManager {
             GamePanel.FIXTURE_DEF.shape = cShape;
             body.createFixture(GamePanel.FIXTURE_DEF);
             cShape.dispose();
-            bodies.add(body);
+            System.out.println(door.getName());
+            System.out.printf("DOOR verts in meters: (%.2f,%.2f) -> (%.2f,%.2f)%n",
+                  x1, y1, x2, y2);
+            float cx = (x1 + x2) * 0.5f;
+            float cy = (y1 + y2) * 0.5f;
+            doors.add(new Door(cx, cy, world, body, door.getName(), null));
         }
     }
     private void spawnCollisionsAreas() {

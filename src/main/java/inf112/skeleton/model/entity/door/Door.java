@@ -14,11 +14,10 @@ public class Door{
   Body body;
   String name;
   Sprite sprite;
- public Door(float x, float y, World world, GamePanel context, String name, Sprite sprite) {
+ public Door(float x, float y, World world, Body body, String name, Sprite sprite) {
     this.x = x;
     this.y = y;
     this.world = world;
-    this.context = context;
   }
   public void removeDoor() {
     world.destroyBody(body);

@@ -69,5 +69,20 @@ public enum EnemyTypes {
                 throw new IllegalArgumentException("Unknown enemy type: " + type);
         }
     }
+    public static int getEnemySize(CharacterType type) {
+        if (type == null) {
+            throw new IllegalArgumentException("CharacterType cannot be null");
+        }
+        switch (type) {
+            case SKELETON:
+                return 1;
+            case ZOMBIE:
+                return 1;
+            case BOSS:
+                return 2;
+            default:
+                throw new IllegalArgumentException("Unknown enemy type: " + type);
+        }
+    }
   }
 

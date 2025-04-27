@@ -168,11 +168,10 @@ public ArrayList<Borders> getBorders(String layer){
 }
 public ArrayList<Borders> getDoorsAreas() {
   ArrayList<Borders> doors = new ArrayList<>();
-  for(final MapObject mapObject : tiledMap.getLayers().get("Doors").getObjects()) {
+  for(final MapObject mapObject : tiledMap.getLayers().get("Door").getObjects()) {
     if (mapObject instanceof RectangleMapObject) {
       final RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;
       final Rectangle rectangle = rectangleMapObject.getRectangle();
-      Gdx.app.debug(TAG, "Door found at: " + rectangle.x + ", " + rectangle.y);
       doors.add(new Borders(rectangle.x, rectangle.y, rectangle.width, rectangle.height, mapObject.getName()));
     }
   }
