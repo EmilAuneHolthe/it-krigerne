@@ -117,11 +117,12 @@ public class Player extends GameEntity {
     
     public void playerTakeDamage(Enemy enemy) {
         if (alive) {
-            context.getAudioHandler().playAudio(AudioTypes.HURT);
+            context.getAudioHandler().playAudio(AudioTypes.HURT2);
+            context.getAudioHandler().playAudio(AudioTypes.HIT);
           }
           alive = takeDamage(enemy.getDamage());
           if (!alive) {
-            killPlayer();
+            killPlayer();     
           }
         }
 
