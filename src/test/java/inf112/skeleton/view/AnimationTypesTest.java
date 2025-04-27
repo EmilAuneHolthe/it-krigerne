@@ -3,7 +3,7 @@ package inf112.skeleton.view;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AnimationTypesTest {
+class AnimationTypesTest {
     @Test
     void testAnimationTypeEnumValues() {
         // Test that all enum values exist

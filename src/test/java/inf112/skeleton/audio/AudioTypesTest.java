@@ -3,7 +3,7 @@ package inf112.skeleton.audio;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AudioTypesTest {
+class AudioTypesTest {
     @Test
     void testAudioTypeEnumValues() {
         // Test that all enum values exist

@@ -12,7 +12,7 @@ import org.mockito.MockitoAnnotations;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class AbstractScreenTest {
+class AbstractScreenTest {
     private AbstractScreen abstractScreen;
     
     @Mock

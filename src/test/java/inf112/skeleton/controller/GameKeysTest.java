@@ -4,7 +4,7 @@ import com.badlogic.gdx.Input;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class GameKeysTest {
+class GameKeysTest {
     @Test
     void testKeyEnumValues() {
         // Test that all enum values exist

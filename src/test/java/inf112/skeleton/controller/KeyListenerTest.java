@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import static org.mockito.Mockito.*;
 
-public class KeyListenerTest {
+class KeyListenerTest {
     @Mock
     private KeyHandler keyHandler;
     
