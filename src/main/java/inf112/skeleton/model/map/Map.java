@@ -144,8 +144,8 @@ public Vector2 getBossSpawn(){
 public ArrayList<ItemSpawn> getItemSpawn() {
   return itemSpawn;
 }
-public ArrayList<Borders> getBorders(String layer){
-  ArrayList<Borders> borders = new ArrayList<>();
+public Array<Borders> getBorders(String layer){
+  Array<Borders> borders = new Array<>();
   MapLayer collisionLayer = tiledMap.getLayers().get(layer);
   if (collisionLayer == null) {
     Gdx.app.error(TAG, "Collision layer not found! Ensure 'collision' layer exists in the map.");
@@ -165,8 +165,8 @@ public ArrayList<Borders> getBorders(String layer){
   }
   return borders;
 }
-public ArrayList<Borders> getDoorsAreas() {
-  ArrayList<Borders> doors = new ArrayList<>();
+public Array<Borders> getDoorsAreas() {
+  Array<Borders> doors = new Array<>();
   try{
   for(final MapObject mapObject : tiledMap.getLayers().get("Door").getObjects()) {
     if (mapObject instanceof RectangleMapObject) {

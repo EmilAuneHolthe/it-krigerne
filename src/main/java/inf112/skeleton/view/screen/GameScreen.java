@@ -24,6 +24,7 @@ import inf112.skeleton.model.entity.player.CharacterType;
 import inf112.skeleton.model.entity.player.Player;
 import inf112.skeleton.model.entity.player.PlayerFactory;
 import inf112.skeleton.model.entity.player.PlayerInteractions;
+import inf112.skeleton.model.entity.taskBoard.taskBoard;
 import inf112.skeleton.model.map.Borders;
 import inf112.skeleton.model.map.Map;
 import inf112.skeleton.model.map.MapListener;
@@ -43,7 +44,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
     private final PlayerInteractions playerInteractions;
     private final EnemyController enemyController;
     private final MapChanger mapChanger;
-    private final ArrayList<Borders> borders;
+    private Array<Borders> borders;
     public GameScreen(GamePanel context) {
         super(context);
         this.camera = context.getCamera();
@@ -78,16 +79,21 @@ public class GameScreen extends AbstractScreen implements MapListener {
             enemyController.sight();
             dTime = 0;
         }
-        if(player.hasKey()){
             for(Borders border : borders) {
                 String name;
                 name = border.isInside(player.getX(), player.getY());
                 if (name!= null) {
+                    if(name.equals("TaskBoard")) {
+                        context.getTaskBoard().setActive(true);
+                        continue;
+                    }
+                    if(player.hasKey()){
                     if(mapManager.openDoor(name)){
                     player.removeKey();
                     }
                 }
             }
+            context.getTaskBoard().setActive(false);
         }
             float playerX = player.getBody().getPosition().x ;
             float playerY = player.getBody().getPosition().y ;
@@ -194,6 +200,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
         spawnEnemy();
         enemies = context.getEnemy();
         enemyController.updateEnemies(enemies);
+        borders = mapManager.getCurrentMap().getBorders("Interact");
         spawnItem();
         }
 

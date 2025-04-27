@@ -15,9 +15,12 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Timer.Task;
+
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.door.Door;
 import inf112.skeleton.model.entity.player.CharacterType;
+import inf112.skeleton.model.entity.taskBoard.TaskBoard;
 
 public class MapManager {
     private static final String TAG = MapManager.class.getSimpleName();
@@ -25,6 +28,7 @@ public class MapManager {
     private World world;
     private Array<Body> bodies;
     private Array<Door> doors;
+    private TaskBoard taskBoard;
     private AssetManager assetManager;
     private MapType currentMapType;
     private Map currentMap;
@@ -45,6 +49,7 @@ public class MapManager {
         doors = new Array<>();
         mapCache = new EnumMap<>(MapType.class);
         listners = new Array<>();
+        taskBoard = null;
     }
 
     /**
@@ -84,6 +89,7 @@ public class MapManager {
         currentMapType = type;
         spawnCollisionsAreas();
         spawnDoors();
+        spawnTaskBoard();
 
         for (final MapListener listener : listners) {
             listener.mapChanged(currentMap);
@@ -122,8 +128,7 @@ public class MapManager {
                 float x2 = door.getWidth()*UNIT_SCALE;
                 float y2 = door.getHeight()*UNIT_SCALE;
 
-        
-                // -------- Body --------
+
                 GamePanel.BODY_DEF.position.set(x1, y1);
                 GamePanel.BODY_DEF.fixedRotation = true;
                 Body body = world.createBody(GamePanel.BODY_DEF);
@@ -132,7 +137,6 @@ public class MapManager {
                 GamePanel.FIXTURE_DEF.filter.categoryBits = GamePanel.BIT_GROUND;
                 GamePanel.FIXTURE_DEF.filter.maskBits     = -1;
         
-                // -------- Shape (lokale koordinater) --------
                 ChainShape shape = new ChainShape();
                 shape.createChain(new float[]{0, 0,               
                                             0, y2,
@@ -191,7 +195,6 @@ public class MapManager {
     }
     public Boolean openDoor(String doorName){
         for (Door d: doors){
-            System.out.println("Door name: " + d.getName());
             if (Objects.equals(doorName, d.getName())){
                 d.removeDoor();
                 doors.removeValue(d, true);
@@ -202,5 +205,29 @@ public class MapManager {
     }
     public Array<Door> getDoors() {
         return doors;
+    }
+    public Array<Body> getBodies() {
+        return bodies;
+    }
+    public void spawnTaskBoard() {
+        Array<Borders> taskBoards = currentMap.getBorders("TaskBoard");
+        if (taskBoards == null || taskBoards.isEmpty()) {
+            Gdx.app.debug(TAG, "[WARNING] No TaskBoard borders found in the current map.");
+            this.taskBoard = null;
+            return;
+        }
+
+        for (Borders b : taskBoards) {
+            float x = b.getX1();
+            float y = b.getY1();
+            float width = b.getWidth()*UNIT_SCALE;
+            float height = b.getHeight()*UNIT_SCALE;
+            this.taskBoard = new TaskBoard(x, y, width, height, assetManager);
+        }
+        
+    }
+    public TaskBoard getTaskBoard() {
+         spawnTaskBoard();
+         return taskBoard;
     }
 }
