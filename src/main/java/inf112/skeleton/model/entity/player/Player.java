@@ -172,12 +172,12 @@ public class Player extends GameEntity {
     
     @Override
     public float getX() {
-        return x;
+        return body.getPosition().x * UNIT_SCALE;
     }
     
     @Override
     public float getY() {
-        return y;
+        return body.getPosition().y * UNIT_SCALE;
     }
     
     @Override
@@ -349,5 +349,8 @@ public class Player extends GameEntity {
     }
     public void setKey(Boolean hasKey) {
         this.hasKey = hasKey;
+    }
+    public void removeKey() {
+        this.hasKey = false;
     }
 }

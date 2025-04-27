@@ -161,7 +161,7 @@ public ArrayList<Borders> getBorders(String layer){
       final RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;
       final Rectangle rectangle = rectangleMapObject.getRectangle();
       System.out.println(mapObject.getName());
-      borders.add(new Borders(rectangle.x, rectangle.y, rectangle.width, rectangle.height, mapObject.getName()));
+      borders.add(new Borders(rectangle.x, rectangle.y, rectangle.x + rectangle.width, rectangle.y + rectangle.height, mapObject.getName()));
     }
   }
   return borders;

@@ -58,6 +58,6 @@ class MapTest {
     
     @Test
     void testCollisionAreasExist() {
-        assertNotNull(map.getColissionAreas("Collision"), "Collision areas should not be null");
+        assertNotNull(map.getColissionAreas(), "Collision areas should not be null");
     }
 }

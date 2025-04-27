@@ -9,6 +9,12 @@ import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
 import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
 
+import java.security.Key;
+import java.util.ArrayList;
+
+import javax.swing.border.Border;
+
+import inf112.skeleton.model.entity.door.Door;
 import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.model.entity.enemy.EnemyController;
 import inf112.skeleton.model.entity.enemy.EnemyFactory;
@@ -18,6 +24,7 @@ import inf112.skeleton.model.entity.player.CharacterType;
 import inf112.skeleton.model.entity.player.Player;
 import inf112.skeleton.model.entity.player.PlayerFactory;
 import inf112.skeleton.model.entity.player.PlayerInteractions;
+import inf112.skeleton.model.map.Borders;
 import inf112.skeleton.model.map.Map;
 import inf112.skeleton.model.map.MapListener;
 import inf112.skeleton.model.map.MapManager;
@@ -36,6 +43,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
     private final PlayerInteractions playerInteractions;
     private final EnemyController enemyController;
     private final MapChanger mapChanger;
+    private final ArrayList<Borders> borders;
     public GameScreen(GamePanel context) {
         super(context);
         this.camera = context.getCamera();
@@ -53,9 +61,10 @@ public class GameScreen extends AbstractScreen implements MapListener {
         enemyController = new EnemyController(context, world, enemies, player);
         context.setPlayerInteractions(playerInteractions);
         mapChanger = new MapChanger();
+        borders = mapManager.getCurrentMap().getBorders("Interact");
     }
 
-    @Override
+    @Override   
     public void render(float delta) {
         gameRenderer.render(delta);
 
@@ -70,11 +79,15 @@ public class GameScreen extends AbstractScreen implements MapListener {
             dTime = 0;
         }
         if(player.hasKey()){
-            float playerX = player.getBody().getPosition().x ;
-            float playerY = player.getBody().getPosition().y ;
-            if (playerX >= 70.4 && playerX <= 72.6 && playerY >= 75.3 && playerY <= 75.5){
-            changeMap();
-        }
+            for(Borders border : borders) {
+                String name;
+                name = border.isInside(player.getX(), player.getY());
+                if (name!= null) {
+                    if(mapManager.openDoor(name)){
+                    player.removeKey();
+                    }
+                }
+            }
     }
         //Gdx.app.log("Debug", "FPS: " + Gdx.graphics.getFramesPerSecond());
 

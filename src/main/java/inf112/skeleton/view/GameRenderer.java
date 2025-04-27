@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.entity.door.Door;
 import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.model.entity.item.Item;
 import inf112.skeleton.model.entity.player.CharacterType;
@@ -52,6 +53,7 @@ public class GameRenderer implements Disposable, MapListener {
     private debug debug;
     private Array<Item> items;
     private ItemBar itemBar;
+    private Array<Door> doors;
 
     public GameRenderer(final GamePanel context) {
         viewport = context.getViewport();

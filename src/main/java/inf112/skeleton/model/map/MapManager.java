@@ -3,10 +3,12 @@ package inf112.skeleton.model.map;
 import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
 
 import java.util.EnumMap;
+import java.util.Objects;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -106,42 +108,42 @@ public class MapManager {
      * Oppretter kollisjonsobjekter i verden basert på CollisionAreas i det nåværende kartet.
      * Sikrer at duplikate/nære punkter ikke fører til Box2D-krasj.
      */
-    private void spawnDoors() {
-        GamePanel.resetBodyAndFixtureDefinition();
-        doors.clear();
-    
-        for (Borders door : currentMap.getDoorsAreas()) {
-    
-            float x1 = door.getX1()*UNIT_SCALE;
-            float y1 = door.getY1()*UNIT_SCALE;
-            float x2 = door.getX2()*UNIT_SCALE;
-            float y2 = door.getY2()*UNIT_SCALE;
+        private void spawnDoors() {
+            GamePanel.resetBodyAndFixtureDefinition();
+            doors.clear();
+        
+            for (Borders door : currentMap.getDoorsAreas()) {
+        
+                float x1 = door.getX1();
+                float y1 = door.getY1();
+                float x2 = door.getWidth()*UNIT_SCALE;
+                float y2 = door.getHeight()*UNIT_SCALE;
 
-    
-            // -------- Body --------
-            GamePanel.BODY_DEF.position.set(x1, y1);
-            GamePanel.BODY_DEF.fixedRotation = true;
-            Body body = world.createBody(GamePanel.BODY_DEF);
-            body.setUserData("DOOR");
-    
-            GamePanel.FIXTURE_DEF.filter.categoryBits = GamePanel.BIT_GROUND;
-            GamePanel.FIXTURE_DEF.filter.maskBits     = -1;
-    
-            // -------- Shape (lokale koordinater) --------
-            ChainShape shape = new ChainShape();
-            shape.createChain(new float[]{0, 0,               
-                                          0, y2,
-                                          x2, y2,
-                                          x2, 0,
-                                          0, 0}); 
-            GamePanel.FIXTURE_DEF.shape = shape;
-            body.createFixture(GamePanel.FIXTURE_DEF);
-            shape.dispose();
-            float cx = (x1 + x2) * 0.5f;
-            float cy = (y1 + y2) * 0.5f;
-            doors.add(new Door(cx, cy, world, body, door.getName(), null));
+        
+                // -------- Body --------
+                GamePanel.BODY_DEF.position.set(x1, y1);
+                GamePanel.BODY_DEF.fixedRotation = true;
+                Body body = world.createBody(GamePanel.BODY_DEF);
+                body.setUserData("DOOR");
+        
+                GamePanel.FIXTURE_DEF.filter.categoryBits = GamePanel.BIT_GROUND;
+                GamePanel.FIXTURE_DEF.filter.maskBits     = -1;
+        
+                // -------- Shape (lokale koordinater) --------
+                ChainShape shape = new ChainShape();
+                shape.createChain(new float[]{0, 0,               
+                                            0, y2,
+                                            x2, y2,
+                                            x2, 0,
+                                            0, 0}); 
+                GamePanel.FIXTURE_DEF.shape = shape;
+                body.createFixture(GamePanel.FIXTURE_DEF);
+                shape.dispose();
+                float cx = (x1 + x2) * 0.5f;
+                float cy = (y1 + y2) * 0.5f;
+                doors.add(new Door(cx, cy, world, body, door.getName()));
+            }
         }
-    }
     private void spawnCollisionsAreas() {
         GamePanel.resetBodyAndFixtureDefinition();
         for (final CollisionArea collisionArea : currentMap.getColissionAreas()) {
@@ -185,5 +187,19 @@ public class MapManager {
      */
     public Map getCurrentMap() {
         return currentMap;
+    }
+    public Boolean openDoor(String doorName){
+        for (Door d: doors){
+            System.out.println("Door name: " + d.getName());
+            if (Objects.equals(doorName, d.getName())){
+                d.removeDoor();
+                doors.removeValue(d, true);
+                return true;
+            }
+        }
+        return false;
+    }
+    public Array<Door> getDoors() {
+        return doors;
     }
 }
