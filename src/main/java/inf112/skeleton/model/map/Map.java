@@ -168,12 +168,16 @@ public ArrayList<Borders> getBorders(String layer){
 }
 public ArrayList<Borders> getDoorsAreas() {
   ArrayList<Borders> doors = new ArrayList<>();
+  try{
   for(final MapObject mapObject : tiledMap.getLayers().get("Door").getObjects()) {
     if (mapObject instanceof RectangleMapObject) {
       final RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;
       final Rectangle rectangle = rectangleMapObject.getRectangle();
       doors.add(new Borders(rectangle.x, rectangle.y, rectangle.width, rectangle.height, mapObject.getName()));
     }
+  }
+  } catch (NullPointerException e) {
+    Gdx.app.error(TAG, "Door layer not found! Ensure 'Door' layer exists in the map.");
   }
   return doors;
 }

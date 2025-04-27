@@ -88,13 +88,12 @@ public class GameScreen extends AbstractScreen implements MapListener {
                     }
                 }
             }
+        }
             float playerX = player.getBody().getPosition().x ;
             float playerY = player.getBody().getPosition().y ;
             if (playerX >= 72.4 && playerX <= 72.6 && playerY >= 75.3 && playerY <= 75.5){
             changeMap();
             }
-   
-    }
         //Gdx.app.log("Debug", "FPS: " + Gdx.graphics.getFramesPerSecond());
 
         // Test map switching - should be moved to a proper input handler

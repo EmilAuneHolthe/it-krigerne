@@ -109,6 +109,9 @@ public class MapManager {
      * Sikrer at duplikate/nære punkter ikke fører til Box2D-krasj.
      */
         private void spawnDoors() {
+            if(currentMap.getDoorsAreas().isEmpty()) {
+                return;
+            }
             GamePanel.resetBodyAndFixtureDefinition();
             doors.clear();
         
@@ -139,8 +142,6 @@ public class MapManager {
                 GamePanel.FIXTURE_DEF.shape = shape;
                 body.createFixture(GamePanel.FIXTURE_DEF);
                 shape.dispose();
-                float cx = (x1 + x2) * 0.5f;
-                float cy = (y1 + y2) * 0.5f;
                 doors.add(new Door(x1, x2, world, body, door.getName(), assetManager, x2, y2));
             }
         }

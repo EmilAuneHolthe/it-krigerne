@@ -171,12 +171,12 @@ public class Player extends GameEntity {
     
     @Override
     public float getX() {
-        return body.getPosition().x * UNIT_SCALE;
+        return body.getPosition().x * context.UNIT_SCALE;
     }
     
     @Override
     public float getY() {
-        return body.getPosition().y * UNIT_SCALE;
+        return body.getPosition().y * context.UNIT_SCALE;
     }
     
     @Override
