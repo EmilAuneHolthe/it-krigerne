@@ -1,7 +1,6 @@
 package inf112.skeleton.view.ui;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,9 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.model.GamePanel;
-import inf112.skeleton.view.screen.ScreenType;
 
 public class DeathOverlay {
     private final Stage stage;
