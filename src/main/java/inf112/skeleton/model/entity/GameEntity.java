@@ -30,7 +30,7 @@ public abstract class GameEntity implements entity, Disposable {
     protected KeyHandler keyHandler;
     protected ItemType itemType;
     
-    public GameEntity(GamePanel context, World world, Body body, int health, int damage, CharacterType characterType) {
+    protected GameEntity(GamePanel context, World world, Body body, int health, int damage, CharacterType characterType) {
         this.context = context;
         this.world = world;
         this.body = body;
