@@ -59,9 +59,9 @@ public class GamePanel extends Game {
     private Box2DDebugRenderer box2DDebugRenderer;
 
     // Pixel to meter ratio
-    public static final short BIT_Player = 1<<0;
+    public static final short BIT_PLAYER = 1<<0;
     public static final float UNIT_SCALE = 1/32f; // 1 meter = 32 pixels
-    public static final short BIT_Box = 1<<1;
+    public static final short BIT_BOX = 1<<1;
     public static final short BIT_GROUND = 1<<2;
     private static final float FIXED_TIME_STEP = 1/60f;
     private float accumulator;

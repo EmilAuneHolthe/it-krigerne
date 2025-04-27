@@ -53,8 +53,8 @@ class GamePanelTest {
     @Test
     void testPublicConstants() {
         // Test public constants
-        assertEquals(1, GamePanel.BIT_Player);
-        assertEquals(2, GamePanel.BIT_Box);
+        assertEquals(1, GamePanel.BIT_PLAYER);
+        assertEquals(2, GamePanel.BIT_BOX);
         assertEquals(4, GamePanel.BIT_GROUND);
         assertEquals(1/32f, GamePanel.UNIT_SCALE);
     }
