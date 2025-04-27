@@ -17,9 +17,6 @@ public class Borders {
   public String isInside(float x, float y) {
     float xy = x/UNIT_SCALE;
     float yx = y/UNIT_SCALE;
-    System.out.println("player Position" + "x: " + xy + " y: " + yx);
-    System.out.println("x1 " + x1 + " y1 " + y1);
-    System.out.println("x2 " + x2 + " y2 " + y2);
     if (xy >= x1 && xy <= x2 && yx >= y1 && yx <= y2) {
       return name;
     }
