@@ -141,7 +141,7 @@ public class MapManager {
                 shape.dispose();
                 float cx = (x1 + x2) * 0.5f;
                 float cy = (y1 + y2) * 0.5f;
-                doors.add(new Door(cx, cy, world, body, door.getName()));
+                doors.add(new Door(x1, x2, world, body, door.getName(), assetManager, x2, y2));
             }
         }
     private void spawnCollisionsAreas() {

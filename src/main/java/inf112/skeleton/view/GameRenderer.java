@@ -28,6 +28,7 @@ import inf112.skeleton.model.entity.player.CharacterType;
 import inf112.skeleton.model.entity.player.Player;
 import inf112.skeleton.model.map.Map;
 import inf112.skeleton.model.map.MapListener;
+import inf112.skeleton.model.map.MapManager;
 import inf112.skeleton.view.ui.PlayerHUD;
 import inf112.skeleton.view.ui.ItemBar;
 
@@ -54,6 +55,7 @@ public class GameRenderer implements Disposable, MapListener {
     private Array<Item> items;
     private ItemBar itemBar;
     private Array<Door> doors;
+    private final MapManager mapManager;
 
     public GameRenderer(final GamePanel context) {
         viewport = context.getViewport();
@@ -69,6 +71,7 @@ public class GameRenderer implements Disposable, MapListener {
         profiler.enable();
         box2DDebugRenderer = new Box2DDebugRenderer();
         world = context.getWorld();
+        this.mapManager = context.getMapManager();
 
         // UI setup with ScreenViewport for fixed UI elements
         uiStage = new Stage(new ScreenViewport(), spriteBatch);
@@ -126,7 +129,6 @@ public class GameRenderer implements Disposable, MapListener {
             
             // Begin sprite batch for map rendering
             spriteBatch.begin();
-            
             // Render each layer
             for (int i = 0; i < layers.getCount(); i++) {
                 com.badlogic.gdx.maps.MapLayer layer = layers.get(i);
@@ -138,6 +140,9 @@ public class GameRenderer implements Disposable, MapListener {
                     
                     // Render player, enemies, and boss
                     spriteBatch.begin();
+                    for (Door door : mapManager.getDoors()) {
+                        door.render(spriteBatch);
+                    }
                     if(items != null) {
                         for (Item item : items) {
                             item.render(spriteBatch);

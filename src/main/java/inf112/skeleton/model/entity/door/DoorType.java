@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import inf112.skeleton.model.entity.item.ItemType;
 
 public enum DoorType {
-  DOOR1("door_closed.png", 0.50f),
-  CAVE ("cave_closed.png", 0.75f);
+  DOOR1("map/Door1.png", 2f),
+  CAVE ("map/Door1.png", 0.75f);
 
   private final String textureFile;
   private final float  size;
