@@ -1,8 +1,6 @@
 package inf112.skeleton.model.entity.door;
 
-import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
