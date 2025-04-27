@@ -98,7 +98,7 @@ public class GamePanel extends Game {
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
         camera = new OrthographicCamera();
         screenViewport = new FitViewport(25 * 32 * UNIT_SCALE, 14 * 32 * UNIT_SCALE, camera);
-        screenCache = new EnumMap<ScreenType, AbstractScreen>(ScreenType.class);
+        screenCache = new EnumMap<>(ScreenType.class);
 
         //Audio
         audioHandler = new AudioHandler(this);
