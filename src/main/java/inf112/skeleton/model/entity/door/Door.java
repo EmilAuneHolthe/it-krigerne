@@ -33,6 +33,7 @@ public class Door{
       this.doorType = DoorType.valueOf(name.toUpperCase());
       sprite = new Sprite(doorType.getTexture(assets));
       sprite.setSize(width, height);
+      
     }
   public void render(SpriteBatch batch) {
     sprite.setPosition(body.getPosition().x, body.getPosition().y);

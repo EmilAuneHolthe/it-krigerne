@@ -5,9 +5,8 @@ public enum ScreenType {
     GAME(GameScreen.class),
     LOADING(LoadingScreen.class),
     MAIN_MENU(MainMenuScreen.class),
-    SETTINGS(SettingScreen.class);
-
-
+    SETTINGS(SettingScreen.class),
+    VICTORY(VictoryScreen.class);
 
     private final Class<? extends AbstractScreen> screenClass;
 

@@ -28,8 +28,6 @@ public class MainMenuScreen extends AbstractScreen {
     private ImageButton optionsButton;
     private ImageButton exitButton;
     private boolean debugMode = false; // Toggle for debug outlines
-    private float originalWidth = 960; // Original window width
-    private float originalHeight = 540; // Original window height
 
     public MainMenuScreen(GamePanel context) {
         super(context);

@@ -189,6 +189,11 @@ public class MapManager {
     public Map getCurrentMap() {
         return currentMap;
     }
+
+    public MapType getCurrentMapType() {
+        return currentMapType;
+    }
+
     public Boolean openDoor(String doorName){
         for (Door d: doors){
             System.out.println("Door name: " + d.getName());

@@ -7,7 +7,8 @@ import inf112.skeleton.model.entity.item.ItemType;
 
 public enum DoorType {
   DOOR1("map/Door1.png", 2f),
-  CAVE ("map/Door1.png", 0.75f);
+  CAVE ("map/Door1.png", 0.75f),
+  CASTLE_DOOR("map/Door1.png", 0.75f),;
 
   private final String textureFile;
   private final float  size;
