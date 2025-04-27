@@ -10,7 +10,7 @@ public enum ItemType {
   DIAMOND_SWORD("sword2"),
   MANA("mana");
 
-  private static final String KNIFE_TEXTURE = "knife.png"; // <--- Add this line
+  private static final String KNIFE_TEXTURE = "knife.png"; 
 
   private final String type;
 
@@ -25,13 +25,13 @@ public enum ItemType {
       case KEY:
         return new Texture("key.png");
       case ATTACK:
-        return new Texture(KNIFE_TEXTURE); // <--- Use constant
+        return new Texture(KNIFE_TEXTURE); 
       case MANA:
         return new Texture("mana.png");
       case DIAMOND_SWORD:
-        return new Texture(KNIFE_TEXTURE); // <--- Use constant
+        return new Texture(KNIFE_TEXTURE);
       case EMERALD_SWORD:
-        return new Texture(KNIFE_TEXTURE); // <--- Use constant
+        return new Texture(KNIFE_TEXTURE); 
       default:
         break;
     }
