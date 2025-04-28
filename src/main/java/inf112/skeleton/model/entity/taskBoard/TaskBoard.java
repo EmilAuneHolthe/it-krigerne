@@ -31,7 +31,6 @@ public class TaskBoard {
     }
 
     public void render(SpriteBatch batch) {
-      System.out.println( "TaskBoard.render" + active);
       if(!active) return;
       sprite.draw(batch);
 
