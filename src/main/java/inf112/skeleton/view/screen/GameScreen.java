@@ -171,7 +171,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
 
     private void spawnPlayer() {
         if (context.getPlayer() == null) {
-            PlayerFactory factory = new PlayerFactory(context, world, keyHandler);
+            PlayerFactory factory = new PlayerFactory(context, world);
             context.setPlayer(factory.createPlayer(
                 mapManager.getCurrentMap().getPlayerSpawn().x * UNIT_SCALE,
                 mapManager.getCurrentMap().getPlayerSpawn().y * UNIT_SCALE,

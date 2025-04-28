@@ -1,10 +1,13 @@
 package inf112.skeleton.model.entity.player;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.controller.Keys;
+import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.view.screen.GameScreen;
 
 public class PlayerMovement {
     private Body body;
@@ -13,12 +16,12 @@ public class PlayerMovement {
     private boolean directionChange;
     private String direction;
     private KeyHandler keyHandler;
+
     
-    public PlayerMovement(World world, Body body, KeyHandler keyHandler) {
+    public PlayerMovement(GamePanel context, World world, Body body) {
         this.body = body;
-        this.keyHandler = keyHandler;
+        this.keyHandler = context.getKeyHandler();
         this.direction = "Down";
-        this.keyHandler = keyHandler;
     }
     
     public void update() {

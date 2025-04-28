@@ -157,8 +157,6 @@ public class ItemBar {
                 return "H";
             case MANA:
                 return "M";
-            case ATTACK:
-                return "A";
             case KEY:
                 return "K";
             default:

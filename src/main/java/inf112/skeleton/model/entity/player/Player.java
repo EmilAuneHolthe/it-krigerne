@@ -32,12 +32,13 @@ public class Player extends GameEntity {
     private PlayerInteractions playerInteractions;
     private final Item[] items;
     private int selectedItemIndex;
+    private int swordUpgradeType = 0;
 
-    public Player(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType, KeyHandler keyHandler) {
+    public Player(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType) {
         super(context, world, body, health, damage, characterType);
         isDead = false;
         deathOverlay = new DeathOverlay(context);
-        this.movement = new PlayerMovement(world, body, keyHandler);
+        this.movement = new PlayerMovement(context, world, body);
         this.mana = 100;
         this.maxMana = 100;
         this.playerInteractions = new PlayerInteractions(context);
@@ -309,21 +310,22 @@ public class Player extends GameEntity {
                 mana = Math.min(mana + 20, maxMana);
                 manaRegenRate += 5f;
                 break;
-            case ATTACK:
-                damage += 5;
-                String swordHUDTexture = ItemType.getSwordHUDTexturePath(item.getItemType());
-                if (swordHUDTexture != null) {
-                    context.updateEquippedSwordHUD(swordHUDTexture);
+            case SWORD_UPGRADE:
+                swordUpgradeType++;
+                if (swordUpgradeType == 1) {
+                    damage += 5;
+                    getSwordHUDTexturePath("UncommonSword");
                 }
+                else if (swordUpgradeType == 2) {
+                    damage += 5;
+                    getSwordHUDTexturePath("RareSword");
+                }             
                 break;
             case KEY:
                 hasKey = true;
                 context.getAudioHandler().playAudio(AudioTypes.BONUS);
                 break;
-            case DIAMOND_SWORD:
-                break;
-            case EMERALD_SWORD:
-                break;
+
             default:
                 break;
         }
@@ -332,6 +334,15 @@ public class Player extends GameEntity {
         items[selectedItemIndex] = null;
         Gdx.app.log("Player", "Used and removed item from slot " + selectedItemIndex);
     }
+
+    private void getSwordHUDTexturePath(String Sword) {
+            
+            String swordHUDTexture = ItemType.getSwordHUDTexturePath(Sword);
+           
+            if (swordHUDTexture != null) {
+                context.updateEquippedSwordHUD(swordHUDTexture);
+            }
+        }
 
     public boolean hasKey() {
         return hasKey;

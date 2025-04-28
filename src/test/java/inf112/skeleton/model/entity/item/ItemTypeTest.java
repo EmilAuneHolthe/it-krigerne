@@ -13,8 +13,8 @@ class ItemTypeTest extends BaseTest {
         assertEquals(0.75f, ItemType.getItemSize(ItemType.KEY));
         assertEquals(1f, ItemType.getItemSize(ItemType.ATTACK));
         assertEquals(0.75f, ItemType.getItemSize(ItemType.MANA));
-        assertEquals(0.5f, ItemType.getItemSize(ItemType.DIAMOND_SWORD)); // Updated to match default behavior
-        assertEquals(0.5f, ItemType.getItemSize(ItemType.EMERALD_SWORD)); // Updated to match default behavior
+        assertEquals(0.5f, ItemType.getItemSize(ItemType.UNCOMMON_SWORD)); // Updated to match default behavior
+        assertEquals(0.5f, ItemType.getItemSize(ItemType.RARE_SWORD)); // Updated to match default behavior
     }
 
     @Test
@@ -23,8 +23,8 @@ class ItemTypeTest extends BaseTest {
         assertEquals("key", ItemType.getItemType(ItemType.KEY));
         assertEquals("attack", ItemType.getItemType(ItemType.ATTACK));
         assertEquals("mana", ItemType.getItemType(ItemType.MANA));
-        assertEquals("sword2", ItemType.getItemType(ItemType.DIAMOND_SWORD));
-        assertEquals("sword", ItemType.getItemType(ItemType.EMERALD_SWORD));
+        assertEquals("sword2", ItemType.getItemType(ItemType.UNCOMMON_SWORD));
+        assertEquals("sword", ItemType.getItemType(ItemType.RARE_SWORD));
     }
 
     @Test
@@ -41,7 +41,7 @@ class ItemTypeTest extends BaseTest {
         assertNotNull(ItemType.getItemTexture(ItemType.KEY));
         assertNotNull(ItemType.getItemTexture(ItemType.ATTACK));
         assertNotNull(ItemType.getItemTexture(ItemType.MANA));
-        assertNotNull(ItemType.getItemTexture(ItemType.DIAMOND_SWORD));
-        assertNotNull(ItemType.getItemTexture(ItemType.EMERALD_SWORD));
+        assertNotNull(ItemType.getItemTexture(ItemType.UNCOMMON_SWORD));
+        assertNotNull(ItemType.getItemTexture(ItemType.RARE_SWORD));
     }
 }
