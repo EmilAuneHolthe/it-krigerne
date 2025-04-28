@@ -63,7 +63,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
         spawnTaskBoard();
         playerInteractions = new PlayerInteractions(context);
         enemies = context.getEnemy();
-        enemyController = new EnemyController(context, world, enemies, player);
+        enemyController = new EnemyController(enemies, player);
         context.setPlayerInteractions(playerInteractions);
         mapChanger = new MapChanger();
         borders = mapManager.getCurrentMap().getBorders("Interact");
@@ -97,6 +97,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
                         isInsideTaskBoard = true;
                     }
                     else if(player.hasKey() && Boolean.TRUE.equals(mapManager.openDoor(name))){
+                        System.out.println(name);
                     player.removeKey();
                     context.getAudioHandler().playAudio(AudioTypes.DOOR);
                     }

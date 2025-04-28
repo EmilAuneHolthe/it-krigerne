@@ -122,7 +122,7 @@ public class GamePanel extends Game {
         // Initialize MapChanger and EnemyController
         mapChanger = new MapChanger();
         enemies = new Array<>();
-        enemyController = new EnemyController(this, world, enemies, player);
+        enemyController = new EnemyController(enemies, player);
 
         setScreen(ScreenType.MAIN_MENU);
     }
