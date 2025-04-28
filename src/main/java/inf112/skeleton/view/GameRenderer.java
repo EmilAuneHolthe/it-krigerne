@@ -65,6 +65,7 @@ public class GameRenderer implements Disposable, MapListener {
         player = context.getPlayer();
         enemies = context.getEnemy();
         items = context.getItems();
+        taskBoard = context.getTaskBoard();
         mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, spriteBatch);
         context.getMapManager().addListener(this);
 
@@ -113,7 +114,7 @@ public class GameRenderer implements Disposable, MapListener {
         // Update camera position to follow player
         if (player != null && player.getBody() != null) {
             camera.position.set(player.getBody().getPosition().x, player.getBody().getPosition().y, 0);
-            camera.zoom = 0.7f;
+            camera.zoom = 5f;
             camera.update();
         }
 
@@ -142,10 +143,9 @@ public class GameRenderer implements Disposable, MapListener {
                     
                     // Render player, enemies, and boss
                     spriteBatch.begin();
-                    for (Door door : mapManager.getDoors()) {
+                    for (Door door : doors) {
                         door.render(spriteBatch);
                     }
-                    taskBoard = mapManager.getTaskBoard();
                     if (taskBoard != null) {
                         taskBoard.render(spriteBatch);
                     }
@@ -301,6 +301,12 @@ public class GameRenderer implements Disposable, MapListener {
     }
     public void updateItem(Array<Item> items) {
         this.items = items;
+    }
+    public void updateDoors() {
+        this.doors = mapManager.getDoors();
+    }
+    public void updateTaskBoard() {
+        this.taskBoard = mapManager.getTaskBoard();
     }
     @Override
     public void dispose() {

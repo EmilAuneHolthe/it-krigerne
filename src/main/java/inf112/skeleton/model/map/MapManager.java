@@ -232,7 +232,10 @@ public class MapManager {
         
     }
     public TaskBoard getTaskBoard() {
-         //spawnTaskBoard();
-         return taskBoard;
+        //spawnTaskBoard();
+        if(currentMapType == MapType.MAP_START) {
+            return taskBoard;
+        }
+        else return null;
     }
 }
