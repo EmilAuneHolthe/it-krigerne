@@ -88,7 +88,9 @@ public class GameScreen extends AbstractScreen implements MapListener {
             enemyController.sight();
             dTime = 0;
         }
-        Boolean isInsideTaskBoard = false;
+            borders = mapManager.getCurrentMap().getBorders("Interact");
+            if(borders != null) {
+            Boolean isInsideTaskBoard = false;
             for(Borders border : borders) {
                 String name;
                 name = border.isInside(player.getX(), player.getY());
@@ -112,7 +114,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             gameRenderer.setShowDebug(!gameRenderer.isShowDebug());
         }
-
+    }
     }
 
     @Override
