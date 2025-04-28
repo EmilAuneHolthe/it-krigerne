@@ -90,9 +90,9 @@ public class GameScreen extends AbstractScreen implements MapListener {
                     else if(player.hasKey() && Boolean.TRUE.equals(mapManager.openDoor(name))){
                     player.removeKey();
                     }
-                    else{
-                        context.getTaskBoard().setActive(false);
-                    }
+            }
+            else if (name == null) {
+                context.getTaskBoard().setActive(false);
             }
         }
             float playerX = player.getBody().getPosition().x ;
