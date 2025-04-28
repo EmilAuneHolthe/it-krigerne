@@ -12,31 +12,26 @@ import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.GameEntity;
 import inf112.skeleton.model.entity.player.CharacterType;
 import inf112.skeleton.view.screen.GameScreen;
-import inf112.skeleton.view.screen.ScreenType;
 
 
 public class Enemy extends GameEntity {
-    private String direction;
-    public Texture playerIdleFrontTexture, playerIdleUpTexture, playerIdleRightTexture, playerIdleLeftTexture;
     private String name;
     private  Texture healthTexture;
     private Texture backgroundTexture;
     private float speed = 2f;
     private boolean isDead;
-    private final CharacterType characterType;
     private float maxHealth;
     private int sight;
 
-    public Enemy(GamePanel context, World world, Body body, CharacterType characterType, String Name) {
+    public Enemy(GamePanel context, World world, Body body, CharacterType characterType, String name) {
         super(context, world, body, EnemyTypes.getEnemyHealth(characterType), EnemyTypes.getEnemyDamage(characterType), characterType);
         this.world = world;
         this.characterType = characterType;
         this.health = EnemyTypes.getEnemyHealth(characterType);
         this.damage = EnemyTypes.getEnemyDamage(characterType);
         this.isDead = false;
-        this.direction = "Down";
         this.maxHealth = EnemyTypes.getEnemyHealth(characterType);
-        this.name = Name;
+        this.name = name;
         this.sight = EnemyTypes.getEnemySight(characterType);
         
         // Load health bar textures
@@ -51,9 +46,6 @@ public class Enemy extends GameEntity {
             // Draw health bar for regular enemies
             Vector2 pos = body.getPosition();
             float barWidth = maxHealth/100;
-            float barHeight = 0.1f;
-            float x = pos.x - (barWidth / 2); // Center the bar horizontally
-            float y = pos.y + 0.5f; // Position above the enemy
             
             batch.draw(backgroundTexture, pos.x - barWidth/2.3f, pos.y + 0.5f, barWidth, 0.2f);
             batch.draw(healthTexture, pos.x - barWidth/2.3f, pos.y + 0.5f, 1 * (health / 100f), 0.2f);
@@ -63,7 +55,7 @@ public class Enemy extends GameEntity {
     public void update(float deltaTime) {
         // Add enemy-specific update logic here
     }
-    
+    @Override
     public int getHealth() {
         if (health < 0) {
             return 0;
@@ -71,7 +63,7 @@ public class Enemy extends GameEntity {
         return health;
       
     }
-
+    @Override
     public boolean takeDamage(int damage) {
         health -= damage;
         
@@ -84,7 +76,6 @@ public class Enemy extends GameEntity {
                 // Remove from the enemy list
                 context.getEnemy().removeIndex(index);
                 if(characterType == CharacterType.BOSS) {
-                    System.out.println("Boss defeated!");
                     GameScreen.victory = true;
                 }
             }
@@ -148,10 +139,6 @@ public class Enemy extends GameEntity {
             }
         }
         animation.setMoving(true);
-    }
-
-    public void setDirection(String direction) {
-        this.direction = direction;
     }
 
     public int getDamage() {

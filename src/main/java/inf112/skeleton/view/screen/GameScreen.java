@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 import javax.swing.border.Border;
 
-import inf112.skeleton.model.entity.door.Door;
 import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.model.entity.enemy.EnemyController;
 import inf112.skeleton.model.entity.enemy.EnemyFactory;
@@ -44,7 +43,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
     private final PlayerInteractions playerInteractions;
     private final EnemyController enemyController;
     private final MapChanger mapChanger;
-    private ArrayList<Borders> borders;
+    private Array<Borders> borders;
 
     public static Boolean victory = false;
 
@@ -61,12 +60,14 @@ public class GameScreen extends AbstractScreen implements MapListener {
         spawnEnemy();
         spawnPlayer();
         spawnItem();
+        spawnTaskBoard();
         playerInteractions = new PlayerInteractions(context);
         enemies = context.getEnemy();
-        enemyController = new EnemyController(context, world, enemies, player);
+        enemyController = new EnemyController(enemies, player);
         context.setPlayerInteractions(playerInteractions);
         mapChanger = new MapChanger();
         borders = mapManager.getCurrentMap().getBorders("Interact");
+        gameRenderer.updateDoors();
     }
 
     @Override   
@@ -87,27 +88,33 @@ public class GameScreen extends AbstractScreen implements MapListener {
             enemyController.sight();
             dTime = 0;
         }
-        if(player.hasKey()){
+            borders = mapManager.getCurrentMap().getBorders("Interact");
+            if(borders != null) {
+            Boolean isInsideTaskBoard = false;
             for(Borders border : borders) {
                 String name;
                 name = border.isInside(player.getX(), player.getY());
                 if (name!= null) {
-                    if(mapManager.openDoor(name)){
+                    if(name.equals("TaskBoard")) {
+                        isInsideTaskBoard = true;
+                    }
+                    else if(player.hasKey() && Boolean.TRUE.equals(mapManager.openDoor(name))){
+                        System.out.println(name);
                     player.removeKey();
                     context.getAudioHandler().playAudio(AudioTypes.DOOR);
-                    
                     }
                 }
             }
-        }
-        
-        teleportPlayer();
-            
-            
-         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            if(mapManager.getTaskBoard() != null) {
+                mapManager.getTaskBoard().setActive(isInsideTaskBoard);
+            }
+            isInsideTaskBoard = false;
+            teleportPlayer();
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             gameRenderer.setShowDebug(!gameRenderer.isShowDebug());
         }
-
+    }
     }
 
     @Override
@@ -187,6 +194,9 @@ public class GameScreen extends AbstractScreen implements MapListener {
         context.setItems(items);
         gameRenderer.updateItem(items);
     }
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
     public void changeMap(MapType mapType) {
         mapManager.setMap(mapType);
         mapChanger.removeObjects(world, mapManager.getCurrentMap(), enemies);
@@ -199,6 +209,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
         enemyController.updateEnemies(enemies);
         borders = mapManager.getCurrentMap().getBorders("Interact");
         spawnItem();
+        gameRenderer.updateDoors();
         }
 
     private void teleportPlayer() {
@@ -217,6 +228,10 @@ public class GameScreen extends AbstractScreen implements MapListener {
         if (victory) {
             context.setScreen(ScreenType.VICTORY);
         }     
+    }
+    public void spawnTaskBoard(){
+        mapManager.spawnTaskBoard();
+        gameRenderer.updateTaskBoard();
     }
 }
 

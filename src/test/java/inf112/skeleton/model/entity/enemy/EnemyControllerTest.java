@@ -12,23 +12,19 @@ import static org.mockito.Mockito.*;
 
 class EnemyControllerTest {
     private EnemyController enemyController;
-    private GamePanel mockGamePanel;
-    private World mockWorld;
     private Player mockPlayer;
     private Array<Enemy> enemies;
     private Enemy mockEnemy;
 
     @BeforeEach
     void setUp() {
-        mockGamePanel = mock(GamePanel.class);
-        mockWorld = mock(World.class);
         mockPlayer = mock(Player.class);
         mockEnemy = mock(Enemy.class);
         
         enemies = new Array<>();
         enemies.add(mockEnemy);
         
-        enemyController = new EnemyController(mockGamePanel, mockWorld, enemies, mockPlayer);
+        enemyController = new EnemyController(enemies, mockPlayer);
     }
 
     @Test
@@ -64,8 +60,6 @@ class EnemyControllerTest {
         // When
         enemyController.sight();
 
-        // Then
-        verify(mockEnemy).setDirection("Right");
         verify(mockEnemy).moveEnemy(playerPosition.x, playerPosition.y);
     }
 
@@ -84,7 +78,6 @@ class EnemyControllerTest {
 
         // Then
         verify(mockEnemy).setLinearVelocity(0, 0);
-        verify(mockEnemy).setDirection("Front");
         verify(mockEnemy, never()).moveEnemy(anyFloat(), anyFloat());
     }
 

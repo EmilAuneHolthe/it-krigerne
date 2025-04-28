@@ -18,6 +18,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -35,6 +36,7 @@ import inf112.skeleton.model.entity.item.Item;
 import inf112.skeleton.model.entity.item.ItemFactory;
 import inf112.skeleton.model.entity.player.Player;
 import inf112.skeleton.model.entity.player.PlayerInteractions;
+import inf112.skeleton.model.entity.taskBoard.TaskBoard;
 import inf112.skeleton.model.map.MapChanger;
 import inf112.skeleton.model.map.MapManager;
 import inf112.skeleton.model.map.MapType;
@@ -120,7 +122,7 @@ public class GamePanel extends Game {
         // Initialize MapChanger and EnemyController
         mapChanger = new MapChanger();
         enemies = new Array<>();
-        enemyController = new EnemyController(this, world, enemies, player);
+        enemyController = new EnemyController(enemies, player);
 
         setScreen(ScreenType.MAIN_MENU);
     }
@@ -328,5 +330,8 @@ public class GamePanel extends Game {
         if (playerHUD != null) {
             playerHUD.updateEquippedSword(texturePath);
         }
+    }
+    public TaskBoard getTaskBoard() {
+        return mapManager.getTaskBoard();
     }
 }
