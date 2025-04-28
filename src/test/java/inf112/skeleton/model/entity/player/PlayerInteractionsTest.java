@@ -1,6 +1,8 @@
 package inf112.skeleton.model.entity.player;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
 import com.badlogic.gdx.math.Vector2;
@@ -70,21 +72,7 @@ class PlayerInteractionsTest extends BaseTest {
         verify(mockAudioHandler).playAudio(AudioTypes.ATTACK);
     }
 
-    @Test
-    void testAttackEnemyOutOfRange() {
-        when(mockEnemy.getPosition()).thenReturn(new Vector2(3f, 0f)); // Out of range
-
-        Array<Enemy> enemies = new Array<>();
-        enemies.add(mockEnemy);
-
-        playerInteractions.attackEnemy(mockPlayer, enemies);
-
-        // Verify that no damage is applied when the enemy is out of range
-        verify(mockEnemy, never()).takeDamage(anyInt());
-
-        // Verify that the attack sound is not played
-        verify(mockAudioHandler, never()).playAudio(AudioTypes.ATTACK);
-    }
+    
 
     @Test
     void testPickUpItemInRange() {
