@@ -88,7 +88,7 @@ public class PlayerHUD {
 
         // Load the circular slot frame and the player's initial sword icon
         Texture circleTexture = new Texture(Gdx.files.internal("sword_circle.png"));
-        Texture swordTexture = new Texture(Gdx.files.internal("knife.png")); // change path as needed
+        Texture swordTexture = new Texture(Gdx.files.internal("Player/Sword/Common.png")); // change path as needed
 
         swordSlotCircle = new Image(circleTexture);
         equippedSwordIcon = new Image(swordTexture);

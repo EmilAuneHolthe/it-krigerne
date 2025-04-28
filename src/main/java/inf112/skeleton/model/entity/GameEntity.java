@@ -27,7 +27,6 @@ public abstract class GameEntity implements entity, Disposable {
     // Animation and movement
     protected PlayerAnimation animation;
     protected PlayerMovement movement;
-    protected KeyHandler keyHandler;
     protected ItemType itemType;
     
     protected GameEntity(GamePanel context, World world, Body body, int health, int damage, CharacterType characterType) {
@@ -43,7 +42,7 @@ public abstract class GameEntity implements entity, Disposable {
         
         // Initialize components
         this.animation = new PlayerAnimation(characterType);
-        this.movement = new PlayerMovement(world, body, keyHandler);
+        this.movement = new PlayerMovement(context, world, body);
     }
     protected GameEntity(GamePanel context, World world, ItemType itemType, float x, float y) {
         this.context = context;

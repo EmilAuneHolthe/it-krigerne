@@ -12,12 +12,11 @@ import inf112.skeleton.model.GamePanel;
 public class PlayerFactory {
     private final GamePanel context;
     private final World world;
-    private final KeyHandler keyHandler;
+
     
-    public PlayerFactory(GamePanel context, World world, KeyHandler keyHandler) {
+    public PlayerFactory(GamePanel context, World world) {
         this.context = context;
         this.world = world;
-        this.keyHandler = keyHandler;
     }
     
     public Player createPlayer(float x, float y, CharacterType characterType) {
@@ -41,6 +40,6 @@ public class PlayerFactory {
         shape.dispose();
         
         // Create and return player
-        return new Player(context, world, body, 100, 1000, x, y, characterType, keyHandler);
+        return new Player(context, world, body, 100, 1000, x, y, characterType);
     }
 }

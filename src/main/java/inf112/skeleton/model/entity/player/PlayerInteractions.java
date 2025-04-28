@@ -19,8 +19,6 @@ public class PlayerInteractions {
     this.context = context;
   }
 
-
-
   public void attackEnemy(Player player, Array<Enemy> enemies) {
     if (player.canAttack) {
         Array<String> enemyNames = distanceToPlayer(player, enemies);

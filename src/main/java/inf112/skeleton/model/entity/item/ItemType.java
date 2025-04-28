@@ -5,12 +5,11 @@ import com.badlogic.gdx.graphics.Texture;
 public enum ItemType {
   HEALTH("health"),
   KEY("key"),
-  ATTACK("attack"),
-  EMERALD_SWORD("sword"),
-  DIAMOND_SWORD("sword2"),
-  MANA("mana");
+  MANA("mana"),
+  SWORD_UPGRADE ("swordUpgrade");
 
-  private static final String KNIFE_TEXTURE = "knife.png"; 
+  private static final String OVERWORLD_SWORD = "OverworldSword.png"; 
+
 
   private final String type;
 
@@ -24,14 +23,10 @@ public enum ItemType {
         return new Texture("heart.png");
       case KEY:
         return new Texture("key.png");
-      case ATTACK:
-        return new Texture(KNIFE_TEXTURE); 
       case MANA:
         return new Texture("mana.png");
-      case DIAMOND_SWORD:
-        return new Texture(KNIFE_TEXTURE);
-      case EMERALD_SWORD:
-        return new Texture(KNIFE_TEXTURE); 
+      case SWORD_UPGRADE:
+        return new Texture(OVERWORLD_SWORD ); 
       default:
         break;
     }
@@ -42,25 +37,6 @@ public static String getItemType(ItemType itemType) {
   return itemType.type;
 }
 
-public static String getItemAction(ItemType itemType) {
-  switch (itemType) {
-    case HEALTH:
-      return "Heal";
-    case KEY:
-      return "key";
-    case ATTACK:
-      return "AttackDMG";
-    case MANA:
-      return "maxMana";
-    case DIAMOND_SWORD:
-      break;
-    case EMERALD_SWORD:
-      break;
-    default:
-      break;
-  }
-  return "Heal";
-}
 
 public static float getItemSize(ItemType itemType) {
   switch (itemType) {
@@ -68,30 +44,25 @@ public static float getItemSize(ItemType itemType) {
       return 0.5f;
     case KEY:
       return 0.75f;
-    case ATTACK:
-      return 1f;
     case MANA:
       return 0.75f;
-    case DIAMOND_SWORD:
-      break;
-    case EMERALD_SWORD:
-      break;
+    case SWORD_UPGRADE:
+      return 1f;
     default:
       break;
   }
   return 0.5f;
 }
 
-public static String getSwordHUDTexturePath(ItemType itemType) {
-  switch (itemType) {
-    case ATTACK:
-      return "sword.png";
-    case DIAMOND_SWORD:
-      return "sword_diamond.png";
-    case EMERALD_SWORD:
-      return "sword_emerald.png";
+public static String getSwordHUDTexturePath(String sword) {
+  switch (sword) {
+    case "UncommonSword":
+      return "Player/Sword/Uncommon.png";
+    case "RareSword":
+      return "Player/Sword/Rare.png";
     default:
       return null;
   }
 }
+
 }
