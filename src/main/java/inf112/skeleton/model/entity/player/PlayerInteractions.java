@@ -24,8 +24,8 @@ public class PlayerInteractions {
   public void attackEnemy(Player player, Array<Enemy> enemies) {
     if (player.canAttack) {
         Array<String> enemyNames = distanceToPlayer(player, enemies);
+        context.getAudioHandler().playAudio(AudioTypes.ATTACK);
         if (enemyNames != null && enemyNames.size > 0) {
-            context.getAudioHandler().playAudio(AudioTypes.ATTACK);
             for (Enemy enemy : enemies) {
                 if (enemyNames.contains(enemy.getName(), false)) {
                     enemy.takeDamage(player.attack());

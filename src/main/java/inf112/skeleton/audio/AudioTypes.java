@@ -7,11 +7,11 @@ public enum AudioTypes {
     HURT2 ("audio/soundEffects/Hurt2.mp3", false, 0.3f),
     VICTORY ("audio/soundEffects/Victory.mp3", false, 0.3f),
     ACHIVMENT ("audio/soundEffects/AchievementSound.mp3", false, 0.5f),
-    ATTACK ("audio/soundEffects/SwordAttack.mp3", false, 0.2f),
+    ATTACK ("audio/soundEffects/SwordAttack.mp3", false, 0.1f),
     USE_ITEM ("audio/soundEffects/useItem.mp3", false, 0.3f),
     DOOR ("audio/soundEffects/Door.mp3", false, 0.3f),
     BONUS ("audio/soundEffects/Bonus.mp3", false, 0.1f),
-    HIT ("audio/soundEffects/Hit.mp3", false, 0.5f),
+    HIT ("audio/soundEffects/Hit.mp3", false, 1f),
     DEATH( "audio/soundEffects/Death.mp3", false, 0.5f),;
 
     private final String path;
