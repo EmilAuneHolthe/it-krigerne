@@ -25,6 +25,7 @@ import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.model.entity.item.Item;
 import inf112.skeleton.model.entity.player.CharacterType;
 import inf112.skeleton.model.entity.player.Player;
+import inf112.skeleton.model.entity.taskBoard.TaskBoard;
 import inf112.skeleton.model.map.Map;
 import inf112.skeleton.model.map.MapListener;
 import inf112.skeleton.model.map.MapManager;
@@ -55,6 +56,7 @@ public class GameRenderer implements Disposable, MapListener {
     private ItemBar itemBar;
     private Array<Door> doors;
     private final MapManager mapManager;
+    private TaskBoard taskBoard;
 
     public GameRenderer(final GamePanel context) {
         viewport = context.getViewport();
@@ -143,11 +145,17 @@ public class GameRenderer implements Disposable, MapListener {
                     for (Door door : mapManager.getDoors()) {
                         door.render(spriteBatch);
                     }
+                    taskBoard = mapManager.getTaskBoard();
+                    if (taskBoard != null) {
+                        taskBoard.render(spriteBatch);
+                    }
+
                     if(items != null) {
                         for (Item item : items) {
                             item.render(spriteBatch);
                         }
                     }
+                    
                     if (player != null) {
                         player.render(spriteBatch);
                         if(showDebug) {
@@ -163,7 +171,6 @@ public class GameRenderer implements Disposable, MapListener {
                         }
                     }
                     spriteBatch.end();
-                    
                     // Begin batch for next layer
                     spriteBatch.begin();
                     playerLayerRendered = true;
@@ -174,7 +181,6 @@ public class GameRenderer implements Disposable, MapListener {
                     mapRenderer.renderTileLayer((com.badlogic.gdx.maps.tiled.TiledMapTileLayer) layer);
                 }
             }
-            
             // End batch for map rendering
             spriteBatch.end();
             

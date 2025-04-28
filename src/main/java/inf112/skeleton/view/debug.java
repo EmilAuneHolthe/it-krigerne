@@ -3,6 +3,7 @@ package inf112.skeleton.view;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.physics.box2d.Body;
 
 import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.model.entity.player.Player;
@@ -21,6 +22,7 @@ public class debug {
     
     public void playerDebug(Player player) {
         if (player == null || player.getBody() == null) return;
+
         
         // Draw a rectangle around the player's body
         float width = 0.8f; // Player body width
