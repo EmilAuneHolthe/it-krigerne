@@ -86,15 +86,15 @@ public class Map {
   public Array<CollisionArea> getColissionAreas() {
     return collisionAreas;
   }
-  private Vector2 findPlayerSpawnVector2(String name) {
-    MapObjects objects = tiledMap.getLayers().get(name).getObjects();
-          for (final MapObject object : objects) {
-            final RectangleMapObject spawn = (RectangleMapObject) object;
-            final Rectangle rectangle = spawn.getRectangle();
-            Gdx.app.debug(TAG, "Player spawn found at: " + rectangle.x + ", " + rectangle.y);
-            return new Vector2(rectangle.x, rectangle.y);
-          }
-          return new Vector2(0, 0);
+    private Vector2 findPlayerSpawnVector2(String name) {
+      MapObjects objects = tiledMap.getLayers().get(name).getObjects();
+      if (objects.getCount() > 0) {
+        final RectangleMapObject spawn = (RectangleMapObject) objects.get(0);
+        final Rectangle rectangle = spawn.getRectangle();
+        Gdx.app.debug(TAG, "Player spawn found at: " + rectangle.x + ", " + rectangle.y);
+        return new Vector2(rectangle.x, rectangle.y);
+      }
+      return new Vector2(0, 0);
         }
 
         private ArrayList<EnemySpawn> findEnemySpawn() {
