@@ -146,7 +146,9 @@ public class MapManager {
                 GamePanel.FIXTURE_DEF.shape = shape;
                 body.createFixture(GamePanel.FIXTURE_DEF);
                 shape.dispose();
-                doors.add(new Door(x1, x2, world, body, door.getName(), assetManager, x2, y2));
+                Vector2 position = new Vector2(x1, y1);
+                Vector2 size = new Vector2(x2, y2);
+                doors.add(new Door(position, world, body, door.getName(), assetManager,size));
             }
         }
     private void spawnCollisionsAreas() {
