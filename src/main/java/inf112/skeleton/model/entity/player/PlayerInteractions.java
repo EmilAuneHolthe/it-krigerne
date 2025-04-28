@@ -22,18 +22,17 @@ public class PlayerInteractions {
 
 
   public void attackEnemy(Player player, Array<Enemy> enemies) {
-
-    if(player.canAttack) {
-      context.getAudioHandler().playAudio(AudioTypes.ATTACK);
-      Array<String> enemyName = distanceToPlayer(player, enemies);
-      if (enemyName != null) {
-        for(Enemy enemy : enemies) {
-            if (enemyName.contains(enemy.getName(), false)) {
-                enemy.takeDamage(player.attack());
+    if (player.canAttack) {
+        Array<String> enemyNames = distanceToPlayer(player, enemies);
+        if (enemyNames != null && enemyNames.size > 0) {
+            context.getAudioHandler().playAudio(AudioTypes.ATTACK);
+            for (Enemy enemy : enemies) {
+                if (enemyNames.contains(enemy.getName(), false)) {
+                    enemy.takeDamage(player.attack());
+                }
             }
-          }
+        }
     }
-  }
 }
   private Array<String> distanceToPlayer(Player player, Array<Enemy> enemies) {
     Array<String> enemyNames = new Array<>();
