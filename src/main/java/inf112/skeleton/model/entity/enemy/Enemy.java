@@ -6,10 +6,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import inf112.skeleton.audio.AudioTypes; // Added import for AudioTypes
 import com.badlogic.gdx.physics.box2d.World;
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.GameEntity;
 import inf112.skeleton.model.entity.player.CharacterType;
+import inf112.skeleton.view.screen.GameScreen;
+import inf112.skeleton.view.screen.ScreenType;
 
 
 public class Enemy extends GameEntity {
@@ -66,21 +69,23 @@ public class Enemy extends GameEntity {
             return 0;
         }
         return health;
+      
     }
 
     public boolean takeDamage(int damage) {
         health -= damage;
+        
         if (health < 1) {
+            context.getAudioHandler().playAudio(AudioTypes.HIT);
             int index = context.getEnemy().indexOf(this, true);
             if (index >= 0) {
                 // Destroy the Box2D body
                 world.destroyBody(body);
                 // Remove from the enemy list
                 context.getEnemy().removeIndex(index);
-                if( characterType == CharacterType.BOSS) {
+                if(characterType == CharacterType.BOSS) {
                     System.out.println("Boss defeated!");
-                    // Handle boss defeat logic here
-                    //context.setGameState(GamePanel.GameState.WIN);
+                    GameScreen.victory = true;
                 }
             }
         }

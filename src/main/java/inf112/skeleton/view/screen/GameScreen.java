@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.Array;
 import inf112.skeleton.controller.Keys;
+import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
 import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
@@ -43,7 +44,11 @@ public class GameScreen extends AbstractScreen implements MapListener {
     private final PlayerInteractions playerInteractions;
     private final EnemyController enemyController;
     private final MapChanger mapChanger;
-    private final ArrayList<Borders> borders;
+    private ArrayList<Borders> borders;
+
+    public static Boolean victory = false;
+
+
     public GameScreen(GamePanel context) {
         super(context);
         this.camera = context.getCamera();
@@ -51,7 +56,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
         this.gameRenderer = context.getGameRenderer();
 
         mapManager.addListener(this);
-        mapManager.setMap(MapType.MAP_1);
+        mapManager.setMap(MapType.MAP_START);
         
         spawnEnemy();
         spawnPlayer();
@@ -67,6 +72,10 @@ public class GameScreen extends AbstractScreen implements MapListener {
     @Override   
     public void render(float delta) {
         gameRenderer.render(delta);
+
+        if (victory) {
+            setVictory();
+        }
         
         // Update player for mana regeneration
         if (player != null) {
@@ -85,25 +94,17 @@ public class GameScreen extends AbstractScreen implements MapListener {
                 if (name!= null) {
                     if(mapManager.openDoor(name)){
                     player.removeKey();
+                    context.getAudioHandler().playAudio(AudioTypes.DOOR);
+                    
                     }
                 }
             }
         }
-            float playerX = player.getBody().getPosition().x ;
-            float playerY = player.getBody().getPosition().y ;
-            if (playerX >= 72.4 && playerX <= 72.6 && playerY >= 75.3 && playerY <= 75.5){
-            changeMap();
-            }
-        //Gdx.app.log("Debug", "FPS: " + Gdx.graphics.getFramesPerSecond());
-
-        // Test map switching - should be moved to a proper input handler
-        if (Gdx.input.isKeyJustPressed(Input.Keys.F)) {
-            playerInteractions.attackEnemy(player, enemies);
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.O)) {
-            changeSecondMap();
-        }
-        else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        
+        teleportPlayer();
+            
+            
+         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             gameRenderer.setShowDebug(!gameRenderer.isShowDebug());
         }
 
@@ -146,8 +147,10 @@ public class GameScreen extends AbstractScreen implements MapListener {
     @Override
     public void keyPressed(KeyHandler keyHandler, Keys key) {
         player.playerInput(keyHandler, key);
-
-    }
+        if (key == Keys.ATTACK) {
+            playerInteractions.attackEnemy(player, enemies);
+        }
+    }    
 
     @Override
     public void keyReleased(KeyHandler keyHandler, Keys key) {
@@ -184,8 +187,8 @@ public class GameScreen extends AbstractScreen implements MapListener {
         context.setItems(items);
         gameRenderer.updateItem(items);
     }
-    public void changeMap() {
-        mapManager.setMap(MapType.MAP_2);
+    public void changeMap(MapType mapType) {
+        mapManager.setMap(mapType);
         mapChanger.removeObjects(world, mapManager.getCurrentMap(), enemies);
         enemies.clear();
         player.setKey(false);
@@ -194,20 +197,26 @@ public class GameScreen extends AbstractScreen implements MapListener {
         spawnEnemy();
         enemies = context.getEnemy();
         enemyController.updateEnemies(enemies);
+        borders = mapManager.getCurrentMap().getBorders("Interact");
         spawnItem();
         }
 
-    public void changeSecondMap() {
-        mapManager.setMap(MapType.MAP_3);
-        mapChanger.removeObjects(world, mapManager.getCurrentMap(), enemies);
-        enemies.clear();
-        player.setKey(false);
-        context.setEnemy(enemies);
-        mapChanger.movePlayer(world, mapManager.getCurrentMap(), player);
-        spawnEnemy();
-        enemies = context.getEnemy();
-        enemyController.updateEnemies(enemies);
-        spawnItem();
+    private void teleportPlayer() {
+        float playerX = player.getBody().getPosition().x ;
+        float playerY = player.getBody().getPosition().y ;
+
+        if ((playerX >= 72.4 && playerX <= 72.6 && playerY >= 75.3 && playerY <= 75.5) && (mapManager.getCurrentMapType() == MapType.MAP_START)) {
+            changeMap(MapType.MAP_CASTLE);
+        }
+        if ((playerX >= 83.4 && playerX <= 83.6 && playerY >= 77.9 && playerY <= 78.1) && (mapManager.getCurrentMapType() == MapType.MAP_CASTLE)) {
+            changeMap(MapType.MAP_BOSS);
+        }
+    }
+
+    public void setVictory() {
+        if (victory) {
+            context.setScreen(ScreenType.VICTORY);
+        }     
     }
 }
 

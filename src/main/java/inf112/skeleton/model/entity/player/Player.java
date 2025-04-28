@@ -83,6 +83,7 @@ public class Player extends GameEntity {
         // Handle item usage
         else if (key == Keys.USE_ITEM) {
             useSelectedItem();
+            context.getAudioHandler().playAudio(AudioTypes.USE_ITEM);
         }
         // Handle other inputs
         else if (key == Keys.ATTACK && canAttack) {
@@ -116,11 +117,12 @@ public class Player extends GameEntity {
     
     public void playerTakeDamage(Enemy enemy) {
         if (alive) {
-            context.getAudioHandler().playAudio(AudioTypes.HURT);
+            context.getAudioHandler().playAudio(AudioTypes.HURT2);
+            context.getAudioHandler().playAudio(AudioTypes.HIT);
           }
           alive = takeDamage(enemy.getDamage());
           if (!alive) {
-            killPlayer();
+            killPlayer();     
           }
         }
 
@@ -201,6 +203,7 @@ public class Player extends GameEntity {
     
     public DeathOverlay getDeathOverlay() {
         return deathOverlay;
+        
     }
     public Vector2 getPosition() {
         return new Vector2(body.getPosition().x, body.getPosition().y);
@@ -315,6 +318,7 @@ public class Player extends GameEntity {
                 break;
             case KEY:
                 hasKey = true;
+                context.getAudioHandler().playAudio(AudioTypes.BONUS);
                 break;
             case DIAMOND_SWORD:
                 break;

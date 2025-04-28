@@ -41,6 +41,6 @@ public class PlayerFactory {
         shape.dispose();
         
         // Create and return player
-        return new Player(context, world, body, 100, 34, x, y, characterType, keyHandler);
+        return new Player(context, world, body, 100, 1000, x, y, characterType, keyHandler);
     }
 }
