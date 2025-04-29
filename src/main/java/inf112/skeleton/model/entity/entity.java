@@ -21,5 +21,6 @@ public interface entity {
     float getY();
     //create a new entity
     void create(int health, int damage, float x, float y);
+    //should return the entity's body
     Body getBody();
 }
