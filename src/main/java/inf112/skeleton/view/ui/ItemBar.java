@@ -45,8 +45,8 @@ public class ItemBar {
         this.position = new Vector2(x, y);
         this.slotSize = slotSize;
         this.padding = padding;
-        this.slotTexture = new Texture(Gdx.files.internal("slot.png"));
-        this.selectedSlotTexture = new Texture(Gdx.files.internal("slotselected.png"));
+        this.slotTexture = new Texture(Gdx.files.internal("Ui/slot.png"));
+        this.selectedSlotTexture = new Texture(Gdx.files.internal("Ui/slotselected.png"));
         this.items = player.getItems();
         
         // Initialize arrays
@@ -151,18 +151,9 @@ public class ItemBar {
     }
     
     private String getLabelTextForItem(Item item) {
-        ItemType type = item.getItemType();
-        switch (type) {
-            case HEALTH:
-                return "H";
-            case MANA:
-                return "M";
-            case KEY:
-                return "K";
-            default:
-                return "";
+        return "Q";
         }
-    }
+    
     
     public void render(SpriteBatch batch) {
         if (player == null || items == null) {

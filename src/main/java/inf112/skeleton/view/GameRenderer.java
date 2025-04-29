@@ -77,9 +77,9 @@ public class GameRenderer implements Disposable, MapListener {
 
         // UI setup with ScreenViewport for fixed UI elements
         uiStage = new Stage(new ScreenViewport(), spriteBatch);
-        healthTexture = new Texture(Gdx.files.internal("redtexture.png"));
-        backgroundTexture = new Texture(Gdx.files.internal("graytexture.png"));
-        manaTexture = new Texture(Gdx.files.internal("bluetexture.png"));
+        healthTexture = new Texture(Gdx.files.internal("Ui/redtexture.png"));
+        backgroundTexture = new Texture(Gdx.files.internal("Ui/graytexture.png"));
+        manaTexture = new Texture(Gdx.files.internal("Ui/bluetexture.png"));
         font = new BitmapFont();
         font.getData().setScale(1.5f); // Make the text larger
         createPlayerHUD();

@@ -87,8 +87,8 @@ public class PlayerHUD {
         stage.addActor(table);
 
         // Load the circular slot frame and the player's initial sword icon
-        Texture circleTexture = new Texture(Gdx.files.internal("sword_circle.png"));
-        Texture swordTexture = new Texture(Gdx.files.internal("Player/Sword/Common.png")); // change path as needed
+        Texture circleTexture = new Texture(Gdx.files.internal("Ui/sword_circle.png"));
+        Texture swordTexture = new Texture(Gdx.files.internal("Entities/Sword/Common.png")); // change path as needed
 
         swordSlotCircle = new Image(circleTexture);
         equippedSwordIcon = new Image(swordTexture);
@@ -117,7 +117,7 @@ public class PlayerHUD {
         stage.addActor(swordTable);
 
         // Key icon and label
-        Texture keyTexture = new Texture(Gdx.files.internal("key.png"));
+        Texture keyTexture = new Texture(Gdx.files.internal("Entities/Items/Key.png"));
         keyIcon = new Image(keyTexture);
         keyIcon.setRotation(270f); // optional
         keyIcon.setSize(32, 32); // adjust as needed

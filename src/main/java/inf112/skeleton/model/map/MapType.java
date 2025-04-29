@@ -1,8 +1,8 @@
 package inf112.skeleton.model.map;
 
 public enum MapType {
-    MAP_START("map/SampleMap/samplemap.tmx"),
-    MAP_BOSS("map/testMap/testMap.tmx"),
+    MAP_START("map/SampleMap/startMap.tmx"),
+    MAP_BOSS("map/testMap/bossMap.tmx"),
     MAP_CASTLE("map/SecondMap/SecondMap.tmx");
 
     private final String filePath;

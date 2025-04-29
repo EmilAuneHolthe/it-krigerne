@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>no.uib.ii.inf112</groupId>
-	<artifactId>gdx-template-25v</artifactId>
+	<groupId>group5</groupId>
+	<artifactId>The-Invisible-Stairs</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>gdx-app</name>
-	<url>http://www.example.com</url>
+	<name>The Invisible Stairs</name>
+	<url>https://git.app.uib.no/inf112/25v/proj/it-krigerne</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>17</maven.compiler.release>
