@@ -3,3 +3,5 @@
 
 (![Klassediagram.png](../src/main/resources/Klassediagram.png))
 
+[Møtereferat](møtereferat.md)
+
