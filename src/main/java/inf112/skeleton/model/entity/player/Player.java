@@ -23,7 +23,7 @@ public class Player extends GameEntity {
     public static boolean isDead;
     private DeathOverlay deathOverlay;
     public boolean alive;
-    private int mana;
+    private int currentMana;
     private int maxMana;
     private float manaRegenRate = 10f; // Mana per second
     private float manaRegenAccumulator = 0.0f;
@@ -41,7 +41,7 @@ public class Player extends GameEntity {
         isDead = false;
         deathOverlay = new DeathOverlay(context);
         this.movement = new PlayerMovement(context, world, body);
-        this.mana = 100;
+        this.currentMana = 100;
         this.maxMana = 100;
         this.playerInteractions = new PlayerInteractions(context);
         this.keyHandler = context.getKeyHandler();
@@ -69,44 +69,49 @@ public class Player extends GameEntity {
     }
     
     public void playerInput(KeyHandler keyHandler, Keys key) {
-        
-        if ((isDead) && (key == Keys.QUIT)) {
-                Gdx.app.exit();
+
+        switch (key) {
+            case QUIT: 
+                quitWhenDead(); break;
+            case ATTACK: 
+                playerInteractions.attackEnemy(this, WorldFunctions.getEnemies());
+                if (canAttack) {
+                    animation.startAttack();
+                    currentMana -= 30;
+                } break;
+            case INTERACT: 
+                playerInteractions.pickUpItem(this, context.getItems()); break;
+            default:
+                break;
         }
 
-        if (key == Keys.ATTACK) {
-            playerInteractions.attackEnemy(this, WorldFunctions.getEnemies());
+        playerUIinput(key);
+        movement.handleInput(key);
+        animation.setMoving(movement.isMoving());
+        animation.setDirection(movement.getDirection());
+    }
+
+    private void playerUIinput(Keys key) {
+
+        switch (key) {
+            case NUM_1: selectItem(0); break;
+            case NUM_2: selectItem(1); break;
+            case NUM_3: selectItem(2); break;
+            case NUM_4: selectItem(3); break;
+
+            case USE_ITEM:useSelectedItem();
+                context.getAudioHandler().playAudio(AudioTypes.USE_ITEM);
+                break;
+            default:
+                break;
         }
-        
-        // Handle item selection
-        if (key == Keys.NUM_1) {
-            selectItem(0);
-        } else if (key == Keys.NUM_2) {
-            selectItem(1);
-        } else if (key == Keys.NUM_3) {
-            selectItem(2);
-        } else if (key == Keys.NUM_4) {
-            selectItem(3);
-        }
-        // Handle item usage
-        else if (key == Keys.USE_ITEM) {
-            useSelectedItem();
-            context.getAudioHandler().playAudio(AudioTypes.USE_ITEM);
-        }
-        // Handle other inputs
-        else if (key == Keys.ATTACK && canAttack) {
-            if (mana >= 30) {
-                animation.startAttack();
-                mana -= 30;
-            }
-        } else {
-            movement.handleInput(key);
-            animation.setMoving(movement.isMoving());
-            animation.setDirection(movement.getDirection());
-        }
-        if (key == Keys.INTERACT) {
-            playerInteractions.pickUpItem(this, context.getItems());
-        }
+
+    }
+
+    private void quitWhenDead() {
+        if ((isDead)) {
+            Gdx.app.exit();
+        }   
     }
 
     public void movePlayerReleased(KeyHandler keyHandler, Keys key) {
@@ -133,7 +138,6 @@ public class Player extends GameEntity {
             isDead = true;
             die();
         }
-    
 
     @Override
     public int attack() {
@@ -190,10 +194,6 @@ public class Player extends GameEntity {
         this.y = y;
     }
     
-    public Body getBody() {
-        return body;
-    }
-    
     @Override
     public void dispose() {
         super.dispose();
@@ -202,24 +202,12 @@ public class Player extends GameEntity {
         }
     }
     
-    public DeathOverlay getDeathOverlay() {
-        return deathOverlay;
-        
-    }
     public Vector2 getPosition() {
         return new Vector2(body.getPosition().x, body.getPosition().y);
     }
 
-    public int getMana() {
-        return mana;
-    }
-
-    public void setMana(int mana) {
-        this.mana = Math.min(Math.max(0, mana), maxMana);
-    }
-
-    public int getMaxMana() {
-        return maxMana;
+    public void setCurrentMana(int mana) {
+        this.currentMana = Math.min(Math.max(0, mana), maxMana);
     }
 
     public void setMaxMana(int maxMana) {
@@ -232,10 +220,10 @@ public class Player extends GameEntity {
         manaRegenAccumulator += manaRegenRate * deltaTime;
         if (manaRegenAccumulator >= 1.0f) {
             int manaToAdd = (int) manaRegenAccumulator;
-            setMana(getMana() + manaToAdd);
+            setCurrentMana(getCurrentMana() + manaToAdd);
             manaRegenAccumulator -= manaToAdd;
             
-            if(mana >=30) {
+            if(currentMana >=30) {
                 canAttack = true;
             } else {
                 canAttack = false;
@@ -243,12 +231,6 @@ public class Player extends GameEntity {
         }
     }
 
-    public float getManaRegenRate() {
-        return manaRegenRate;
-    }
-    public int getMaxHealth() {
-        return maxHealth;
-    }
     public void setManaRegenRate(float manaRegenRate) {
         this.manaRegenRate = manaRegenRate;
     }
@@ -307,7 +289,7 @@ public class Player extends GameEntity {
                 setHealth(Math.min(health + 20, maxHealth));
                 break;
             case MANA:
-                mana = Math.min(mana + 20, maxMana);
+                currentMana = Math.min(currentMana + 20, maxMana);
                 manaRegenRate += 5f;
                 break;
             case SWORD_UPGRADE:
@@ -348,9 +330,6 @@ public class Player extends GameEntity {
         return hasKey;
     }
 
-    public Item[] getItems() {
-        return items;
-    }
 
     public void removeItem(int index) {
         if (index >= 0 && index < items.length) {
@@ -364,21 +343,24 @@ public class Player extends GameEntity {
         }
     }
 
-    public Item getSelectedItem() {
-        return items[selectedItemIndex];
-    }
 
-    public int getSelectedItemIndex() {
-        return selectedItemIndex;
-    }
+
+    public Item[] getItems() { return items;}
+    public Item getSelectedItem() { return items[selectedItemIndex];}
+    public int getSelectedItemIndex() { return selectedItemIndex;}
+    public GamePanel getContext() { return context;}
+    public float getManaRegenRate() { return manaRegenRate;}
+    public int getMaxHealth() { return maxHealth;}
+    public int getMaxMana() { return maxMana;}
+    public int getCurrentMana() { return currentMana;}
+    public Body getBody() { return body;}
+    public DeathOverlay getDeathOverlay() { return deathOverlay;}
+
+
     public void setKey(Boolean hasKey) {
         this.hasKey = hasKey;
     }
     public void removeKey() {
         this.hasKey = false;
-    }
-
-    public GamePanel getContext() {
-        return context;
     }
 }

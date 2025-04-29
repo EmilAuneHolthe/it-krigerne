@@ -29,6 +29,7 @@ public class PlayerHUD {
     private final Stack swordStack;
     private final Image keyIcon;
     private final Label keyLabel;
+    
 
     public PlayerHUD(Stage stage, Player player, Texture healthTexture, Texture backgroundTexture, Texture manaTexture,
             Texture manaBackgroundTexture) {
@@ -143,6 +144,7 @@ public class PlayerHUD {
 
         // Add the combined table to the stage
         stage.addActor(leftHUDTable);
+        
 
         player.getContext().setPlayerHUD(this);
         //leftHUDTable.setDebug(true);
@@ -157,7 +159,7 @@ public class PlayerHUD {
         healthLabel.setText((int) health + " / " + (int) maxHealth);
 
         // Update mana bar - using percentage of max mana
-        float mana = player.getMana();
+        float mana = player.getCurrentMana();
         float maxMana = player.getMaxMana();
         float manaPercent = Math.max(0f, mana / maxMana);
         manaBar.setSize(maxHealthBarWidth * manaPercent, healthBarHeight);
