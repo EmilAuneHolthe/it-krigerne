@@ -76,7 +76,7 @@ public class Enemy extends GameEntity {
                 // Remove from the enemy list
                 context.getEnemy().removeIndex(index);
                 if(characterType == CharacterType.BOSS) {
-                    GameScreen.victory = true;
+                    //GameScreen.victory = true;
                 }
             }
         }
@@ -170,6 +170,7 @@ public class Enemy extends GameEntity {
     public int attack() {
         throw new UnsupportedOperationException("Unimplemented method 'attack'");
     }
+
 
     @Override
     public void die() {

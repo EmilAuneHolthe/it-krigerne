@@ -11,6 +11,7 @@ import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.controller.Keys;
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.WorldFunctions;
 import inf112.skeleton.model.entity.GameEntity;
 import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.model.entity.item.Item;
@@ -33,6 +34,7 @@ public class Player extends GameEntity {
     private final Item[] items;
     private int selectedItemIndex;
     private int swordUpgradeType = 0;
+    private KeyHandler keyHandler;
 
     public Player(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType) {
         super(context, world, body, health, damage, characterType);
@@ -42,6 +44,7 @@ public class Player extends GameEntity {
         this.mana = 100;
         this.maxMana = 100;
         this.playerInteractions = new PlayerInteractions(context);
+        this.keyHandler = context.getKeyHandler();
         maxHealth = health;
         items = new Item[4]; // 4 slots for items
         selectedItemIndex = 0;
@@ -69,6 +72,9 @@ public class Player extends GameEntity {
         if (isDead) {
             handleDeadPlayerInput(key);
             return;
+        }
+        if (key == Keys.ATTACK) {
+            playerInteractions.attackEnemy(this, WorldFunctions.getEnemies());
         }
         
         // Handle item selection
@@ -101,6 +107,7 @@ public class Player extends GameEntity {
             playerInteractions.pickUpItem(this, context.getItems());
         }
     }
+
     
     private void handleDeadPlayerInput(Keys key) {
         if (key == Keys.INTERACT) {

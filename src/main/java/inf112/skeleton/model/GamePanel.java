@@ -81,50 +81,55 @@ public class GamePanel extends Game {
     private MapChanger mapChanger;
     private EnemyController enemyController;
     private PlayerHUD playerHUD;
-
     
+    private WorldFunctions worldFunctions;
     
-    @Override
-    public void create() {
-        Gdx.app.setLogLevel(Application.LOG_INFO);
-        accumulator = 0;
-        spriteBatch = new SpriteBatch();        
         
-        // Box2D
-        Box2D.init(); // Initialize Box2D
-        world = new World(new Vector2(0, 0), true); // Create a new world with gravity
-        box2DDebugRenderer = new Box2DDebugRenderer(); // Create a new debug renderer
         
-        //init assetManager
-        assetManager = new AssetManager();  
-        assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
-        camera = new OrthographicCamera();
-        screenViewport = new FitViewport(25 * 32 * UNIT_SCALE, 14 * 32 * UNIT_SCALE, camera);
-        screenCache = new EnumMap<>(ScreenType.class);
-
-        //Audio
-        audioHandler = new AudioHandler(this);
-        for(final AudioTypes audioType : AudioTypes.values()) { // Load all audio files
-            assetManager.load(audioType.getPath(), (Class<?>) (audioType.isMusic() ? Music.class : Sound.class));
+        @Override
+        public void create() {
+            Gdx.app.setLogLevel(Application.LOG_INFO);
+            accumulator = 0;
+            spriteBatch = new SpriteBatch();        
+            
+            // Box2D
+            Box2D.init(); // Initialize Box2D
+            world = new World(new Vector2(0, 0), true); // Create a new world with gravity
+            box2DDebugRenderer = new Box2DDebugRenderer(); // Create a new debug renderer
+            
+            //init assetManager
+            assetManager = new AssetManager();  
+            assetManager.setLoader(TiledMap.class, new TmxMapLoader(assetManager.getFileHandleResolver()));
+            camera = new OrthographicCamera();
+            screenViewport = new FitViewport(25 * 32 * UNIT_SCALE, 14 * 32 * UNIT_SCALE, camera);
+            screenCache = new EnumMap<>(ScreenType.class);
+    
+            //Audio
+            audioHandler = new AudioHandler(this);
+            for(final AudioTypes audioType : AudioTypes.values()) { // Load all audio files
+                assetManager.load(audioType.getPath(), (Class<?>) (audioType.isMusic() ? Music.class : Sound.class));
+            }
+            assetManager.finishLoading();  // Ensures assets are loaded before use
+    
+            //Input 
+            keyHandler = new KeyHandler();  // Initialize KeyHandler
+    
+            //MapManager
+            mapManager = new MapManager(this);
+    
+            //GameRenderer
+            gameRenderer = new GameRenderer(this);
+            gameRenderer.setShowDebug(false);
+    
+            // Initialize MapChanger and EnemyController
+            mapChanger = new MapChanger();
+            enemies = new Array<>();
+            enemyController = new EnemyController(enemies, player);
+    
+            setScreen(ScreenType.MAIN_MENU);
         }
-        assetManager.finishLoading();  // Ensures assets are loaded before use
-
-        //Input 
-        keyHandler = new KeyHandler();  // Initialize KeyHandler
-
-        //MapManager
-        mapManager = new MapManager(this);
-
-        //GameRenderer
-        gameRenderer = new GameRenderer(this);
-        gameRenderer.setShowDebug(false);
-
-        // Initialize MapChanger and EnemyController
-        mapChanger = new MapChanger();
-        enemies = new Array<>();
-        enemyController = new EnemyController(enemies, player);
-
-        setScreen(ScreenType.MAIN_MENU);
+        public void setWorldFunctions(WorldFunctions worldFunctions) {
+            this.worldFunctions = worldFunctions;
     }
 
     //get-methods
@@ -138,7 +143,7 @@ public class GamePanel extends Game {
     public AudioHandler getAudioHandler() {return audioHandler;}
     public MapManager getMapManager() {return mapManager;}
     public GameRenderer getGameRenderer() {return gameRenderer;}
-
+    public WorldFunctions getWorldFunctions() {return worldFunctions;}
     public void setPlayer(Player player) {
         this.player = player;
     }

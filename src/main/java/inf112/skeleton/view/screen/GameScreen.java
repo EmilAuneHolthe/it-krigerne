@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.Array;
 import inf112.skeleton.controller.Keys;
-import inf112.skeleton.controller.PlayerController;
 import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
@@ -82,25 +81,23 @@ public class GameScreen extends AbstractScreen implements MapListener {
     }
 
     @Override
-    public void mapChanged(Map map) {
-        // Map change is handled by GameRenderer through MapListener
-    }
-
-    @Override
     public void show() {
-        keyHandler.addListener(context.getPlayerController());
+        keyHandler.addListener(this);
     }
     @Override
     public void keyPressed(KeyHandler keyHandler, Keys key) {
-        player.playerInput(keyHandler, key);
-        if (key == Keys.ATTACK) {
-            playerInteractions.attackEnemy(player, enemies);
-        }
+        context.getPlayer().playerInput(keyHandler, key);
     }    
 
     @Override
     public void keyReleased(KeyHandler keyHandler, Keys key) {
-        player.movePlayerReleased(keyHandler, key);
+        context.getPlayer().movePlayerReleased(keyHandler, key);
+    }
+
+    @Override
+    public void mapChanged(Map map) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'mapChanged'");
     }
 }
 
