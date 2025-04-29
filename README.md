@@ -22,7 +22,7 @@ Inspirasjon:
 * The legend of Zelda: https://en.wikipedia.org/wiki/The_Legend_of_Zelda_(video_game)
 
 # Kjøring av spillet:
-* Kompileres med `mvn package`.
+* Kompileres med `mvn clean package`.
 * Kjøres med `java -jar target/The-Invisible-Stairs-1.0-SNAPSHOT-fat.jar`
 
 # Kjente feil (bugs):
