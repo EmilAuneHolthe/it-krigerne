@@ -3,7 +3,6 @@
  <tileset firstgid="1" source="GrassSprites.tsx"/>
  <tileset firstgid="529" source="DirtSprites.tsx"/>
  <tileset firstgid="865" source="Decorations.tsx"/>
- <tileset firstgid="1929" source="KeyAnimation.tsx"/>
  <tileset firstgid="1933" source="../SampleMap/[Base]BaseChip_pipo.tsx"/>
  <tileset firstgid="2997" source="../SampleMap/[A]Water_pipo.tsx"/>
  <tileset firstgid="6069" source="../SampleMap/[A]WaterFall_pipo.tsx"/>

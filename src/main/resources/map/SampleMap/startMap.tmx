@@ -7,7 +7,6 @@
  <tileset firstgid="1641" source="[A]Grass_pipo.tsx"/>
  <tileset firstgid="2169" source="[A]Water_pipo.tsx"/>
  <tileset firstgid="5241" source="[A]Flower_pipo.tsx"/>
- <tileset firstgid="5337" source="../testMap/KeyAnimation.tsx"/>
  <tileset firstgid="5341" source="PlayerAttack.tsx"/>
  <tileset firstgid="5346" source="soilderWalkingAnimation.tsx"/>
  <tileset firstgid="5358" source="../testMap/Decorations.tsx"/>

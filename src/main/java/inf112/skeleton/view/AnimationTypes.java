@@ -3,47 +3,47 @@ package inf112.skeleton.view;
 public enum AnimationTypes {
 
     // Soilder
-    SOLDIER_DOWN("Player/Atlas/SoldierWalking3.atlas", "Soldier", 0.5f, 0),
-    SOLDIER_UP("Player/Atlas/SoldierWalking3.atlas", "Soldier", 0.5f, 3),
-    SOLDIER_LEFT("Player/Atlas/SoldierWalking3.atlas", "Soldier", 0.5f, 1),
-    SOLDIER_RIGHT("Player/Atlas/SoldierWalking3.atlas", "Soldier", 0.5f, 2),
+    SOLDIER_DOWN("Entities/Atlas/SoldierWalking3.atlas", "Soldier", 0.5f, 0),
+    SOLDIER_UP("Entities/Atlas/SoldierWalking3.atlas", "Soldier", 0.5f, 3),
+    SOLDIER_LEFT("Entities/Atlas/SoldierWalking3.atlas", "Soldier", 0.5f, 1),
+    SOLDIER_RIGHT("Entities/Atlas/SoldierWalking3.atlas", "Soldier", 0.5f, 2),
 
-    SOLDIER_ATTACK("Player/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
+    SOLDIER_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
 
     // Hero
-    HERO_DOWN("Player/Atlas/HeroWalking.atlas", "Hero", 0.5f, 0),
-    HERO_UP("Player/Atlas/HeroWalking.atlas", "Hero", 0.5f, 3),
-    HERO_LEFT("Player/Atlas/HeroWalking.atlas", "Hero", 0.5f, 1),
-    HERO_RIGHT("Player/Atlas/HeroWalking.atlas", "Hero", 0.5f, 2),
+    HERO_DOWN("Entities/Atlas/HeroWalking.atlas", "Hero", 0.5f, 0),
+    HERO_UP("Entities/Atlas/HeroWalking.atlas", "Hero", 0.5f, 3),
+    HERO_LEFT("Entities/Atlas/HeroWalking.atlas", "Hero", 0.5f, 1),
+    HERO_RIGHT("Entities/Atlas/HeroWalking.atlas", "Hero", 0.5f, 2),
 
-    HERO_ATTACK("Player/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
+    HERO_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
 
     // Old
-    OLD_DOWN("Player/Atlas/OldWalking.atlas", "Old", 0.5f, 0),
-    OLD_UP("Player/Atlas/OldWalking.atlas", "Old", 0.5f, 3),
-    OLD_LEFT("Player/Atlas/OldWalking.atlas", "Old", 0.5f, 1),
-    OLD_RIGHT("Player/Atlas/OldWalking.atlas", "Old", 0.5f, 2),
+    OLD_DOWN("Entities/Atlas/OldWalking.atlas", "Old", 0.5f, 0),
+    OLD_UP("Entities/Atlas/OldWalking.atlas", "Old", 0.5f, 3),
+    OLD_LEFT("Entities/Atlas/OldWalking.atlas", "Old", 0.5f, 1),
+    OLD_RIGHT("Entities/Atlas/OldWalking.atlas", "Old", 0.5f, 2),
     
-    OLD_ATTACK("Player/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
+    OLD_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
     // Zombie
-    ZOMBIE_DOWN("Player/Atlas/zombie.atlas", "Zombie", 0.5f, 0),
-    ZOMBIE_UP("Player/Atlas/zombie.atlas", "Zombie", 0.5f, 3),
-    ZOMBIE_LEFT("Player/Atlas/zombie.atlas", "Zombie", 0.5f, 1),
-    ZOMBIE_RIGHT("Player/Atlas/zombie.atlas", "Zombie", 0.5f, 2),
+    ZOMBIE_DOWN("Entities/Atlas/zombie.atlas", "Zombie", 0.5f, 0),
+    ZOMBIE_UP("Entities/Atlas/zombie.atlas", "Zombie", 0.5f, 3),
+    ZOMBIE_LEFT("Entities/Atlas/zombie.atlas", "Zombie", 0.5f, 1),
+    ZOMBIE_RIGHT("Entities/Atlas/zombie.atlas", "Zombie", 0.5f, 2),
     
-    ZOMBIE_ATTACK("Player/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
+    ZOMBIE_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
     // Skeleton
-    SKELETON_DOWN("Player/Atlas/Skeleton.atlas", "Skeleton", 0.5f, 0),
-    SKELETON_UP("Player/Atlas/Skeleton.atlas", "Skeleton", 0.5f, 3),
-    SKELETON_LEFT("Player/Atlas/Skeleton.atlas", "Skeleton", 0.5f, 1),
-    SKELETON_RIGHT("Player/Atlas/Skeleton.atlas", "Skeleton", 0.5f, 2),
-    SKELETON_ATTACK("Player/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
+    SKELETON_DOWN("Entities/Atlas/Skeleton.atlas", "Skeleton", 0.5f, 0),
+    SKELETON_UP("Entities/Atlas/Skeleton.atlas", "Skeleton", 0.5f, 3),
+    SKELETON_LEFT("Entities/Atlas/Skeleton.atlas", "Skeleton", 0.5f, 1),
+    SKELETON_RIGHT("Entities/Atlas/Skeleton.atlas", "Skeleton", 0.5f, 2),
+    SKELETON_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
 
-    BOSS_DOWN("Player/Atlas/Boss.atlas", "Boss", 0.5f, 3),
-    BOSS_UP("Player/Atlas/Boss.atlas", "Boss", 0.5f, 3),
-    BOSS_LEFT("Player/Atlas/Boss.atlas", "Boss", 0.5f, 3),
-    BOSS_RIGHT("Player/Atlas/Boss.atlas", "Boss", 0.5f, 3),
-    BOSS_ATTACK("Player/Atlas/Boss.atlas", "Boss", 0.5f, 3);
+    BOSS_DOWN("Entities/Atlas/Boss.atlas", "Boss", 0.5f, 3),
+    BOSS_UP("Entities/Atlas/Boss.atlas", "Boss", 0.5f, 3),
+    BOSS_LEFT("Entities/Atlas/Boss.atlas", "Boss", 0.5f, 3),
+    BOSS_RIGHT("Entities/Atlas/Boss.atlas", "Boss", 0.5f, 3),
+    BOSS_ATTACK("Entities/Atlas/Boss.atlas", "Boss", 0.5f, 3);
 
 
     private final String atlasPath;

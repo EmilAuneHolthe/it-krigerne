@@ -1,102 +1,57 @@
-# INF112 libGDX + Maven template 
 Simple skeleton with [libGDX](https://libgdx.com/). 
 
-**Important:** Replace this README with info about *your* project!
+# INF112 Prosjekt: THE INVISIBLE STAIRS
 
+# IT-Krigerne: Gruppe 5
+* Emil Aune Holthe 
+* Martin Rønning  
+* Daniel Bjørnstad 
+* Vemund Handeland 
 
-# Maven Setup
-This project comes with a working Maven `pom.xml` file. You should be able to import it into Eclipse using *File → Import → Maven → Existing Maven Projects* (or *Check out Maven Projects from SCM* to do Git cloning as well). You can also build the project from the command line with `mvn clean compile` and test it with `mvn clean test`.
+Github: https://git.app.uib.no/inf112/25v/proj/it-krigerne
+Trello: https://trello.com/invite/b/67ac74696ca3c27aff52a1d7/ATTI467b528223728134f82517d0d72f93b690C1C875/inf112-it-krigerne
 
-Pay attention to these folders:
-* `src/main/java` – Java source files go here (as usual for Maven) – **IMPORTANT!!** only `.java` files, no data files / assets
-* `src/main/resources` – data files go here, for example in an `assets` sub-folder – **IMPORTANT!** put data files here, or they won't get included in the jar file
-* `src/test/java` – JUnit tests
-* `target/classes` – compiled Java class files
+# Beskrivelse av spillet:
+* Dette er et action adventure spill med RPG elementer der du må beseire den allmektige G. 
+For å nå G må du kjempe deg gjennom fiender og hindre. Utforsk, samle gjenstander 
+og finn hemmeligheter for å gjøre deg sterkere. Dør du så er du ute, og spillet må startes på nytt. 
+Hvert run av spillet vil kreve at du finner våpen og annet loot slik at du kan beseire fiendene. 
+Kan du klare denne utfordringen?
 
-**TODO:** You should probably edit the `pom.xml` and fill in details such as the project `name` and `artifactId`:
-
-
-```xml
-
-	< !-- FIXME - set group id -->
-	<groupId>inf112.skeleton.app</groupId>
-	< !-- FIXME - set artifact name -->
-	<artifactId>gdx-app</artifactId>
-	<version>1.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
-
-	< !-- FIXME - set app name -->
-	<name>mvn-app</name>
-	< !-- FIXME change it to the project's website -->
-	<url>http://www.example.com</url>
-```
-
-	
-## Running
-You can run the project with Maven using `mvn exec:java`. Change the main class by modifying the `main.class` setting in `pom.xml`:
-
-```
-		<main.class>inf112.skeleton.app.Main</main.class>
-```
-
-Running the program should open a window with the text “Hello, world!” and an alligator in the lower left corner.  Clicking inside the window should play a *blip* sound. Exit by pressing *Escape* or closing the window.
-
-You may have to compile first, with `mvn compile` – or in a single step, `mvn compile exec:java`.
-
-## Testing
-Run unit tests with `mvn test` – unit test files should have `Test` in the file name, e.g., `ExampleTest.java`. This will also generate a [JaCoCo](https://www.jacoco.org/jacoco) code coverage report, which you can find in [target/site/jacoco/index.html](target/site/jacoco/index.html).
-
-Use `mvn verify` to run integration tests, if you have any. This will do everything up to and including `mvn package`, and then run all the tests with `IT` in the name, e.g., `ExampleIT.java`.
-
-## Jar Files
-
-If you run `mvn package` you get everything bundled up into a `.jar` file + a ‘fat’ Jar file where all the necessary dependencies have been added:
-
-* `target/NAME-VERSION.jar` – your compiled project, packaged in a JAR file
-* `target/NAME-VERSION-fat.jar` – your JAR file packaged with dependencies
-
-Run Jar files with, for example, `java -jar target/NAME-VERSION-fat.jar`.
-
-
-If you have test failures, and *really* need to build a jar anyway, you can skip testing with `mvn -Dmaven.test.skip=true package`.
-
-## Git Setup
-If you look at *Settings → Repository* in GitLab, you can protect branches – for example, forbid pushing to the `main` branch so everyone have to use merge requests.
-
-
-# Credits
-
-### Template example files
-* `src/main/resources/obligator.png` – Ingrid Næss Johansen E
-* `src/main/resources/blipp.ogg`– Dr. Richard Boulanger et al (CC-BY-3.0)
-*  `src/main/resources/chest.png` - http://bonsaiheld.org
-
-(You should probably delete these if you don't need them!)
-
-# Navn/ Team navn
-
-* Emil Aune Holthe / Map tester
-* Martin Rønning   / Pixel-art
-* Daniel Bjørnstad / Team leader
-* Vemund Handeland / Custumer support
-
-* IT-krigerne
-
-# Projekt type
-* Fugleperskeptiv
-* 2D kamera
-* Kan bevege seg: OPP, NED, VENSTRE, HØYRE
-* Items, upgrades, quests, bosses, points, 
-* No save files. Run based game. 
+Inspirasjon:
 * The legend of Zelda: https://en.wikipedia.org/wiki/The_Legend_of_Zelda_(video_game)
 
-# Prosjekt navn
-* The Legend of Invisible Stairs
+# Kjøring av spillet:
+* Kompileres med `mvn package`.
+* Kjøres med `java -jar target/The-Invisible-Stairs-1.0-SNAPSHOT-fat.jar`
 
-# Gruppe nummer
-* Gruppe 1
+# Kjente feil (bugs):
+* Kan slå igjennom kollisjons felt.
 
-# Project board
-* Vi har opprettet trello i lag. 
+# Credits
+* `src/main/resources/map/SampleMap/` –  Pipoya
+	https://pipoya.itch.io/pipoya-rpg-tileset-32x32
+
+	Alle sprites til maps er hentet fra dette tile settet. 
+	
+* `src/main/resources/Entities/Atlas` – Pipoya
+	https://pipoya.itch.io/pipoya-free-rpg-character-sprites-32x32
+
+	Alle karakter modeller er hentet fra denne sprite pakken.
+
+*  `src/main/resources/Entities/Items` - Flip
+	https://flippurgatory.itch.io/animated-potion-assets-pack-free
+
+	Health og Mana potion sprites er hentet fra her.
+
+* `src/main/resources/audio`
+	https://pixabay.com/sound-effects/search/game/
+
+	Lyder er hentet fra denne nettsiden.
+
+*  `src/main/resources/Background`
+	`src/main/resources/Ui`	
+
+	Flere bilder er laget med hjelp av: https://chatgpt.com.
 
 

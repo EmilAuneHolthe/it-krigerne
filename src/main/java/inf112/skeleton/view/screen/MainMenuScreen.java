@@ -22,7 +22,7 @@ import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
 
 public class MainMenuScreen extends AbstractScreen {
-    public static Texture backgroundTexture = new Texture(Gdx.files.internal("background.png"));
+    public static Texture backgroundTexture = new Texture(Gdx.files.internal("Background/background.png"));
     private Stage stage;
     private ImageButton startButton;
     private ImageButton optionsButton;
@@ -73,7 +73,7 @@ public class MainMenuScreen extends AbstractScreen {
             buttonDrawable = new TextureRegionDrawable(region);
         } else {
             // Use the original transparent texture
-            Texture blankTexture = new Texture(Gdx.files.internal("transparent.png"));
+            Texture blankTexture = new Texture(Gdx.files.internal("Background/transparent.png"));
             buttonDrawable = new TextureRegionDrawable(blankTexture);
         }
         

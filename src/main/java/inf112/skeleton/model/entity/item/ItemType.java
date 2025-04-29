@@ -8,7 +8,7 @@ public enum ItemType {
   MANA("mana"),
   SWORD_UPGRADE ("swordUpgrade");
 
-  private static final String OVERWORLD_SWORD = "OverworldSword.png"; 
+  private static final String OVERWORLD_SWORD = "Entities/Items/OverworldSword.png"; 
 
 
   private final String type;
@@ -20,11 +20,11 @@ public enum ItemType {
   public static Texture getItemTexture(ItemType itemType) {
     switch (itemType) {
       case HEALTH:
-        return new Texture("heart.png");
+        return new Texture("Entities/Items/Health.png");
       case KEY:
-        return new Texture("key.png");
+        return new Texture("Entities/Items/Key.png");
       case MANA:
-        return new Texture("mana.png");
+        return new Texture("Entities/Items/Health.png");
       case SWORD_UPGRADE:
         return new Texture(OVERWORLD_SWORD ); 
       default:
@@ -57,9 +57,9 @@ public static float getItemSize(ItemType itemType) {
 public static String getSwordHUDTexturePath(String sword) {
   switch (sword) {
     case "UncommonSword":
-      return "Player/Sword/Uncommon.png";
+      return "Entities/Sword/Uncommon.png";
     case "RareSword":
-      return "Player/Sword/Rare.png";
+      return "Entities/Sword/Rare.png";
     default:
       return null;
   }

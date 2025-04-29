@@ -36,8 +36,8 @@ public class Enemy extends GameEntity {
         this.sight = EnemyTypes.getEnemySight(characterType);
         
         // Load health bar textures
-        this.healthTexture = new Texture(Gdx.files.internal("redtexture.png"));
-        this.backgroundTexture = new Texture(Gdx.files.internal("graytexture.png"));
+        this.healthTexture = new Texture(Gdx.files.internal("Ui/redtexture.png"));
+        this.backgroundTexture = new Texture(Gdx.files.internal("Ui/graytexture.png"));
     }
 
     @Override
