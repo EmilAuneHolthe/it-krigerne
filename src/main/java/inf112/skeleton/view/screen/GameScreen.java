@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import javax.swing.border.Border;
 
 import inf112.skeleton.model.entity.enemy.Enemy;
-import inf112.skeleton.model.entity.enemy.EnemyController;
 import inf112.skeleton.model.entity.enemy.EnemyFactory;
 import inf112.skeleton.model.entity.item.Item;
 import inf112.skeleton.model.entity.item.ItemFactory;

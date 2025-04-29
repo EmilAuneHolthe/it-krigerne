@@ -24,7 +24,9 @@ public class EnemyController {
   }
   
   public void sight() {
+    System.out.println("Enemy sight");
     for (Enemy enemy : enemies) {
+      System.out.println("Enemy sight");
       Vector2 enemyPosition = enemy.getPosition();
       Vector2 playerPosition = player.getPosition();
       // Calculate the distance between the enemy and the player

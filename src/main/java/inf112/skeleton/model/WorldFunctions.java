@@ -50,13 +50,16 @@ public class WorldFunctions {
     mapManager.setMap(MapType.MAP_START);
 
     borders = mapManager.getCurrentMap().getBorders("Interact");
-    enemyController = new EnemyController(enemies, player);
     playerInteractions = new PlayerInteractions(context);
     context.setPlayerInteractions(playerInteractions);
     spawnEnemy();
     spawnPlayer();
     spawnItem();
     spawnTaskBoard();
+
+    enemies = context.getEnemy();
+    enemyController = new EnemyController(enemies, player);
+
 
   }
   public void update(float delta){
