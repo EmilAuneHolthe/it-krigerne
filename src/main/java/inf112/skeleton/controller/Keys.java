@@ -4,7 +4,6 @@ import com.badlogic.gdx.Input;
 
 public enum Keys {
     //Menu keys
-    PAUSE (Input.Keys.ESCAPE),
     BACK (Input.Keys.BACKSPACE),
 
     //Movement keys

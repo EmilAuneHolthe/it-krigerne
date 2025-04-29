@@ -78,6 +78,7 @@ public class SettingScreen extends AbstractScreen {
     @Override
     public void keyPressed(KeyHandler keyHandler, Keys key) {
         returnToMainMenu(keyHandler, key);
+        System.out.println("kuk");
     }
 
     @Override
@@ -86,7 +87,7 @@ public class SettingScreen extends AbstractScreen {
 
     private void returnToMainMenu(KeyHandler keyHandler, Keys key) {
         switch (key) {
-            case PAUSE:
+            case QUIT:
             audioHandler.playAudio(AudioTypes.SELECT);
             System.out.println("Returning to main menu...");
             dispose();

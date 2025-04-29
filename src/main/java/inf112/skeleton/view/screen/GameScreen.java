@@ -83,6 +83,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
     @Override
     public void show() {
         keyHandler.addListener(this);
+
     }
     @Override
     public void keyPressed(KeyHandler keyHandler, Keys key) {

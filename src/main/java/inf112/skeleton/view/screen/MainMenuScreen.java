@@ -144,6 +144,9 @@ public class MainMenuScreen extends AbstractScreen {
     public void dispose() {
         stage.dispose();
         backgroundTexture.dispose();
+        
+    
+
     }
     
     @Override
@@ -156,6 +159,8 @@ public class MainMenuScreen extends AbstractScreen {
     public void hide() {
         keyHandler.removeListener(this);
         audioHandler.playAudio(AudioTypes.SELECT);
+        stage.clear();
+
     }
     
     @Override
@@ -167,15 +172,6 @@ public class MainMenuScreen extends AbstractScreen {
     
     @Override
     public void keyPressed(KeyHandler keyHandler, Keys key) {
-        // Toggle debug mode with BACKSPACE key
-        if (key == Keys.BACK) {
-            debugMode = !debugMode;
-            System.out.println("Debug mode: " + (debugMode ? "ON" : "OFF"));
-            // Recreate UI to update debug visuals
-            stage.clear();
-            createUI();
-        }
-        System.err.println("MainMeny pressed: " + key);
     }
     
     @Override
