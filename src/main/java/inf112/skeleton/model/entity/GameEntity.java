@@ -52,7 +52,7 @@ public abstract class GameEntity implements entity, Disposable {
         this.itemType = itemType;
     }
 
-    // Common implementation of entity interface methods
+    
     @Override
     public int getHealth() {
         return Math.max(0, health);
