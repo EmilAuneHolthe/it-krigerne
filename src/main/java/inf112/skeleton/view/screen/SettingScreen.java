@@ -15,7 +15,7 @@ import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
 
 public class SettingScreen extends AbstractScreen {
-    public static Texture backgroundTexture = new Texture(Gdx.files.internal("settings.png"));
+    public static Texture backgroundTexture = new Texture(Gdx.files.internal("Background/settings.png"));
     private Stage stage;
 
     public SettingScreen(GamePanel context) {

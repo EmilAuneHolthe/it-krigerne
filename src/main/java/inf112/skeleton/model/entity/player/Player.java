@@ -20,9 +20,9 @@ import inf112.skeleton.view.screen.ScreenType;
 import inf112.skeleton.view.ui.DeathOverlay;
 
 public class Player extends GameEntity {
-    private boolean isDead;
+    public static boolean isDead;
     private DeathOverlay deathOverlay;
-    protected boolean alive;
+    public boolean alive;
     private int mana;
     private int maxMana;
     private float manaRegenRate = 10f; // Mana per second
@@ -69,10 +69,11 @@ public class Player extends GameEntity {
     }
     
     public void playerInput(KeyHandler keyHandler, Keys key) {
-        if (isDead) {
-            handleDeadPlayerInput(key);
-            return;
+        
+        if ((isDead) && (key == Keys.QUIT)) {
+                Gdx.app.exit();
         }
+
         if (key == Keys.ATTACK) {
             playerInteractions.attackEnemy(this, WorldFunctions.getEnemies());
         }
@@ -108,15 +109,6 @@ public class Player extends GameEntity {
         }
     }
 
-    
-    private void handleDeadPlayerInput(Keys key) {
-        if (key == Keys.INTERACT) {
-            context.getAudioHandler().playAudio(AudioTypes.SELECT);
-            context.resetPlayer();
-            context.setScreen(ScreenType.MAIN_MENU);
-        }
-    }
-    
     public void movePlayerReleased(KeyHandler keyHandler, Keys key) {
         movement.handleInputRelease(key);
         animation.setMoving(movement.isMoving());
@@ -130,6 +122,7 @@ public class Player extends GameEntity {
           }
           alive = takeDamage(enemy.getDamage());
           if (!alive) {
+            isDead = true;
             killPlayer();     
           }
         }

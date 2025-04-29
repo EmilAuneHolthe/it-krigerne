@@ -56,6 +56,7 @@ public class GameScreen extends AbstractScreen implements MapListener {
     public void render(float delta) {
         gameRenderer.render(delta);
         worldFunctions.update(delta);
+        System.out.println(Player.isDead);
     }
 
     @Override
@@ -86,6 +87,12 @@ public class GameScreen extends AbstractScreen implements MapListener {
     @Override
     public void keyPressed(KeyHandler keyHandler, Keys key) {
         context.getPlayer().playerInput(keyHandler, key);
+        
+    
+        if ((Player.isDead == true) && (key == Keys.QUIT)) {
+            System.out.println("kuk");
+            Gdx.app.exit();
+        }
     }    
 
     @Override

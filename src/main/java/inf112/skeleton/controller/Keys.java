@@ -12,6 +12,7 @@ public enum Keys {
     DOWN (Input.Keys.S, Input.Keys.DOWN),
     LEFT (Input.Keys.A, Input.Keys.LEFT), 
     RIGHT (Input.Keys.D, Input.Keys.RIGHT), 
+    QUIT (Input.Keys.ESCAPE),
 
     //Player interaction keys
     INTERACT (Input.Keys.E, Input.Keys.ENTER),

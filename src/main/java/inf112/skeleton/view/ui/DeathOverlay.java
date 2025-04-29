@@ -57,7 +57,6 @@ public class DeathOverlay {
 
     public void show() {
         isVisible = true;
-        Gdx.input.setInputProcessor(stage);
     }
 
     public void hide() {
