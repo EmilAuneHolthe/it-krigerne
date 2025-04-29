@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import inf112.skeleton.audio.AudioTypes; // Added import for AudioTypes
 import com.badlogic.gdx.physics.box2d.World;
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.WorldFunctions;
 import inf112.skeleton.model.entity.GameEntity;
 import inf112.skeleton.model.entity.player.CharacterType;
 import inf112.skeleton.view.screen.GameScreen;
@@ -76,7 +77,7 @@ public class Enemy extends GameEntity {
                 // Remove from the enemy list
                 context.getEnemy().removeIndex(index);
                 if(characterType == CharacterType.BOSS) {
-                    //GameScreen.victory = true;
+                    WorldFunctions.victory = true;
                 }
             }
         }
