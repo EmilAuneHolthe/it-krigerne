@@ -1976,7 +1976,7 @@
     <property name="name" value="cave"/>
    </properties>
   </object>
-  <object id="977" name="door1" x="2304" y="1859.89" width="64" height="92.1068"/>
+  <object id="977" name="door1" x="2304" y="1886.97" width="64" height="65.0289"/>
  </objectgroup>
  <objectgroup id="29" name="TaskBoard">
   <object id="981" x="2400.5" y="2178.17" width="127.352" height="125.757" rotation="359.851">
