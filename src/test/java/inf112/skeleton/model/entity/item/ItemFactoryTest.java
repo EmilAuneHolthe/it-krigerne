@@ -38,7 +38,7 @@ void testCreateItemFromMap() {
     when(mockSpawn1.getPosition()).thenReturn(new com.badlogic.gdx.math.Vector2(10, 20));
     when(mockSpawn2.getPosition()).thenReturn(new com.badlogic.gdx.math.Vector2(30, 40));
     when(mockSpawn1.getItemType()).thenReturn(ItemType.HEALTH);
-    when(mockSpawn2.getItemType()).thenReturn(ItemType.UNCOMMON_SWORD);
+    when(mockSpawn2.getItemType()).thenReturn(ItemType.SWORD_UPGRADE);
 
     ArrayList<ItemSpawn> spawns = new ArrayList<>();
     spawns.add(mockSpawn1);

@@ -11,37 +11,23 @@ class ItemTypeTest extends BaseTest {
     void testGetItemSize() {
         assertEquals(0.5f, ItemType.getItemSize(ItemType.HEALTH));
         assertEquals(0.75f, ItemType.getItemSize(ItemType.KEY));
-        assertEquals(1f, ItemType.getItemSize(ItemType.ATTACK));
         assertEquals(0.75f, ItemType.getItemSize(ItemType.MANA));
-        assertEquals(0.5f, ItemType.getItemSize(ItemType.UNCOMMON_SWORD)); // Updated to match default behavior
-        assertEquals(0.5f, ItemType.getItemSize(ItemType.RARE_SWORD)); // Updated to match default behavior
+        assertEquals(1f, ItemType.getItemSize(ItemType.SWORD_UPGRADE)); // Updated to match default behavior
     }
 
     @Test
     void testGetItemType() {
         assertEquals("health", ItemType.getItemType(ItemType.HEALTH));
         assertEquals("key", ItemType.getItemType(ItemType.KEY));
-        assertEquals("attack", ItemType.getItemType(ItemType.ATTACK));
         assertEquals("mana", ItemType.getItemType(ItemType.MANA));
-        assertEquals("sword2", ItemType.getItemType(ItemType.UNCOMMON_SWORD));
-        assertEquals("sword", ItemType.getItemType(ItemType.RARE_SWORD));
-    }
-
-    @Test
-    void testGetItemAction() {
-        assertEquals("Heal", ItemType.getItemAction(ItemType.HEALTH));
-        assertEquals("key", ItemType.getItemAction(ItemType.KEY));
-        assertEquals("AttackDMG", ItemType.getItemAction(ItemType.ATTACK));
-        assertEquals("maxMana", ItemType.getItemAction(ItemType.MANA));
+        assertEquals("swordUpgrade", ItemType.getItemType(ItemType.SWORD_UPGRADE));
     }
 
     @Test
     void testGetItemTexture() {
         assertNotNull(ItemType.getItemTexture(ItemType.HEALTH));
         assertNotNull(ItemType.getItemTexture(ItemType.KEY));
-        assertNotNull(ItemType.getItemTexture(ItemType.ATTACK));
+        assertNotNull(ItemType.getItemTexture(ItemType.SWORD_UPGRADE));
         assertNotNull(ItemType.getItemTexture(ItemType.MANA));
-        assertNotNull(ItemType.getItemTexture(ItemType.UNCOMMON_SWORD));
-        assertNotNull(ItemType.getItemTexture(ItemType.RARE_SWORD));
     }
 }

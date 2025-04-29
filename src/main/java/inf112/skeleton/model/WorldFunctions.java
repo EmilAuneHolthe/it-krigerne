@@ -40,7 +40,6 @@ public class WorldFunctions {
     private Array<Item> items = new Array<>();
     private PlayerInteractions playerInteractions;
   public WorldFunctions(GamePanel context){
-    System.out.println("WorldFunctions");
     this.mapManager = context.getMapManager();
     this.gameRenderer = context.getGameRenderer();
     this.context = context;
