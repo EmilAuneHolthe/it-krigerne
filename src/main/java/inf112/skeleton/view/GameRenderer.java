@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.entity.entity;
 import inf112.skeleton.model.entity.door.Door;
 import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.model.entity.item.Item;
@@ -56,6 +57,7 @@ public class GameRenderer implements Disposable, MapListener {
     private ItemBar itemBar;
     private Array<Door> doors;
     private final MapManager mapManager;
+    private EntityRenderer entityRenderer;
     private TaskBoard taskBoard;
 
     public GameRenderer(final GamePanel context) {
@@ -66,6 +68,7 @@ public class GameRenderer implements Disposable, MapListener {
         enemies = context.getEnemy();
         items = context.getItems();
         taskBoard = context.getTaskBoard();
+        entityRenderer = new EntityRenderer(context);
         mapRenderer = new OrthogonalTiledMapRenderer(null, UNIT_SCALE, spriteBatch);
         context.getMapManager().addListener(this);
 
@@ -148,27 +151,17 @@ public class GameRenderer implements Disposable, MapListener {
                     }
                     if (taskBoard != null) {
                         taskBoard.render(spriteBatch);
+                    };
+                    for (Enemy enemy : enemies) {
+                        entityRenderer.renderAll(spriteBatch, enemy, delta);
                     }
-
-                    if(items != null) {
+                    if (items != null) {
                         for (Item item : items) {
-                            item.render(spriteBatch);
+                            entityRenderer.renderAll(spriteBatch, item, delta);
                         }
                     }
-                    
                     if (player != null) {
-                        player.render(spriteBatch);
-                        if(showDebug) {
-                            debug.playerDebug(player);
-                        }
-                    }
-                    if(enemies != null) {
-                        for (Enemy enemy : enemies) {
-                            enemy.render(spriteBatch);
-                            if(showDebug) {
-                                debug.enemyDebug(enemy);
-                            }
-                        }
+                        entityRenderer.renderAll(spriteBatch, player, delta);
                     }
                     spriteBatch.end();
                     // Begin batch for next layer
@@ -188,22 +181,19 @@ public class GameRenderer implements Disposable, MapListener {
             if (!playerLayerRendered) {
                 spriteBatch.begin();
                 if (player != null) {
-                    player.render(spriteBatch);
+                    entityRenderer.renderAll(spriteBatch, player, delta);
                     if(showDebug) {
                         debug.playerDebug(player);
                     }
                 }
                 if(enemies != null) {
                     for (Enemy enemy : enemies) {
-                        enemy.render(spriteBatch);
-                        if(showDebug) {
-                            debug.enemyDebug(enemy);
-                        }
+                        entityRenderer.renderAll(spriteBatch, enemy, delta);
                     }
                 }
-                if(items != null) {
+                if (items != null) {
                     for (Item item : items) {
-                        item.render(spriteBatch);
+                        entityRenderer.renderAll(spriteBatch, item, delta);
                     }
                 }
                 spriteBatch.end();

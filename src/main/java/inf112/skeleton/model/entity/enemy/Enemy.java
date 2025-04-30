@@ -12,6 +12,7 @@ import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.WorldFunctions;
 import inf112.skeleton.model.entity.GameEntity;
 import inf112.skeleton.model.entity.player.CharacterType;
+import inf112.skeleton.model.entity.player.Player;
 import inf112.skeleton.view.screen.GameScreen;
 
 
@@ -39,23 +40,27 @@ public class Enemy extends GameEntity {
         this.healthTexture = new Texture(Gdx.files.internal("Ui/redtexture.png"));
         this.backgroundTexture = new Texture(Gdx.files.internal("Ui/graytexture.png"));
     }
+        public void update(Player player) {
 
-    @Override
-    public void render(SpriteBatch batch) {
-        super.render(batch);
-        if(characterType != CharacterType.BOSS) {
-            // Draw health bar for regular enemies
-            Vector2 pos = body.getPosition();
-            float barWidth = maxHealth/100;
-            
-            batch.draw(backgroundTexture, pos.x - barWidth/2.3f, pos.y + 0.5f, barWidth, 0.2f);
-            batch.draw(healthTexture, pos.x - barWidth/2.3f, pos.y + 0.5f, 1 * (health / 100f), 0.2f);
-        }
-    }
-    
-    public void update(float deltaTime) {
-        // Add enemy-specific update logic here
-    }
+              Vector2 playerPosition = player.getPosition();
+              float distance = getPosition().dst(playerPosition);
+        
+              if (distance < sight) {
+        
+        
+                
+                moveEnemy(playerPosition.x, playerPosition.y);
+        
+                // Check if the enemy is within attack range, then player take damage
+                if(distance < 0.8) {
+                  player.playerTakeDamage(this);
+        
+                }
+              }
+              else {
+                setLinearVelocity(0, 0);
+              }
+            }
     @Override
     public int getHealth() {
         if (health < 0) {

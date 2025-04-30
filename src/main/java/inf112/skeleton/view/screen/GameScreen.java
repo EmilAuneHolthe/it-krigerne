@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.Array;
 import inf112.skeleton.controller.Keys;
+import inf112.skeleton.controller.PlayerController;
 import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
@@ -45,9 +46,9 @@ public class GameScreen extends AbstractScreen{
         super(context);
         this.camera = context.getCamera();
         this.gameRenderer = context.getGameRenderer();
-        playerInteractions = new PlayerInteractions(context);
-        context.setPlayerInteractions(playerInteractions);
+        playerInteractions = new PlayerInteractions(context, context.getPlayer());
         worldFunctions = new WorldFunctions(context);
+        context.setWorldFunctions(worldFunctions);
   
         gameRenderer.updateDoors();
     }
@@ -80,7 +81,13 @@ public class GameScreen extends AbstractScreen{
     }
     @Override
     public void keyPressed(KeyHandler keyHandler, Keys key) {
-        context.getPlayer().playerInput(keyHandler, key);
+        context.getPlayerController().playerInput(keyHandler, key);
+        
+    
+        if ((Player.isDead == true) && (key == Keys.QUIT)) {
+            System.out.println("kuk");
+            Gdx.app.exit();
+        }
     }    
 
     @Override

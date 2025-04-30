@@ -1,20 +1,25 @@
 package inf112.skeleton.model.entity.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 
 import inf112.skeleton.audio.AudioHandler;
 import inf112.skeleton.audio.AudioTypes;
+import inf112.skeleton.controller.KeyHandler;
+import inf112.skeleton.controller.Keys;
 import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.WorldFunctions;
 import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.model.entity.item.Item;
 
 public class PlayerInteractions {
   private final float attackRange;
   private final GamePanel context;
- 
+  private final Player player;
   
   
-  public PlayerInteractions(GamePanel context) {
+  public PlayerInteractions(GamePanel context, Player player) {
+    this.player = player;
     this.attackRange = 2.0f;
     this.context = context;
   }
@@ -44,14 +49,5 @@ public class PlayerInteractions {
         return enemyNames;
     }
     return null;
-}
-public void pickUpItem(Player player, Array<Item> items) {
-  for (Item item : items) {
-    if (player.getPosition().dst(item.getPosition()) < 1.0f) {
-      player.pickUpItem(item.getItemType());
-      item.remove();
-      items.removeValue(item, true);
-    }
-  }
 }
 }
