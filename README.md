@@ -28,6 +28,7 @@ Inspirasjon:
 # Kjente feil (bugs):
 * Kan slå igjennom kollisjons felt.
 
+
 # Credits
 * `src/main/resources/map/SampleMap/` –  Pipoya
 	https://pipoya.itch.io/pipoya-rpg-tileset-32x32

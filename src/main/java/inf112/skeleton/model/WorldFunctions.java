@@ -20,12 +20,13 @@ import inf112.skeleton.model.entity.player.PlayerFactory;
 import inf112.skeleton.model.entity.player.PlayerInteractions;
 import inf112.skeleton.model.map.Borders;
 import inf112.skeleton.model.map.MapChanger;
+import inf112.skeleton.model.map.MapListener;
 import inf112.skeleton.model.map.MapManager;
 import inf112.skeleton.model.map.MapType;
 import inf112.skeleton.view.GameRenderer;
 import inf112.skeleton.view.screen.ScreenType;
 
-public class WorldFunctions {
+public class WorldFunctions implements MapListener {
     private World world;
     private Player player;
     public static Boolean victory = false;
@@ -169,5 +170,10 @@ public class WorldFunctions {
 
     public static Array<Enemy> getEnemies () {
         return enemies;
+    }
+    @Override
+    public void mapChanged(inf112.skeleton.model.map.Map map) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'mapChanged'");
     }
   }

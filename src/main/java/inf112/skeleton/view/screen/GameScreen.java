@@ -33,7 +33,7 @@ import inf112.skeleton.model.map.MapType;
 import inf112.skeleton.view.GameRenderer;
 import inf112.skeleton.model.map.MapChanger;
 
-public class GameScreen extends AbstractScreen implements MapListener {
+public class GameScreen extends AbstractScreen {
 
     private final OrthographicCamera camera;
     private final GameRenderer gameRenderer;
@@ -70,12 +70,6 @@ public class GameScreen extends AbstractScreen implements MapListener {
     }
 
     @Override
-    public void pause() {}
-
-    @Override
-    public void resume() {}
-
-    @Override
     public void dispose() {
         gameRenderer.dispose();
     }
@@ -101,11 +95,6 @@ public class GameScreen extends AbstractScreen implements MapListener {
         context.getPlayer().movePlayerReleased(keyHandler, key);
     }
 
-    @Override
-    public void mapChanged(Map map) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mapChanged'");
-    }
 }
 
 
