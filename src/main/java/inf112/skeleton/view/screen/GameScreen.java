@@ -33,7 +33,7 @@ import inf112.skeleton.model.map.MapType;
 import inf112.skeleton.view.GameRenderer;
 import inf112.skeleton.model.map.MapChanger;
 
-public class GameScreen extends AbstractScreen implements MapListener {
+public class GameScreen extends AbstractScreen{
 
     private final OrthographicCamera camera;
     private final GameRenderer gameRenderer;
@@ -56,7 +56,6 @@ public class GameScreen extends AbstractScreen implements MapListener {
     public void render(float delta) {
         gameRenderer.render(delta);
         worldFunctions.update(delta);
-        System.out.println(Player.isDead);
     }
 
     @Override
@@ -68,12 +67,6 @@ public class GameScreen extends AbstractScreen implements MapListener {
         camera.update();
         gameRenderer.resize(width, height);
     }
-
-    @Override
-    public void pause() {}
-
-    @Override
-    public void resume() {}
 
     @Override
     public void dispose() {
@@ -88,12 +81,6 @@ public class GameScreen extends AbstractScreen implements MapListener {
     @Override
     public void keyPressed(KeyHandler keyHandler, Keys key) {
         context.getPlayer().playerInput(keyHandler, key);
-        
-    
-        if ((Player.isDead == true) && (key == Keys.QUIT)) {
-            System.out.println("kuk");
-            Gdx.app.exit();
-        }
     }    
 
     @Override
@@ -101,11 +88,6 @@ public class GameScreen extends AbstractScreen implements MapListener {
         context.getPlayer().movePlayerReleased(keyHandler, key);
     }
 
-    @Override
-    public void mapChanged(Map map) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mapChanged'");
-    }
 }
 
 

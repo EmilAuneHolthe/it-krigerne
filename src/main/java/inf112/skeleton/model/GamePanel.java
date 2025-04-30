@@ -69,7 +69,7 @@ public class GamePanel extends Game {
     public static final BodyDef BODY_DEF = new BodyDef();
     public static final FixtureDef FIXTURE_DEF = new FixtureDef();
 
-    private AssetManager assetManager;
+    public static AssetManager assetManager;
     private KeyHandler keyHandler;
     private AudioHandler audioHandler;
     private MapManager mapManager;
@@ -84,8 +84,6 @@ public class GamePanel extends Game {
     
     private WorldFunctions worldFunctions;
     
-        
-        
         @Override
         public void create() {
             Gdx.app.setLogLevel(Application.LOG_INFO);
@@ -126,7 +124,7 @@ public class GamePanel extends Game {
             enemies = new Array<>();
             enemyController = new EnemyController(enemies, player);
     
-            setScreen(ScreenType.MAIN_MENU);
+            setScreen(ScreenType.LOADING);
         }
         public void setWorldFunctions(WorldFunctions worldFunctions) {
             this.worldFunctions = worldFunctions;

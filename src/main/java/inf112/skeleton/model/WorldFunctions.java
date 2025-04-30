@@ -20,12 +20,13 @@ import inf112.skeleton.model.entity.player.PlayerFactory;
 import inf112.skeleton.model.entity.player.PlayerInteractions;
 import inf112.skeleton.model.map.Borders;
 import inf112.skeleton.model.map.MapChanger;
+import inf112.skeleton.model.map.MapListener;
 import inf112.skeleton.model.map.MapManager;
 import inf112.skeleton.model.map.MapType;
 import inf112.skeleton.view.GameRenderer;
 import inf112.skeleton.view.screen.ScreenType;
 
-public class WorldFunctions {
+public class WorldFunctions{
     private World world;
     private Player player;
     public static Boolean victory = false;
@@ -39,13 +40,13 @@ public class WorldFunctions {
     private static Array<Enemy> enemies = new Array<>();
     private Array<Item> items = new Array<>();
     private PlayerInteractions playerInteractions;
+
   public WorldFunctions(GamePanel context){
     this.mapManager = context.getMapManager();
     this.gameRenderer = context.getGameRenderer();
     this.context = context;
     this.world = context.getWorld();
     mapChanger = new MapChanger();
-
     mapManager.setMap(MapType.MAP_START);
 
     borders = mapManager.getCurrentMap().getBorders("Interact");
@@ -55,6 +56,7 @@ public class WorldFunctions {
     spawnPlayer();
     spawnItem();
     spawnTaskBoard();
+   
 
     enemies = context.getEnemy();
     enemyController = new EnemyController(enemies, player);
@@ -170,4 +172,4 @@ public class WorldFunctions {
     public static Array<Enemy> getEnemies () {
         return enemies;
     }
-  }
+}

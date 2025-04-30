@@ -1,5 +1,7 @@
 package inf112.skeleton.view.screen;
 
+import static inf112.skeleton.model.GamePanel.assetManager;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
@@ -22,7 +24,9 @@ import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
 
 public class MainMenuScreen extends AbstractScreen {
-    public static Texture backgroundTexture = new Texture(Gdx.files.internal("Background/background.png"));
+    
+    private Texture backgroundTexture = assetManager.get("Background/background.png");
+    private Texture blankTexture = assetManager.get("Background/transparent.png");
     private Stage stage;
     private ImageButton startButton;
     private ImageButton optionsButton;
@@ -35,6 +39,7 @@ public class MainMenuScreen extends AbstractScreen {
         stage = new Stage(new FitViewport(originalWidth, originalHeight));
         Gdx.input.setInputProcessor(stage);
         createUI();
+        
     }
     
     private void createUI() {
@@ -73,7 +78,6 @@ public class MainMenuScreen extends AbstractScreen {
             buttonDrawable = new TextureRegionDrawable(region);
         } else {
             // Use the original transparent texture
-            Texture blankTexture = new Texture(Gdx.files.internal("Background/transparent.png"));
             buttonDrawable = new TextureRegionDrawable(blankTexture);
         }
         
@@ -105,7 +109,7 @@ public class MainMenuScreen extends AbstractScreen {
                 audioHandler.stopMusic();
                 System.out.println("Starting game...");
                 context.resetPlayer();
-                context.setScreen(ScreenType.LOADING);
+                context.setScreen(ScreenType.GAME);
             }
         });
         
@@ -144,9 +148,6 @@ public class MainMenuScreen extends AbstractScreen {
     public void dispose() {
         stage.dispose();
         backgroundTexture.dispose();
-        
-    
-
     }
     
     @Override

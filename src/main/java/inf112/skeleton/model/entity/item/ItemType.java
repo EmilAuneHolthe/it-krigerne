@@ -1,6 +1,7 @@
 package inf112.skeleton.model.entity.item;
 
 import com.badlogic.gdx.graphics.Texture;
+import static inf112.skeleton.model.GamePanel.assetManager;
 
 public enum ItemType {
   HEALTH("health"),
@@ -20,17 +21,17 @@ public enum ItemType {
   public static Texture getItemTexture(ItemType itemType) {
     switch (itemType) {
       case HEALTH:
-        return new Texture("Entities/Items/Health.png");
+        return assetManager.get("Entities/Items/Health.png");
       case KEY:
-        return new Texture("Entities/Items/Key.png");
+        return assetManager.get("Entities/Items/Key.png");
       case MANA:
-        return new Texture("Entities/Items/Health.png");
+        return assetManager.get("Entities/Items/Mana.png");
       case SWORD_UPGRADE:
-        return new Texture(OVERWORLD_SWORD ); 
+        return assetManager.get("Entities/Items/OverworldSword.png"); 
       default:
         break;
     }
-    return new Texture("health.png");
+    return null;
   }
 
 public static String getItemType(ItemType itemType) {

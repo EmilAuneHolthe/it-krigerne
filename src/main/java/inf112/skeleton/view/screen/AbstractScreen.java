@@ -67,12 +67,10 @@ public class AbstractScreen  implements Screen, KeyListener {
 
     @Override
     public void keyPressed(KeyHandler keyHandler, Keys key) {
-        System.err.println("blblbblbl" + key);
     }
 
     @Override
     public void keyReleased(KeyHandler keyHandler, Keys key) {
-        System.err.println("blblbblbl up" + key);
     }
     
 }

@@ -5,7 +5,8 @@ import inf112.skeleton.model.entity.player.CharacterType;
 public enum EnemyTypes {
     SKELETON("Skeleton"),
     ZOMBIE("Zombie"),
-    BOSS("Boss");
+    BOSS("Boss"),
+    OLD("Old"),;
 
     private final String name;
 
