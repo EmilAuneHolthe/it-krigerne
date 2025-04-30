@@ -188,4 +188,94 @@ Videreutvikle funksjoner i spillet:
 
 * Hva skal vi gjøre neste gang
 
--
+- Begynne på siste mappet. 
+- lage hotbar (altså noe som viser hvilke item vi holder på, f.eks. sverd type)
+- Fikse i sonarqube feil
+
+# 24.04.25: Emil, Martin, Vemund, Daniel
+
+* Hva gjorde vi 
+
+- Startet prosessen med dannelen av nytt map
+- Bestemte oss for at dette mappet blir et mellomledd mellom start mappet og boss mappet til slutt, i stedet for enda et bossmap
+- Fjernet litt hardcoding og gjorde byttingen av sverd dynamisk
+
+* Hva skal vi gjøre neste gang
+
+- Jobbe videre med mana implementasjon
+- Oppdatere test skeleton, i henhold til oppdatert logikk
+- Legge til key_counter og koble dette opp mot player.hasKeys
+- Se på plassering av key og key counter.
+
+# 25.04.25: Emil, Martin, Vemund, Daniel
+
+* Hva gjorde vi
+
+- Løste bugs, rettet opp mot mana (visuelt sammenlignet med logikk)
+- Fikk oppdatert testene til å teste ny logikk
+- Fikk rettet opp i keys og plassering på skjerpen. 
+
+* Hva skal vi gjøre neste gang
+
+- Gjøre ferdig det mellomledd mappet
+- Få inn riktig implementasjon av dører/kollisjon med dører
+- Få til at aktuelle dører åpnes med key i inventory, slik at man kan komme seg til neste map. 
+- Få inn et minimap/taskboard med spawn, som viser til de ulike items vi må samhandle med
+- Fullføre game-loopén slik at vi kan fullføre spillet. 
+- Legge til resterende sound effects
+
+# 27.04.25: Emil, Daniel, Vemund, Martin
+
+* Hva gjorde vi
+
+- Gjorde ferdig mellomledd mappet + bossmappet
+- Game-loopen er nå fullført
+- Rendering og logikken med dører, funker som forvnetet
+- Etter mye frem og tilbake, fungerer minimap/taskboard + vises om man står på designert område
+- Diverse sound effects er lagt inn (angripe, bli angrepet, interact med gjenstander, bakgrunnsmusikk)
+
+
+* Hva skal vi gjøre neste gang
+
+- Starte prosessen med å finpusse på koden. Se på tilbakemelding på oblig3, for å fikse på potensielle problemer
+- Se over nylig implementert kode, fikse på bugs og få koden så generisk som mulig. 
+- Oppdatere sprites (player, enemy´s, sword upgrades og items). 
+- Oppdatere settings-screen, til å bli mer en (how to play) screen + keybinds
+
+# 28.04.25: Emil, Daniel, Vemund, Martin
+
+* Hva gjorde vi
+
+- Fikk tilbakemelding om å fikse på MVC og SOLID prinsippene, så startet denne prosessen
+- FIkset opp i små bugs (visuelt og logisk)
+- Oppdatert de aktuelle spriteséne vi skulle endre. 
+- Startet på å fikse opp i settings screen. 
+
+* Hva skal vi gjøre neste gang
+
+
+- Starte prosessen med å flytte rundt på logikk, for å forbedre strukturen i koden i henhold til MVC og SOLID. 
+- Legge til Victory screen, med achievement. 
+- Oppdatere readMe og oblig4.md
+
+# 29.04.25: Emil, Daniel, Vemund, Martin
+
+* Hva gjorde vi
+
+- Endret GameScreen og WorldFunctions for bedre mvc. Nå er funksjoner flyttet ut av gamescreen og inn i worldfunctions
+- Oppdatert readMe og pom.xml fil. Har også endret på resoruce fil struktur.
+- Laget ny egen fil til møtereferat og linket til den i oblig4.
+- Fikset bug med knaper i main meny.
+- Lagt inn victory screen. Game loopén er offisielt i boks. 
+
+# 30.04.25: Emil, Daniel, Vemund, Martin
+
+* Hva gjorde vi
+
+- Vi ønsker å få innsyn av gruppeleder, i håp om å få hjelp oppmot perfeksjon angående MVC/SOLID prinsippene
+
+
+* Hva skal vi gjøre neste gang
+
+- 
+
