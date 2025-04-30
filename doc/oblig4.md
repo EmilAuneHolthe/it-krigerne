@@ -1,5 +1,5 @@
 # Rapport – innlevering 4
-**Team:** *IT-Krigerne* – *Martin, Emil, Vemmund, Daniel*...
+
 
 (![Klassediagram.png](../src/main/resources/Klassediagram.png))
 
