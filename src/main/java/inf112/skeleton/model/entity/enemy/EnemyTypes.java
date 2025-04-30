@@ -32,14 +32,20 @@ public enum EnemyTypes {
         switch (type) {
             case SKELETON:
                 return 100;
+            case PUMKIN:
+                return 50;
             case DARK:
-                return 300;
+                return 200;
             case ZOMBIE:
                 return 50;
+            case KING:
+                return 300;
             case BOSS:
                 return 500;
             case OLD:
                 return 10;
+            case GHOST:
+                return 1;
             default:
                 throw new IllegalArgumentException("Unknown enemy type: " + type);
         }
@@ -57,8 +63,14 @@ public enum EnemyTypes {
                 return 5;
             case ZOMBIE:
                 return 10;
+            case KING:
+                return 34;
             case BOSS:
                 return 50;
+            case PUMKIN:   
+                return 10;
+            case GHOST:
+                return 100;
             default:
                 throw new IllegalArgumentException("Unknown enemy type: " + type);
         }
@@ -67,39 +79,28 @@ public enum EnemyTypes {
         if (type == null) {
             throw new IllegalArgumentException("CharacterType cannot be null");
         }
-        switch (type) {
-            case SKELETON:
-                return 8;
-            case DARK:
-                return 8;
-            case OLD:
-                return 8;
-            case ZOMBIE:
-                return 8;
-            case BOSS:
-                return 1000;
-            default:
-                throw new IllegalArgumentException("Unknown enemy type: " + type);
+        if (type == CharacterType.BOSS) {
+            return 1000;
         }
+        else if (type.getClass() == CharacterType.class) {
+            return 8;
+        }
+        throw new IllegalArgumentException("Unknown enemy type: " + type);
     }
+       
     public static int getEnemySize(CharacterType type) {
         if (type == null) {
             throw new IllegalArgumentException("CharacterType cannot be null");
         }
-        switch (type) {
-            case SKELETON:
-                return 1;
-            case OLD:
-                return 1;
-            case ZOMBIE:
-                return 1;
-            case DARK:
-                return 1;
-            case BOSS:
-                return 2;
-            default:
-                throw new IllegalArgumentException("Unknown enemy type: " + type);
+        if (type == CharacterType.BOSS) {
+            return 2;
         }
+        else if (type.getClass() == CharacterType.class) {
+            return 1;
+        }
+        throw new IllegalArgumentException("Unknown enemy type: " + type);
     }
-  }
+}
+        
+    
 

@@ -46,6 +46,20 @@
         "/Users/martin/Documents/Uib/SM4/Inf112/it-krigerne/src/main/resources/map/SampleMap/soilderWalkingAnimation.tsx": {
             "scaleInDock": 1
         },
+        "/Users/martin/Documents/Uib/SM4/Inf112/it-krigerne/src/main/resources/map/SampleMap/startMap.tmx": {
+            "expandedObjectLayers": [
+                22
+            ],
+            "scale": 0.8536,
+            "selectedLayer": 13,
+            "viewCenter": {
+                "x": 1203.1396438612933,
+                "y": 1193.181818181818
+            }
+        },
+        "/Users/martin/Documents/Uib/SM4/Inf112/it-krigerne/src/main/resources/map/SampleMap/startMap.tmx#[Base]BaseChip_pipo": {
+            "scaleInDock": 1
+        },
         "/Users/martin/Documents/Uib/SM4/Inf112/it-krigerne/src/main/resources/map/testMap/Decorations.tsx": {
             "scaleInDock": 1
         },
@@ -69,16 +83,17 @@
         },
         "SecondMap.tmx": {
             "expandedObjectLayers": [
-                21,
                 22,
-                4,
-                5
+                3,
+                21,
+                5,
+                4
             ],
-            "scale": 0.8174,
-            "selectedLayer": 12,
+            "scale": 0.6209,
+            "selectedLayer": 11,
             "viewCenter": {
-                "x": 1258.8695864937608,
-                "y": 2354.4164423782727
+                "x": 1269.125463037526,
+                "y": 1978.5794813979708
             }
         }
     },

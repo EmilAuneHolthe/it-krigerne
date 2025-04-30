@@ -11,12 +11,12 @@ public enum AnimationTypes {
     SOLDIER_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
 
     // Hero
-    HERO_DOWN("Entities/Atlas/HeroWalking.atlas", "Hero", 0.5f, 0),
-    HERO_UP("Entities/Atlas/HeroWalking.atlas", "Hero", 0.5f, 3),
-    HERO_LEFT("Entities/Atlas/HeroWalking.atlas", "Hero", 0.5f, 1),
-    HERO_RIGHT("Entities/Atlas/HeroWalking.atlas", "Hero", 0.5f, 2),
+    KING_DOWN("Entities/Atlas/king.atlas", "King", 0.5f, 0),
+    KING_UP("Entities/Atlas/king.atlas", "King", 0.5f, 3),
+    KING_LEFT("Entities/Atlas/king.atlas", "King", 0.5f, 1),
+    KING_RIGHT("Entities/Atlas/king.atlas", "King", 0.5f, 2),
 
-    HERO_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
+    KING_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
 
     // Old
     OLD_DOWN("Entities/Atlas/OldWalking.atlas", "Old", 0.5f, 0),
@@ -33,6 +33,13 @@ public enum AnimationTypes {
     
     ZOMBIE_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
 
+    PUMKIN_DOWN("Entities/Atlas/Pumkin.atlas", "Pumkin", 0.5f, 0),
+    PUMKIN_UP("Entities/Atlas/Pumkin.atlas", "Pumkin", 0.5f, 3),
+    PUMKIN_LEFT("Entities/Atlas/Pumkin.atlas", "Pumkin", 0.5f, 1),
+    PUMKIN_RIGHT("Entities/Atlas/Pumkin.atlas", "Pumkin", 0.5f, 2),
+    
+    PUMKIN_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
+
     // Skeleton
     SKELETON_DOWN("Entities/Atlas/skeleton.atlas", "Skeleton", 0.5f, 0),
     SKELETON_UP("Entities/Atlas/skeleton.atlas", "Skeleton", 0.5f, 3),
@@ -46,6 +53,13 @@ public enum AnimationTypes {
     DARK_RIGHT("Entities/Atlas/Dark.atlas", "Dark", 0.5f, 2),
 
     DARK_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
+
+    GHOST_DOWN("Entities/Atlas/Ghost.atlas", "Ghost", 0.5f, 0),
+    GHOST_UP("Entities/Atlas/Ghost.atlas", "Ghost", 0.5f, 3),
+    GHOST_LEFT("Entities/Atlas/Ghost.atlas", "Ghost", 0.5f, 1),
+    GHOST_RIGHT("Entities/Atlas/Ghost.atlas", "Ghost", 0.5f, 2),
+
+    GHOST_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
 
     BOSS_DOWN("Entities/Atlas/Boss.atlas", "Boss", 0.5f, 3),
     BOSS_UP("Entities/Atlas/Boss.atlas", "Boss", 0.5f, 3),
