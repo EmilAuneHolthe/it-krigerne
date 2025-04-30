@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.Array;
 import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
 import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.model.entity.enemy.Enemy;
-import inf112.skeleton.model.entity.enemy.EnemyController;
 import inf112.skeleton.model.entity.enemy.EnemyFactory;
 import inf112.skeleton.model.entity.item.Item;
 import inf112.skeleton.model.entity.item.ItemFactory;
@@ -36,7 +35,6 @@ public class WorldFunctions{
     private MapManager mapManager;
     private GameRenderer gameRenderer;
     private MapChanger mapChanger;
-    private EnemyController enemyController;
     private static Array<Enemy> enemies = new Array<>();
     private Array<Item> items = new Array<>();
     private PlayerInteractions playerInteractions;
@@ -50,7 +48,7 @@ public class WorldFunctions{
     mapManager.setMap(MapType.MAP_START);
 
     borders = mapManager.getCurrentMap().getBorders("Interact");
-    playerInteractions = new PlayerInteractions(context);
+    playerInteractions = new PlayerInteractions(context, player);
     context.setPlayerInteractions(playerInteractions);
     spawnEnemy();
     spawnPlayer();
@@ -59,7 +57,6 @@ public class WorldFunctions{
    
 
     enemies = context.getEnemy();
-    enemyController = new EnemyController(enemies, player);
 
 
   }
@@ -67,7 +64,7 @@ public class WorldFunctions{
         if (victory) {
             setVictory();
         }
-        
+        player.getMovement().update();
         // Update player for mana regeneration
         if (player != null) {
             player.regenerateMana(delta);
@@ -75,7 +72,9 @@ public class WorldFunctions{
 
         dTime += 0.5;
         if (dTime >= 25) {
-            enemyController.sight();
+            for(Enemy enemy : enemies) {
+                enemy.update(player);
+            }
             dTime = 0;
         }
             borders = mapManager.getCurrentMap().getBorders("Interact");
@@ -89,7 +88,6 @@ public class WorldFunctions{
                         isInsideTaskBoard = true;
                     }
                     else if(player.hasKey() && Boolean.TRUE.equals(mapManager.openDoor(name))){
-                        System.out.println(name);
                     player.removeKey();
                     context.getAudioHandler().playAudio(AudioTypes.DOOR);
                     }
@@ -141,7 +139,6 @@ public class WorldFunctions{
         mapChanger.movePlayer(world, mapManager.getCurrentMap(), player);
         spawnEnemy();
         enemies = context.getEnemy();
-        enemyController.updateEnemies(enemies);
         spawnItem();
         gameRenderer.updateDoors();
         }

@@ -49,7 +49,7 @@ public class ItemBar {
         this.padding = padding;
         this.slotTexture = assetManager.get("Ui/slot.png");
         this.selectedSlotTexture = assetManager.get("Ui/slotselected.png");
-        this.items = player.getItems();
+        this.items = player.getInventory().getItems();
         
         // Initialize arrays
         slotBackgrounds = new Image[SLOT_COUNT];
@@ -105,7 +105,7 @@ public class ItemBar {
             return;
         }
 
-        Item[] items = player.getItems();
+        Item[] items = player.getInventory().getItems();
         if (items == null) {
             return;
         }
@@ -113,7 +113,7 @@ public class ItemBar {
         for (int i = 0; i < SLOT_COUNT; i++) {
             // Update slot background based on selection
             slotBackgrounds[i].setDrawable(new TextureRegionDrawable(
-                i == player.getSelectedItemIndex() ? selectedSlotTexture : slotTexture
+                i == player.getInventory().getSelectedItemIndex() ? selectedSlotTexture : slotTexture
             ));
             slotBackgrounds[i].setSize(SLOT_SIZE, SLOT_SIZE);
 
@@ -168,7 +168,7 @@ public class ItemBar {
             float y = position.y;
 
             // Draw the appropriate slot texture based on selection
-            Texture currentTexture = (i == player.getSelectedItemIndex()) ? selectedSlotTexture : slotTexture;
+            Texture currentTexture = (i == player.getInventory().getSelectedItemIndex()) ? selectedSlotTexture : slotTexture;
             batch.draw(currentTexture, x, y, slotSize, slotSize);
 
             // Draw item if present
