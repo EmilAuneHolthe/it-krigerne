@@ -1,5 +1,7 @@
 package inf112.skeleton.view.ui;
 
+import static inf112.skeleton.model.GamePanel.assetManager;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -45,8 +47,8 @@ public class ItemBar {
         this.position = new Vector2(x, y);
         this.slotSize = slotSize;
         this.padding = padding;
-        this.slotTexture = new Texture(Gdx.files.internal("Ui/slot.png"));
-        this.selectedSlotTexture = new Texture(Gdx.files.internal("Ui/slotselected.png"));
+        this.slotTexture = assetManager.get("Ui/slot.png");
+        this.selectedSlotTexture = assetManager.get("Ui/slotselected.png");
         this.items = player.getItems();
         
         // Initialize arrays

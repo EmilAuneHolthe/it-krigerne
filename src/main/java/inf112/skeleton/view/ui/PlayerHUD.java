@@ -1,5 +1,7 @@
 package inf112.skeleton.view.ui;
 
+import static inf112.skeleton.model.GamePanel.assetManager;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -87,9 +89,10 @@ public class PlayerHUD {
         table.add(manaStack).width(maxHealthBarWidth).height(healthBarHeight);
         stage.addActor(table);
 
-        // Load the circular slot frame and the player's initial sword icon
-        Texture circleTexture = new Texture(Gdx.files.internal("Ui/sword_circle.png"));
-        Texture swordTexture = new Texture(Gdx.files.internal("Entities/Sword/Common.png")); // change path as needed
+        // get the circular slot frame, player's initial sword icon and key icon
+        Texture circleTexture = assetManager.get("Ui/sword_circle.png");
+        Texture swordTexture = assetManager.get("Entities/Sword/Common.png");
+        Texture keyTexture = assetManager.get("Entities/Items/Key.png");
 
         swordSlotCircle = new Image(circleTexture);
         equippedSwordIcon = new Image(swordTexture);
@@ -118,7 +121,6 @@ public class PlayerHUD {
         stage.addActor(swordTable);
 
         // Key icon and label
-        Texture keyTexture = new Texture(Gdx.files.internal("Entities/Items/Key.png"));
         keyIcon = new Image(keyTexture);
         keyIcon.setRotation(270f); // optional
         keyIcon.setSize(32, 32); // adjust as needed

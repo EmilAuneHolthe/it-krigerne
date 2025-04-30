@@ -20,11 +20,34 @@ public class LoadingScreen extends AbstractScreen   {
         super(context); // this.context = context;
         this.assetManager = context.getAssetManager();
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+
+        // Maps
         assetManager.load("map/testMap/bossMap.tmx", TiledMap.class);
         assetManager.load("map/SampleMap/startMap.tmx", TiledMap.class);
         assetManager.load("map/SecondMap/SecondMap.tmx", TiledMap.class);
+
+        // Items and doors
         assetManager.load("map/Door1.png", Texture.class);
+
+        assetManager.load("Entities/Items/Key.png", Texture.class);
+        assetManager.load("Entities/Items/Health.png", Texture.class);
+        assetManager.load("Entities/Items/Mana.png", Texture.class);
+
+        assetManager.load("Entities/Items/OverworldSword.png", Texture.class);
+        assetManager.load("Entities/Sword/Common.png", Texture.class);
+        assetManager.load("Entities/Sword/Uncommon.png", Texture.class);
+        assetManager.load("Entities/Sword/Rare.png", Texture.class);
+
+        //UI
         assetManager.load("map/miniMap.png", Texture.class);
+        assetManager.load("Ui/sword_circle.png", Texture.class);
+        assetManager.load("Ui/slot.png", Texture.class);
+        assetManager.load("Ui/slotselected.png", Texture.class);
+
+        //Main menu
+        assetManager.load("Background/transparent.png", Texture.class);
+        assetManager.load("Background/background.png", Texture.class);
+        
         assetManager.finishLoading();
     }
     
@@ -32,7 +55,7 @@ public class LoadingScreen extends AbstractScreen   {
     public void render(float delta) { 
 
         if (assetManager.update()) {
-            context.setScreen(ScreenType.GAME);
+            context.setScreen(ScreenType.MAIN_MENU);
         }
     }
 

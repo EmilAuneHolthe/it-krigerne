@@ -33,7 +33,7 @@ import inf112.skeleton.model.map.MapType;
 import inf112.skeleton.view.GameRenderer;
 import inf112.skeleton.model.map.MapChanger;
 
-public class GameScreen extends AbstractScreen {
+public class GameScreen extends AbstractScreen{
 
     private final OrthographicCamera camera;
     private final GameRenderer gameRenderer;
@@ -56,7 +56,6 @@ public class GameScreen extends AbstractScreen {
     public void render(float delta) {
         gameRenderer.render(delta);
         worldFunctions.update(delta);
-        System.out.println(Player.isDead);
     }
 
     @Override
@@ -82,12 +81,6 @@ public class GameScreen extends AbstractScreen {
     @Override
     public void keyPressed(KeyHandler keyHandler, Keys key) {
         context.getPlayer().playerInput(keyHandler, key);
-        
-    
-        if ((Player.isDead == true) && (key == Keys.QUIT)) {
-            System.out.println("kuk");
-            Gdx.app.exit();
-        }
     }    
 
     @Override
