@@ -10,6 +10,7 @@ import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.item.ItemType;
 import inf112.skeleton.model.entity.player.CharacterType;
+import inf112.skeleton.model.entity.player.Player;
 import inf112.skeleton.model.entity.player.PlayerAnimation;
 import inf112.skeleton.model.entity.player.PlayerMovement;
 
@@ -64,7 +65,15 @@ public abstract class GameEntity implements entity, Disposable {
         health -= damage;
         return health > 0;
     }
-    
+    public PlayerAnimation getAnimation() {
+        return animation;
+    }
+    public PlayerMovement getMovement() {
+        return movement;
+    }
+    public ItemType getItemType() {
+        return itemType;
+    }
     @Override
     public void setHealth(int health) {
         this.health = health;
@@ -99,14 +108,6 @@ public abstract class GameEntity implements entity, Disposable {
         this.y = y;
     }
     
-    // Common rendering method
-    public void render(SpriteBatch batch) {
-        if (isActive()) {
-            movement.update();
-            animation.update(Gdx.graphics.getDeltaTime());
-            animation.render(batch, body);
-        }
-    }
     
     // Abstract methods that subclasses must implement
     protected abstract boolean isActive();

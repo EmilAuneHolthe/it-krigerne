@@ -29,8 +29,8 @@ import java.util.EnumMap;
 import inf112.skeleton.audio.AudioHandler;
 import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.KeyHandler;
+import inf112.skeleton.controller.PlayerController;
 import inf112.skeleton.model.entity.enemy.Enemy;
-import inf112.skeleton.model.entity.enemy.EnemyController;
 import inf112.skeleton.model.entity.enemy.EnemyFactory;
 import inf112.skeleton.model.entity.item.Item;
 import inf112.skeleton.model.entity.item.ItemFactory;
@@ -77,9 +77,9 @@ public class GamePanel extends Game {
     private Player player;
     private Array<Enemy> enemies;
     private PlayerInteractions playerInteractions;
+    private PlayerController playerController;
     private Array<Item> items;
     private MapChanger mapChanger;
-    private EnemyController enemyController;
     private PlayerHUD playerHUD;
     
     private WorldFunctions worldFunctions;
@@ -122,7 +122,6 @@ public class GamePanel extends Game {
             // Initialize MapChanger and EnemyController
             mapChanger = new MapChanger();
             enemies = new Array<>();
-            enemyController = new EnemyController(enemies, player);
     
             setScreen(ScreenType.LOADING);
         }
@@ -144,6 +143,7 @@ public class GamePanel extends Game {
     public WorldFunctions getWorldFunctions() {return worldFunctions;}
     public void setPlayer(Player player) {
         this.player = player;
+        playerController = new PlayerController(player, playerInteractions,this);
     }
     
     public Player getPlayer() {
@@ -198,7 +198,7 @@ public class GamePanel extends Game {
     @Override
     public void render() {
         super.render();
-
+        
         accumulator += Math.min(0.25f, Gdx.graphics.getDeltaTime());
         while (accumulator >= FIXED_TIME_STEP) {
             world.step(FIXED_TIME_STEP, 6, 2);
@@ -256,6 +256,12 @@ public class GamePanel extends Game {
     public void setPlayerInteractions(PlayerInteractions playerInteractions) {
         this.playerInteractions = playerInteractions;
     }
+    public void setPlayerController(PlayerController playerController) {
+        this.playerController = playerController;
+    }
+    public PlayerController getPlayerController() {
+        return playerController;
+    }
 
     public void changemap(MapType newMapType) {
         if (newMapType == null) {
@@ -294,10 +300,6 @@ public class GamePanel extends Game {
         // Spawn new enemies
         spawnEnemy();
         enemies = getEnemy();
-        if (enemyController != null) {
-            enemyController.updateEnemies(enemies);
-        }
-
         // Spawn new items
         spawnItem();
         items = getItems();

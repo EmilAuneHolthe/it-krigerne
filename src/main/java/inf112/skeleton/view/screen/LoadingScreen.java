@@ -12,8 +12,10 @@ import inf112.skeleton.model.GamePanel;
 
 public class LoadingScreen extends AbstractScreen   {
     
+
     private final AssetManager assetManager;
     
+
     public LoadingScreen(GamePanel context) {
         super(context); // this.context = context;
         this.assetManager = context.getAssetManager();
@@ -41,10 +43,13 @@ public class LoadingScreen extends AbstractScreen   {
         assetManager.load("Ui/sword_circle.png", Texture.class);
         assetManager.load("Ui/slot.png", Texture.class);
         assetManager.load("Ui/slotselected.png", Texture.class);
+        assetManager.load("UI/redtexture.png", Texture.class);
+        assetManager.load("UI/graytexture.png", Texture.class);
 
         //Main menu
         assetManager.load("Background/transparent.png", Texture.class);
         assetManager.load("Background/background.png", Texture.class);
+
         
         assetManager.finishLoading();
     }
