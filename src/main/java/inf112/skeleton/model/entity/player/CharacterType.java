@@ -8,7 +8,8 @@ public enum CharacterType {
     HERO(AnimationTypes.HERO_DOWN),
     ZOMBIE(AnimationTypes.ZOMBIE_DOWN),
     BOSS(AnimationTypes.BOSS_DOWN),
-    SKELETON(AnimationTypes.SKELETON_DOWN);
+    SKELETON(AnimationTypes.SKELETON_DOWN),
+    DARK(AnimationTypes.DARK_DOWN);
     
     private final AnimationTypes defaultAnimation;
     

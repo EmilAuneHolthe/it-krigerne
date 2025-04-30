@@ -12,10 +12,8 @@ import inf112.skeleton.model.GamePanel;
 
 public class LoadingScreen extends AbstractScreen   {
     
-
     private final AssetManager assetManager;
     
-
     public LoadingScreen(GamePanel context) {
         super(context); // this.context = context;
         this.assetManager = context.getAssetManager();

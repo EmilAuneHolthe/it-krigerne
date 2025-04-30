@@ -32,10 +32,14 @@ public enum EnemyTypes {
         switch (type) {
             case SKELETON:
                 return 100;
+            case DARK:
+                return 300;
             case ZOMBIE:
                 return 50;
             case BOSS:
                 return 500;
+            case OLD:
+                return 10;
             default:
                 throw new IllegalArgumentException("Unknown enemy type: " + type);
         }
@@ -45,8 +49,12 @@ public enum EnemyTypes {
             throw new IllegalArgumentException("CharacterType cannot be null");
         }
         switch (type) {
+            case DARK:
+                return 34;
             case SKELETON:
                 return 25;
+            case OLD:
+                return 5;
             case ZOMBIE:
                 return 10;
             case BOSS:
@@ -61,6 +69,10 @@ public enum EnemyTypes {
         }
         switch (type) {
             case SKELETON:
+                return 8;
+            case DARK:
+                return 8;
+            case OLD:
                 return 8;
             case ZOMBIE:
                 return 8;
@@ -77,7 +89,11 @@ public enum EnemyTypes {
         switch (type) {
             case SKELETON:
                 return 1;
+            case OLD:
+                return 1;
             case ZOMBIE:
+                return 1;
+            case DARK:
                 return 1;
             case BOSS:
                 return 2;

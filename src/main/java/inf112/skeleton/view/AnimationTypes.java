@@ -32,12 +32,20 @@ public enum AnimationTypes {
     ZOMBIE_RIGHT("Entities/Atlas/zombie.atlas", "Zombie", 0.5f, 2),
     
     ZOMBIE_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
+
     // Skeleton
     SKELETON_DOWN("Entities/Atlas/skeleton.atlas", "Skeleton", 0.5f, 0),
     SKELETON_UP("Entities/Atlas/skeleton.atlas", "Skeleton", 0.5f, 3),
     SKELETON_LEFT("Entities/Atlas/skeleton.atlas", "Skeleton", 0.5f, 1),
     SKELETON_RIGHT("Entities/Atlas/skeleton.atlas", "Skeleton", 0.5f, 2),
     SKELETON_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
+
+    DARK_DOWN("Entities/Atlas/Dark.atlas", "Dark", 0.5f, 0),
+    DARK_UP("Entities/Atlas/Dark.atlas", "Dark", 0.5f, 3),
+    DARK_LEFT("Entities/Atlas/Dark.atlas", "Dark", 0.5f, 1),
+    DARK_RIGHT("Entities/Atlas/Dark.atlas", "Dark", 0.5f, 2),
+
+    DARK_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
 
     BOSS_DOWN("Entities/Atlas/Boss.atlas", "Boss", 0.5f, 3),
     BOSS_UP("Entities/Atlas/Boss.atlas", "Boss", 0.5f, 3),
