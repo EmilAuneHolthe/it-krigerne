@@ -42,7 +42,7 @@ public class DeathOverlay {
         // Create instruction text
         BitmapFont instructionFont = new BitmapFont();
         instructionFont.getData().setScale(1.2f);
-        instructionText = new Label("Press ESCAPE to quit the game, when died", new Label.LabelStyle(instructionFont, Color.WHITE));
+        instructionText = new Label("Press ESCAPE to quit the game, when dead", new Label.LabelStyle(instructionFont, Color.WHITE));
         instructionText.setAlignment(Align.center);
 
         // Layout
