@@ -14,6 +14,21 @@
         "/Users/martin/Documents/Uib/SM4/Inf112/it-krigerne/src/main/resources/map/SampleMap/PlayerAttack.tsx": {
             "scaleInDock": 1
         },
+        "/Users/martin/Documents/Uib/SM4/Inf112/it-krigerne/src/main/resources/map/SampleMap/[A]Flower_pipo.tsx": {
+            "scaleInDock": 1
+        },
+        "/Users/martin/Documents/Uib/SM4/Inf112/it-krigerne/src/main/resources/map/SampleMap/[A]Grass_pipo.tsx": {
+            "scaleInDock": 1
+        },
+        "/Users/martin/Documents/Uib/SM4/Inf112/it-krigerne/src/main/resources/map/SampleMap/[A]WaterFall_pipo.tsx": {
+            "scaleInDock": 1
+        },
+        "/Users/martin/Documents/Uib/SM4/Inf112/it-krigerne/src/main/resources/map/SampleMap/[A]Water_pipo.tsx": {
+            "scaleInDock": 1
+        },
+        "/Users/martin/Documents/Uib/SM4/Inf112/it-krigerne/src/main/resources/map/SampleMap/[Base]BaseChip_pipo.tsx": {
+            "scaleInDock": 1
+        },
         "/Users/martin/Documents/Uib/SM4/Inf112/it-krigerne/src/main/resources/map/SampleMap/samplemap.tmx": {
             "expandedObjectLayers": [
                 28
@@ -29,6 +44,12 @@
             "scaleInDock": 1
         },
         "/Users/martin/Documents/Uib/SM4/Inf112/it-krigerne/src/main/resources/map/SampleMap/soilderWalkingAnimation.tsx": {
+            "scaleInDock": 1
+        },
+        "/Users/martin/Documents/Uib/SM4/Inf112/it-krigerne/src/main/resources/map/testMap/Decorations.tsx": {
+            "scaleInDock": 1
+        },
+        "/Users/martin/Documents/Uib/SM4/Inf112/it-krigerne/src/main/resources/map/testMap/DirtSprites.tsx": {
             "scaleInDock": 1
         },
         "/Users/martin/Documents/Uib/SM4/Inf112/it-krigerne/src/main/resources/map/testMap/GrassSprites.tsx": {
