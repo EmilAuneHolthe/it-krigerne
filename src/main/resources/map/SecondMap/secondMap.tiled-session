@@ -50,11 +50,11 @@
             "expandedObjectLayers": [
                 22
             ],
-            "scale": 0.8536,
-            "selectedLayer": 13,
+            "scale": 0.4302,
+            "selectedLayer": 16,
             "viewCenter": {
-                "x": 1203.1396438612933,
-                "y": 1193.181818181818
+                "x": 2284.9837284983732,
+                "y": 621.8038121803812
             }
         },
         "/Users/martin/Documents/Uib/SM4/Inf112/it-krigerne/src/main/resources/map/SampleMap/startMap.tmx#[Base]BaseChip_pipo": {
@@ -82,18 +82,11 @@
             }
         },
         "SecondMap.tmx": {
-            "expandedObjectLayers": [
-                22,
-                3,
-                21,
-                5,
-                4
-            ],
-            "scale": 0.6209,
-            "selectedLayer": 11,
+            "scale": 1.566,
+            "selectedLayer": 10,
             "viewCenter": {
-                "x": 1269.125463037526,
-                "y": 1978.5794813979708
+                "x": 1928.4802043422733,
+                "y": 1947.3180076628353
             }
         }
     },

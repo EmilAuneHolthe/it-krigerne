@@ -27,8 +27,8 @@ public class PlayerMovement {
     public void update() {
         if(directionChange) {
             body.applyLinearImpulse(
-                (xFactor * 3 - body.getLinearVelocity().x * body.getMass()),
-                (yFactor * 3 - body.getLinearVelocity().y * body.getMass()),
+                (xFactor * 2 - body.getLinearVelocity().x * body.getMass()),
+                (yFactor * 2 - body.getLinearVelocity().y * body.getMass()),
                 body.getWorldCenter().x, body.getWorldCenter().y, true
             );
         }

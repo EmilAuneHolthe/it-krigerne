@@ -286,20 +286,20 @@ public class Player extends GameEntity {
         // Apply item effects
         switch (item.getItemType()) {
             case HEALTH:
-                setHealth(Math.min(health + 20, maxHealth));
+                setHealth(Math.min(health + 50, maxHealth));
                 break;
             case MANA:
                 currentMana = Math.min(currentMana + 20, maxMana);
-                manaRegenRate += 5f;
+                manaRegenRate += 10f;
                 break;
             case SWORD_UPGRADE:
                 swordUpgradeType++;
                 if (swordUpgradeType == 1) {
-                    damage += 5;
+                    damage += 10;
                     getSwordHUDTexturePath("UncommonSword");
                 }
                 else if (swordUpgradeType == 2) {
-                    damage += 5;
+                    damage += 10;
                     getSwordHUDTexturePath("RareSword");
                 }             
                 break;

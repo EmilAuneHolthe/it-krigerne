@@ -64,7 +64,7 @@ public enum EnemyTypes {
             case ZOMBIE:
                 return 10;
             case KING:
-                return 34;
+                return 45;
             case BOSS:
                 return 50;
             case PUMKIN:   
