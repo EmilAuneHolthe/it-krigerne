@@ -1,10 +1,7 @@
 # Rapport – innlevering 4
-**Team:** *Teamnavn* – *medlemmer*...
+**Team:** *IT-Krigerne* – *Martin, Emil, Vemmund, Daniel*...
 
 (![Klassediagram.png](../src/main/resources/Klassediagram.png))
-
-# Rapport – innlevering 3
-**Team:** *IT-Krigerne* – *Martin, Emil, Vemmund, Daniel*...
 
 # IT-Krigerne:
 
