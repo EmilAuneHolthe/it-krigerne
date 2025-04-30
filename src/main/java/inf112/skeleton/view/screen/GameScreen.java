@@ -85,7 +85,6 @@ public class GameScreen extends AbstractScreen{
         
     
         if ((Player.isDead == true) && (key == Keys.QUIT)) {
-            System.out.println("kuk");
             Gdx.app.exit();
         }
     }    

@@ -78,7 +78,6 @@ public class SettingScreen extends AbstractScreen {
     @Override
     public void keyPressed(KeyHandler keyHandler, Keys key) {
         returnToMainMenu(keyHandler, key);
-        System.out.println("kuk");
     }
 
     @Override
