@@ -8,8 +8,8 @@ public class Borders {
   public Borders(float x1, float y1, float x2, float y2, String name) {
     this.x1 = x1*UNIT_SCALE;
     this.y1 = y1*UNIT_SCALE;
-    this.x2 = (x1 + x2)*UNIT_SCALE;
-    this.y2 = (y1 + y2)*UNIT_SCALE;
+    this.x2 = x2*UNIT_SCALE;
+    this.y2 = y2*UNIT_SCALE;
     this.width = x2;
     this.height = y2;
     this.name = name;
