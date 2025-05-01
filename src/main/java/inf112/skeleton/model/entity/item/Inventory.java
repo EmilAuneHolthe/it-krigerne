@@ -49,7 +49,6 @@ public class Inventory {
             if (player.getPosition().dst(item.getPosition()) < 1.0f) {
                 pickUpItem(item.getItemType());
                 item.remove();
-                items.removeValue(item, true);
             }
         }
     }
@@ -88,6 +87,7 @@ public class Inventory {
         for (int i = 0; i < items.length; i++) {
             if (items[i] == null) {
                 items[i] = item;
+                itemCount++;
                 Gdx.app.log("Player", "Added item to slot " + i);
                 return;
             }
@@ -147,6 +147,7 @@ public class Inventory {
 
         // Remove the used item
         items[selectedItemIndex] = null;
+        itemCount--;
         Gdx.app.log("Player", "Used and removed item from slot " + selectedItemIndex);
     }
 
@@ -157,7 +158,7 @@ public class Inventory {
      * @return The removed item, or null if the index is invalid.
      */
     public Item removeItem(int index) {
-        if (index >= 0 && index < itemCount) {
+        if (index >= 0 && index < items.length && items[index] != null) {
             Item item = items[index];
             items[index] = null;
             itemCount--;
@@ -173,7 +174,7 @@ public class Inventory {
      * @return The item at the specified index, or null if the index is invalid.
      */
     public Item getItem(int index) {
-        if (index >= 0 && index < itemCount) {
+        if (index >= 0 && index < items.length) {
             return items[index];
         }
         return null;

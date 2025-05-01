@@ -40,35 +40,29 @@ public class BaseTest {
         Gdx.app = new HeadlessApplication(new ApplicationListener() {
             @Override
             public void create() {
-                // This method is intentionally left empty because this is a mock implementation for testing purposes.
-                throw new UnsupportedOperationException("This method is not implemented in the mock.");
+                // Empty implementation for testing
             }
             @Override
             public void resize(int width, int height) {
-                // This method is intentionally left empty because this is a mock implementation for testing purposes.
-                throw new UnsupportedOperationException("This method is not implemented in the mock.");
+                // Empty implementation for testing
             }
             @Override
             public void render() {
-                // This method is intentionally left empty because this is a mock implementation for testing purposes.
-                throw new UnsupportedOperationException("This method is not implemented in the mock.");
+                // Empty implementation for testing
             }
             @Override
             public void pause() {
-                // This method is intentionally left empty because this is a mock implementation for testing purposes.
-                throw new UnsupportedOperationException("This method is not implemented in the mock.");
+                // Empty implementation for testing
             }
             
             @Override
             public void resume() {
-                // This method is intentionally left empty because this is a mock implementation for testing purposes.
-                throw new UnsupportedOperationException("This method is not implemented in the mock.");
+                // Empty implementation for testing
             }
             
             @Override
             public void dispose() {
-                // This method is intentionally left empty because this is a mock implementation for testing purposes.
-                throw new UnsupportedOperationException("This method is not implemented in the mock.");
+                // Empty implementation for testing
             }
         }, new HeadlessApplicationConfiguration());
     }
