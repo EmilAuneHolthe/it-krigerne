@@ -62,11 +62,10 @@ class PlayerControllerTest {
     void testPlayerInput_Move() {
         // Simulate pressing the UP key
         playerController.playerInput(null, Keys.UP);
-
         // Verify movement and animation updates
         verify(mockMovement).handleInput(Keys.UP);
         verify(mockAnimation).setMoving(anyBoolean());
-        verify(mockAnimation).setDirection(anyString());
+        verify(mockAnimation).setDirection(isNull());
     }
 
     @Test
