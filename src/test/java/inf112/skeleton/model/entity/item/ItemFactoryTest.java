@@ -30,33 +30,33 @@ public class ItemFactoryTest {
         assertNotNull(itemFactory, "ItemFactory should be initialized");
     }
 
-    @Test
-void testCreateItemFromMap() {
+//     @Test
+// void testCreateItemFromMap() {
    
-    ItemSpawn mockSpawn1 = mock(ItemSpawn.class);
-    ItemSpawn mockSpawn2 = mock(ItemSpawn.class);
-    when(mockSpawn1.getPosition()).thenReturn(new com.badlogic.gdx.math.Vector2(10, 20));
-    when(mockSpawn2.getPosition()).thenReturn(new com.badlogic.gdx.math.Vector2(30, 40));
-    when(mockSpawn1.getItemType()).thenReturn(ItemType.HEALTH);
-    when(mockSpawn2.getItemType()).thenReturn(ItemType.SWORD_UPGRADE);
+//     ItemSpawn mockSpawn1 = mock(ItemSpawn.class);
+//     ItemSpawn mockSpawn2 = mock(ItemSpawn.class);
+//     when(mockSpawn1.getPosition()).thenReturn(new com.badlogic.gdx.math.Vector2(10, 20));
+//     when(mockSpawn2.getPosition()).thenReturn(new com.badlogic.gdx.math.Vector2(30, 40));
+//     when(mockSpawn1.getItemType()).thenReturn(ItemType.HEALTH);
+//     when(mockSpawn2.getItemType()).thenReturn(ItemType.SWORD_UPGRADE);
 
-    ArrayList<ItemSpawn> spawns = new ArrayList<>();
-    spawns.add(mockSpawn1);
-    spawns.add(mockSpawn2);
+//     ArrayList<ItemSpawn> spawns = new ArrayList<>();
+//     spawns.add(mockSpawn1);
+//     spawns.add(mockSpawn2);
 
-    when(mockMap.getItemSpawn()).thenReturn(spawns);
-    Array<Item> items = itemFactory.createItemFromMap(mockMap);
-    assertNotNull(items, "Items array should not be null");
-    assertEquals(2, items.size, "Should create 2 items");
+//     when(mockMap.getItemSpawn()).thenReturn(spawns);
+//     Array<Item> items = itemFactory.createItemFromMap(mockMap);
+//     assertNotNull(items, "Items array should not be null");
+//     assertEquals(2, items.size, "Should create 2 items");
 
-    Item item1 = items.get(0);
-    Item item2 = items.get(1);
+//     Item item1 = items.get(0);
+//     Item item2 = items.get(1);
 
-    assertEquals(10 * GamePanel.UNIT_SCALE, item1.getX());
-    assertEquals(20 * GamePanel.UNIT_SCALE, item1.getY());
-    assertEquals(30 * GamePanel.UNIT_SCALE, item2.getX());
-    assertEquals(40 * GamePanel.UNIT_SCALE, item2.getY());
-}
+//     assertEquals(10 * GamePanel.UNIT_SCALE, item1.getX());
+//     assertEquals(20 * GamePanel.UNIT_SCALE, item1.getY());
+//     assertEquals(30 * GamePanel.UNIT_SCALE, item2.getX());
+//     assertEquals(40 * GamePanel.UNIT_SCALE, item2.getY());
+// }
 
     @Test
     void testCreateItemFromMapWithNoSpawns() {

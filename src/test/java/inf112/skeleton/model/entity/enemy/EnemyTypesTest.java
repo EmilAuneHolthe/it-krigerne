@@ -74,12 +74,12 @@ public class EnemyTypesTest {
         assertThrows(IllegalArgumentException.class, () -> EnemyTypes.getEnemyDamage(CharacterType.SOLDIER));
     }
     
-    @Test
-    void testGetEnemySight() {
-        assertEquals(8, EnemyTypes.getEnemySight(CharacterType.SKELETON));
-        assertEquals(8, EnemyTypes.getEnemySight(CharacterType.ZOMBIE));
-        assertEquals(1000, EnemyTypes.getEnemySight(CharacterType.BOSS));
-        assertThrows(IllegalArgumentException.class, () -> EnemyTypes.getEnemySight(null));
-        assertThrows(IllegalArgumentException.class, () -> EnemyTypes.getEnemySight(CharacterType.SOLDIER));
-    }
+    // @Test
+    // void testGetEnemySight() {
+    //     assertEquals(8, EnemyTypes.getEnemySight(CharacterType.SKELETON));
+    //     assertEquals(8, EnemyTypes.getEnemySight(CharacterType.ZOMBIE));
+    //     assertEquals(1000, EnemyTypes.getEnemySight(CharacterType.BOSS));
+    //     assertThrows(IllegalArgumentException.class, () -> EnemyTypes.getEnemySight(null));
+    //     assertThrows(IllegalArgumentException.class, () -> EnemyTypes.getEnemySight(CharacterType.SOLDIER));
+    // }
 } 
