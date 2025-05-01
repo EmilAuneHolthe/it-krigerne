@@ -40,7 +40,7 @@ class DoorTest {
         when(body.getPosition()).thenReturn(new Vector2(10, 20));
         
         // Create a Door object
-        door = new Door(pos, world, body, name, assets, size);
+        door = new Door(body, name, size);
     }
 
     @Test
@@ -48,21 +48,13 @@ class DoorTest {
         assertEquals(pos.x, door.getX());
         assertEquals(pos.y, door.getY());
         assertEquals(name, door.getName());
+        assertEquals(size, door.getSize());
     }
 
     @Test
     void testRemoveDoor() {
-        door.removeDoor();
+        door.removeDoor(world);
         verify(world).destroyBody(body);
-        assertEquals(0, door.sprite.getColor().a, 0.001f);
-    }
-
-    @Test
-    void testRender() {
-        door.render(batch);
-        // Verify the sprite's position was updated
-        assertEquals(10, door.sprite.getX(), 0.001f);
-        assertEquals(20, door.sprite.getY(), 0.001f);
     }
 }
   
