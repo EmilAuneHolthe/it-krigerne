@@ -96,7 +96,9 @@ public class PlayerMovement {
             default:
                 break;
         }
-        if (Math.abs(xFactor) > Math.abs(yFactor)) {
+        if (xFactor == 0 && yFactor == 0) {
+            return;
+        } else if (Math.abs(xFactor) > Math.abs(yFactor)) {
             direction = xFactor > 0 ? "Right" : "Left";
         } else {
             direction = yFactor > 0 ? "Up" : "Down";
