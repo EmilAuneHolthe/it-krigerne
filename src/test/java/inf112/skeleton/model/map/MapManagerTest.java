@@ -1,66 +1,57 @@
-package inf112.skeleton.model.map;
+package inf112.skeleton.app;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Application;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.physics.box2d.World;
-
-
-import inf112.skeleton.model.GamePanel;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-class MapManagerTest {
+public class MapManagerTest {
     private MapManager mapManager;
-    private GamePanel mockGamePanel;
-    private World mockWorld;
-    private AssetManager mockAssetManager;
-    private TiledMap mockTiledMap;
-    private Map mockMap;
-    private Application mockApplication;
-    private MapLayers mockMapLayers;
-    private TiledMapTileLayer mockTileLayer;
 
     @BeforeEach
     void setUp() {
-        // Create mocks
-        mockGamePanel = mock(GamePanel.class);
-        mockWorld = mock(World.class);
-        mockAssetManager = mock(AssetManager.class);
-        mockTiledMap = mock(TiledMap.class);
-        mockMap = mock(Map.class);
-        mockApplication = mock(Application.class);
-        mockMapLayers = mock(MapLayers.class);
-        mockTileLayer = mock(TiledMapTileLayer.class);
-
-        // Mock Gdx.app
-        Gdx.app = mockApplication;
-
-        // Mock GamePanel
-        when(mockGamePanel.getWorld()).thenReturn(mockWorld);
-        when(mockGamePanel.getAssetManager()).thenReturn(mockAssetManager);
-        when(mockAssetManager.get(anyString(), eq(TiledMap.class))).thenReturn(mockTiledMap);
-        
-        // Mock TiledMap layers
-        when(mockTiledMap.getLayers()).thenReturn(mockMapLayers);
-        when(mockMapLayers.get("PlayerSpawn")).thenReturn(mockTileLayer);
-
-        // Create MapManager instance
-        mapManager = new MapManager(mockGamePanel);
+        mapManager = new MapManager();
     }
 
     @Test
-    void testConstructor() {
-        assertNotNull(mapManager, "MapManager should be initialized");
-        assertNull(mapManager.getCurrentMap(), "Current map should be null initially");
+    void testLoadMap() {
+        // Test loading a new map
+        mapManager.loadMap("testMap");
+        assertNotNull(mapManager.getCurrentMap());
+        assertEquals("testMap", mapManager.getCurrentMapName());
     }
 
-    
+    @Test
+    void testMapCaching() {
+        // Test that maps are cached and reused
+        mapManager.loadMap("testMap");
+        TiledMap firstMap = mapManager.getCurrentMap();
+        
+        mapManager.loadMap("otherMap");
+        mapManager.loadMap("testMap");
+        
+        // Should be the same map instance
+        assertSame(firstMap, mapManager.getCurrentMap());
+    }
+
+    @Test
+    void testTileSolidity() {
+        // Test the tile solidity check
+        assertTrue(mapManager.isTileSolid(0, 0));  // Both divisible by 2
+        assertTrue(mapManager.isTileSolid(2, 1));  // x divisible by 2
+        assertTrue(mapManager.isTileSolid(1, 2));  // y divisible by 2
+        assertFalse(mapManager.isTileSolid(1, 1)); // Neither divisible by 2
+    }
+
+    @Test
+    void testDispose() {
+        // Test that resources are properly disposed
+        mapManager.loadMap("testMap");
+        mapManager.loadMap("otherMap");
+        
+        mapManager.dispose();
+        // In a real test, we would verify that the resources are actually disposed
+        // For now, we'll just verify the map name is cleared
+        assertEquals("", mapManager.getCurrentMapName());
+    }
 } 

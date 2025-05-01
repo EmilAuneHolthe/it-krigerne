@@ -24,7 +24,6 @@ import inf112.skeleton.model.entity.player.Player;
 import inf112.skeleton.model.entity.player.PlayerAnimation;
 import inf112.skeleton.model.entity.player.PlayerFactory;
 import inf112.skeleton.model.entity.player.PlayerMovement;
-import inf112.skeleton.model.entity.player.TestPlayerAnimation;
 import inf112.skeleton.model.map.Borders;
 import inf112.skeleton.model.map.Map;
 import inf112.skeleton.model.map.MapManager;
@@ -51,7 +50,6 @@ class WorldFunctionsTest {
     private Files mockFiles;
     private FileHandle mockFileHandle;
     private Texture mockTexture;
-    private TestPlayerAnimation mockPlayerAnimation;
     private GL20 mockGL20;
 
     @BeforeEach
