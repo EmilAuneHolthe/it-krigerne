@@ -9,7 +9,12 @@ import inf112.skeleton.model.entity.item.Item;
 import inf112.skeleton.model.entity.item.ItemType;
 
 import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
@@ -24,53 +29,72 @@ class PlayerTest {
     @Mock GamePanel context;
     @Mock World world;
     @Mock Body body;
+    @Mock Files files;
+    @Mock FileHandle fileHandle;
+    @Mock TextureAtlas characterAtlas;
+    @Mock TextureAtlas attackAtlas;
+    @Mock AtlasRegion atlasRegion;
     Player player;
 
     @BeforeEach
     void setUp() {
-        // Initialiser Mockito-mocker
+        // Initialize Mockito mocks
         MockitoAnnotations.openMocks(this);
+        
+        // Mock Gdx.app and Gdx.files
         Gdx.app = mock(Application.class);
-        // Opprett en Player med initial helse=100, skade=20, posisjon (0,0)
+        Gdx.files = files;
+        
+        // Mock file system
+        when(files.internal(anyString())).thenReturn(fileHandle);
+        
+        // Mock texture atlas
+        when(characterAtlas.findRegion(anyString())).thenReturn(atlasRegion);
+        when(attackAtlas.findRegion(anyString())).thenReturn(atlasRegion);
+        
+        // Create real texture regions array
+        TextureRegion[][] regions = new TextureRegion[1][3];
+        regions[0][0] = atlasRegion;
+        regions[0][1] = atlasRegion;
+        regions[0][2] = atlasRegion;
+        
+        when(atlasRegion.split(anyInt(), anyInt())).thenReturn(regions);
+        when(atlasRegion.getRegionWidth()).thenReturn(96);
+        when(atlasRegion.getRegionHeight()).thenReturn(128);
+        
+        // Create a Player with initial health=100, damage=20, position (0,0)
         player = new Player(context, world, body, 100, 20, 0f, 0f, CharacterType.SOLDIER);
-        // Sørg for at statisk flagg nullstilles før hver test
+        // Reset static flag before each test
         Player.isDead = false;
     }
 
     @Test
     void healthReducesWhenTakingDamage() {
-      // **Helse og skade:** Når spilleren tar skade, skal helsen reduseres tilsvarende.
-        assertTrue(player.getHealth() == 100, "Spilleren skal ha 100 liv ved oppstart");
+        assertTrue(player.getHealth() == 100, "Player should have 100 health at start");
         player.takeDamage(30);
-        // Forvent at helsen er redusert fra 100 til 70
-        assertEquals(70, player.getHealth(), "Helsen skal reduseres med 30");
-        // Spilleren skal fortsatt være i live (alive = true) siden helse > 0
-        //assertTrue(player.alive, "Spilleren skal fortsatt være i live når helse > 0");
-        //assertFalse(Player.isDead, "Spilleren skal ikke flagges som død enda");
+        // Expect health to be reduced from 100 to 70
+        assertEquals(70, player.getHealth(), "Health should be reduced by 30");
     }
 
     @Test
     void healthDoesNotGoNegative() {
-        // **Helse ikke negativ:** Hvis spilleren tar mer skade enn den har helse, skal helsen ikke bli negativ.
-        player.takeDamage(150);  // Mer skade enn spillerens helse (100)
-        // Forvent at getHealth() returnerer 0 (ikke negativ verdi)
-        assertEquals(0, player.getHealth(), "Helsen skal ikke gå under 0");
-        // Etter dødelig skade skal spilleren markeres som død
-        assertFalse(player.alive, "Spilleren skal være 'alive = false' når helse har nådd 0");
-        assertTrue(Player.isDead, "Statisk flagg isDead skal være true ved død");
+        player.takeDamage(150);  // More damage than player's health (100)
+        // Expect getHealth() to return 0 (not negative)
+        assertEquals(0, player.getHealth(), "Health should not go below 0");
+        // After lethal damage, player should be marked as dead
+        assertFalse(player.alive, "Player should be 'alive = false' when health reaches 0");
+        assertTrue(Player.isDead, "Static flag isDead should be true at death");
     }
 
     @Test
     void manaRegeneratesUpToMax() {
-        // **Mana og mana-regenerering:** Mana skal gradvis regenereres opp til maksverdien.
-        // Sett opp en spiller med begrenset mana for test (f.eks. maks mana = 100)
         player.setCurrentMana(50);
         player.setMaxMana(100);
-        // Simuler at det går tid nok til å regenerere 60 mana (f.eks. 6 sekunder hvis 10 mana/sek)
-        for (int i = 0; i < 300; i++) {  // iterer som om 6 sekunder har passert (60 * 0.1s ticks)
-            player.regenerateMana(i);  // Antar Player.update() håndterer mana-regenerering per frame
+        // Simulate time passing to regenerate mana
+        for (int i = 0; i < 300; i++) {
+            player.regenerateMana(i);
         }
-        // Forvent at mana har økt, men ikke overstiger maxMana
+        // Expect mana to have increased but not exceed maxMana
         int regeneratedMana = player.getCurrentMana();
         assertTrue(regeneratedMana > 50, "Mana skal ha økt etter regenerering");
         assertEquals(100, regeneratedMana, "Mana skal ikke overstige maksverdien (100)");
@@ -94,11 +118,9 @@ class PlayerTest {
 
     @Test
     void playerDiesWhenHealthDepletes() {
-        // **Død/overlevelse:** Når helse går til 0 eller lavere, skal spilleren behandles som død.
-        player.takeDamage(100);  // nøyaktig dødelig skade
-        // Forvent at spilleren er markert som død
-        assertFalse(player.alive, "Spilleren skal ikke være i live etter å ha tatt dødelig skade");
-        assertTrue(Player.isDead, "isDead-flagget skal settes når spilleren dør");
-        // Forvent at dødshåndtering (killPlayer) er trigget, f.eks. DeathOverlay aktivert (indirekte sjekket via isDead flagg her)
+        player.takeDamage(100);  // Exactly lethal damage
+        // Expect player to be marked as dead
+        assertFalse(player.alive, "Player should not be alive after taking lethal damage");
+        assertTrue(Player.isDead, "isDead flag should be set when player dies");
     }
 }
