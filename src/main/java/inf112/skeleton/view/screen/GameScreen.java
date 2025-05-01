@@ -25,7 +25,6 @@ public class GameScreen extends AbstractScreen{
         this.gameRenderer = context.getGameRenderer();
         playerInteractions = new PlayerInteractions(context, context.getPlayer());
         worldFunctions = new WorldFunctions(context);
-        context.setWorldFunctions(worldFunctions);
   
         gameRenderer.updateDoors();
     }

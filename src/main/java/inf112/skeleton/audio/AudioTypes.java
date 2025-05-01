@@ -10,7 +10,7 @@ public enum AudioTypes {
     HURT1 ("audio/soundEffects/hurt.mp3", false, 0.3f),
     HURT2 ("audio/soundEffects/Hurt2.mp3", false, 0.3f),
     VICTORY ("audio/soundEffects/Victory.mp3", false, 0.3f),
-    ACHIVMENT ("audio/soundEffects/AchievementSound.mp3", false, 0.5f),
+    ACHIEVMENT("audio/soundEffects/AchievementSound.mp3", false, 0.5f),
     ATTACK ("audio/soundEffects/SwordAttack.mp3", false, 0.1f),
     USE_ITEM ("audio/soundEffects/useItem.mp3", false, 0.3f),
     DOOR ("audio/soundEffects/Door.mp3", false, 0.3f),

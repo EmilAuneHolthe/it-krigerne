@@ -42,7 +42,6 @@ public class PlayerController {
     /**
      * Handles player input and performs actions based on the key pressed.
      *
-     * @param keyHandler The KeyHandler managing input events.
      * @param key        The key that was pressed.
      */
     public void playerInput(KeyHandler keyHandler, Keys key) {
@@ -96,18 +95,6 @@ public class PlayerController {
             default:
                 break;
         }
-    }
-
-    /**
-     * Handles player movement when a key is released.
-     *
-     * @param keyHandler The KeyHandler managing input events.
-     * @param key        The key that was released.
-     */
-    public void movePlayerReleased(KeyHandler keyHandler, Keys key) {
-        movement.handleInputRelease(key);
-        animation.setMoving(movement.isMoving());
-        animation.setDirection(movement.getDirection());
     }
 
     private void quitWhenDead() {

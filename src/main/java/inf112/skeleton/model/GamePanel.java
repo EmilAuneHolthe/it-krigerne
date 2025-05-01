@@ -80,9 +80,7 @@ public class GamePanel extends Game {
     private Array<Item> items;
     private MapChanger mapChanger;
     private PlayerHUD playerHUD;
-    
-    private WorldFunctions worldFunctions;
-    
+
         @Override
         public void create() {
             Gdx.app.setLogLevel(Application.LOG_INFO);
@@ -124,9 +122,6 @@ public class GamePanel extends Game {
     
             setScreen(ScreenType.LOADING);
         }
-        public void setWorldFunctions(WorldFunctions worldFunctions) {
-            this.worldFunctions = worldFunctions;
-    }
 
     //get-methods
     public FitViewport getViewport() {return screenViewport;}
@@ -139,7 +134,6 @@ public class GamePanel extends Game {
     public AudioHandler getAudioHandler() {return audioHandler;}
     public MapManager getMapManager() {return mapManager;}
     public GameRenderer getGameRenderer() {return gameRenderer;}
-    public WorldFunctions getWorldFunctions() {return worldFunctions;}
     public void setPlayer(Player player) {
         this.player = player;
         playerController = new PlayerController(player, playerInteractions,this);
@@ -178,18 +172,18 @@ public class GamePanel extends Game {
     public void setScreen(final ScreenType screenType) {
         final Screen screen = screenCache.get(screenType);
         if (screen == null) {
-            // Skjerm finnes ikke fra før
+            //screen doesnt already exist
             try{
-                Gdx.app.debug(TAG, "Lager ny skjerm" + screenType);
+                Gdx.app.debug(TAG, "Making new screen" + screenType);
                 final AbstractScreen newScreen = (AbstractScreen) ClassReflection.getConstructor(screenType.getScreenClass(),GamePanel.class).newInstance(this);
                 screenCache.put(screenType, newScreen);
                 setScreen(newScreen);
                 } catch (ReflectionException e) {
-                    throw new GdxRuntimeException("Screen" + screenType + " kunne ikke lages", e);
+                    throw new GdxRuntimeException("Screen" + screenType + " couldn't be made", e);
                 }
         }else {
-            // Skjerm finnes fra før
-            Gdx.app.debug(TAG, "Skjerm finnes fra før" + screenType);
+            // screen already exists
+            Gdx.app.debug(TAG, "screen already exists " + screenType);
             setScreen(screen);
     }
 }
@@ -249,15 +243,11 @@ public class GamePanel extends Game {
         FIXTURE_DEF.filter.maskBits = -1;
 
     }
-    public PlayerInteractions getPlayerInteractions() {
-        return playerInteractions;
-    }
+
     public void setPlayerInteractions(PlayerInteractions playerInteractions) {
         this.playerInteractions = playerInteractions;
     }
-    public void setPlayerController(PlayerController playerController) {
-        this.playerController = playerController;
-    }
+
     public PlayerController getPlayerController() {
         return playerController;
     }

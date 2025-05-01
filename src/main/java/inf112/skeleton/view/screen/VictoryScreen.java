@@ -54,7 +54,7 @@ public class VictoryScreen extends AbstractScreen {
         Gdx.input.setInputProcessor(stage);
         audioHandler.stopMusic();
         audioHandler.playAudio(AudioTypes.VICTORY);
-        audioHandler.playAudio(AudioTypes.ACHIVMENT);
+        audioHandler.playAudio(AudioTypes.ACHIEVMENT);
         elapsedTime = 0f;
         popupImage.setVisible(false); // Reset popup visibility
     }
