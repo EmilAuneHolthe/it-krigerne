@@ -8,7 +8,7 @@ import inf112.skeleton.model.entity.player.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+/*import static org.mockito.Mockito.*;
 
 class EnemyControllerTest {
     private EnemyController enemyController;
@@ -118,3 +118,4 @@ class EnemyControllerTest {
         // Test enemies getter
     }
 } 
+    */

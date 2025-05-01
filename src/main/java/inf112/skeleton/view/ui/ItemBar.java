@@ -133,15 +133,15 @@ public class ItemBar {
                     }
                     
                     // Set item label based on item type
-                    String labelText = getLabelTextForItem(items[i]);
-                    itemLabels[i].setText(labelText);
+               
+                    itemLabels[i].setText("Q");
                     itemLabels[i].setVisible(true);
                 } catch (Exception e) {
                     Gdx.app.log("ItemBar", "Error updating item slot " + i + ": " + e.getMessage());
                     // If texture loading fails, just show the label
                     itemIcons[i].setVisible(false);
-                    String labelText = getLabelTextForItem(items[i]);
-                    itemLabels[i].setText(labelText);
+                    
+                    itemLabels[i].setText("Q");
                     itemLabels[i].setVisible(true);
                 }
             } else {

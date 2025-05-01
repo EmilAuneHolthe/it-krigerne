@@ -82,11 +82,6 @@ public class GameScreen extends AbstractScreen{
     @Override
     public void keyPressed(KeyHandler keyHandler, Keys key) {
         context.getPlayerController().playerInput(keyHandler, key);
-        
-    
-        if ((Player.isDead == true) && (key == Keys.QUIT)) {
-            Gdx.app.exit();
-        }
     }    
 
     @Override

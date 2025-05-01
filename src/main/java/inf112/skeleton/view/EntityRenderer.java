@@ -43,8 +43,8 @@ public class EntityRenderer {
     }
     private void drawHealthBar(Enemy enemy, SpriteBatch batch){
       if(enemy.getCharacterType() == CharacterType.BOSS) return;
-      Texture healthTexture = context.getAssetManager().get("UI/redtexture.png");
-      Texture backgroundTexture = context.getAssetManager().get("UI/graytexture.png");
+      Texture healthTexture = context.getAssetManager().get("Ui/redtexture.png");
+      Texture backgroundTexture = context.getAssetManager().get("Ui/graytexture.png");
       Vector2 pos = enemy.getBody().getPosition();
       float barWidth = enemy.getMaxHealth()/100;
       

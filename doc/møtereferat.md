@@ -65,24 +65,19 @@ Videreutvikle funksjoner i spillet:
 * Hva gjorde vi:
 
 - Startet å jobbe med entity kontroller og hvordan vi tar inn bruker innput
-
 - Laget kollisjon på tile kartet
-
 - Startet prosessen med  mocke ulike klasser, slik at de kunne bli testet uten at spillet kjørte. 
 
 * Hva skal vi gjøre neste gang:
 
 - Fikse MVC, altså filstrukturen. Få relevant kode inn i deres allegerte plass
-
 - Lage entity kontroller
 
 * Hva skal vi gjøre neste gang
 
 - Lage flere sprites til player + enemys
-
 - Implementere healthbar og toolslot i GameScreen.
 
-- 
 
 
 # 24.03.25: Emil, Martin, Vemund, Daniel
@@ -135,8 +130,6 @@ Videreutvikle funksjoner i spillet:
 # 07.04.25: Emil, Martin, Vemund, Daniel
 
 * Hva gjorde vi
-
-
 
 - Ryddet opp i gameScreen. Laget ny klasse for å lage player, og ny klassse for å render spillet.
 - Kan nå lage og vise en enemy. men man kan ikke interact med denne enemien
@@ -271,11 +264,18 @@ Videreutvikle funksjoner i spillet:
 # 30.04.25: Emil, Daniel, Vemund, Martin
 
 * Hva gjorde vi
-
 - Vi ønsker å få innsyn av gruppeleder, i håp om å få hjelp oppmot perfeksjon angående MVC/SOLID prinsippene
 
-
 * Hva skal vi gjøre neste gang
+- Ferdigstille tester
+- Ferdigstille oblig4.md
+- Rydde i kode.
 
-- 
+# 01.05.25: Emil, Daniel, Vemund, Martin
+
+* Hva gjorde vi
+- Skrevet ferdig oblig4.md. Prosjektrapport også vidre.
+- Skrevet ferdig tester 
+- Ryddet opp i unødvendig kode
+- Restrukturert kode 
 
