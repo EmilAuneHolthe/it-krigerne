@@ -2,7 +2,9 @@ package inf112.skeleton.view;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import static inf112.skeleton.model.GamePanel.assetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -14,6 +16,8 @@ import inf112.skeleton.model.entity.enemy.EnemyTypes;
 import inf112.skeleton.model.entity.item.ItemType;
 import inf112.skeleton.model.entity.player.CharacterType;
 import inf112.skeleton.model.entity.player.Player;
+import inf112.skeleton.model.entity.taskBoard.TaskBoard;
+import inf112.skeleton.model.entity.door.Door;
 
 
 public class EntityRenderer {
@@ -51,4 +55,15 @@ public class EntityRenderer {
       batch.draw(backgroundTexture, pos.x - barWidth/2.3f, pos.y + 0.5f, barWidth, 0.2f);
       batch.draw(healthTexture, pos.x - barWidth/2.3f, pos.y + 0.5f, 1 * (enemy.getHealth() / 100f), 0.2f);
     }
+    public void renderDoor(SpriteBatch batch, Door door) {
+      Sprite sprite = new Sprite(assetManager.get("map/Door1.png", Texture.class));
+      sprite.setSize(door.getSize().x, door.getSize().y);
+      sprite.setPosition(door.getX(), door.getY());
+      sprite.draw(batch);
+    }
+    public void renderTaskBoard(SpriteBatch batch, TaskBoard taskBoard) {
+      if(!taskBoard.isActive()) return;
+      taskBoard.getSprite().draw(batch);
+
+}
   }

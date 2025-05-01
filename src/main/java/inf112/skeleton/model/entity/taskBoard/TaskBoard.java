@@ -19,15 +19,17 @@ public class TaskBoard {
         sprite.setSize(width * UNIT_SCALE + 2, height * UNIT_SCALE + 2);
     }
 
-    public void render(SpriteBatch batch) {
-      if(!active) return;
-      sprite.draw(batch);
 
-}
  public void dispose() {
         sprite.getTexture().dispose();
 }
 public void setActive(Boolean active) {
     this.active = active;
+}
+public Sprite getSprite() {
+    return sprite;
+}
+public Boolean isActive() {
+    return active;
 }
 }

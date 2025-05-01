@@ -147,10 +147,10 @@ public class GameRenderer implements Disposable, MapListener {
                     // Render player, enemies, and boss
                     spriteBatch.begin();
                     for (Door door : doors) {
-                        door.render(spriteBatch);
+                        entityRenderer.renderDoor(spriteBatch, door);
                     }
                     if (taskBoard != null) {
-                        taskBoard.render(spriteBatch);
+                        entityRenderer.renderTaskBoard(spriteBatch, taskBoard);
                     };
                     for (Enemy enemy : enemies) {
                         entityRenderer.renderAll(spriteBatch, enemy, delta);
