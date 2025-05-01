@@ -10,7 +10,7 @@ public enum AnimationTypes {
 
     SOLDIER_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
 
-    // Hero
+    // king
     KING_DOWN("Entities/Atlas/king.atlas", "King", 0.5f, 0),
     KING_UP("Entities/Atlas/king.atlas", "King", 0.5f, 3),
     KING_LEFT("Entities/Atlas/king.atlas", "King", 0.5f, 1),
@@ -33,6 +33,7 @@ public enum AnimationTypes {
     
     ZOMBIE_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
 
+    // Pumkin
     PUMKIN_DOWN("Entities/Atlas/Pumkin.atlas", "Pumkin", 0.5f, 0),
     PUMKIN_UP("Entities/Atlas/Pumkin.atlas", "Pumkin", 0.5f, 3),
     PUMKIN_LEFT("Entities/Atlas/Pumkin.atlas", "Pumkin", 0.5f, 1),
@@ -47,6 +48,7 @@ public enum AnimationTypes {
     SKELETON_RIGHT("Entities/Atlas/skeleton.atlas", "Skeleton", 0.5f, 2),
     SKELETON_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
 
+    // Dark
     DARK_DOWN("Entities/Atlas/Dark.atlas", "Dark", 0.5f, 0),
     DARK_UP("Entities/Atlas/Dark.atlas", "Dark", 0.5f, 3),
     DARK_LEFT("Entities/Atlas/Dark.atlas", "Dark", 0.5f, 1),
@@ -54,13 +56,15 @@ public enum AnimationTypes {
 
     DARK_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
 
+    // Ghost
     GHOST_DOWN("Entities/Atlas/Ghost.atlas", "Ghost", 0.5f, 0),
     GHOST_UP("Entities/Atlas/Ghost.atlas", "Ghost", 0.5f, 3),
     GHOST_LEFT("Entities/Atlas/Ghost.atlas", "Ghost", 0.5f, 1),
     GHOST_RIGHT("Entities/Atlas/Ghost.atlas", "Ghost", 0.5f, 2),
 
     GHOST_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
-
+    
+    // Boss
     BOSS_DOWN("Entities/Atlas/Boss.atlas", "Boss", 0.5f, 3),
     BOSS_UP("Entities/Atlas/Boss.atlas", "Boss", 0.5f, 3),
     BOSS_LEFT("Entities/Atlas/Boss.atlas", "Boss", 0.5f, 3),
