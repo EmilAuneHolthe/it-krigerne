@@ -82,10 +82,6 @@ public class SettingScreen extends AbstractScreen {
         returnToMainMenu(keyHandler, key);
     }
 
-    @Override
-    public void keyReleased(KeyHandler keyHandler, Keys key) {
-    }
-
     private void returnToMainMenu(KeyHandler keyHandler, Keys key) {
         if (Objects.requireNonNull(key) == Keys.QUIT) {
             audioHandler.playAudio(AudioTypes.SELECT);

@@ -53,12 +53,11 @@ public class PlayerAnimation {
             }
             TextureRegion[][] regions = region.split(
                 region.getRegionWidth() / 5,
-                region.getRegionHeight() / 1
+                    region.getRegionHeight()
+
             );
             attackFrames = new TextureRegion[5];
-            for (int i = 0; i < 5; i++) {
-                attackFrames[i] = regions[0][i];
-            }
+            System.arraycopy(regions[0], 0, attackFrames, 0, 5);
             
             currentAnimationType = characterType.getDefaultAnimation();
             direction = "Down";

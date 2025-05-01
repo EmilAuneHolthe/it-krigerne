@@ -66,16 +66,18 @@ public class WorldFunctions{
             player.regenerateMana(delta);
         }
 
-        dTime += 0.5;
+        dTime += 0.5F;
         if (dTime >= 25) {
             for(Enemy enemy : enemies) {
-                enemy.update(player);
+                if (player != null) {
+                    enemy.update(player);
+                }
             }
             dTime = 0;
         }
             borders = mapManager.getCurrentMap().getBorders("Interact");
             if(borders != null) {
-            Boolean isInsideTaskBoard = false;
+            boolean isInsideTaskBoard = false;
             for(Borders border : borders) {
                 String name;
                 name = border.isInside(player.getX(), player.getY());
@@ -92,7 +94,6 @@ public class WorldFunctions{
             if(mapManager.getTaskBoard() != null) {
                 mapManager.getTaskBoard().setActive(isInsideTaskBoard);
             }
-            isInsideTaskBoard = false;
             teleportPlayer();
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {

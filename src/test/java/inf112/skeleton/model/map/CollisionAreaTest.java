@@ -20,17 +20,17 @@ class CollisionAreaTest {
 
     @Test
     void testGetXReturnsScaledValue() {
-        assertEquals(x * GamePanel.UNIT_SCALE, collisionArea.getX(), 0.0001);
+        assertEquals(x * GamePanel.UNIT_SCALE, collisionArea.x(), 0.0001);
     }
 
     @Test
     void testGetYReturnsScaledValue() {
-        assertEquals(y * GamePanel.UNIT_SCALE, collisionArea.getY(), 0.0001);
+        assertEquals(y * GamePanel.UNIT_SCALE, collisionArea.y(), 0.0001);
     }
 
     @Test
     void testVerticesAreScaled() {
-        float[] scaled = collisionArea.getVertices();
+        float[] scaled = collisionArea.vertices();
         for (int i = 0; i < originalVertices.length; i++) {
             assertEquals(originalVertices[i] * GamePanel.UNIT_SCALE, scaled[i], 0.0001);
         }

@@ -47,7 +47,7 @@ public class EntityRenderer {
       Texture healthTexture = context.getAssetManager().get("Ui/redtexture.png");
       Texture backgroundTexture = context.getAssetManager().get("Ui/graytexture.png");
       Vector2 pos = enemy.getBody().getPosition();
-      float barWidth = enemy.getMaxHealth()/100;
+      float barWidth = (float) enemy.getMaxHealth() /100;
       
       batch.draw(backgroundTexture, pos.x - barWidth/2.3f, pos.y + 0.5f, barWidth, 0.2f);
       batch.draw(healthTexture, pos.x - barWidth/2.3f, pos.y + 0.5f, 1 * (enemy.getHealth() / 100f), 0.2f);

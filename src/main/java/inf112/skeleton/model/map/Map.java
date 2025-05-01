@@ -71,9 +71,8 @@ public class Map {
         rectVertices[8] = 0;
         rectVertices[9] = 0;
         collisionAreas.add(new CollisionArea(rectangle.x, rectangle.y, rectVertices));
-      } else if(mapObject instanceof PolylineMapObject) {
-        final PolylineMapObject polylineMapObject = (PolylineMapObject) mapObject;
-        final Polyline polyLine = polylineMapObject.getPolyline();
+      } else if(mapObject instanceof PolylineMapObject polylineMapObject) {
+          final Polyline polyLine = polylineMapObject.getPolyline();
         collisionAreas.add(new CollisionArea(polyLine.getX(), polyLine.getY(), polyLine.getVertices()));
        
       } else {
@@ -154,9 +153,8 @@ public Array<Borders> getBorders(String layer){
     return null;
   }
   for(final MapObject mapObject : mapObjects) {
-    if(mapObject instanceof RectangleMapObject) {
-      final RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;
-      final Rectangle rectangle = rectangleMapObject.getRectangle();
+    if(mapObject instanceof RectangleMapObject rectangleMapObject) {
+        final Rectangle rectangle = rectangleMapObject.getRectangle();
       borders.add(new Borders(rectangle.x, rectangle.y, rectangle.x + rectangle.width, rectangle.y + rectangle.height, mapObject.getName()));
     }
   }
@@ -166,9 +164,8 @@ public Array<Borders> getDoorsAreas() {
   Array<Borders> doors = new Array<>();
   try{
   for(final MapObject mapObject : tiledMap.getLayers().get("Door").getObjects()) {
-    if (mapObject instanceof RectangleMapObject) {
-      final RectangleMapObject rectangleMapObject = (RectangleMapObject) mapObject;
-      final Rectangle rectangle = rectangleMapObject.getRectangle();
+    if (mapObject instanceof RectangleMapObject rectangleMapObject) {
+        final Rectangle rectangle = rectangleMapObject.getRectangle();
       doors.add(new Borders(rectangle.x, rectangle.y, rectangle.width, rectangle.height, mapObject.getName()));
     }
   }

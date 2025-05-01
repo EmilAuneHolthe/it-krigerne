@@ -17,7 +17,7 @@ public class ItemFactory {
   public Array<Item> createItemFromMap(Map map) {
     Array<Item> items = new Array<>();
     for (ItemSpawn spawn : map.getItemSpawn()) {
-      Item item = new Item(context, world, spawn.getItemType(), spawn.getPosition().x * GamePanel.UNIT_SCALE, spawn.getPosition().y * GamePanel.UNIT_SCALE);
+      Item item = new Item(context, world, spawn.itemType(), spawn.position().x * GamePanel.UNIT_SCALE, spawn.position().y * GamePanel.UNIT_SCALE);
       items.add(item);
     }
     return items;

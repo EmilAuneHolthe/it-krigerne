@@ -23,10 +23,10 @@ public class EnemyFactory {
         Array<Enemy> enemies = new Array<>();
         for (EnemySpawn spawn : map.getEnemySpawn()) {
             Enemy enemy = createEnemy(
-                spawn.getPosition().x * GamePanel.UNIT_SCALE,
-                spawn.getPosition().y * GamePanel.UNIT_SCALE,
-                spawn.getCharacterType(),
-                spawn.getName()
+                spawn.position().x * GamePanel.UNIT_SCALE,
+                spawn.position().y * GamePanel.UNIT_SCALE,
+                spawn.characterType(),
+                spawn.name()
             );
             enemies.add(enemy);
         }

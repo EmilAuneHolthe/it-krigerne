@@ -18,9 +18,9 @@ class EnemySpawnTest {
 
         // Then
         assertNotNull(enemySpawn, "EnemySpawn should be initialized");
-        assertEquals(position, enemySpawn.getPosition());
-        assertEquals(name, enemySpawn.getName());
-        assertEquals(characterType, enemySpawn.getCharacterType());
+        assertEquals(position, enemySpawn.position());
+        assertEquals(name, enemySpawn.name());
+        assertEquals(characterType, enemySpawn.characterType());
     }
 
     @Test
@@ -30,7 +30,7 @@ class EnemySpawnTest {
         EnemySpawn enemySpawn = new EnemySpawn(position, "TestEnemy", CharacterType.SOLDIER);
 
         // When
-        Vector2 retrievedPosition = enemySpawn.getPosition();
+        Vector2 retrievedPosition = enemySpawn.position();
 
         // Then
         assertEquals(position, retrievedPosition);
@@ -45,7 +45,7 @@ class EnemySpawnTest {
         EnemySpawn enemySpawn = new EnemySpawn(new Vector2(0, 0), name, CharacterType.SOLDIER);
 
         // When
-        String retrievedName = enemySpawn.getName();
+        String retrievedName = enemySpawn.name();
 
         // Then
         assertEquals(name, retrievedName);
@@ -58,7 +58,7 @@ class EnemySpawnTest {
         EnemySpawn enemySpawn = new EnemySpawn(new Vector2(0, 0), "TestEnemy", characterType);
 
         // When
-        CharacterType retrievedType = enemySpawn.getCharacterType();
+        CharacterType retrievedType = enemySpawn.characterType();
 
         // Then
         assertEquals(characterType, retrievedType);

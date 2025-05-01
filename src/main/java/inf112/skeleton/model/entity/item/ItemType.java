@@ -19,19 +19,13 @@ public enum ItemType {
   }
 
   public static Texture getItemTexture(ItemType itemType) {
-    switch (itemType) {
-      case HEALTH:
-        return assetManager.get("Entities/Items/Health.png");
-      case KEY:
-        return assetManager.get("Entities/Items/Key.png");
-      case MANA:
-        return assetManager.get("Entities/Items/Mana.png");
-      case SWORD_UPGRADE:
-        return assetManager.get("Entities/Items/OverworldSword.png"); 
-      default:
-        break;
-    }
-    return null;
+      return switch (itemType) {
+          case HEALTH -> assetManager.get("Entities/Items/Health.png");
+          case KEY -> assetManager.get("Entities/Items/Key.png");
+          case MANA -> assetManager.get("Entities/Items/Mana.png");
+          case SWORD_UPGRADE -> assetManager.get("Entities/Items/OverworldSword.png");
+          default -> null;
+      };
   }
 
 public static String getItemType(ItemType itemType) {
@@ -40,30 +34,20 @@ public static String getItemType(ItemType itemType) {
 
 
 public static float getItemSize(ItemType itemType) {
-  switch (itemType) {
-    case HEALTH:
-      return 0.5f;
-    case KEY:
-      return 0.75f;
-    case MANA:
-      return 0.75f;
-    case SWORD_UPGRADE:
-      return 1f;
-    default:
-      break;
-  }
-  return 0.5f;
+    return switch (itemType) {
+        case KEY -> 0.75f;
+        case MANA -> 0.75f;
+        case SWORD_UPGRADE -> 1f;
+        default -> 0.5f;
+    };
 }
 
 public static String getSwordHUDTexturePath(String sword) {
-  switch (sword) {
-    case "UncommonSword":
-      return "Entities/Sword/Uncommon.png";
-    case "RareSword":
-      return "Entities/Sword/Rare.png";
-    default:
-      return null;
-  }
+    return switch (sword) {
+        case "UncommonSword" -> "Entities/Sword/Uncommon.png";
+        case "RareSword" -> "Entities/Sword/Rare.png";
+        default -> null;
+    };
 }
 
 }

@@ -49,8 +49,7 @@ public class Player extends GameEntity {
         inventory = new Inventory(4, this, context, world);
     }
     public Inventory getInventory() {return inventory;}
-    public PlayerAnimation getAnimation() {return animation;}
-    public PlayerMovement getMovement() {return movement;}
+
     public void renderDeathOverlay(SpriteBatch batch) {
         if (isDead && deathOverlay != null) {
             deathOverlay.render(batch);
@@ -108,12 +107,7 @@ public class Player extends GameEntity {
         }
         return health;
     }
-   
-    @Override
-    public void setHealth(int health) {
-        this.health = health;
-    }
-    
+
     @Override
     public void setSpawn(float x, float y) {
         this.x = x;
@@ -135,15 +129,7 @@ public class Player extends GameEntity {
     public float getY() {
         return body.getPosition().y * GamePanel.UNIT_SCALE;
     }
-    
-    @Override
-    public void create(int health, int damage, float x, float y) {
-        this.health = health;
-        this.damage = damage;
-        this.x = x;
-        this.y = y;
-    }
-    
+
     @Override
     public void dispose() {
         super.dispose();
@@ -217,7 +203,7 @@ public class Player extends GameEntity {
     public int getMana() { return currentMana;}
     public void setMana(int mana) { this.currentMana = mana;}
     public int getCurrentMana() { return currentMana;}
-    public Body getBody() { return body;}
+
     public DeathOverlay getDeathOverlay() { return deathOverlay;}
 
     public void setKey(Boolean hasKey) {

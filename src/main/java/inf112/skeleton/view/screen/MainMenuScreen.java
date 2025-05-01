@@ -19,8 +19,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 import inf112.skeleton.audio.AudioTypes;
-import inf112.skeleton.controller.Keys;
-import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
 
 public class MainMenuScreen extends AbstractScreen {
@@ -50,37 +48,8 @@ public class MainMenuScreen extends AbstractScreen {
         // Create a table for button layout
         Table buttonTable = new Table();
         buttonTable.setFillParent(true);
-        
-        // Create debug texture for button outlines
-        Drawable buttonDrawable;
-        // Toggle for debug outlines
-        boolean debugMode = false;
-        if (debugMode) {
-            // Create a debug texture with a visible border
-            int size = 200; // Size of the texture
-            Pixmap pixmap = new Pixmap(size, 80, Pixmap.Format.RGBA8888);
-            
-            // Fill with transparent color
-            pixmap.setColor(0, 0, 0, 0);
-            pixmap.fill();
-            
-            // Draw border with thicker lines
-            pixmap.setColor(1, 1, 1, 1); // White border
-            // Draw a thicker border by drawing multiple lines
-            for (int i = 0; i < 3; i++) {
-                pixmap.drawRectangle(i, i, size - 2*i, 80 - 2*i);
-            }
-            
-            Texture debugTexture = new Texture(pixmap);
-            pixmap.dispose();
-            
-            // Create a drawable with a border
-            TextureRegion region = new TextureRegion(debugTexture);
-            buttonDrawable = new TextureRegionDrawable(region);
-        } else {
-            // Use the original transparent texture
-            buttonDrawable = new TextureRegionDrawable(blankTexture);
-        }
+
+        TextureRegionDrawable buttonDrawable = new TextureRegionDrawable(blankTexture);
         
         // Create buttons with the appropriate drawable
         startButton = new ImageButton(buttonDrawable);
@@ -90,13 +59,6 @@ public class MainMenuScreen extends AbstractScreen {
         // Set button sizes relative to the original window size
         float buttonWidth = originalWidth * 0.208f; // 200/960 ≈ 0.208
         float buttonHeight = originalHeight * 0.148f; // 80/540 ≈ 0.148
-        
-        // Add debug borders if enabled
-        if (debugMode) {
-            startButton.setColor(1, 0, 0, 0.3f); // Red
-            optionsButton.setColor(0, 1, 0, 0.3f); // Green
-            exitButton.setColor(0, 0, 1, 0.3f); // Blue
-        }
         
         // Add buttons to table with spacing
         buttonTable.add(startButton).size(buttonWidth, buttonHeight).padBottom(originalHeight * 0.046f).row(); // 25/540 ≈ 0.046
@@ -171,13 +133,6 @@ public class MainMenuScreen extends AbstractScreen {
         audioHandler.playAudio(AudioTypes.INTRO);
         Gdx.input.setInputProcessor(new InputMultiplexer(stage, keyHandler));
     }
-    
-    @Override
-    public void keyPressed(KeyHandler keyHandler, Keys key) {
-    }
-    
-    @Override
-    public void keyReleased(KeyHandler keyHandler, Keys key) {
-    }
+
 }
 

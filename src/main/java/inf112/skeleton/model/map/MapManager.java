@@ -149,14 +149,14 @@ public class MapManager {
     private void spawnCollisionsAreas() {
         GamePanel.resetBodyAndFixtureDefinition();
         for (final CollisionArea collisionArea : currentMap.getColissionAreas()) {
-            GamePanel.BODY_DEF.position.set(collisionArea.getX(), collisionArea.getY());
+            GamePanel.BODY_DEF.position.set(collisionArea.x(), collisionArea.y());
             GamePanel.BODY_DEF.fixedRotation = true;
             final Body body = world.createBody(GamePanel.BODY_DEF);
             body.setUserData("GROUND");
             GamePanel.FIXTURE_DEF.filter.categoryBits = GamePanel.BIT_GROUND;
             GamePanel.FIXTURE_DEF.filter.maskBits = -1;
 
-            float[] original = collisionArea.getVertices();
+            float[] original = collisionArea.vertices();
             Array<Vector2> filtered = new Array<>();
             float threshold = 0.005f * 0.005f;
 

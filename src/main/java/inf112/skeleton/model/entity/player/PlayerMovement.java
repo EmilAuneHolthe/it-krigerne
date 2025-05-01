@@ -11,7 +11,6 @@ public class PlayerMovement {
     private final Body body;
     private float xFactor;
     private float yFactor;
-    private boolean directionChange;
     private String direction;
     private final KeyHandler keyHandler;
 
@@ -24,7 +23,7 @@ public class PlayerMovement {
     
     public void update() {
 
-        if(directionChange && !Player.isDead) {
+        if(!Player.isDead) {
             body.applyLinearImpulse(
                 (xFactor * 2 - body.getLinearVelocity().x * body.getMass()),
                 (yFactor * 2 - body.getLinearVelocity().y * body.getMass()),
@@ -38,22 +37,18 @@ public class PlayerMovement {
             case LEFT:
                 xFactor = -3;
                 direction = "Left";
-                directionChange = true;
                 break;
             case RIGHT:
                 xFactor = 3;
                 direction = "Right";
-                directionChange = true;
                 break;
             case UP:
                 yFactor = 3;
                 direction = "Up";
-                directionChange = true;
                 break;
             case DOWN:
                 yFactor = -3;
                 direction = "Down";
-                directionChange = true;
                 break;
             default:
                 break;
@@ -101,14 +96,11 @@ public class PlayerMovement {
             default:
                 break;
         }
-        if (xFactor == 0 && yFactor == 0) {
-            directionChange = false;
-        } else if (Math.abs(xFactor) > Math.abs(yFactor)) {
+        if (Math.abs(xFactor) > Math.abs(yFactor)) {
             direction = xFactor > 0 ? "Right" : "Left";
         } else {
             direction = yFactor > 0 ? "Up" : "Down";
         }
-        directionChange = true;
         dontAccelerate();
     }
     

@@ -85,10 +85,6 @@ public class Enemy extends GameEntity {
         }
         return health > 0;
     }
-    @Override
-    public void setHealth(int health) {
-        this.health = health;
-    }
 
     public void setPosition(float x, float y) {
         this.x = x;
@@ -96,18 +92,6 @@ public class Enemy extends GameEntity {
         if (body != null) {
             body.setTransform(x, y, 0);
         }
-    }
-    @Override
-    public void create(int health, int damage, float x, float y) {
-        this.health = health;
-        this.damage = damage;
-        this.x = x;
-        this.y = y;
-    }
-
-    @Override
-    public Body getBody() {
-        return body;
     }
 
     public Vector2 getPosition() {
