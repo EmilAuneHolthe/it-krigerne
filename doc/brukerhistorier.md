@@ -54,7 +54,7 @@
     Lage en vinner skjerm som spilles av når bossen dør.
 
 
-# Spillforståeøse
+# Spillforståelse
 
 * En type tutorial: (implementert)
 
@@ -119,7 +119,7 @@
     Lage en lyd når du plukker opp nøkkel for å gi en følelse av progresjon.
     Lage en tydelig avslutning til bossfighten, seier-skjerm.
 
-# Karakter
+# Spiller
 
 * Bevegelse: (Implementert)
 
