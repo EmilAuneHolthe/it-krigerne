@@ -43,8 +43,8 @@ public class LoadingScreen extends AbstractScreen   {
         assetManager.load("Ui/sword_circle.png", Texture.class);
         assetManager.load("Ui/slot.png", Texture.class);
         assetManager.load("Ui/slotselected.png", Texture.class);
-        assetManager.load("UI/redtexture.png", Texture.class);
-        assetManager.load("UI/graytexture.png", Texture.class);
+        assetManager.load("Ui/redtexture.png", Texture.class);
+        assetManager.load("Ui/graytexture.png", Texture.class);
 
         //Main menu
         assetManager.load("Background/transparent.png", Texture.class);
