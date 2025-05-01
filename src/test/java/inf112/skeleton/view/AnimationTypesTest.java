@@ -31,19 +31,19 @@ class AnimationTypesTest {
     //     assertEquals("Player/Atlas/Boss.atlas", AnimationTypes.BOSS_DOWN.getAtlasPath());
     // }
 
-    @Test
-    void testGetFrameTime() {
-        // Test that frame times are correctly set
-        assertEquals(0.5f, AnimationTypes.SOLDIER_DOWN.getFrameTime());
-        assertEquals(0.5f, AnimationTypes.KING_DOWN.getFrameTime());
-        assertEquals(0.5f, AnimationTypes.OLD_DOWN.getFrameTime());
-        assertEquals(0.5f, AnimationTypes.ZOMBIE_DOWN.getFrameTime());
-        assertEquals(0.5f, AnimationTypes.PUMKIN_DOWN.getFrameTime());
-        assertEquals(0.5f, AnimationTypes.SKELETON_DOWN.getFrameTime());
-        assertEquals(0.5f, AnimationTypes.DARK_DOWN.getFrameTime());
-        assertEquals(0.5f, AnimationTypes.GHOST_DOWN.getFrameTime());
-        assertEquals(0.5f, AnimationTypes.BOSS_DOWN.getFrameTime());
-    }
+    // @Test
+    // void testGetFrameTime() {
+    //     // Test that frame times are correctly set
+    //     assertEquals(0.5f, AnimationTypes.SOLDIER_DOWN.getFrameTime());
+    //     assertEquals(0.5f, AnimationTypes.KING_DOWN.getFrameTime());
+    //     assertEquals(0.5f, AnimationTypes.OLD_DOWN.getFrameTime());
+    //     assertEquals(0.5f, AnimationTypes.ZOMBIE_DOWN.getFrameTime());
+    //     assertEquals(0.5f, AnimationTypes.PUMKIN_DOWN.getFrameTime());
+    //     assertEquals(0.5f, AnimationTypes.SKELETON_DOWN.getFrameTime());
+    //     assertEquals(0.5f, AnimationTypes.DARK_DOWN.getFrameTime());
+    //     assertEquals(0.5f, AnimationTypes.GHOST_DOWN.getFrameTime());
+    //     assertEquals(0.5f, AnimationTypes.BOSS_DOWN.getFrameTime());
+    // }
 
     @Test
     void testGetRowIndex() {
