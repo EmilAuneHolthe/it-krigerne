@@ -221,4 +221,7 @@ public class Inventory {
           selectedItemIndex = index;
       }
   }
+  public int getSelectedItemIndex() {
+      return selectedItemIndex;
+  }
 }

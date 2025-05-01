@@ -48,27 +48,27 @@ public enum AnimationTypes {
     SKELETON_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0),
 
     // Dark
-    DARK_DOWN("Entities/Atlas/Dark.atlas", "Dark", 0.5f, 0),
-    DARK_UP("Entities/Atlas/Dark.atlas", "Dark", 0.5f, 3),
-    DARK_LEFT("Entities/Atlas/Dark.atlas", "Dark", 0.5f, 1),
-    DARK_RIGHT("Entities/Atlas/Dark.atlas", "Dark", 0.5f, 2),
+    DARK_DOWN("Entities/Atlas/Dark.atlas", "Dark", 0),
+    DARK_UP("Entities/Atlas/Dark.atlas", "Dark", 3),
+    DARK_LEFT("Entities/Atlas/Dark.atlas", "Dark", 1),
+    DARK_RIGHT("Entities/Atlas/Dark.atlas", "Dark", 2),
 
     DARK_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0),
 
     // Ghost
-    GHOST_DOWN("Entities/Atlas/Ghost.atlas", "Ghost", 0.5f, 0),
-    GHOST_UP("Entities/Atlas/Ghost.atlas", "Ghost", 0.5f, 3),
-    GHOST_LEFT("Entities/Atlas/Ghost.atlas", "Ghost", 0.5f, 1),
-    GHOST_RIGHT("Entities/Atlas/Ghost.atlas", "Ghost", 0.5f, 2),
+    GHOST_DOWN("Entities/Atlas/Ghost.atlas", "Ghost", 0),
+    GHOST_UP("Entities/Atlas/Ghost.atlas", "Ghost",3),
+    GHOST_LEFT("Entities/Atlas/Ghost.atlas", "Ghost", 1),
+    GHOST_RIGHT("Entities/Atlas/Ghost.atlas", "Ghost", 2),
 
-    GHOST_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0.5f, 0),
+    GHOST_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0),
     
     // Boss
-    BOSS_DOWN("Entities/Atlas/Boss.atlas", "Boss", 0.5f, 3),
-    BOSS_UP("Entities/Atlas/Boss.atlas", "Boss", 0.5f, 3),
-    BOSS_LEFT("Entities/Atlas/Boss.atlas", "Boss", 0.5f, 3),
-    BOSS_RIGHT("Entities/Atlas/Boss.atlas", "Boss", 0.5f, 3),
-    BOSS_ATTACK("Entities/Atlas/Boss.atlas", "Boss", 0.5f, 3);
+    BOSS_DOWN("Entities/Atlas/Boss.atlas", "Boss",  3),
+    BOSS_UP("Entities/Atlas/Boss.atlas", "Boss", 3),
+    BOSS_LEFT("Entities/Atlas/Boss.atlas", "Boss", 3),
+    BOSS_RIGHT("Entities/Atlas/Boss.atlas", "Boss", 3),
+    BOSS_ATTACK("Entities/Atlas/Boss.atlas", "Boss", 3);
 
 
     private final String atlasPath;
