@@ -1,126 +1,205 @@
 package inf112.skeleton.model.entity.player;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-import inf112.skeleton.model.GamePanel;
-import inf112.skeleton.model.entity.enemy.Enemy;
-import inf112.skeleton.model.entity.item.Item;
-import inf112.skeleton.model.entity.item.ItemType;
-
 import com.badlogic.gdx.Application;
-import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.backends.headless.HeadlessApplication;
+import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
-
+import inf112.skeleton.audio.AudioHandler;
+import inf112.skeleton.audio.AudioTypes;
+import inf112.skeleton.controller.KeyHandler;
+import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.entity.enemy.Enemy;
+import inf112.skeleton.model.entity.item.ItemType;
+import inf112.skeleton.view.ui.DeathOverlay;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.MockedConstruction;
 import org.mockito.MockitoAnnotations;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
+
 class PlayerTest {
-
-    @Mock GamePanel context;
-    @Mock World world;
-    @Mock Body body;
-    @Mock Files files;
-    @Mock FileHandle fileHandle;
-    @Mock TextureAtlas characterAtlas;
-    @Mock TextureAtlas attackAtlas;
-    @Mock AtlasRegion atlasRegion;
-    Player player;
-
+    private Player player;
+    
+    @Mock private GamePanel gamePanel;
+    @Mock private World world;
+    @Mock private Body body;
+    @Mock private KeyHandler keyHandler;
+    @Mock private AudioHandler audioHandler;
+    @Mock private Application app;
+    @Mock private AssetManager assetManager;
+    @Mock private Texture mockTexture;
+    
+    private static final int INITIAL_HEALTH = 100;
+    private static final int INITIAL_DAMAGE = 10;
+    private static final float INITIAL_X = 0;
+    private static final float INITIAL_Y = 0;
+    
+    @BeforeAll
+    static void initGdx() {
+        HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
+        new HeadlessApplication(new com.badlogic.gdx.ApplicationListener() {
+            @Override public void create() {}
+            @Override public void resize(int width, int height) {}
+            @Override public void render() {}
+            @Override public void pause() {}
+            @Override public void resume() {}
+            @Override public void dispose() {}
+        }, config);
+        
+        // Mock GL20 since we're running headless
+        Gdx.gl = mock(GL20.class);
+        Gdx.gl20 = mock(GL20.class);
+    }
+    
     @BeforeEach
     void setUp() {
-        // Initialize Mockito mocks
         MockitoAnnotations.openMocks(this);
         
-        // Mock Gdx.app and Gdx.files
-        Gdx.app = mock(Application.class);
-        Gdx.files = files;
+        // Setup Gdx.app mock
+        Gdx.app = app;
         
-        // Mock file system
-        when(files.internal(anyString())).thenReturn(fileHandle);
+        // Setup mocks
+        when(gamePanel.getKeyHandler()).thenReturn(keyHandler);
+        when(gamePanel.getAudioHandler()).thenReturn(audioHandler);
+        when(body.getPosition()).thenReturn(new Vector2(INITIAL_X, INITIAL_Y));
         
-        // Mock texture atlas
-        when(characterAtlas.findRegion(anyString())).thenReturn(atlasRegion);
-        when(attackAtlas.findRegion(anyString())).thenReturn(atlasRegion);
+        // Setup AssetManager mock
+        GamePanel.assetManager = assetManager;
+        when(assetManager.get(anyString(), eq(Texture.class))).thenReturn(mockTexture);
         
-        // Create real texture regions array
-        TextureRegion[][] regions = new TextureRegion[1][3];
-        regions[0][0] = atlasRegion;
-        regions[0][1] = atlasRegion;
-        regions[0][2] = atlasRegion;
+        // Mock DeathOverlay creation
+        try (MockedConstruction<DeathOverlay> ignored = mockConstruction(DeathOverlay.class)) {
+            // Create player
+            player = new Player(gamePanel, world, body, INITIAL_HEALTH, INITIAL_DAMAGE, INITIAL_X, INITIAL_Y, CharacterType.SOLDIER);
+            // Set alive to true
+            player.alive = true;
+        }
         
-        when(atlasRegion.split(anyInt(), anyInt())).thenReturn(regions);
-        when(atlasRegion.getRegionWidth()).thenReturn(96);
-        when(atlasRegion.getRegionHeight()).thenReturn(128);
-        
-        // Create a Player with initial health=100, damage=20, position (0,0)
-        player = new Player(context, world, body, 100, 20, 0f, 0f, CharacterType.SOLDIER);
-        // Reset static flag before each test
+        // Reset static flag
         Player.isDead = false;
     }
-
+    
     @Test
-    void healthReducesWhenTakingDamage() {
-        assertTrue(player.getHealth() == 100, "Player should have 100 health at start");
-        player.takeDamage(30);
-        // Expect health to be reduced from 100 to 70
-        assertEquals(70, player.getHealth(), "Health should be reduced by 30");
+    void testInitialState() {
+        assertEquals(INITIAL_HEALTH, player.getHealth());
+        assertEquals(INITIAL_DAMAGE, player.attack());
+        assertEquals(100, player.getMaxMana());
+        assertEquals(100, player.getCurrentMana());
+        assertFalse(player.hasKey());
+        assertFalse(Player.isDead);
+        assertTrue(player.canAttack);
     }
-
+    
     @Test
-    void healthDoesNotGoNegative() {
-        player.takeDamage(150);  // More damage than player's health (100)
-        // Expect getHealth() to return 0 (not negative)
-        assertEquals(0, player.getHealth(), "Health should not go below 0");
-        // After lethal damage, player should be marked as dead
-        assertFalse(player.alive, "Player should be 'alive = false' when health reaches 0");
-        assertTrue(Player.isDead, "Static flag isDead should be true at death");
+    void testHealthManagement() {
+        // Test damage taking
+        Enemy mockEnemy = mock(Enemy.class);
+        when(mockEnemy.getDamage()).thenReturn(20);
+        
+        player.playerTakeDamage(mockEnemy);
+        assertEquals(80, player.getHealth());
+        verify(audioHandler, times(1)).playAudio(AudioTypes.HURT2);
+        verify(audioHandler, times(1)).playAudio(AudioTypes.HIT);
+        
+        // Test healing
+        player.setHealth(100);
+        assertEquals(100, player.getHealth());
+        
+        // Test death
+        when(mockEnemy.getDamage()).thenReturn(200);
+        player.playerTakeDamage(mockEnemy);
+        assertTrue(Player.isDead);
+        assertEquals(0, player.getHealth());
     }
-
+    
     @Test
-    void manaRegeneratesUpToMax() {
-        player.setCurrentMana(50);
-        player.setMaxMana(100);
-        // Simulate time passing to regenerate mana
-        for (int i = 0; i < 300; i++) {
-            player.regenerateMana(i);
-        }
-        // Expect mana to have increased but not exceed maxMana
-        int regeneratedMana = player.getCurrentMana();
-        assertTrue(regeneratedMana > 50, "Mana skal ha økt etter regenerering");
-        assertEquals(100, regeneratedMana, "Mana skal ikke overstige maksverdien (100)");
+    void testManaSystem() {
+        // Test mana usage
+        player.setCurrentMana(20); // Use setCurrentMana instead of setMana
+        assertEquals(20, player.getCurrentMana());
+        player.regenerateMana(0.1f); // Small regeneration to trigger canAttack check
+        assertFalse(player.canAttack); // Should be false when mana < 30
+        
+        // Test mana regeneration
+        player.setManaRegenRate(10f);
+        assertEquals(10f, player.getManaRegenRate());
+        
+        player.regenerateMana(1.0f); // Regenerate for 1 second
+        assertTrue(player.getCurrentMana() > 20);
+        
+        // Test mana cap
+        player.setCurrentMana(150); // Use setCurrentMana instead of setMana
+        assertEquals(100, player.getCurrentMana()); // Should be capped at maxMana
     }
-
+    
     @Test
-    void useHealthItemIncreasesHealth() {
-        // **Bruk av helse-item:** Å bruke en helsegjenstand skal øke spillerens helse (opp til en øvre grense).
-        // Skad spilleren litt først
-        player.takeDamage(60);  // reduser helse til 40
-        assertEquals(40, player.getHealth());
-        // Opprett et helse-item og simuler at spilleren plukker det opp
-        Item healthPotion = new Item(context, world, ItemType.HEALTH, player.getX(), player.getY());
-        player.getInventory().pickUpItems(new Array<Item>(new Item[]{healthPotion}));
-        // Bruk helse-itemet (antar at det finnes en metode for å bruke valgt item)
-        player.getInventory().useSelectedItem();
-        // Forvent at spillerens helse har økt, men ikke over opprinnelig verdi 100
-        assertTrue(player.getHealth() > 40, "Helse skal øke ved bruk av helse-potion");
-        assertTrue(player.getHealth() <= 100, "Helse skal ikke overstige opprinnelig maks (100) ved bruk av potion");
+    void testItemManagement() {
+        assertFalse(player.hasKey());
+        
+        player.setKey(true);
+        assertTrue(player.hasKey());
+        
+        player.removeKey();
+        assertFalse(player.hasKey());
+        
+        // Test inventory
+        player.ItemPickup(ItemType.SWORD_UPGRADE);
+        assertNotNull(player.getInventory());
     }
-
+    
     @Test
-    void playerDiesWhenHealthDepletes() {
-        player.takeDamage(100);  // Exactly lethal damage
-        // Expect player to be marked as dead
-        assertFalse(player.alive, "Player should not be alive after taking lethal damage");
-        assertTrue(Player.isDead, "isDead flag should be set when player dies");
+    void testMovementAndPosition() {
+        float newX = 10f;
+        float newY = 20f;
+        
+        player.setSpawn(newX, newY);
+        verify(body).setLinearVelocity(0, 0);
+        verify(body).setTransform(newX, newY, 0);
+        
+        // Test position getters
+        when(body.getPosition()).thenReturn(new Vector2(newX, newY));
+        assertEquals(newX / 32f, player.getX());
+        assertEquals(newY / 32f, player.getY());
+        
+        Vector2 position = player.getPosition();
+        assertEquals(newX, position.x);
+        assertEquals(newY, position.y);
+    }
+    
+    @Test
+    void testDamageModification() {
+        int initialDamage = player.attack();
+        player.increaseDamage(5);
+        assertEquals(initialDamage + 5, player.attack());
+    }
+    
+    @Test
+    void testDeathHandling() {
+        assertFalse(Player.isDead);
+        player.killPlayer();
+        assertTrue(Player.isDead);
+        
+        // Test that health cannot go below 0
+        player.setHealth(-10);
+        assertEquals(0, player.getHealth());
+    }
+    
+    @Test
+    void testSwordEquipping() {
+        String swordType = "UncommonSword";
+        player.updateSwordHUDTexturePath(swordType);
+        verify(gamePanel).updateEquippedSwordHUD(ItemType.getSwordHUDTexturePath(swordType));
     }
 }
