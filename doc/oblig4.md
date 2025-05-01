@@ -11,17 +11,17 @@
 
 `Roller:`
 * Team‑lead / Scrum Master 
-    • Klargjør sprint‑mål, leder daglige stand‑ups, fjerner hindringer.
-    • Rollen fungerer, men bør kunne delegeres i travle perioder.
+   - Klargjør sprint‑mål, leder daglige stand‑ups, fjerner hindringer.
+   - Rollen fungerer, men bør kunne delegeres i travle perioder.
 
 * Kundekontakt / Product Owner 
-    • Samler krav, prioriterer backlog, godkjenner leveranser.
+   - Samler krav, prioriterer backlog, godkjenner leveranser.
 
 * Map tester 
-    • Finner bugs, hovedansvar for tester til kode
+   - Finner bugs, hovedansvar for tester til kode
 
 * Pixel art
-    • Laget map, sprites og visuell retning til spillet
+   - Laget map, sprites og visuell retning til spillet
 
 ### A2: Beskrivelse av konsept
 
@@ -33,7 +33,7 @@ og finn hemmeligheter for å gjøre deg sterkere. Dør du så er du ute, og spil
 Hvert run av spillet vil kreve at du finner våpen og annet loot slik at du kan beseire fiendene. 
 Kan du klare denne utfordringen?
 
-* Spillet disse spill-funksjonene:
+* Spillet har disse spill-funksjonene:
    - Spiler kan angripe monstre.
    - Monstre som angriper spiller.
    - Spiller kan plukke opp "Items" og åpne dører.
