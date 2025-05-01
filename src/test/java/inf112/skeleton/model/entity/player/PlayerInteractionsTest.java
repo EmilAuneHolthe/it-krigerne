@@ -42,7 +42,7 @@ class PlayerInteractionsTest extends BaseTest {
         MockitoAnnotations.openMocks(this);
         when(mockGamePanel.getAudioHandler()).thenReturn(mockAudioHandler);
 
-        playerInteractions = new PlayerInteractions(mockGamePanel);
+        playerInteractions = new PlayerInteractions(mockGamePanel, mockPlayer);
 
         // Setup mock player
         when(mockPlayer.getPosition()).thenReturn(new Vector2(0f, 0f));
@@ -72,33 +72,15 @@ class PlayerInteractionsTest extends BaseTest {
         verify(mockAudioHandler).playAudio(AudioTypes.ATTACK);
     }
 
-    
-
     @Test
-    void testPickUpItemInRange() {
-        Array<Item> items = new Array<>();
-        items.add(mockItem);
+    void testAttackEnemyOutOfRange() {
+        when(mockEnemy.getPosition()).thenReturn(new Vector2(3f, 0f)); // Out of range
+        Array<Enemy> enemies = new Array<>();
+        enemies.add(mockEnemy);
 
-        playerInteractions.pickUpItem(mockPlayer, items);
+        playerInteractions.attackEnemy(mockPlayer, enemies);
 
-        // Verify that the player picks up the item and it is removed
-        verify(mockPlayer).pickUpItem(ItemType.HEALTH);
-        verify(mockItem).remove();
-        assertTrue(items.isEmpty());
-    }
-
-    @Test
-    void testPickUpItemOutOfRange() {
-        when(mockItem.getPosition()).thenReturn(new Vector2(2f, 0f)); // Out of range
-
-        Array<Item> items = new Array<>();
-        items.add(mockItem);
-
-        playerInteractions.pickUpItem(mockPlayer, items);
-
-        // Verify that the player does not pick up the item and it is not removed
-        verify(mockPlayer, never()).pickUpItem(any());
-        verify(mockItem, never()).remove();
-        assertFalse(items.isEmpty());
+        // Verify that the enemy does not take damage when out of range
+        verify(mockEnemy, never()).takeDamage(anyInt());
     }
 }

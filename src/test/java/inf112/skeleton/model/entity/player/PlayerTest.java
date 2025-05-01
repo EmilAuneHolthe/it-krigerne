@@ -86,7 +86,7 @@ class PlayerTest {
         Item healthPotion = new Item(context, world, ItemType.HEALTH, player.getX(), player.getY());
         player.getInventory().pickUpItems(new Array<Item>(new Item[]{healthPotion}));
         // Bruk helse-itemet (antar at det finnes en metode for å bruke valgt item)
-        player.getInventory().useItem(0);
+        player.getInventory().useSelectedItem();
         // Forvent at spillerens helse har økt, men ikke over opprinnelig verdi 100
         assertTrue(player.getHealth() > 40, "Helse skal øke ved bruk av helse-potion");
         assertTrue(player.getHealth() <= 100, "Helse skal ikke overstige opprinnelig maks (100) ved bruk av potion");

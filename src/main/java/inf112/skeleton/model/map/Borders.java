@@ -10,8 +10,6 @@ public class Borders {
     this.y1 = y1*UNIT_SCALE;
     this.x2 = x2*UNIT_SCALE;
     this.y2 = y2*UNIT_SCALE;
-    this.width = x2;
-    this.height = y2;
     this.name = name;
   }
   public String isInside(float x, float y) {
@@ -38,9 +36,9 @@ public class Borders {
     return name;
   }
   public float getWidth() {
-    return width;
+    return x2/UNIT_SCALE;
   }
   public float getHeight() {
-    return height;
+    return y2/UNIT_SCALE;
   }
 }
