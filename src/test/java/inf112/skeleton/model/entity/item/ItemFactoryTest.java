@@ -13,14 +13,12 @@ import java.util.ArrayList;
 
 public class ItemFactoryTest {
     private ItemFactory itemFactory;
-    private GamePanel mockGamePanel;
-    private World mockWorld;
     private Map mockMap;
 
     @BeforeEach
     void setUp() {
-        mockGamePanel = mock(GamePanel.class);
-        mockWorld = mock(World.class);
+        GamePanel mockGamePanel = mock(GamePanel.class);
+        World mockWorld = mock(World.class);
         mockMap = mock(Map.class);
         itemFactory = new ItemFactory(mockGamePanel, mockWorld);
     }

@@ -9,10 +9,8 @@ public enum ItemType {
   MANA("mana"),
   SWORD_UPGRADE ("swordUpgrade");
 
-  private static final String OVERWORLD_SWORD = "Entities/Items/OverworldSword.png"; 
 
-
-  private final String type;
+    private final String type;
 
   ItemType(String string) {
     this.type = string;
@@ -24,7 +22,6 @@ public enum ItemType {
           case KEY -> assetManager.get("Entities/Items/Key.png");
           case MANA -> assetManager.get("Entities/Items/Mana.png");
           case SWORD_UPGRADE -> assetManager.get("Entities/Items/OverworldSword.png");
-          default -> null;
       };
   }
 
