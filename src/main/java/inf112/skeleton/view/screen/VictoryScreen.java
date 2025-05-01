@@ -11,11 +11,11 @@ import inf112.skeleton.model.GamePanel;
 
 public class VictoryScreen extends AbstractScreen {
     private final Stage stage;
-    private Texture victoryTexture;
-    private Image victoryImage;
+    private final Texture victoryTexture;
+    private final Image victoryImage;
 
-    private Texture popupTexture;
-    private Image popupImage;
+    private final Texture popupTexture;
+    private final Image popupImage;
 
     private float elapsedTime = 0f;
     private final float popupDelay = 1f;          // Delay before popup appears (1 second)
@@ -64,12 +64,7 @@ public class VictoryScreen extends AbstractScreen {
         elapsedTime += delta;
 
         // Show popup after delay
-        if (elapsedTime >= popupDelay && elapsedTime <= popupDelay + popupDuration) {
-            popupImage.setVisible(true);
-            
-        } else {
-            popupImage.setVisible(false);
-        }
+        popupImage.setVisible(elapsedTime >= popupDelay && elapsedTime <= popupDelay + popupDuration);
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

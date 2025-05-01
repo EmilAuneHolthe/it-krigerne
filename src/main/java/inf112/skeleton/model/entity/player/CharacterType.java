@@ -10,7 +10,7 @@ public enum CharacterType {
     BOSS(AnimationTypes.BOSS_DOWN),
     SKELETON(AnimationTypes.SKELETON_DOWN),
     DARK(AnimationTypes.DARK_DOWN),
-    PUMKIN(AnimationTypes.PUMKIN_DOWN),
+    PUMPKIN(AnimationTypes.PUMPKIN_DOWN),
     GHOST(AnimationTypes.GHOST_DOWN);
     
     private final AnimationTypes defaultAnimation;

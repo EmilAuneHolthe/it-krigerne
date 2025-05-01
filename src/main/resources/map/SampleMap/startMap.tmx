@@ -1304,7 +1304,7 @@
   </object>
   <object id="984" name="P3" x="832" y="864">
    <properties>
-    <property name="Type" value="Pumkin"/>
+    <property name="Type" value="Pumpkin"/>
    </properties>
    <point/>
   </object>

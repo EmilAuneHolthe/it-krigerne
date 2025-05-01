@@ -26,7 +26,7 @@ public enum Keys {
 
     final int[] keyCode;
     
-    private Keys(int... keyCode) {
+    Keys(int... keyCode) {
         this.keyCode = keyCode;
     }
 

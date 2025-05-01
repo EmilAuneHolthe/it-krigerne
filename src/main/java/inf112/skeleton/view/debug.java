@@ -3,15 +3,14 @@ package inf112.skeleton.view;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.physics.box2d.Body;
 
 import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.model.entity.player.Player;
 
 public class debug {
-    private SpriteBatch spriteBatch;
-    private OrthographicCamera camera;
-    private ShapeRenderer shapeRenderer;
+    private final SpriteBatch spriteBatch;
+    private final OrthographicCamera camera;
+    private final ShapeRenderer shapeRenderer;
     private final float ATTACK_RANGE = 2.0f; // Same as in PlayerInteractions
     
     public debug(SpriteBatch spriteBatch, Player player, OrthographicCamera camera) {

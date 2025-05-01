@@ -1,8 +1,5 @@
 package inf112.skeleton.model;
 
-import java.util.Map;
-
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.physics.box2d.World;
@@ -19,25 +16,24 @@ import inf112.skeleton.model.entity.player.PlayerFactory;
 import inf112.skeleton.model.entity.player.PlayerInteractions;
 import inf112.skeleton.model.map.Borders;
 import inf112.skeleton.model.map.MapChanger;
-import inf112.skeleton.model.map.MapListener;
 import inf112.skeleton.model.map.MapManager;
 import inf112.skeleton.model.map.MapType;
 import inf112.skeleton.view.GameRenderer;
 import inf112.skeleton.view.screen.ScreenType;
 
 public class WorldFunctions{
-    private World world;
+    private final World world;
     private Player player;
     public static Boolean victory = false;
     private final GamePanel context;
     private float dTime = 0;
     private Array<Borders> borders;
-    private MapManager mapManager;
-    private GameRenderer gameRenderer;
-    private MapChanger mapChanger;
+    private final MapManager mapManager;
+    private final GameRenderer gameRenderer;
+    private final MapChanger mapChanger;
     private static Array<Enemy> enemies = new Array<>();
-    private Array<Item> items = new Array<>();
-    private PlayerInteractions playerInteractions;
+    private final Array<Item> items = new Array<>();
+    private final PlayerInteractions playerInteractions;
 
   public WorldFunctions(GamePanel context){
     this.mapManager = context.getMapManager();

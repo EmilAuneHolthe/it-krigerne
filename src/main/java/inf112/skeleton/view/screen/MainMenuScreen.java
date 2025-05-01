@@ -25,13 +25,12 @@ import inf112.skeleton.model.GamePanel;
 
 public class MainMenuScreen extends AbstractScreen {
     
-    private Texture backgroundTexture = assetManager.get("Background/background.png");
-    private Texture blankTexture = assetManager.get("Background/transparent.png");
-    private Stage stage;
+    private final Texture backgroundTexture = assetManager.get("Background/background.png");
+    private final Texture blankTexture = assetManager.get("Background/transparent.png");
+    private final Stage stage;
     private ImageButton startButton;
     private ImageButton optionsButton;
     private ImageButton exitButton;
-    private boolean debugMode = false; // Toggle for debug outlines
 
     public MainMenuScreen(GamePanel context) {
         super(context);
@@ -54,6 +53,8 @@ public class MainMenuScreen extends AbstractScreen {
         
         // Create debug texture for button outlines
         Drawable buttonDrawable;
+        // Toggle for debug outlines
+        boolean debugMode = false;
         if (debugMode) {
             // Create a debug texture with a visible border
             int size = 200; // Size of the texture

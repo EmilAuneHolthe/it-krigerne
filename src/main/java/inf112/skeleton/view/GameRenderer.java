@@ -20,7 +20,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import inf112.skeleton.model.GamePanel;
-import inf112.skeleton.model.entity.entity;
 import inf112.skeleton.model.entity.door.Door;
 import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.model.entity.item.Item;
@@ -52,12 +51,12 @@ public class GameRenderer implements Disposable, MapListener {
     private final BitmapFont font;
     private boolean showDebug = false;
     private Array<Enemy> enemies;
-    private debug debug;
+    private final debug debug;
     private Array<Item> items;
     private ItemBar itemBar;
     private Array<Door> doors;
     private final MapManager mapManager;
-    private EntityRenderer entityRenderer;
+    private final EntityRenderer entityRenderer;
     private TaskBoard taskBoard;
 
     public GameRenderer(final GamePanel context) {

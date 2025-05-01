@@ -10,10 +10,10 @@ import com.badlogic.gdx.physics.box2d.Body;
 import inf112.skeleton.view.AnimationTypes;
 
 public class PlayerAnimation {
-    private TextureAtlas characterAtlas;
-    private TextureAtlas attackAtlas;
+    private final TextureAtlas characterAtlas;
+    private final TextureAtlas attackAtlas;
     private Animation<TextureRegion> currentAnimation;
-    private TextureRegion[] attackFrames;
+    private final TextureRegion[] attackFrames;
     private AnimationTypes currentAnimationType;
     private float stateTime;
     private float attackTimer;
@@ -21,7 +21,7 @@ public class PlayerAnimation {
     private boolean isMoving;
     private String direction;
     private String lastMovingDirection;
-    private CharacterType characterType;
+    private final CharacterType characterType;
     private float directionChangeCooldown;
     private static final float DIRECTION_CHANGE_DELAY = 0.1f;
     

@@ -5,31 +5,27 @@ import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
 import java.util.EnumMap;
 import java.util.Objects;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Timer.Task;
 
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.door.Door;
-import inf112.skeleton.model.entity.player.CharacterType;
 import inf112.skeleton.model.entity.taskBoard.TaskBoard;
 
 public class MapManager {
     private static final String TAG = MapManager.class.getSimpleName();
 
-    private World world;
-    private Array<Body> bodies;
-    private Array<Door> doors;
+    private final World world;
+    private final Array<Body> bodies;
+    private final Array<Door> doors;
     private TaskBoard taskBoard;
-    private AssetManager assetManager;
+    private final AssetManager assetManager;
     private MapType currentMapType;
     private Map currentMap;
     private final EnumMap<MapType, Map> mapCache;

@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class TaskBoard {
 
-    private Sprite sprite;
+    private final Sprite sprite;
     private boolean active = false;
 
 

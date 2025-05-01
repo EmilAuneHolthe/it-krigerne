@@ -2,8 +2,6 @@ package inf112.skeleton.model.entity.player;
 
 
 
-import java.lang.reflect.Array;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -13,30 +11,28 @@ import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.controller.Keys;
 import inf112.skeleton.model.GamePanel;
-import inf112.skeleton.model.WorldFunctions;
 import inf112.skeleton.model.entity.GameEntity;
 import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.model.entity.item.Inventory;
 import inf112.skeleton.model.entity.item.Item;
 import inf112.skeleton.model.entity.item.ItemType;
-import inf112.skeleton.view.screen.ScreenType;
 import inf112.skeleton.view.ui.DeathOverlay;
 
 public class Player extends GameEntity {
     public static boolean isDead;
-    private DeathOverlay deathOverlay;
+    private final DeathOverlay deathOverlay;
     public boolean alive;
     private int currentMana;
     private int maxMana;
     private float manaRegenRate = 10f; // Mana per second
     private float manaRegenAccumulator = 0.0f;
     public boolean canAttack = true; 
-    private int maxHealth;
+    private final int maxHealth;
     private boolean hasKey = false;
     private PlayerInteractions playerInteractions;
     private final Item[] items;
     private int selectedItemIndex;
-    private KeyHandler keyHandler;
+    private final KeyHandler keyHandler;
     private final Inventory inventory;
 
     public Player(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType) {
@@ -132,12 +128,12 @@ public class Player extends GameEntity {
     
     @Override
     public float getX() {
-        return body.getPosition().x * context.UNIT_SCALE;
+        return body.getPosition().x * GamePanel.UNIT_SCALE;
     }
     
     @Override
     public float getY() {
-        return body.getPosition().y * context.UNIT_SCALE;
+        return body.getPosition().y * GamePanel.UNIT_SCALE;
     }
     
     @Override
@@ -176,12 +172,8 @@ public class Player extends GameEntity {
             int manaToAdd = (int) manaRegenAccumulator;
             setCurrentMana(getCurrentMana() + manaToAdd);
             manaRegenAccumulator -= manaToAdd;
-            
-            if(currentMana >=30) {
-                canAttack = true;
-            } else {
-                canAttack = false;
-            }
+
+            canAttack = currentMana >= 30;
         }
     }
 

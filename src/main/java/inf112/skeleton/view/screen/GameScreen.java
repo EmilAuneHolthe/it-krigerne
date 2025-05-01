@@ -16,7 +16,7 @@ public class GameScreen extends AbstractScreen{
     private final OrthographicCamera camera;
     private final GameRenderer gameRenderer;
     private final PlayerInteractions playerInteractions;
-    private WorldFunctions  worldFunctions;
+    private final WorldFunctions  worldFunctions;
 
 
     public GameScreen(GamePanel context) {

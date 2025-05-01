@@ -14,9 +14,11 @@ import inf112.skeleton.controller.Keys;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
 
+import java.util.Objects;
+
 public class SettingScreen extends AbstractScreen {
-    public static Texture backgroundTexture = new Texture(Gdx.files.internal("Background/settings.png"));
-    private Stage stage;
+    public static final Texture backgroundTexture = new Texture(Gdx.files.internal("Background/settings.png"));
+    private final Stage stage;
 
     public SettingScreen(GamePanel context) {
         super(context);
@@ -85,17 +87,12 @@ public class SettingScreen extends AbstractScreen {
     }
 
     private void returnToMainMenu(KeyHandler keyHandler, Keys key) {
-        switch (key) {
-            case QUIT:
+        if (Objects.requireNonNull(key) == Keys.QUIT) {
             audioHandler.playAudio(AudioTypes.SELECT);
             System.out.println("Returning to main menu...");
             dispose();
             context.setScreen(new MainMenuScreen(context));
-                break;
-            default:
-                break;
-            
-    }
+        }
 }
 }
 

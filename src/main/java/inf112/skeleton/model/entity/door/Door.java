@@ -10,14 +10,15 @@ import com.badlogic.gdx.physics.box2d.World;
 import inf112.skeleton.model.GamePanel;
 
 public class Door{
-  Vector2 position;
-  Vector2 size;
-  World world;
+  final Vector2 position;
+  final Vector2 size;
+  final World world;
   GamePanel context;
-  Body body;
-  String name;
-  Sprite sprite;
-  public Door(Body body, String name, Vector2 size) {
+  final Body body;
+  final String name;
+  final Sprite sprite;
+  public Door(Vector2 pos, World world, Body body, String name, AssetManager assets,Vector2 size) {
+      this.position = pos;
       this.size = size;
       this.name = name;
       this.body = body;

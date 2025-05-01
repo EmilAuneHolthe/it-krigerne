@@ -113,37 +113,26 @@ public class ItemBar {
         for (int i = 0; i < SLOT_COUNT; i++) {
             // Update slot background based on selection
             slotBackgrounds[i].setDrawable(new TextureRegionDrawable(
-                i == player.getInventory().getSelectedItemIndex() ? selectedSlotTexture : slotTexture
+                    i == player.getInventory().getSelectedItemIndex() ? selectedSlotTexture : slotTexture
             ));
             slotBackgrounds[i].setSize(SLOT_SIZE, SLOT_SIZE);
 
             if (i < items.length && items[i] != null) {
-                try {
-                    // Set item icon using the existing item texture
-                    Texture itemTexture = ItemType.getItemTexture(items[i].getItemType());
-                    if (itemTexture != null) {
-                        itemIcons[i].setDrawable(new TextureRegionDrawable(itemTexture));
-                        itemIcons[i].setSize(ITEM_SIZE, ITEM_SIZE);
-                        // Center the item icon in the slot
-                        itemIcons[i].setPosition((SLOT_SIZE - ITEM_SIZE) / 2, (SLOT_SIZE - ITEM_SIZE) / 2);
-                        itemIcons[i].setVisible(true);
-                    } else {
-                        Gdx.app.log("ItemBar", "Item texture is null for item type: " + items[i].getItemType());
-                        itemIcons[i].setVisible(false);
-                    }
-                    
-                    // Set item label based on item type
-               
-                    itemLabels[i].setText("Q");
-                    itemLabels[i].setVisible(true);
-                } catch (Exception e) {
-                    Gdx.app.log("ItemBar", "Error updating item slot " + i + ": " + e.getMessage());
-                    // If texture loading fails, just show the label
+                // Set item icon using the existing item texture
+                Texture itemTexture = ItemType.getItemTexture(items[i].getItemType());
+                if (itemTexture != null) {
+                    itemIcons[i].setDrawable(new TextureRegionDrawable(itemTexture));
+                    itemIcons[i].setSize(ITEM_SIZE, ITEM_SIZE);
+                    itemIcons[i].setPosition((SLOT_SIZE - ITEM_SIZE) / 2, (SLOT_SIZE - ITEM_SIZE) / 2);
+                    itemIcons[i].setVisible(true);
+                } else {
+                    Gdx.app.log("ItemBar", "Item texture is null for item type: " + items[i].getItemType());
                     itemIcons[i].setVisible(false);
-                    
-                    itemLabels[i].setText("Q");
-                    itemLabels[i].setVisible(true);
                 }
+
+                // Set item label based on item type
+                itemLabels[i].setText("Q");
+                itemLabels[i].setVisible(true);
             } else {
                 // Clear slot
                 itemIcons[i].setVisible(false);
@@ -151,11 +140,6 @@ public class ItemBar {
             }
         }
     }
-    
-    private String getLabelTextForItem(Item item) {
-        return "Q";
-        }
-    
     
     public void render(SpriteBatch batch) {
         if (player == null || items == null) {

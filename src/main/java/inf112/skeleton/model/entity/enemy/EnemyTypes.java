@@ -32,7 +32,7 @@ public enum EnemyTypes {
         switch (type) {
             case SKELETON:
                 return 100;
-            case PUMKIN:
+            case PUMPKIN:
                 return 50;
             case DARK:
                 return 200;
@@ -67,7 +67,7 @@ public enum EnemyTypes {
                 return 45;
             case BOSS:
                 return 50;
-            case PUMKIN:   
+            case PUMPKIN:
                 return 10;
             case GHOST:
                 return 100;

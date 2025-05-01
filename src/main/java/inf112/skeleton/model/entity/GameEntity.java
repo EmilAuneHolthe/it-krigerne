@@ -1,16 +1,12 @@
 package inf112.skeleton.model.entity;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 
-import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.item.ItemType;
 import inf112.skeleton.model.entity.player.CharacterType;
-import inf112.skeleton.model.entity.player.Player;
 import inf112.skeleton.model.entity.player.PlayerAnimation;
 import inf112.skeleton.model.entity.player.PlayerMovement;
 

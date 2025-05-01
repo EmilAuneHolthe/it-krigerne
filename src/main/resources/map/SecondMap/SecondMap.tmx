@@ -589,7 +589,7 @@
   </object>
   <object id="358" name="P1" x="960" y="1344">
    <properties>
-    <property name="Type" value="Pumkin"/>
+    <property name="Type" value="Pumpkin"/>
    </properties>
    <point/>
   </object>
@@ -661,7 +661,7 @@
   </object>
   <object id="423" name="P2" x="1120" y="1184">
    <properties>
-    <property name="Type" value="Pumkin"/>
+    <property name="Type" value="Pumpkin"/>
    </properties>
    <point/>
   </object>

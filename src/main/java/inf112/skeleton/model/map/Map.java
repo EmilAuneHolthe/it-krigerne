@@ -21,7 +21,7 @@ import inf112.skeleton.model.entity.player.CharacterType;
 public class Map {
   private final TiledMap tiledMap;
   public static final String TAG = Map.class.getSimpleName();
-  private Array<CollisionArea> collisionAreas;
+  private final Array<CollisionArea> collisionAreas;
   private final ArrayList<EnemySpawn>  enemySpawn;
   private final ArrayList<ItemSpawn> itemSpawn;
   

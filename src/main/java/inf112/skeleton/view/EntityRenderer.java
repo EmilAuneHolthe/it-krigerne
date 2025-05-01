@@ -1,18 +1,15 @@
 package inf112.skeleton.view;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import static inf112.skeleton.model.GamePanel.assetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
 
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.GameEntity;
 import inf112.skeleton.model.entity.enemy.Enemy;
-import inf112.skeleton.model.entity.enemy.EnemyTypes;
 import inf112.skeleton.model.entity.item.ItemType;
 import inf112.skeleton.model.entity.player.CharacterType;
 import inf112.skeleton.model.entity.player.Player;

@@ -1,21 +1,19 @@
 package inf112.skeleton.model.entity.player;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.controller.Keys;
 import inf112.skeleton.model.GamePanel;
-import inf112.skeleton.view.screen.GameScreen;
 
 public class PlayerMovement {
-    private Body body;
+    private final Body body;
     private float xFactor;
     private float yFactor;
     private boolean directionChange;
     private String direction;
-    private KeyHandler keyHandler;
+    private final KeyHandler keyHandler;
 
     
     public PlayerMovement(GamePanel context, World world, Body body) {
@@ -26,7 +24,7 @@ public class PlayerMovement {
     
     public void update() {
 
-        if(directionChange && Player.isDead == false) {
+        if(directionChange && !Player.isDead) {
             body.applyLinearImpulse(
                 (xFactor * 2 - body.getLinearVelocity().x * body.getMass()),
                 (yFactor * 2 - body.getLinearVelocity().y * body.getMass()),

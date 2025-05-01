@@ -9,14 +9,14 @@ import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.player.Player;
 
 public class Inventory {
-    private Item[] items;
-    private int capacity;
+    private final Item[] items;
+    private final int capacity;
     private int itemCount;
     private int selectedItemIndex = 0; 
-    private Player player;
+    private final Player player;
     private int swordUpgradeType = 0;
-    private GamePanel context;
-    private World world;
+    private final GamePanel context;
+    private final World world;
     public Inventory(int capacity, Player player, GamePanel context, World world) {
         this.capacity = capacity;
         this.items = new Item[capacity];

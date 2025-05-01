@@ -3,8 +3,13 @@ package inf112.skeleton.model.map;
 import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
 
 public class Borders {
-  public float x1, x2, y1, y2, width, height;
-  String name;
+  public final float x1;
+  public final float x2;
+  public final float y1;
+  public final float y2;
+  public final float width;
+  public final float height;
+  final String name;
   public Borders(float x1, float y1, float x2, float y2, String name) {
     this.x1 = x1*UNIT_SCALE;
     this.y1 = y1*UNIT_SCALE;

@@ -9,11 +9,11 @@ import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.GameEntity;
 
 public class Item extends GameEntity{
-  private ItemType itemType;
-  private GamePanel context;
-  private Texture itemTexture;
-  private float x;
-  private float y;
+  private final ItemType itemType;
+  private final GamePanel context;
+  private final Texture itemTexture;
+  private final float x;
+  private final float y;
   public Item(GamePanel context, World world, ItemType itemType, float x, float y) {
     super(context, world,itemType, x, y);
     this.itemType = itemType;

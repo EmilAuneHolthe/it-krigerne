@@ -3,7 +3,6 @@ package inf112.skeleton.model.entity.enemy;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import inf112.skeleton.audio.AudioTypes; // Added import for AudioTypes
@@ -13,17 +12,15 @@ import inf112.skeleton.model.WorldFunctions;
 import inf112.skeleton.model.entity.GameEntity;
 import inf112.skeleton.model.entity.player.CharacterType;
 import inf112.skeleton.model.entity.player.Player;
-import inf112.skeleton.view.screen.GameScreen;
 
 
 public class Enemy extends GameEntity {
-    private String name;
-    private  Texture healthTexture;
-    private Texture backgroundTexture;
-    private float speed = 2f;
-    private boolean isDead;
-    private float maxHealth;
-    private int sight;
+    private final String name;
+    private final Texture healthTexture;
+    private final Texture backgroundTexture;
+    private final boolean isDead;
+    private final float maxHealth;
+    private final int sight;
 
     public Enemy(GamePanel context, World world, Body body, CharacterType characterType, String name) {
         super(context, world, body, EnemyTypes.getEnemyHealth(characterType), EnemyTypes.getEnemyDamage(characterType), characterType);
@@ -128,6 +125,7 @@ public class Enemy extends GameEntity {
         Vector2 direction = targetPos.sub(currentPos).nor();
         
         // Set velocity based on direction
+        float speed = 2f;
         body.setLinearVelocity(direction.x * speed, direction.y * speed);
         
         // Update animation direction

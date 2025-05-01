@@ -16,10 +16,10 @@ public class AbstractScreen  implements Screen, KeyListener {
     protected final FitViewport viewport;
     protected final World world;
     protected final Box2DDebugRenderer box2DDebugRenderer;
-    protected KeyHandler keyHandler;
+    protected final KeyHandler keyHandler;
     protected final AudioHandler audioHandler;
-    protected float originalWidth = 960; // Original window width
-    protected float originalHeight = 540;
+    protected final float originalWidth = 960; // Original window width
+    protected final float originalHeight = 540;
 
 
     public AbstractScreen(final GamePanel context) {
