@@ -13,6 +13,7 @@ import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.model.entity.enemy.EnemyTypes;
 import inf112.skeleton.model.entity.item.ItemType;
 import inf112.skeleton.model.entity.player.CharacterType;
+import inf112.skeleton.model.entity.player.Player;
 
 
 public class EntityRenderer {
@@ -23,6 +24,9 @@ public class EntityRenderer {
         this.context = context;
     }
     public void renderAll(SpriteBatch batch, GameEntity e, float delta) {
+      if (Player.isDead) {
+        return;
+      }
         if(e.getAnimation() != null) e.getAnimation().update(Gdx.graphics.getDeltaTime());
         if(e.getAnimation() != null) e.getAnimation().render(batch, e.getBody());
         if(e.getAnimation() == null) render(e,batch);

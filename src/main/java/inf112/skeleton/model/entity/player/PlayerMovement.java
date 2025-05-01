@@ -25,7 +25,8 @@ public class PlayerMovement {
     }
     
     public void update() {
-        if(directionChange) {
+
+        if(directionChange && Player.isDead == false) {
             body.applyLinearImpulse(
                 (xFactor * 2 - body.getLinearVelocity().x * body.getMass()),
                 (yFactor * 2 - body.getLinearVelocity().y * body.getMass()),
