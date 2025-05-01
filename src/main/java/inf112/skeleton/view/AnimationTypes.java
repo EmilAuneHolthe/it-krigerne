@@ -11,10 +11,10 @@ public enum AnimationTypes {
     SOLDIER_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0),
 
     // king
-    KING_DOWN("Entities/Atlas/king.atlas", "King", 0.5f, 0),
-    KING_UP("Entities/Atlas/king.atlas", "King", 0.5f, 3),
-    KING_LEFT("Entities/Atlas/king.atlas", "King", 0.5f, 1),
-    KING_RIGHT("Entities/Atlas/king.atlas", "King", 0.5f, 2),
+    KING_DOWN("Entities/Atlas/king.atlas", "King", 0),
+    KING_UP("Entities/Atlas/king.atlas", "King", 3),
+    KING_LEFT("Entities/Atlas/king.atlas", "King", 1),
+    KING_RIGHT("Entities/Atlas/king.atlas", "King", 2),
 
     KING_ATTACK("Entities/Atlas/SoldierAttack.atlas", "PlayerAttacking", 0),
 
