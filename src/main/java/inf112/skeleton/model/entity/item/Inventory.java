@@ -151,4 +151,9 @@ public class Inventory {
           selectedItemIndex = index;
       }
   }
+  public void setSelectedItemIndex(int index) {
+      if (index >= 0 && index < items.length) {
+          selectedItemIndex = index;
+      }
+  }
 }

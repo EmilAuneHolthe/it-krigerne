@@ -38,9 +38,9 @@ public class Borders {
     return name;
   }
   public float getWidth() {
-    return width;
+    return x2/UNIT_SCALE;
   }
   public float getHeight() {
-    return height;
+    return y2/UNIT_SCALE;
   }
 }

@@ -18,6 +18,7 @@ public class PlayerController {
   private final Inventory inventory;
   private final PlayerMovement movement;
   private final PlayerAnimation animation;
+  
   public PlayerController(Player player, PlayerInteractions playerInteractions, GamePanel context) {
     this.player = player;
     this.playerInteractions = playerInteractions;

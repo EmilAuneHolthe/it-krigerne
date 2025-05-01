@@ -1,68 +1,118 @@
-// package inf112.skeleton.model.entity;
+package inf112.skeleton.model.entity;
 
-// import static org.junit.jupiter.api.Assertions.*;
-// import org.junit.jupiter.api.BeforeEach;
-// import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-// import com.badlogic.gdx.physics.box2d.Body;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-// public class EnemyTest {
-//     private Enemy enemy;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 
-//     @BeforeEach
-//     public void setUp() {
-//         enemy = new Enemy(null, null, null, 0, 0, 0, 0);
-//         enemy.create(100, 10, 0, 0); // Initialize with default values
-//     }
+import inf112.skeleton.BaseTest;
+import inf112.skeleton.model.GamePanel;
+import inf112.skeleton.model.entity.enemy.Enemy;
+import inf112.skeleton.model.entity.player.CharacterType;
+import inf112.skeleton.model.entity.player.Player;
 
-//     @Test
-//     public void testTakeDamage() {
-//         assertTrue(enemy.takeDamage(30)); // Health should not drop to 0
-//         assertEquals(70, enemy.getHealth());
+class EnemyTest extends BaseTest {
+    @Mock private GamePanel context;
+    @Mock private World world;
+    @Mock private Body body;
+    @Mock private Player player;
+    @Mock private AssetManager assetManager;
+    
+    private Enemy enemy;
+    private final String enemyName = "TestEnemy";
+    private final CharacterType enemyType = CharacterType.SKELETON;
 
-//         assertFalse(enemy.takeDamage(70)); // Health should drop to 0
-//         assertEquals(0, enemy.getHealth());
-//     }
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+        
+        // Setup mock behavior
+        when(context.getAssetManager()).thenReturn(assetManager);
+        when(body.getPosition()).thenReturn(new Vector2(10, 10));
+        Array<Enemy> enemies = new Array<>();
+        when(context.getEnemy()).thenReturn(enemies);
+        
+        // Create enemy
+        enemy = new Enemy(context, world, body, enemyType, enemyName);
+    }
 
-//     @Test
-//     public void testSetHealth() {
-//         enemy.setHealth(150);
-//         assertEquals(150, enemy.getHealth());
-//     }
+    @Test
+    void testInitialization() {
+        assertEquals(enemyName, enemy.getName());
+        assertEquals(100, enemy.getHealth()); // Skeleton has 100 health
+        assertEquals(25, enemy.getDamage()); // Skeleton has 25 damage
+        assertEquals(8, enemy.getSightRange()); // Skeleton has 8 sight range
+    }
 
-//     @Test
-//     public void testSetSpawn() {
-//         enemy.setSpawn(3, 7);
-//         assertEquals(3, enemy.getX());
-//         assertEquals(7, enemy.getY());
-//     }
+    @Test
+    void testTakeDamage() {
+        // Test normal damage
+        assertTrue(enemy.takeDamage(30));
+        assertEquals(70, enemy.getHealth());
 
-//     @Test
-//     public void testAttack() {
-//         assertThrows(UnsupportedOperationException.class, () -> {
-//             enemy.attack();
-//         }, "Attack method should throw UnsupportedOperationException");
-//     }
+        // Test fatal damage
+        assertFalse(enemy.takeDamage(80));
+        assertEquals(0, enemy.getHealth());
+        
+        // Verify body was destroyed
+        verify(world).destroyBody(body);
+    }
 
-//     @Test
-//     public void testDie() {
-//         assertThrows(UnsupportedOperationException.class, () -> {
-//             enemy.die();
-//         }, "Die method should throw UnsupportedOperationException");
-//     }
+    @Test
+    void testMovement() {
+        // Setup player position
+        when(player.getPosition()).thenReturn(new Vector2(12, 12));
+        
+        // Test enemy movement towards player
+        enemy.update(player);
+        
+        // Verify enemy is moving (has non-zero velocity)
+        verify(body).setLinearVelocity(anyFloat(), anyFloat());
+    }
 
-//     @Test
-//     public void testCreate() {
-//         enemy.create(120, 15, 8, 12);
-//         assertEquals(120, enemy.getHealth(), "Health should be set correctly");
-//         assertEquals(8, enemy.getX(), "X position should be set correctly");
-//         assertEquals(12, enemy.getY(), "Y position should be set correctly");
-//     }
+    @Test
+    void testNoMovementOutsideSightRange() {
+        // Setup player position far away
+        when(player.getPosition()).thenReturn(new Vector2(100, 100));
+        
+        // Test enemy movement
+        enemy.update(player);
+        
+        // Verify enemy stops moving
+        verify(body).setLinearVelocity(0, 0);
+    }
 
-//     @Test
-//     public void testGetBody() {
-//         assertThrows(UnsupportedOperationException.class, () -> {
-//             enemy.getBody();
-//         }, "GetBody method should throw UnsupportedOperationException");
-//     }
-// }
+    @Test
+    void testPlayerDamageInRange() {
+        // Setup player position very close
+        when(player.getPosition()).thenReturn(new Vector2(10.5f, 10.5f));
+        
+        // Test enemy update
+        enemy.update(player);
+        
+        // Verify player takes damage
+        verify(player).playerTakeDamage(enemy);
+    }
+
+    @Test
+    void testPosition() {
+        Vector2 position = enemy.getPosition();
+        assertEquals(10, position.x);
+        assertEquals(10, position.y);
+    }
+
+    @Test
+    void testSetPosition() {
+        enemy.setPosition(20, 30);
+        verify(body).setTransform(20, 30, 0);
+    }
+}

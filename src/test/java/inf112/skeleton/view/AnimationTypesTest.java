@@ -1,6 +1,9 @@
 package inf112.skeleton.view;
 
 import org.junit.jupiter.api.Test;
+
+import com.badlogic.gdx.graphics.g2d.Animation;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AnimationTypesTest {
@@ -18,18 +21,28 @@ class AnimationTypesTest {
     void testGetAtlasPath() {
         // Test that atlas paths are correctly set
         assertEquals("Player/Atlas/SoldierWalking3.atlas", AnimationTypes.SOLDIER_DOWN.getAtlasPath());
-        assertEquals("Player/Atlas/HeroWalking.atlas", AnimationTypes.HERO_DOWN.getAtlasPath());
+        assertEquals("Player/Atlas/king.atlas", AnimationTypes.KING_DOWN.getAtlasPath());
         assertEquals("Player/Atlas/OldWalking.atlas", AnimationTypes.OLD_DOWN.getAtlasPath());
         assertEquals("Player/Atlas/zombie.atlas", AnimationTypes.ZOMBIE_DOWN.getAtlasPath());
+        assertEquals("Player/Atlas/Pumkin.atlas", AnimationTypes.PUMKIN_DOWN.getAtlasPath());
+        assertEquals("Player/Atlas/skeleton.atlas", AnimationTypes.SKELETON_DOWN.getAtlasPath());
+        assertEquals("Player/Atlas/Dark.atlas", AnimationTypes.DARK_DOWN.getAtlasPath());
+        assertEquals("Player/Atlas/Ghost.atlas", AnimationTypes.GHOST_DOWN.getAtlasPath());
+        assertEquals("Player/Atlas/Boss.atlas", AnimationTypes.BOSS_DOWN.getAtlasPath());
     }
 
     @Test
     void testGetFrameTime() {
         // Test that frame times are correctly set
         assertEquals(0.5f, AnimationTypes.SOLDIER_DOWN.getFrameTime());
-        assertEquals(0.5f, AnimationTypes.HERO_DOWN.getFrameTime());
+        assertEquals(0.5f, AnimationTypes.KING_DOWN.getFrameTime());
         assertEquals(0.5f, AnimationTypes.OLD_DOWN.getFrameTime());
         assertEquals(0.5f, AnimationTypes.ZOMBIE_DOWN.getFrameTime());
+        assertEquals(0.5f, AnimationTypes.PUMKIN_DOWN.getFrameTime());
+        assertEquals(0.5f, AnimationTypes.SKELETON_DOWN.getFrameTime());
+        assertEquals(0.5f, AnimationTypes.DARK_DOWN.getFrameTime());
+        assertEquals(0.5f, AnimationTypes.GHOST_DOWN.getFrameTime());
+        assertEquals(0.5f, AnimationTypes.BOSS_DOWN.getFrameTime());
     }
 
     @Test
