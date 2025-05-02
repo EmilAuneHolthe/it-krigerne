@@ -32,6 +32,10 @@ import inf112.skeleton.model.map.MapManager;
 import inf112.skeleton.view.ui.PlayerHUD;
 import inf112.skeleton.view.ui.ItemBar;
 
+/**
+ * Main renderer class responsible for rendering all game elements including the map, entities, UI, and debug information.
+ * Implements Disposable for proper resource cleanup and MapListener for map change events.
+ */
 public class GameRenderer implements Disposable, MapListener {
 
     public static final String TAG = GameRenderer.class.getSimpleName();
@@ -41,7 +45,6 @@ public class GameRenderer implements Disposable, MapListener {
     private final OrthogonalTiledMapRenderer mapRenderer;
     private final GLProfiler profiler;
     private final Box2DDebugRenderer box2DDebugRenderer;
-    private final World world;
     private final Stage uiStage;
     private PlayerHUD playerHUD;
     private Player player;
@@ -49,9 +52,7 @@ public class GameRenderer implements Disposable, MapListener {
     private final Texture backgroundTexture;
     private final Texture manaTexture;
     private final BitmapFont font;
-    private boolean showDebug = false;
     private Array<Enemy> enemies;
-    private final debug debug;
     private Array<Item> items;
     private ItemBar itemBar;
     private Array<Door> doors;
@@ -59,6 +60,12 @@ public class GameRenderer implements Disposable, MapListener {
     private final EntityRenderer entityRenderer;
     private TaskBoard taskBoard;
 
+    /**
+     * Creates a new GameRenderer instance and initializes all necessary components.
+     * Sets up the viewport, camera, sprite batch, map renderer, and UI elements.
+     * 
+     * @param context The GamePanel context that provides access to game resources and state
+     */
     public GameRenderer(final GamePanel context) {
         viewport = context.getViewport();
         camera = context.getCamera();
@@ -74,7 +81,6 @@ public class GameRenderer implements Disposable, MapListener {
         profiler = new GLProfiler(Gdx.graphics);
         profiler.enable();
         box2DDebugRenderer = new Box2DDebugRenderer();
-        world = context.getWorld();
         this.mapManager = context.getMapManager();
 
         // UI setup with ScreenViewport for fixed UI elements
@@ -85,30 +91,17 @@ public class GameRenderer implements Disposable, MapListener {
         font = new BitmapFont();
         font.getData().setScale(1.5f); // Make the text larger
         createPlayerHUD();
-        
-        // Initialize debug instance
-        debug = new debug(spriteBatch, player, camera);
 
         // Create item bar
         createItemBar();
     }
 
-    private void createPlayerHUD() {
-        if (playerHUD != null) {
-            // Clear existing HUD
-            uiStage.clear();
-        }
-        if (player != null) {
-            playerHUD = new PlayerHUD(uiStage, player, healthTexture, backgroundTexture, manaTexture, backgroundTexture);
-        }
-    }
-
-    private void createItemBar() {
-        if (player != null) {
-            itemBar = new ItemBar(uiStage, player, 20, 20, 32, 0);
-        }
-    }
-
+    /**
+     * Renders all game elements including the map, entities, UI, and debug information.
+     * Handles layer-based rendering and camera following the player.
+     * 
+     * @param delta The time elapsed since the last frame
+     */
     public void render(final float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -181,9 +174,6 @@ public class GameRenderer implements Disposable, MapListener {
                 spriteBatch.begin();
                 if (player != null) {
                     entityRenderer.renderAll(spriteBatch, player, delta);
-                    if(showDebug) {
-                        debug.playerDebug(player);
-                    }
                 }
                 if(enemies != null) {
                     for (Enemy enemy : enemies) {
@@ -197,11 +187,6 @@ public class GameRenderer implements Disposable, MapListener {
                 }
                 spriteBatch.end();
             }
-        }
-
-        // Render Box2D debug only when explicitly enabled
-        if (showDebug) {
-            box2DDebugRenderer.render(world, camera.combined);
         }
 
         // Render UI with fixed position
@@ -267,36 +252,64 @@ public class GameRenderer implements Disposable, MapListener {
         }
     }
 
+    /**
+     * Updates the viewport and UI stage size when the window is resized.
+     * 
+     * @param width The new width of the window
+     * @param height The new height of the window
+     */
     public void resize(int width, int height) {
         viewport.update(width, height);
         uiStage.getViewport().update(width, height, true);
     }
 
-    public void setShowDebug(boolean showDebug) {
-        this.showDebug = showDebug;
-    }
-
-    public boolean isShowDebug() {
-        return showDebug;
-    }
-
+    /**
+     * Updates the player reference and recreates the player HUD.
+     * 
+     * @param player The new player instance
+     */
     public void updatePlayer(Player player) {
         this.player = player;
         createPlayerHUD();
         createItemBar();
     }
+
+    /**
+     * Updates the list of enemies to be rendered.
+     * 
+     * @param enemies The new array of enemies
+     */
     public void updateEnemy(Array<Enemy> enemies) {
         this.enemies = enemies;
     }
+
+    /**
+     * Updates the list of items to be rendered.
+     * 
+     * @param items The new array of items
+     */
     public void updateItem(Array<Item> items) {
         this.items = items;
     }
+
+    /**
+     * Updates the list of doors to be rendered from the current map.
+     */
     public void updateDoors() {
         this.doors = mapManager.getDoors();
     }
+
+    /**
+     * Updates the task board reference from the current map.
+     */
     public void updateTaskBoard() {
         this.taskBoard = mapManager.getTaskBoard();
     }
+
+    /**
+     * Disposes of all resources used by the renderer.
+     * Should be called when the renderer is no longer needed to prevent memory leaks.
+     */
     @Override
     public void dispose() {
         box2DDebugRenderer.dispose();
@@ -305,14 +318,38 @@ public class GameRenderer implements Disposable, MapListener {
         healthTexture.dispose();
         backgroundTexture.dispose();
         manaTexture.dispose();
-        if (debug != null) {
-            debug.dispose();
-        }
         itemBar.dispose();
     }
 
+    /**
+     * Handles map change events by updating the map renderer.
+     * 
+     * @param map The new map to render
+     */
     @Override
     public void mapChanged(Map map) {
         mapRenderer.setMap(map.getTiledMap());
+    }
+
+    /**
+     * Creates or updates the player HUD with current player information.
+     */
+    private void createPlayerHUD() {
+        if (playerHUD != null) {
+            // Clear existing HUD
+            uiStage.clear();
+        }
+        if (player != null) {
+            playerHUD = new PlayerHUD(uiStage, player, healthTexture, backgroundTexture, manaTexture, backgroundTexture);
+        }
+    }
+
+    /**
+     * Creates or updates the item bar with current player inventory.
+     */
+    private void createItemBar() {
+        if (player != null) {
+            itemBar = new ItemBar(uiStage, player, 20, 20, 32, 0);
+        }
     }
 }

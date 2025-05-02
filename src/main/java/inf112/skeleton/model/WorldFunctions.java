@@ -130,10 +130,6 @@ public class WorldFunctions{
                 mapManager.getTaskBoard().setActive(isInsideTaskBoard);
             }
             teleportPlayer();
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            gameRenderer.setShowDebug(!gameRenderer.isShowDebug());
-        }
     }
     }
 

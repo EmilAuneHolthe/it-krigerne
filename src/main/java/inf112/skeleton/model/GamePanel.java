@@ -120,8 +120,7 @@ public class GamePanel extends Game {
     
             //GameRenderer
             gameRenderer = new GameRenderer(this);
-            gameRenderer.setShowDebug(false);
-    
+            
             // Initialize MapChanger and EnemyController
             mapChanger = new MapChanger();
             enemies = new Array<>();

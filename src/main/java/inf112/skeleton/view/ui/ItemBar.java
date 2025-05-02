@@ -21,6 +21,10 @@ import inf112.skeleton.model.entity.player.Player;
 import inf112.skeleton.model.entity.item.Item;
 import inf112.skeleton.model.entity.item.ItemType;
 
+/**
+ * Represents a UI element that displays the player's inventory items.
+ * Shows a row of item slots with icons and labels, highlighting the selected item.
+ */
 public class ItemBar {
     private static final int SLOT_COUNT = 4;
     private static final float SLOT_SIZE = 48f;
@@ -39,10 +43,20 @@ public class ItemBar {
     private final Stack[] slots;
     private final Table table;
     private final Item[] items;
-    private final Stage stage;
 
+    /**
+     * Creates a new ItemBar instance.
+     * Initializes the UI elements including slots, icons, and labels.
+     * 
+     * @param stage The stage to add the item bar to
+     * @param player The player whose inventory to display
+     * @param x The x-coordinate of the item bar
+     * @param y The y-coordinate of the item bar
+     * @param slotSize The size of each item slot
+     * @param padding The padding between slots
+     */
     public ItemBar(Stage stage, Player player, float x, float y, float slotSize, float padding) {
-        this.stage = stage;
+        
         this.player = player;
         this.position = new Vector2(x, y);
         this.slotSize = slotSize;
@@ -100,6 +114,11 @@ public class ItemBar {
         stage.addActor(table);
     }
     
+    /**
+     * Updates the item bar display based on the player's current inventory.
+     * Updates slot backgrounds, item icons, and labels.
+     * Handles selection highlighting and empty slots.
+     */
     public void update() {
         if (player == null) {
             return;
@@ -141,6 +160,12 @@ public class ItemBar {
         }
     }
     
+    /**
+     * Renders the item bar using the provided SpriteBatch.
+     * Draws slot backgrounds and item icons at their respective positions.
+     * 
+     * @param batch The SpriteBatch to use for rendering
+     */
     public void render(SpriteBatch batch) {
         if (player == null || items == null) {
             Gdx.app.error("ItemBar", "Player or items array is null");
@@ -167,6 +192,10 @@ public class ItemBar {
         }
     }
     
+    /**
+     * Disposes of the item bar's resources.
+     * Should be called when the item bar is no longer needed to prevent memory leaks.
+     */
     public void dispose() {
         slotTexture.dispose();
         selectedSlotTexture.dispose();

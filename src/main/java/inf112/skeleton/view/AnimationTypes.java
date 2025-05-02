@@ -1,5 +1,10 @@
 package inf112.skeleton.view;
 
+/**
+ * Enum representing different types of animations in the game.
+ * Contains animation data for various characters including their movement and attack animations.
+ * Each animation type specifies the atlas path, key, frame time, and row index for the animation.
+ */
 public enum AnimationTypes {
 
     // Soldier
@@ -68,6 +73,7 @@ public enum AnimationTypes {
     BOSS_UP("Entities/Atlas/Boss.atlas", "Boss", 3),
     BOSS_LEFT("Entities/Atlas/Boss.atlas", "Boss", 3),
     BOSS_RIGHT("Entities/Atlas/Boss.atlas", "Boss", 3),
+    
     BOSS_ATTACK("Entities/Atlas/Boss.atlas", "Boss", 3);
 
 
@@ -76,6 +82,13 @@ public enum AnimationTypes {
     private final float frameTime;
     private final int rowIndex;
 
+    /**
+     * Creates a new AnimationTypes enum value.
+     * 
+     * @param atlasPath The path to the texture atlas file
+     * @param atlasKey The key used to identify the animation in the atlas
+     * @param rowIndex The row index in the atlas for this animation
+     */
     AnimationTypes(final String atlasPath, final String atlasKey, final int rowIndex) {
         this.atlasPath = atlasPath;
         this.atlasKey = atlasKey;
@@ -83,18 +96,40 @@ public enum AnimationTypes {
         this.rowIndex = rowIndex;
     }
 
+    /**
+     * Gets the path to the texture atlas file for this animation.
+     * 
+     * @return The path to the texture atlas
+     */
     public String getAtlasPath() {
         return atlasPath;
     }
 
+    /**
+     * Gets the key used to identify this animation in the atlas.
+     * 
+     * @return The atlas key for this animation
+     */
     public String getAtlasKey() {
         return atlasKey;
     }
     
+    /**
+     * Gets the frame time for this animation.
+     * Frame time determines how long each frame of the animation is displayed.
+     * 
+     * @return The frame time in seconds
+     */
     public float getFrameTime() {
         return frameTime;
     }
 
+    /**
+     * Gets the row index in the atlas for this animation.
+     * The row index determines which row of frames to use from the atlas.
+     * 
+     * @return The row index in the atlas
+     */
     public int getRowIndex() {
         return rowIndex;
     }  

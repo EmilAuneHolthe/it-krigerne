@@ -18,10 +18,6 @@ import inf112.skeleton.model.entity.item.Item;
 import inf112.skeleton.model.entity.item.ItemType;
 import inf112.skeleton.view.ui.DeathOverlay;
 
-/**
- * Represents the player character in the game.
- * Handles player-specific functionality including movement, combat, inventory, and mana management.
- */
 public class Player extends GameEntity {
     
     public static boolean isDead;
@@ -37,24 +33,11 @@ public class Player extends GameEntity {
     private final Item[] items;
     private final Inventory inventory;
     
-
-    /**
-     * Constructs a Player instance.
-     *
-     * @param context        The game context, providing access to shared resources.
-     * @param world          The Box2D world the player belongs to.
-     * @param body           The physical body of the player.
-     * @param health         The initial health of the player.
-     * @param damage         The initial damage of the player.
-     * @param x              The initial x-coordinate of the player.
-     * @param y              The initial y-coordinate of the player.
-     * @param characterType  The type of character (e.g., normal, boss).
-     */
     public Player(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType) {
         
         super(context, world, body, health, damage, characterType);
         isDead = false;
-        deathOverlay = new DeathOverlay(context);
+        deathOverlay = new DeathOverlay();
         this.movement = new PlayerMovement(context, world, body);
         this.currentMana = 100;
         this.maxMana = 100;
@@ -75,12 +58,6 @@ public class Player extends GameEntity {
             deathOverlay.render(batch);
         }
     }
-
-    /**
-     * Checks if the player is currently active (alive).
-     *
-     * @return true if the player is alive, false otherwise
-     */
     @Override
     protected boolean isActive() {
         return !isDead;
@@ -138,9 +115,6 @@ public class Player extends GameEntity {
         return damage;
     }
     
-    /**
-     * Handles player death by showing the death overlay.
-     */
     @Override
     public void die() {
         if (deathOverlay != null) {
@@ -148,12 +122,6 @@ public class Player extends GameEntity {
         }
     }
     
-    /**
-     * Gets the player's current health.
-     * Returns 0 if health is negative.
-     *
-     * @return The player's current health
-     */
     @Override
     public int getHealth() {
         if (health < 0) {
@@ -161,7 +129,7 @@ public class Player extends GameEntity {
         }
         return health;
     }
-
+    
     @Override
     public void setSpawn(float x, float y) {
         this.x = x;
@@ -174,21 +142,11 @@ public class Player extends GameEntity {
         }
     }
     
-    /**
-     * Gets the player's x-coordinate in world units.
-     *
-     * @return The x-coordinate multiplied by the unit scale
-     */
     @Override
     public float getX() {
         return body.getPosition().x * GamePanel.UNIT_SCALE;
     }
     
-    /**
-     * Gets the player's y-coordinate in world units.
-     *
-     * @return The y-coordinate multiplied by the unit scale
-     */
     @Override
     public float getY() {
         return body.getPosition().y * GamePanel.UNIT_SCALE;
@@ -206,11 +164,6 @@ public class Player extends GameEntity {
         }
     }
     
-    /**
-     * Gets the player's current position in the world.
-     *
-     * @return Vector2 containing the player's position
-     */
     public Vector2 getPosition() {
         return new Vector2(body.getPosition().x, body.getPosition().y);
     }
@@ -229,8 +182,13 @@ public class Player extends GameEntity {
     public void setMaxMana(int maxMana) {
         this.maxMana = maxMana;
     }
-
-
+    
+    /**
+    * Regenerates the player's mana over time based on the regeneration rate.
+    * Also updates the attack availability based on mana threshold.
+    * 
+    * @param deltaTime The time elapsed since the last update
+    */
     public void regenerateMana(float deltaTime) {
         manaRegenAccumulator += manaRegenRate * deltaTime;
         if (manaRegenAccumulator >= 1.0f) {
@@ -309,6 +267,4 @@ public class Player extends GameEntity {
     public int getCurrentMana() { return currentMana;}
     public Inventory getInventory() {return inventory;}
     public DeathOverlay getDeathOverlay() { return deathOverlay;}
-
-    
 }

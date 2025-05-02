@@ -14,16 +14,24 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import inf112.skeleton.model.GamePanel;
 
+/**
+ * Represents a death overlay that appears when the player dies.
+ * Displays a semi-transparent black background with death text and instructions.
+ */
 public class DeathOverlay {
     private final Stage stage;
-    private final GamePanel context;
     private final Texture blurTexture;
     private boolean isVisible;
     private final Label deathText;
     private final Label instructionText;
 
-    public DeathOverlay(GamePanel context) {
-        this.context = context;
+    /**
+     * Creates a new DeathOverlay instance.
+     * Initializes the stage, blur texture, and UI elements.
+     * 
+     * @param context The game panel context
+     */
+    public DeathOverlay() {
         this.stage = new Stage(new ScreenViewport());
         
         // Create a semi-transparent black texture for the blur effect
@@ -55,10 +63,18 @@ public class DeathOverlay {
         isVisible = false;
     }
 
+    /**
+     * Shows the death overlay.
+     * Makes the overlay visible and interactive.
+     */
     public void show() {
         isVisible = true;
     }
 
+    /**
+     * Hides the death overlay.
+     * Clears the stage and resets any persistent state.
+     */
     public void hide() {
         isVisible = false;
         // Reset any state that might persist
@@ -66,6 +82,12 @@ public class DeathOverlay {
         stage.getRoot().clear();
     }
 
+    /**
+     * Renders the death overlay if it is visible.
+     * Draws the blur effect and UI elements.
+     * 
+     * @param batch The SpriteBatch used for rendering
+     */
     public void render(SpriteBatch batch) {
         if (!isVisible) return;
 
@@ -81,10 +103,20 @@ public class DeathOverlay {
         stage.draw();
     }
 
+    /**
+     * Updates the viewport size when the window is resized.
+     * 
+     * @param width The new width of the window
+     * @param height The new height of the window
+     */
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
     }
 
+    /**
+     * Disposes of all resources used by the death overlay.
+     * Should be called when the overlay is no longer needed to prevent memory leaks.
+     */
     public void dispose() {
         stage.dispose();
         blurTexture.dispose();
