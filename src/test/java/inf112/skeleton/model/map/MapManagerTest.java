@@ -2,8 +2,6 @@ package inf112.skeleton.model.map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.backends.headless.HeadlessApplication;
-import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.MapLayer;
@@ -14,6 +12,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import inf112.skeleton.BaseTest;
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.door.Door;
 import inf112.skeleton.model.entity.taskBoard.TaskBoard;
@@ -31,7 +30,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-public class MapManagerTest {
+public class MapManagerTest extends BaseTest {
     private MapManager mapManager;
     private GamePanel gamePanel;
     private static AssetManager assetManager;
@@ -44,19 +43,7 @@ public class MapManagerTest {
     private MockedConstruction<Map> mockedMapConstruction;
 
     @BeforeAll
-    static void initGdx() {
-        HeadlessApplicationConfiguration config = new HeadlessApplicationConfiguration();
-        new HeadlessApplication(new com.badlogic.gdx.ApplicationListener() {
-            @Override public void create() {}
-            @Override public void resize(int width, int height) {}
-            @Override public void render() {}
-            @Override public void pause() {}
-            @Override public void resume() {}
-            @Override public void dispose() {}
-        }, config);
-
-        Gdx.gl = mock(GL20.class);
-        
+    static void initMocks() {
         // Setup mocks
         assetManager = spy(new AssetManager());
         mockTiledMap = mock(TiledMap.class);
