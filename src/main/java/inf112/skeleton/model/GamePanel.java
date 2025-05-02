@@ -334,11 +334,4 @@ public class GamePanel extends Game {
     public TaskBoard getTaskBoard() {
         return mapManager.getTaskBoard();
     }
-
-    @Override
-    public void resize(int width, int height) {
-        if (screenViewport != null) {
-            screenViewport.update(width, height, true);
-        }
-    }
 }
