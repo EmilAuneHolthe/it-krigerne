@@ -33,8 +33,9 @@ import inf112.skeleton.view.ui.PlayerHUD;
 import inf112.skeleton.view.ui.ItemBar;
 
 /**
- * Main renderer class responsible for rendering all game elements including the map, entities, UI, and debug information.
- * Implements Disposable for proper resource cleanup and MapListener for map change events.
+ * Main renderer class responsible for rendering all game elements.
+ * Handles the rendering of the game map, entities (players, enemies, items), UI elements,
+ * and debug information. Implements Disposable for resource cleanup and MapListener for map change events.
  */
 public class GameRenderer implements Disposable, MapListener {
 
@@ -97,8 +98,15 @@ public class GameRenderer implements Disposable, MapListener {
     }
 
     /**
-     * Renders all game elements including the map, entities, UI, and debug information.
-     * Handles layer-based rendering and camera following the player.
+     * Renders all game elements in the correct order:
+     * 1. Clears the screen
+     * 2. Updates camera position
+     * 3. Renders game elements (map, entities)
+     * 4. Renders UI elements
+     * 5. Renders boss health bar if present
+     * 6. Renders player death overlay if needed
+     * 7. Updates item bar
+     * 8. Logs debug information
      * 
      * @param delta The time elapsed since the last frame
      */
@@ -250,8 +258,10 @@ public class GameRenderer implements Disposable, MapListener {
             profiler.reset();
         }
     }
+
     /**
      * Updates the viewport and UI stage size when the window is resized.
+     * Ensures proper scaling and positioning of all UI elements.
      * 
      * @param width The new width of the window
      * @param height The new height of the window
@@ -263,6 +273,7 @@ public class GameRenderer implements Disposable, MapListener {
 
     /**
      * Updates the player reference and recreates the player HUD.
+     * Called when the player is created or respawned.
      * 
      * @param player The new player instance
      */
@@ -274,6 +285,7 @@ public class GameRenderer implements Disposable, MapListener {
 
     /**
      * Updates the list of enemies to be rendered.
+     * Called when enemies are spawned or removed.
      * 
      * @param enemies The new array of enemies
      */
@@ -283,6 +295,7 @@ public class GameRenderer implements Disposable, MapListener {
 
     /**
      * Updates the list of items to be rendered.
+     * Called when items are spawned or collected.
      * 
      * @param items The new array of items
      */
@@ -292,6 +305,7 @@ public class GameRenderer implements Disposable, MapListener {
 
     /**
      * Updates the list of doors to be rendered from the current map.
+     * Called when changing maps or when doors are opened/closed.
      */
     public void updateDoors() {
         this.doors = mapManager.getDoors();
@@ -299,6 +313,7 @@ public class GameRenderer implements Disposable, MapListener {
 
     /**
      * Updates the task board reference from the current map.
+     * Called when changing maps or when task board state changes.
      */
     public void updateTaskBoard() {
         this.taskBoard = mapManager.getTaskBoard();
@@ -307,6 +322,7 @@ public class GameRenderer implements Disposable, MapListener {
     /**
      * Disposes of all resources used by the renderer.
      * Should be called when the renderer is no longer needed to prevent memory leaks.
+     * Cleans up textures, renderers, and UI elements.
      */
     @Override
     public void dispose() {
@@ -321,6 +337,7 @@ public class GameRenderer implements Disposable, MapListener {
 
     /**
      * Handles map change events by updating the map renderer.
+     * Called when the player moves to a different map.
      * 
      * @param map The new map to render
      */
@@ -331,6 +348,7 @@ public class GameRenderer implements Disposable, MapListener {
 
     /**
      * Creates or updates the player HUD with current player information.
+     * Called when the player is created or when the HUD needs to be refreshed.
      */
     private void createPlayerHUD() {
         if (playerHUD != null) {
@@ -344,6 +362,7 @@ public class GameRenderer implements Disposable, MapListener {
 
     /**
      * Creates or updates the item bar with current player inventory.
+     * Called when the player is created or when inventory changes.
      */
     private void createItemBar() {
         if (player != null) {
