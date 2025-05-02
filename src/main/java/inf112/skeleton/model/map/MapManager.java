@@ -93,7 +93,7 @@ public class MapManager {
     }
 
     /**
-     * Fjerner alle kollisjonsområder som har blitt laget i world.
+     * Removes all collision areas that have been created in the world.
      */
     private void destroyCollisionAreas() {
         Array<Body> toRemove = new Array<>();
@@ -106,46 +106,11 @@ public class MapManager {
         bodies.removeAll(toRemove, true);
         Gdx.app.debug(TAG, "Destroyed " + toRemove.size + " GROUND bodies");
     }
+
     /**
-     * Oppretter kollisjonsobjekter i verden basert på CollisionAreas i det nåværende kartet.
-     * Sikrer at duplikate/nære punkter ikke fører til Box2D-krasj.
+     * Creates collision objects in the world based on CollisionAreas in the current map.
+     * Ensures that duplicate/nearby points don't cause Box2D crashes.
      */
-        private void spawnDoors() {
-            if(currentMap.getDoorsAreas().isEmpty()) {
-                return;
-            }
-            GamePanel.resetBodyAndFixtureDefinition();
-            doors.clear();
-        
-            for (Borders door : currentMap.getDoorsAreas()) {
-        
-                float x1 = door.getX1();
-                float y1 = door.getY1();
-                float x2 = door.getWidth()*UNIT_SCALE;
-                float y2 = door.getHeight()*UNIT_SCALE;
-
-
-                GamePanel.BODY_DEF.position.set(x1, y1);
-                GamePanel.BODY_DEF.fixedRotation = true;
-                Body body = world.createBody(GamePanel.BODY_DEF);
-                body.setUserData("DOOR");
-        
-                GamePanel.FIXTURE_DEF.filter.categoryBits = GamePanel.BIT_GROUND;
-                GamePanel.FIXTURE_DEF.filter.maskBits     = -1;
-        
-                ChainShape shape = new ChainShape();
-                shape.createChain(new float[]{0, 0,               
-                                            0, y2,
-                                            x2, y2,
-                                            x2, 0,
-                                            0, 0}); 
-                GamePanel.FIXTURE_DEF.shape = shape;
-                body.createFixture(GamePanel.FIXTURE_DEF);
-                shape.dispose();
-                Vector2 size = new Vector2(x2, y2);
-                doors.add(new Door(body, door.getName(),size));
-            }
-        }
     private void spawnCollisionsAreas() {
         GamePanel.resetBodyAndFixtureDefinition();
         for (final CollisionArea collisionArea : currentMap.getColissionAreas()) {
@@ -182,10 +147,50 @@ public class MapManager {
             bodies.add(body);
         }
     }
+
     /**
-     * Henter det nåværende kartet.
+     * Creates door objects in the world based on door areas in the current map.
+     * Each door is created with a physics body and added to the doors collection.
+     */
+    private void spawnDoors() {
+        if(currentMap.getDoorsAreas().isEmpty()) {
+            return;
+        }
+        GamePanel.resetBodyAndFixtureDefinition();
+        doors.clear();
+    
+        for (Borders door : currentMap.getDoorsAreas()) {
+            float x1 = door.getX1();
+            float y1 = door.getY1();
+            float x2 = door.getWidth()*UNIT_SCALE;
+            float y2 = door.getHeight()*UNIT_SCALE;
+
+            GamePanel.BODY_DEF.position.set(x1, y1);
+            GamePanel.BODY_DEF.fixedRotation = true;
+            Body body = world.createBody(GamePanel.BODY_DEF);
+            body.setUserData("DOOR");
+    
+            GamePanel.FIXTURE_DEF.filter.categoryBits = GamePanel.BIT_GROUND;
+            GamePanel.FIXTURE_DEF.filter.maskBits     = -1;
+    
+            ChainShape shape = new ChainShape();
+            shape.createChain(new float[]{0, 0,               
+                                        0, y2,
+                                        x2, y2,
+                                        x2, 0,
+                                        0, 0}); 
+            GamePanel.FIXTURE_DEF.shape = shape;
+            body.createFixture(GamePanel.FIXTURE_DEF);
+            shape.dispose();
+            Vector2 size = new Vector2(x2, y2);
+            doors.add(new Door(body, door.getName(),size));
+        }
+    }
+
+    /**
+     * Gets the current map.
      *
-     * @return Nåværende Map-objekt.
+     * @return The current Map object.
      */
     public Map getCurrentMap() {
         return currentMap;
