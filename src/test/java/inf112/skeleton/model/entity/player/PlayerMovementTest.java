@@ -202,4 +202,85 @@ class PlayerMovementTest {
         playerMovement.handleInputRelease(Keys.UP);
         assertFalse(playerMovement.isMoving());
     }
+
+    @Test
+    void testHandleInputReleaseWithMultipleKeys() {
+        // Press UP and RIGHT
+        playerMovement.handleInput(Keys.UP);
+        playerMovement.handleInput(Keys.RIGHT);
+        assertTrue(playerMovement.isMoving());
+        
+        // Release UP while RIGHT is still pressed
+        when(keyHandler.isKeyPressed(Keys.RIGHT)).thenReturn(true);
+        playerMovement.handleInputRelease(Keys.UP);
+        assertTrue(playerMovement.isMoving());
+        assertEquals("Right", playerMovement.getDirection());
+        
+        // Release RIGHT
+        when(keyHandler.isKeyPressed(Keys.RIGHT)).thenReturn(false);
+        playerMovement.handleInputRelease(Keys.RIGHT);
+        assertFalse(playerMovement.isMoving());
+    }
+
+    @Test
+    void testMovementWhenDead() {
+        // Set player as dead
+        Player.isDead = true;
+        
+        // Try to move
+        playerMovement.handleInput(Keys.UP);
+        playerMovement.update();
+        
+        // Verify no movement is applied
+        verify(body, never()).applyLinearImpulse(anyFloat(), anyFloat(), anyFloat(), anyFloat(), anyBoolean());
+        
+        // Reset player state
+        Player.isDead = false;
+    }
+
+    @Test
+    void testDiagonalMovementNormalization() {
+        // Press UP and RIGHT simultaneously
+        playerMovement.handleInput(Keys.UP);
+        playerMovement.handleInput(Keys.RIGHT);
+        
+        // Update movement
+        playerMovement.update();
+        
+        // Verify normalized diagonal movement
+        verify(body).applyLinearImpulse(
+            floatThat(x -> Math.abs(x - 3.8411064f) < 0.0001f),
+            floatThat(y -> Math.abs(y - 3.200922f) < 0.0001f),
+            eq(0f),
+            eq(0f),
+            eq(true)
+        );
+    }
+
+    @Test
+    void testOppositeKeyPress() {
+        // Press UP
+        playerMovement.handleInput(Keys.UP);
+        assertEquals("Up", playerMovement.getDirection());
+        
+        // Press DOWN while UP is still pressed
+        playerMovement.handleInput(Keys.DOWN);
+        assertEquals("Down", playerMovement.getDirection());
+        
+        // Release DOWN
+        when(keyHandler.isKeyPressed(Keys.UP)).thenReturn(true);
+        playerMovement.handleInputRelease(Keys.DOWN);
+        assertEquals("Up", playerMovement.getDirection());
+    }
+
+    @Test
+    void testSetDirection() {
+        // Test setting direction directly
+        playerMovement.setDirection("Left");
+        assertEquals("Left", playerMovement.getDirection());
+        
+        // Test setting invalid direction
+        playerMovement.setDirection("Invalid");
+        assertEquals("Invalid", playerMovement.getDirection());
+    }
 } 

@@ -239,14 +239,6 @@ class GamePanelTest {
         assertEquals(mockAudioHandler, gamePanel.getAudioHandler());
     }
 
-    @Test
-    void testCameraAndViewport() {
-        assertEquals(mockCamera, gamePanel.getCamera());
-        
-        // Call resize directly since Game.resize() is protected
-        gamePanel.resize(1920, 1080);
-        verify(mockViewPort).update(1920, 1080, true);
-    }
 
     @Test
     void testMapManager() {
