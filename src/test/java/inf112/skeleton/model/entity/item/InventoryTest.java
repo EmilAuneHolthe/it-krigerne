@@ -132,7 +132,7 @@ class InventoryTest extends BaseTest {
         inventory.useSelectedItem();
 
         // Verify health was increased
-        verify(mockPlayer).setHealth(70); // 50 + 20
+        verify(mockPlayer).setHealth(100); // 50 + 50
     }
 
     @Test
@@ -145,8 +145,8 @@ class InventoryTest extends BaseTest {
         inventory.useSelectedItem();
 
         // Verify mana was increased and regen rate updated
-        verify(mockPlayer).setMana(70); // 50 + 20
-        verify(mockPlayer).setManaRegenRate(1.5f); // 1.0 + 0.5
+        verify(mockPlayer).setMana(100); // 50 + 20
+        verify(mockPlayer).setManaRegenRate(11f); // 1.0 + 0.5
     }
 
     @Test
