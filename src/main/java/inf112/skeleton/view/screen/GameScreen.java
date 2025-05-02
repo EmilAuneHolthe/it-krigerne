@@ -5,16 +5,12 @@ import inf112.skeleton.controller.Keys;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.WorldFunctions;
-
-
-import inf112.skeleton.model.entity.player.PlayerInteractions;
 import inf112.skeleton.view.GameRenderer;
 
 public class GameScreen extends AbstractScreen{
 
     private final OrthographicCamera camera;
     private final GameRenderer gameRenderer;
-    private final PlayerInteractions playerInteractions;
     private final WorldFunctions  worldFunctions;
 
 
@@ -22,7 +18,6 @@ public class GameScreen extends AbstractScreen{
         super(context);
         this.camera = context.getCamera();
         this.gameRenderer = context.getGameRenderer();
-        playerInteractions = new PlayerInteractions(context, context.getPlayer());
         worldFunctions = new WorldFunctions(context);
   
         gameRenderer.updateDoors();

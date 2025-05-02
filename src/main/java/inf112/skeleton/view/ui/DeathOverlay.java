@@ -12,8 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-import inf112.skeleton.model.GamePanel;
-
 /**
  * Represents a death overlay that appears when the player dies.
  * Displays a semi-transparent black background with death text and instructions.

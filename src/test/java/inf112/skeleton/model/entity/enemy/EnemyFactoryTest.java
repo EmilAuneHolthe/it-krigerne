@@ -28,7 +28,6 @@ class EnemyFactoryTest extends BaseTest {
     @Mock private Body mockBody;
     
     private EnemyFactory enemyFactory;
-    private final float UNIT_SCALE = 32f; // Same as GamePanel.UNIT_SCALE
 
     @BeforeEach
     void setUp() {

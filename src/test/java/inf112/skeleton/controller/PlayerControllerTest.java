@@ -29,7 +29,6 @@ class PlayerControllerTest {
     private PlayerAnimation mockAnimation;
 
     private PlayerController playerController;
-    private Inventory inventory;
 
     @BeforeEach
     void setUp() {

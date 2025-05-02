@@ -128,10 +128,6 @@ public class GamePanel extends Game {
             setScreen(ScreenType.LOADING);
         }
 
-        public void setWorldFunctions(WorldFunctions worldFunctions) {
-            this.worldFunctions = worldFunctions;
-    }
-
     //get-methods
     public FitViewport getViewport() {return screenViewport;}
     public World getWorld() {return world;}

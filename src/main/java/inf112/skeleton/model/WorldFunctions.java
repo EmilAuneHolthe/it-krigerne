@@ -1,7 +1,5 @@
 package inf112.skeleton.model;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
@@ -47,8 +45,6 @@ public class WorldFunctions{
     private PlayerInteractions playerInteractions;
     /** Collection of enemies in the current map */
     private static Array<Enemy> enemies = new Array<>();
-    /** Collection of items in the current map */
-    private final Array<Item> items = new Array<>();
     /** Collection of border areas in the current map */
     private Array<Borders> borders = new Array<>();
     /** Flag indicating if the player has achieved victory */

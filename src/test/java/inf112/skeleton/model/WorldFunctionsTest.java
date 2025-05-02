@@ -9,7 +9,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -46,7 +45,6 @@ class WorldFunctionsTest {
     private Application mockApp;
     private Files mockFiles;
     private FileHandle mockFileHandle;
-    private Texture mockTexture;
     private GL20 mockGL20;
 
     @BeforeEach
@@ -64,7 +62,6 @@ class WorldFunctionsTest {
         mockApp = mock(Application.class);
         mockFiles = mock(Files.class);
         mockFileHandle = mock(FileHandle.class);
-        mockTexture = mock(Texture.class);
         mockGL20 = mock(GL20.class);
 
         // Mock LibGDX input, app, files, and graphics
