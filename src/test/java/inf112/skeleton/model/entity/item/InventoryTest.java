@@ -132,11 +132,8 @@ class InventoryTest extends BaseTest {
         inventory.useSelectedItem();
 
         // Verify health was increased
-<<<<<<< HEAD
         verify(mockPlayer).setHealth(100); // 50 + 50
-=======
         verify(mockPlayer).setHealth(100); // 50 + 20
->>>>>>> 2afad3b (Endret litt av hvordan hud er)
     }
 
     @Test
