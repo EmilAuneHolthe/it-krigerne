@@ -345,4 +345,36 @@ class WorldFunctionsTest {
         assertEquals(1, retrievedEnemies.size);
         assertSame(mockEnemy, retrievedEnemies.get(0));
     }
+
+    /**
+     * Tests the setPlayer functionality.
+     * Verifies that:
+     * - The player field is properly set
+     * - The player can be retrieved correctly
+     * - The player's movement and body are accessed correctly during update
+     */
+    @Test
+    void testSetPlayer() {
+        // Create a new player instance with mocked movement and body
+        Player newPlayer = mock(Player.class);
+        PlayerMovement mockMovement = mock(PlayerMovement.class);
+        Body mockBody = mock(Body.class);
+        when(newPlayer.getMovement()).thenReturn(mockMovement);
+        when(newPlayer.getBody()).thenReturn(mockBody);
+        when(mockBody.getPosition()).thenReturn(new Vector2(0, 0));
+        
+        // Initialize WorldFunctions
+        worldFunctions = new WorldFunctions(mockGamePanel);
+        
+        // Set the new player
+        worldFunctions.setPlayer(newPlayer);
+        
+        // Verify that the player was set correctly by checking if it's used in update
+        worldFunctions.update(0.5f);
+        verify(newPlayer).getMovement();
+        verify(mockMovement).update();
+        verify(newPlayer).regenerateMana(0.5f);
+        verify(newPlayer, atLeast(1)).getBody(); // Called multiple times in teleportPlayer
+        verify(mockBody, atLeast(1)).getPosition();
+    }
 }
