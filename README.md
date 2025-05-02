@@ -50,6 +50,12 @@ Inspirasjon:
 
 	Lyder er hentet fra denne nettsiden.
 
+* `src/main/resources/audio/music/MainMusic.mp3`- BreakingCopyright — Royalty Free Music
+	https://pixabay.com/sound-effects/search/game/
+
+* `src/main/resources/audio/music/BossMusic.mp3`- ArcticFoxMusic - No Copyright Music
+	https://www.youtube.com/watch?v=ypGySPBoOIg&list=PLyuakwzSUr6DM1YqTg65HiWG0UrmxdOFk&index=4&ab_channel=ArcticFoxMusic-NoCopyrightMusic
+
 *  `src/main/resources/Background`
 	`src/main/resources/Ui`	
 
