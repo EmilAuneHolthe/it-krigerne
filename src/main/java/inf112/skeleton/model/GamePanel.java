@@ -50,10 +50,10 @@ public class GamePanel extends Game {
     private SpriteBatch spriteBatch;
     private static GamePanel instance;
     private OrthographicCamera camera;
+    private FitViewport screenViewport;
 
     // Screen management
     private EnumMap<ScreenType, AbstractScreen> screenCache;
-    private FitViewport screenViewport;
     private World world;
     private Box2DDebugRenderer box2DDebugRenderer;
 
@@ -333,5 +333,12 @@ public class GamePanel extends Game {
     }
     public TaskBoard getTaskBoard() {
         return mapManager.getTaskBoard();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        if (screenViewport != null) {
+            screenViewport.update(width, height, true);
+        }
     }
 }

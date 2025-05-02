@@ -9,19 +9,26 @@ import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.graphics.GL20;
 
 import inf112.skeleton.audio.AudioHandler;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.map.MapManager;
+import inf112.skeleton.model.map.MapChanger;
+import inf112.skeleton.model.map.Map;
 import inf112.skeleton.view.GameRenderer;
 import inf112.skeleton.view.screen.ScreenType;
+import inf112.skeleton.view.ui.PlayerHUD;
 import inf112.skeleton.view.screen.GameScreen;
 import inf112.skeleton.model.entity.player.Player;
+import inf112.skeleton.model.entity.taskBoard.TaskBoard;
 import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.model.entity.item.Item;
 import inf112.skeleton.model.map.MapType;
@@ -31,9 +38,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.lang.reflect.Field;
+import java.util.EnumMap;
+
 class GamePanelTest {
     
-    @Mock private GamePanel gamePanel;
+    private GamePanel gamePanel;
     @Mock private Screen mockScreen;
     @Mock private Graphics mockGraphics;
     @Mock private Application mockApplication;
@@ -43,31 +53,93 @@ class GamePanelTest {
     @Mock private Box2DDebugRenderer mockBox2DDebugRenderer;
     @Mock private GameRenderer mockGameRenderer;
     @Mock private GameScreen mockGameScreen;
+    @Mock private FitViewport mockViewPort;
+    @Mock private AudioHandler mockAudioHandler;
+    @Mock private MapManager mockMapManager;
+    @Mock private Player mockPlayer;
+    @Mock private PlayerHUD mockPlayerHUD;
+    @Mock private TaskBoard mockTaskBoard;
+    @Mock private WorldFunctions mockWorldFunctions;
+    @Mock private GL20 mockGL20;
+    @Mock private OrthographicCamera mockCamera;
+    @Mock private MapChanger mockMapChanger;
+    @Mock private Map mockMap;
     
     @BeforeEach
-    void setUp() {
+    void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);
         
         // Mock LibGDX static fields
         Gdx.graphics = mockGraphics;
         Gdx.app = mockApplication;
+        Gdx.gl20 = mockGL20;
+        
         when(mockGraphics.getWidth()).thenReturn(960);
         when(mockGraphics.getHeight()).thenReturn(540);
         
-        // Mock GamePanel methods
-        when(gamePanel.getWorld()).thenReturn(mockWorld);
-        when(gamePanel.getAssetManager()).thenReturn(mockAssetManager);
-        when(gamePanel.getSpriteBatch()).thenReturn(mockSpriteBatch);
-        when(gamePanel.getBox2DDebugRenderer()).thenReturn(mockBox2DDebugRenderer);
-        when(gamePanel.getGameRenderer()).thenReturn(mockGameRenderer);
+        // Create real GamePanel instance
+        gamePanel = new GamePanel();
+        
+        // Initialize screen cache with the mock game screen
+        EnumMap<ScreenType, Screen> screenCache = new EnumMap<>(ScreenType.class);
+        screenCache.put(ScreenType.GAME, mockGameScreen);
+        setPrivateField(gamePanel, "screenCache", screenCache);
+        
+        // Initialize enemies array
+        Array<Enemy> enemies = new Array<>();
+        setPrivateField(gamePanel, "enemies", enemies);
+        
+        // Set private fields using reflection
+        setPrivateField(gamePanel, "world", mockWorld);
+        setPrivateField(gamePanel, "assetManager", mockAssetManager);
+        setPrivateField(gamePanel, "spriteBatch", mockSpriteBatch);
+        setPrivateField(gamePanel, "box2DDebugRenderer", mockBox2DDebugRenderer);
+        setPrivateField(gamePanel, "gameRenderer", mockGameRenderer);
+        setPrivateField(gamePanel, "audioHandler", mockAudioHandler);
+        setPrivateField(gamePanel, "mapManager", mockMapManager);
+        setPrivateField(gamePanel, "playerHUD", mockPlayerHUD);
+        setPrivateField(gamePanel, "worldFunctions", mockWorldFunctions);
+        setPrivateField(gamePanel, "screenViewport", mockViewPort);
+        setPrivateField(gamePanel, "camera", mockCamera);
+        setPrivateField(gamePanel, "player", mockPlayer);
+        setPrivateField(gamePanel, "mapChanger", mockMapChanger);
+        
+        // Mock the viewport
+        doNothing().when(mockViewPort).update(anyInt(), anyInt(), anyBoolean());
+        
+        // Mock the world
+        doNothing().when(mockWorld).dispose();
+        
+        // Mock the box2d debug renderer
+        doNothing().when(mockBox2DDebugRenderer).dispose();
+        
+        // Mock the asset manager
+        doNothing().when(mockAssetManager).dispose();
+        
+        // Mock the sprite batch
+        doNothing().when(mockSpriteBatch).dispose();
+        
+        // Mock the map manager
+        doNothing().when(mockMapManager).setMap(any(MapType.class));
+        when(mockMapManager.getCurrentMap()).thenReturn(mockMap);
+        
+        // Mock the game screen
+        doNothing().when(mockGameScreen).dispose();
+        
+        // Mock the player HUD
+        doNothing().when(mockPlayerHUD).updateEquippedSword(anyString());
+        
+        // Mock the map changer
+        doNothing().when(mockMapChanger).removeObjects(any(World.class), any(Map.class), any(Array.class));
+        doNothing().when(mockMapChanger).movePlayer(any(World.class), any(Map.class), any(Player.class));
     }
 
-    /**
-     * Tests the public constants of the GamePanel class.
-     * Verifies that:
-     * - The bit masks for collision categories are correct
-     * - The unit scale is correct
-     */
+    private void setPrivateField(Object target, String fieldName, Object value) throws Exception {
+        Field field = target.getClass().getDeclaredField(fieldName);
+        field.setAccessible(true);
+        field.set(target, value);
+    }
+
     @Test
     void testPublicConstants() {
         assertEquals(1, GamePanel.BIT_PLAYER);
@@ -76,52 +148,27 @@ class GamePanelTest {
         assertEquals(1/32f, GamePanel.UNIT_SCALE);
     }
 
-    /**
-     * Tests the static fields initialization.
-     * Verifies that:
-     * - The body and fixture definitions are properly initialized
-     */
     @Test
     void testStaticFields() {
         assertNotNull(GamePanel.BODY_DEF);
         assertNotNull(GamePanel.FIXTURE_DEF);
     }
 
-    /**
-     * Tests screen management functionality.
-     * Verifies that:
-     * - Screens can be set and retrieved
-     * - Screen transitions work correctly
-     */
     @Test
     void testScreenManagement() {
         gamePanel.setScreen(mockScreen);
-        verify(gamePanel).setScreen(mockScreen);
+        assertEquals(mockScreen, gamePanel.getScreen());
     }
 
-    /**
-     * Tests player management.
-     * Verifies that:
-     * - Players can be set and retrieved
-     * - Player reset works correctly
-     */
     @Test
     void testPlayerManagement() {
-        Player mockPlayer = mock(Player.class);
-        
         gamePanel.setPlayer(mockPlayer);
-        verify(gamePanel).setPlayer(mockPlayer);
+        assertEquals(mockPlayer, gamePanel.getPlayer());
         
         gamePanel.resetPlayer();
-        verify(gamePanel).resetPlayer();
+        assertNull(gamePanel.getPlayer());
     }
 
-    /**
-     * Tests enemy management.
-     * Verifies that:
-     * - Enemies can be set and retrieved
-     * - Enemy array is properly managed
-     */
     @Test
     void testEnemyManagement() {
         Array<Enemy> enemies = new Array<>();
@@ -129,15 +176,9 @@ class GamePanelTest {
         enemies.add(mockEnemy);
         
         gamePanel.setEnemy(enemies);
-        verify(gamePanel).setEnemy(enemies);
+        assertEquals(enemies, gamePanel.getEnemy());
     }
 
-    /**
-     * Tests item management.
-     * Verifies that:
-     * - Items can be set and retrieved
-     * - Item array is properly managed
-     */
     @Test
     void testItemManagement() {
         Array<Item> items = new Array<>();
@@ -145,83 +186,93 @@ class GamePanelTest {
         items.add(mockItem);
         
         gamePanel.setItems(items);
-        verify(gamePanel).setItems(items);
+        assertEquals(items, gamePanel.getItems());
     }
 
-    /**
-     * Tests singleton pattern.
-     * Verifies that:
-     * - The getInstance method returns the same instance
-     * - Multiple calls return the same instance
-     */
     @Test
     void testSingleton() {
         GamePanel instance1 = GamePanel.getInstance();
         GamePanel instance2 = GamePanel.getInstance();
-        
         assertSame(instance1, instance2);
     }
 
-    /**
-     * Tests the create method.
-     * Verifies that:
-     * - The game is properly initialized
-     * - All necessary components are created
-     */
     @Test
-    void testCreate() {
-        gamePanel.create();
-        verify(gamePanel).create();
+    void testGetViewPort() {
+        assertEquals(mockViewPort, gamePanel.getViewport());
     }
 
-    /**
-     * Tests the render method.
-     * Verifies that:
-     * - The world step is called with correct parameters
-     * - The game renderer is called when in game screen
-     */
-    @Test
-    void testRender() {
-        when(mockGraphics.getDeltaTime()).thenReturn(0.016f); // 60 FPS
-        when(gamePanel.getScreen()).thenReturn(mockGameScreen);
-        
-        gamePanel.render();
-        verify(gamePanel).render();
+    @Test 
+    void testGetWorld() {
+        assertEquals(mockWorld, gamePanel.getWorld());
     }
 
-    /**
-     * Tests the dispose method.
-     * Verifies that:
-     * - All resources are properly disposed
-     * - No memory leaks occur
-     */
     @Test
     void testDispose() {
         gamePanel.dispose();
-        verify(gamePanel).dispose();
+        verify(mockWorld).dispose();
+        verify(mockBox2DDebugRenderer).dispose();
+        verify(mockAssetManager).dispose();
+        verify(mockSpriteBatch).dispose();
     }
 
-    /**
-     * Tests the changemap method.
-     * Verifies that:
-     * - Map transitions work correctly
-     * - The map manager is updated
-     */
     @Test
     void testChangemap() {
+        // Set up required dependencies
+        when(mockMapManager.getCurrentMap()).thenReturn(mockMap);
+        
         gamePanel.changemap(MapType.MAP_START);
-        verify(gamePanel).changemap(MapType.MAP_START);
+        
+        // Verify interactions
+        verify(mockMapManager).setMap(MapType.MAP_START);
+        verify(mockMapChanger).removeObjects(eq(mockWorld), eq(mockMap), any(Array.class));
+        verify(mockMapChanger).movePlayer(mockWorld, mockMap, mockPlayer);
     }
 
-    /**
-     * Tests the removeScreen method.
-     * Verifies that:
-     * - Screens can be removed
-     * - Resources are properly cleaned up
-     */
     @Test
     void testRemoveScreen() {
         gamePanel.removeScreen(ScreenType.GAME);
-        verify(gamePanel).removeScreen(ScreenType.GAME);
+        verify(mockGameScreen).dispose();
+    }
+
+    @Test
+    void testAudioHandler() {
+        assertEquals(mockAudioHandler, gamePanel.getAudioHandler());
+    }
+
+    @Test
+    void testCameraAndViewport() {
+        assertEquals(mockCamera, gamePanel.getCamera());
+        
+        // Call resize directly since Game.resize() is protected
+        gamePanel.resize(1920, 1080);
+        verify(mockViewPort).update(1920, 1080, true);
+    }
+
+    @Test
+    void testMapManager() {
+        assertEquals(mockMapManager, gamePanel.getMapManager());
+    }
+
+    @Test
+    void testPlayerHUD() {
+        gamePanel.setPlayerHUD(mockPlayerHUD);
+        gamePanel.updateEquippedSwordHUD("test_sword.png");
+        verify(mockPlayerHUD).updateEquippedSword("test_sword.png");
+    }
+
+    @Test
+    void testBodyAndFixtureReset() {
+        GamePanel.resetBodyAndFixtureDefinition();
+        
+        assertEquals(0, GamePanel.BODY_DEF.position.x);
+        assertEquals(0, GamePanel.BODY_DEF.position.y);
+        assertEquals(0, GamePanel.BODY_DEF.gravityScale);
+        assertEquals(BodyDef.BodyType.StaticBody, GamePanel.BODY_DEF.type);
+        
+        assertFalse(GamePanel.FIXTURE_DEF.isSensor);
+        assertEquals(0.75f, GamePanel.FIXTURE_DEF.restitution);
+        assertEquals(0.2f, GamePanel.FIXTURE_DEF.friction);
+        assertEquals(GamePanel.BIT_GROUND, GamePanel.FIXTURE_DEF.filter.categoryBits);
+        assertEquals(-1, GamePanel.FIXTURE_DEF.filter.maskBits);
     }
 }

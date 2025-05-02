@@ -179,11 +179,11 @@
 						<configuration>
 							<excludes>
 								<!-- Example: Exclude a specific class -->
-								 <exclude>/Main.class</exclude>
-							
+								<exclude>**/Main.class</exclude>
 							
 								<!-- Example: Exclude all classes in a specific package -->
-								<exclude>/view/*/</exclude>
+									<exclude>**/view/**/*</exclude>
+								
 
 								<!-- Example: Exclude all classes in a package and its sub-packages -->
 								
