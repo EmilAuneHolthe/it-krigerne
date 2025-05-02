@@ -91,7 +91,11 @@ public class Map {
     }
    
   }
-  
+  /**
+   * Retrieves the collision areas from the map.
+   *
+   * @return Array of CollisionArea objects
+   */
   public Array<CollisionArea> getColissionAreas() {
     return collisionAreas;
   }

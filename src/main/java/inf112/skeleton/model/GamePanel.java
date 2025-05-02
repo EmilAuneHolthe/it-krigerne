@@ -43,6 +43,10 @@ import inf112.skeleton.view.GameRenderer;
 import inf112.skeleton.view.screen.*;
 import inf112.skeleton.view.ui.PlayerHUD; 
 
+/**
+ * Main game class that extends the Game class from LibGDX.
+ * Manages the game state, rendering, and input.
+ */
 public class GamePanel extends Game {
     private static final String TAG = GamePanel.class.getSimpleName();
 
@@ -175,6 +179,11 @@ public class GamePanel extends Game {
         }
     }
 
+    /**
+     * Sets the current screen for the game.
+     *
+     * @param screenType The type of screen to set
+     */
     public void setScreen(final ScreenType screenType) {
         final Screen screen = screenCache.get(screenType);
         if (screen == null) {
@@ -211,6 +220,11 @@ public class GamePanel extends Game {
 
     }
 
+    /**
+     * Removes a screen from the screen cache.
+     *
+     * @param type The type of screen to remove
+     */
     public void removeScreen(ScreenType type) {
         Screen screen = screenCache.remove(type);
         if (screen != null) {
@@ -230,6 +244,11 @@ public class GamePanel extends Game {
         spriteBatch.dispose();
     }
 
+    /**
+     * Gets the singleton instance of the GamePanel.
+     *
+     * @return The singleton instance of GamePanel
+     */
     public static GamePanel getInstance() {
         if (instance == null) {
             instance = new GamePanel();
@@ -237,6 +256,9 @@ public class GamePanel extends Game {
         return instance;
     }
 
+    /**
+     * Resets the body and fixture definition.
+     */
     public static void resetBodyAndFixtureDefinition(){
         BODY_DEF.position.set(0, 0);
         BODY_DEF.gravityScale = 0;
@@ -254,10 +276,20 @@ public class GamePanel extends Game {
         this.playerInteractions = playerInteractions;
     }
 
+    /**
+     * Gets the player controller.
+     *
+     * @return The player controller
+     */
     public PlayerController getPlayerController() {
         return playerController;
     }
 
+    /**
+     * Changes the current map.
+     *
+     * @param newMapType The new map type to set
+     */
     public void changemap(MapType newMapType) {
         if (newMapType == null) {
             Gdx.app.error(TAG, "Cannot change map: newMapType is null");
@@ -322,10 +354,20 @@ public class GamePanel extends Game {
         setItems(newItems);
     }
 
+    /**
+     * Sets the player HUD.
+     *
+     * @param playerHUD The player HUD to set
+     */
     public void setPlayerHUD(PlayerHUD playerHUD) {
         this.playerHUD = playerHUD;
     }
-    
+
+    /**
+     * Updates the equipped sword HUD.
+     *
+     * @param texturePath The path to the texture to set
+     */
     public void updateEquippedSwordHUD(String texturePath) {
         if (playerHUD != null) {
             playerHUD.updateEquippedSword(texturePath);
