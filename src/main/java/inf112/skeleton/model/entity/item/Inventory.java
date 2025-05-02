@@ -21,6 +21,9 @@ public class Inventory {
     private int swordUpgradeType = 0;
     private final GamePanel context;
     private final World world;
+    private final int HEALTH_POTION_VALUE = 50;
+    private final int MANA_POTION_REGEN = 10;
+    private final int MANA_POTION_VALUE = 100;
 
     /**
      * Constructs an Inventory instance.
@@ -121,11 +124,11 @@ public class Inventory {
         // Apply item effects
         switch (item.getItemType()) {
             case HEALTH:
-                player.setHealth(Math.min(player.getHealth() + 20, player.getMaxHealth()));
+                player.setHealth(Math.min(player.getHealth() + HEALTH_POTION_VALUE, player.getMaxHealth()));
                 break;
             case MANA:
-                player.setMana(Math.min(player.getMana() + 20, player.getMaxMana()));
-                player.setManaRegenRate(player.getManaRegenRate() + 0.5f);
+                player.setMana(Math.min(player.getMana() + MANA_POTION_VALUE, player.getMaxMana()));
+                player.setManaRegenRate(player.getManaRegenRate() + MANA_POTION_REGEN);
                 break;
             case SWORD_UPGRADE:
                 swordUpgradeType++;
