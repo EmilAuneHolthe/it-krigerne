@@ -65,7 +65,7 @@ public class WorldFunctions{
         this.world = context.getWorld();
         this.audioHandler = context.getAudioHandler();
         mapChanger = new MapChanger();
-        mapManager.setMap(MapType.MAP_BOSS);
+        mapManager.setMap(MapType.MAP_START);
 
         borders = mapManager.getCurrentMap().getBorders("Interact");
         playerInteractions = new PlayerInteractions(context, player);
