@@ -34,15 +34,15 @@ public class Enemy extends GameEntity {
      * @param name           The name of the enemy.
      */
     public Enemy(GamePanel context, World world, Body body, CharacterType characterType, String name) {
-        super(context, world, body, EnemyTypes.getEnemyHealth(characterType), EnemyTypes.getEnemyDamage(characterType), characterType);
+        super(context, world, body, CharacterType.getEnemyHealth(characterType), CharacterType.getEnemyDamage(characterType), characterType);
         this.world = world;
         this.characterType = characterType;
-        this.health = EnemyTypes.getEnemyHealth(characterType);
-        this.damage = EnemyTypes.getEnemyDamage(characterType);
         this.isDead = false;
-        this.maxHealth = EnemyTypes.getEnemyHealth(characterType);
         this.name = name;
-        this.sight = EnemyTypes.getEnemySight(characterType);
+        this.health = CharacterType.getEnemyHealth(characterType);
+        this.damage = CharacterType.getEnemyDamage(characterType);
+        this.sight = CharacterType.getEnemySight(characterType);
+        this.maxHealth = CharacterType.getEnemyHealth(characterType);
 
         // Load health bar textures
         this.healthTexture = new Texture(Gdx.files.internal("Ui/redtexture.png"));
