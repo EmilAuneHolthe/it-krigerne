@@ -9,6 +9,11 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.model.GamePanel;
 
+/**
+ * Represents the victory screen of the game.
+ * Displays a victory background and a popup image for achievements.
+ * Plays victory music and handles the display of UI elements.
+ */
 public class VictoryScreen extends AbstractScreen {
     private final Stage stage;
     private final Texture victoryTexture;
@@ -21,9 +26,14 @@ public class VictoryScreen extends AbstractScreen {
     private final float popupDelay = 1f;          // Delay before popup appears (1 second)
     private final float popupDuration = 3f;       // Popup stays visible for 3 seconds after delay
 
+    /**
+     * Constructs a VictoryScreen instance.
+     *
+     * @param context The game context, providing access to shared resources.
+     */
     public VictoryScreen(GamePanel context) {
         super(context);
-        stage = new Stage(new FitViewport(originalWidth, originalHeight));
+        stage = new Stage(new FitViewport(ORIGINALWIDTH, ORIGINALHEIGHT));
 
         // Victory background (always visible)
         victoryTexture = new Texture(Gdx.files.internal("Background/victory.png"));

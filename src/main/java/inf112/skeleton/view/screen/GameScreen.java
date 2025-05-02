@@ -7,13 +7,21 @@ import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.WorldFunctions;
 import inf112.skeleton.view.GameRenderer;
 
+/**
+ * Represents the main game screen.
+ * Handles rendering, player interactions, and game world updates.
+ */
 public class GameScreen extends AbstractScreen{
 
     private final OrthographicCamera camera;
     private final GameRenderer gameRenderer;
     private final WorldFunctions  worldFunctions;
 
-
+    /**
+     * Constructs a GameScreen instance.
+     *
+     * @param context The game context, providing access to shared resources.
+     */
     public GameScreen(GamePanel context) {
         super(context);
         this.camera = context.getCamera();
@@ -58,7 +66,6 @@ public class GameScreen extends AbstractScreen{
     public void keyReleased(KeyHandler keyHandler, Keys key) {
         context.getPlayer().movePlayerReleased(keyHandler, key);
     }
-
 }
 
 

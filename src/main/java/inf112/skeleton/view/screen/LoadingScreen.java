@@ -8,14 +8,20 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 import inf112.skeleton.model.GamePanel;
 
+/**
+ * Represents the loading screen of the game.
+ * Handles the loading of assets such as maps, textures, and UI elements.
+ */
 public class LoadingScreen extends AbstractScreen   {
-    
-
     private final AssetManager assetManager;
     
-
+    /**
+     * Constructs a LoadingScreen instance.
+     *
+     * @param context The game context, providing access to shared resources.
+     */
     public LoadingScreen(GamePanel context) {
-        super(context); // this.context = context;
+        super(context); 
         this.assetManager = context.getAssetManager();
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
 
@@ -48,19 +54,19 @@ public class LoadingScreen extends AbstractScreen   {
         assetManager.load("Background/transparent.png", Texture.class);
         assetManager.load("Background/background.png", Texture.class);
 
-        
         assetManager.finishLoading();
     }
     
     @Override
     public void render(float delta) { 
-
         if (assetManager.update()) {
             context.setScreen(ScreenType.MAIN_MENU);
         }
     }
 
     @Override
-    public void resize(int width, int height) {}
+    public void resize(int width, int height) {
+        // This method is intentionally left empty because the loading screen does not need to handle resizing.
+    }
 
 }

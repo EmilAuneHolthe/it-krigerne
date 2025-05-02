@@ -16,10 +16,19 @@ import inf112.skeleton.model.GamePanel;
 
 import java.util.Objects;
 
+/**
+ * Represents the settings screen of the game.
+ * Allows players to adjust game settings and return to the main menu.
+ */
 public class SettingScreen extends AbstractScreen {
     public static final Texture backgroundTexture = new Texture(Gdx.files.internal("Background/settings.png"));
     private final Stage stage;
 
+     /**
+     * Constructs a SettingScreen instance.
+     *
+     * @param context The game context, providing access to shared resources.
+     */
     public SettingScreen(GamePanel context) {
         super(context);
         stage = new Stage(new ScreenViewport());
@@ -33,7 +42,6 @@ public class SettingScreen extends AbstractScreen {
         stage.addActor(background);
     }
         
-    
     @Override
     public void show() {
         super.show();
@@ -57,38 +65,22 @@ public class SettingScreen extends AbstractScreen {
     }
 
     @Override
-    public void pause() {
-        super.pause();
-    }
-
-    @Override
-    public void resume() {
-        super.resume();
-    }
-
-    @Override
     public void hide() {
         super.hide();
         keyHandler.removeListener(this);
     }
 
     @Override
-    public void dispose() {
-        super.dispose();
-    }
-    
-    @Override
     public void keyPressed(KeyHandler keyHandler, Keys key) {
-        returnToMainMenu(keyHandler, key);
+        returnToMainMenu(key);
     }
 
-    private void returnToMainMenu(KeyHandler keyHandler, Keys key) {
+    private void returnToMainMenu(Keys key) {
         if (Objects.requireNonNull(key) == Keys.QUIT) {
             audioHandler.playAudio(AudioTypes.SELECT);
-            System.out.println("Returning to main menu...");
             dispose();
             context.setScreen(new MainMenuScreen(context));
         }
-}
+    }
 }
 
