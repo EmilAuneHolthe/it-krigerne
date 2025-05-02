@@ -80,7 +80,7 @@ public class ItemBar {
         table = new Table();
         table.setFillParent(true);
         table.align(Align.bottom | Align.center);
-        table.padBottom(50);
+        table.padBottom(90);
         
         // Create slots
         for (int i = 0; i < SLOT_COUNT; i++) {

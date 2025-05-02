@@ -87,7 +87,7 @@ public class PlayerHUD {
         Table table = new Table();
         table.setFillParent(true);
         table.align(Align.bottom | Align.center);
-        table.padBottom(5);
+        table.padBottom(50);
 
         table.add(healthStack).width(maxHealthBarWidth).height(healthBarHeight).padBottom(5).row();
         table.add(manaStack).width(maxHealthBarWidth).height(healthBarHeight);
@@ -111,10 +111,9 @@ public class PlayerHUD {
         swordIconContainer.size(48, 48);
         swordIconContainer.align(Align.center);
         swordStack.add(swordIconContainer);
-
         Table swordTable = new Table();
-        swordTable.bottom().left().pad(0);
-        swordTable.add(swordStack).size(128, 128);
+
+        // Add the table to the stage
         stage.addActor(swordTable);
 
         keyIcon = new Image(keyTexture);
@@ -135,7 +134,7 @@ public class PlayerHUD {
 
         Table leftHUDTable = new Table();
         leftHUDTable.bottom().left().pad(10);
-        leftHUDTable.add(keyRow).left().padLeft(40).padBottom(-20).row();
+        leftHUDTable.add(keyRow).left().padLeft(40).padBottom(-20).row(); // more right, less vertical gap
         leftHUDTable.add(swordStack).size(128, 128).top();
         stage.addActor(leftHUDTable);
 
