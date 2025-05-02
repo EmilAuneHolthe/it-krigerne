@@ -1,6 +1,5 @@
 package inf112.skeleton.model.entity.player;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import com.badlogic.gdx.math.Vector2;
@@ -10,8 +9,6 @@ import inf112.skeleton.audio.AudioHandler;
 import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.entity.enemy.Enemy;
-import inf112.skeleton.model.entity.item.Item;
-import inf112.skeleton.model.entity.item.ItemType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

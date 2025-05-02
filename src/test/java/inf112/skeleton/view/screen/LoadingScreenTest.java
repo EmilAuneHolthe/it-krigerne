@@ -1,11 +1,9 @@
 package inf112.skeleton.view.screen;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import inf112.skeleton.model.GamePanel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class LoadingScreenTest {
@@ -21,20 +19,6 @@ class LoadingScreenTest {
         loadingScreen = new LoadingScreen(mockGamePanel);
     }
 
-    // @Test
-    // void testConstructor() {
-    //     assertNotNull(loadingScreen, "LoadingScreen should be initialized");
-    //     verify(mockAssetManager).setLoader(eq(TiledMap.class), any());
-    //     verify(mockAssetManager).load(eq("map/testMap/testMap.tmx"), eq(TiledMap.class));
-    //     verify(mockAssetManager).load(eq("map/SampleMap/samplemap.tmx"), eq(TiledMap.class));
-    // }
-
-    // @Test
-    // void testRenderWhenAssetsLoaded() {
-    //     when(mockAssetManager.update()).thenReturn(true);
-    //     loadingScreen.render(0.1f);
-    //     verify(mockGamePanel).setScreen(eq(ScreenType.GAME));
-    // }
 
     @Test
     void testRenderWhenAssetsNotLoaded() {

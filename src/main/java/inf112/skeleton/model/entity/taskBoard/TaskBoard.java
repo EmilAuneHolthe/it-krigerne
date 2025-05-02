@@ -5,7 +5,6 @@ import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class TaskBoard {
 

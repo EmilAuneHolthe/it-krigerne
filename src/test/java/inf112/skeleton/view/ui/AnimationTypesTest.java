@@ -2,8 +2,6 @@ package inf112.skeleton.view.ui;
 
 import org.junit.jupiter.api.Test;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
-
 import inf112.skeleton.view.AnimationTypes;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -23,14 +23,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
 
 import java.util.Collections;
-import java.util.Iterator;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-public class MapManagerTest extends BaseTest {
+class MapManagerTest extends BaseTest {
     private MapManager mapManager;
     private GamePanel gamePanel;
     private static AssetManager assetManager;

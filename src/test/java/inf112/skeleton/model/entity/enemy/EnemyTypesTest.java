@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import inf112.skeleton.model.entity.player.CharacterType;
 
-public class EnemyTypesTest {
+class EnemyTypesTest {
     private EnemyTypes enemyTypes;
 
     @BeforeEach

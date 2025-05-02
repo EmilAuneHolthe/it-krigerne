@@ -14,12 +14,9 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.GL20;
-
 import inf112.skeleton.audio.AudioHandler;
-import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.map.MapManager;
 import inf112.skeleton.model.map.MapChanger;
 import inf112.skeleton.model.map.Map;

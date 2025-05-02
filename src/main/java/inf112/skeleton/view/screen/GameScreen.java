@@ -1,13 +1,12 @@
 package inf112.skeleton.view.screen;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import inf112.skeleton.controller.Keys;
 import inf112.skeleton.controller.KeyHandler;
 import inf112.skeleton.model.GamePanel;
 import inf112.skeleton.model.WorldFunctions;
 
-import inf112.skeleton.model.entity.player.Player;
+
 import inf112.skeleton.model.entity.player.PlayerInteractions;
 import inf112.skeleton.view.GameRenderer;
 
