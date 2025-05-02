@@ -37,6 +37,19 @@ public class Player extends GameEntity {
     private final Item[] items;
     private final Inventory inventory;
     
+
+    /**
+     * Constructs a Player instance.
+     *
+     * @param context        The game context, providing access to shared resources.
+     * @param world          The Box2D world the player belongs to.
+     * @param body           The physical body of the player.
+     * @param health         The initial health of the player.
+     * @param damage         The initial damage of the player.
+     * @param x              The initial x-coordinate of the player.
+     * @param y              The initial y-coordinate of the player.
+     * @param characterType  The type of character (e.g., normal, boss).
+     */
     public Player(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType) {
         
         super(context, world, body, health, damage, characterType);
