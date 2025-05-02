@@ -8,13 +8,9 @@ import static inf112.skeleton.model.GamePanel.assetManager;
  * Each item type has specific properties like texture, size, and behavior.
  */
 public enum ItemType {
-    /** Health potion that restores player health */
     HEALTH("health"),
-    /** Key that can unlock doors */
     KEY("key"),
-    /** Mana potion that restores player mana */
     MANA("mana"),
-    /** Sword upgrade that increases player damage */
     SWORD_UPGRADE("swordUpgrade");
 
     private final String type;
