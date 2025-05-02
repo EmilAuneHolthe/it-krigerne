@@ -373,6 +373,11 @@ public class GamePanel extends Game {
             playerHUD.updateEquippedSword(texturePath);
         }
     }
+    /**
+     * Gets the task board.
+     *
+     * @return The task board
+     */
     public TaskBoard getTaskBoard() {
         return mapManager.getTaskBoard();
     }
