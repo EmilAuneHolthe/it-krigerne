@@ -111,25 +111,6 @@ public enum EnemyTypes {
             return 8;
         }
     }
-
-    /**
-     * Gets the size of a given enemy type.
-     *
-     * @param type The character type of the enemy.
-     * @return The size of the enemy.
-     * @throws IllegalArgumentException If the character type is null or unknown.
-     */
-    public static int getEnemySize(CharacterType type) {
-        if (type == null) {
-            throw new IllegalArgumentException("CharacterType cannot be null");
-        }
-        if (type == CharacterType.BOSS) {
-            return 2;
-        } else if (type.getClass() == CharacterType.class) {
-            return 1;
-        }
-        throw new IllegalArgumentException("Unknown enemy type: " + type);
-    }
 }
 
 
