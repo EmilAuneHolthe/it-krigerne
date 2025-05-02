@@ -16,69 +16,116 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-/* 
-class PlayerInteractionsTest extends BaseTest {
-    private static final float ATTACK_RANGE = 2.0f;
-    private static final float PICKUP_RANGE = 1.0f;
 
-    
+
+public class PlayerInteractionsTest extends BaseTest {
+    @Mock private GamePanel mockContext;
+    @Mock private Player mockPlayer;
+    @Mock private Enemy mockEnemy1;
+    @Mock private Enemy mockEnemy2;
+    @Mock private Enemy mockEnemy3;
+    @Mock private AudioHandler mockAudioHandler;
+    @Mock private Vector2 mockPlayerPos;
+    @Mock private Vector2 mockEnemy1Pos;
+    @Mock private Vector2 mockEnemy2Pos;
+    @Mock private Vector2 mockEnemy3Pos;
+
     private PlayerInteractions playerInteractions;
-
-    @Mock
-    private GamePanel mockGamePanel;
-    @Mock
-    private AudioHandler mockAudioHandler;
-    @Mock
-    private Player mockPlayer;
-    @Mock
-    private Enemy mockEnemy;
-    @Mock
-    private Item mockItem;
+    private Array<Enemy> enemies;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        when(mockGamePanel.getAudioHandler()).thenReturn(mockAudioHandler);
+        
+        // Setup audio handler
+        when(mockContext.getAudioHandler()).thenReturn(mockAudioHandler);
+        
+        // Setup player mock
+        doReturn(mockPlayerPos).when(mockPlayer).getPosition();
+        doReturn(10).when(mockPlayer).attack();
+        
+        // Setup enemy mocks
+        doReturn("Enemy1").when(mockEnemy1).getName();
+        doReturn("Enemy2").when(mockEnemy2).getName();
+        doReturn("Enemy3").when(mockEnemy3).getName();
+        
+        // Setup enemy positions
+        doReturn(mockEnemy1Pos).when(mockEnemy1).getPosition();
+        doReturn(mockEnemy2Pos).when(mockEnemy2).getPosition();
+        doReturn(mockEnemy3Pos).when(mockEnemy3).getPosition();
+        
+        // Setup distance calculations
+        doReturn(1.5f).when(mockEnemy1Pos).dst(mockPlayerPos); // Within range
+        doReturn(3.0f).when(mockEnemy2Pos).dst(mockPlayerPos); // Out of range
+        doReturn(1.8f).when(mockEnemy3Pos).dst(mockPlayerPos); // Within range
+        
+        // Create enemies array
+        enemies = new Array<>();
+        enemies.add(mockEnemy1, mockEnemy2, mockEnemy3);
+        
+        playerInteractions = new PlayerInteractions(mockContext, mockPlayer);
+    }
 
-        playerInteractions = new PlayerInteractions(mockGamePanel, mockPlayer);
-
-        // Setup mock player
-        when(mockPlayer.getPosition()).thenReturn(new Vector2(0f, 0f));
-        when(mockPlayer.attack()).thenReturn(10);
+    @Test
+    void testAttackEnemyWithEnemiesInRange() {
+        // Setup
         mockPlayer.canAttack = true;
-
-        // Setup mock enemy
-        when(mockEnemy.getPosition()).thenReturn(new Vector2(1f, 0f));
-        when(mockEnemy.getName()).thenReturn("TestEnemy");
-
-        // Setup mock item
-        when(mockItem.getPosition()).thenReturn(new Vector2(0.5f, 0f));
-        when(mockItem.getItemType()).thenReturn(ItemType.HEALTH);
-    }
-
-    @Test
-    void testAttackEnemyInRange() {
-        Array<Enemy> enemies = new Array<>();
-        enemies.add(mockEnemy);
-
+        
+        // Execute
         playerInteractions.attackEnemy(mockPlayer, enemies);
-
-        // Verify that the enemy takes damage when in range
-        verify(mockEnemy).takeDamage(10);
-
-        // Verify that the attack sound is played
+        
+        // Verify
         verify(mockAudioHandler).playAudio(AudioTypes.ATTACK);
+        verify(mockEnemy1).takeDamage(10);
+        verify(mockEnemy3).takeDamage(10);
+        verify(mockEnemy2, never()).takeDamage(anyInt());
     }
 
     @Test
-    void testAttackEnemyOutOfRange() {
-        when(mockEnemy.getPosition()).thenReturn(new Vector2(3f, 0f)); // Out of range
-        Array<Enemy> enemies = new Array<>();
-        enemies.add(mockEnemy);
-
+    void testAttackEnemyWhenCannotAttack() {
+        // Setup
+        mockPlayer.canAttack = false;
+        
+        // Execute
         playerInteractions.attackEnemy(mockPlayer, enemies);
-
-        // Verify that the enemy does not take damage when out of range
-        verify(mockEnemy, never()).takeDamage(anyInt());
+        
+        // Verify
+        verify(mockAudioHandler, never()).playAudio(any());
+        verify(mockEnemy1, never()).takeDamage(anyInt());
+        verify(mockEnemy2, never()).takeDamage(anyInt());
+        verify(mockEnemy3, never()).takeDamage(anyInt());
     }
-}*/
+
+    @Test
+    void testAttackEnemyWithNoEnemiesInRange() {
+        // Setup
+        mockPlayer.canAttack = true;
+        doReturn(3.0f).when(mockEnemy1Pos).dst(mockPlayerPos);
+        doReturn(4.0f).when(mockEnemy3Pos).dst(mockPlayerPos);
+        
+        // Execute
+        playerInteractions.attackEnemy(mockPlayer, enemies);
+        
+        // Verify
+        verify(mockAudioHandler).playAudio(AudioTypes.ATTACK);
+        verify(mockEnemy1, never()).takeDamage(anyInt());
+        verify(mockEnemy2, never()).takeDamage(anyInt());
+        verify(mockEnemy3, never()).takeDamage(anyInt());
+    }
+
+    @Test
+    void testAttackEnemyWithEmptyEnemyList() {
+        // Setup
+        mockPlayer.canAttack = true;
+        Array<Enemy> emptyEnemies = new Array<>();
+        
+        // Execute
+        playerInteractions.attackEnemy(mockPlayer, emptyEnemies);
+        
+        // Verify
+        verify(mockAudioHandler).playAudio(AudioTypes.ATTACK);
+        verify(mockEnemy1, never()).takeDamage(anyInt());
+        verify(mockEnemy2, never()).takeDamage(anyInt());
+        verify(mockEnemy3, never()).takeDamage(anyInt());
+    }
+}

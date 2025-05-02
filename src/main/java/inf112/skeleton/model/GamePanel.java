@@ -80,6 +80,8 @@ public class GamePanel extends Game {
     private Array<Item> items;
     private MapChanger mapChanger;
     private PlayerHUD playerHUD;
+    
+    private WorldFunctions worldFunctions;
 
         @Override
         public void create() {
@@ -122,6 +124,10 @@ public class GamePanel extends Game {
     
             setScreen(ScreenType.LOADING);
         }
+
+        public void setWorldFunctions(WorldFunctions worldFunctions) {
+            this.worldFunctions = worldFunctions;
+    }
 
     //get-methods
     public FitViewport getViewport() {return screenViewport;}

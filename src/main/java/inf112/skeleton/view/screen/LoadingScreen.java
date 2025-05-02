@@ -47,6 +47,7 @@ public class LoadingScreen extends AbstractScreen   {
         //Main menu
         assetManager.load("Background/transparent.png", Texture.class);
         assetManager.load("Background/background.png", Texture.class);
+        assetManager.load("Background/Title.png", Texture.class);
 
         
         assetManager.finishLoading();

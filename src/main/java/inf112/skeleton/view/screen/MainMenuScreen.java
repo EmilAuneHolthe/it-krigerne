@@ -25,10 +25,13 @@ public class MainMenuScreen extends AbstractScreen {
     
     private final Texture backgroundTexture = assetManager.get("Background/background.png");
     private final Texture blankTexture = assetManager.get("Background/transparent.png");
+    private final Texture titleTexture = assetManager.get("Background/Title.png");
     private final Stage stage;
     private ImageButton startButton;
     private ImageButton optionsButton;
     private ImageButton exitButton;
+    private Image titleImage;
+
 
     public MainMenuScreen(GamePanel context) {
         super(context);
@@ -44,6 +47,18 @@ public class MainMenuScreen extends AbstractScreen {
         Image background = new Image(new TextureRegionDrawable(backgroundTexture));
         background.setFillParent(true);
         stage.addActor(background);
+        
+        // Create and add title
+        titleImage = new Image(new TextureRegionDrawable(titleTexture));
+        float titleWidth = originalWidth * 0.5f; // Adjust size as needed
+        float titleHeight = originalHeight * 0.2f; // Adjust size as needed
+        titleImage.setSize(titleWidth, titleHeight);
+        titleImage.setPosition(
+            (originalWidth - titleWidth) / 2,
+            originalHeight * 0.80f // Position at 70% from bottom
+        );
+        stage.addActor(titleImage);
+        
         
         // Create a table for button layout
         Table buttonTable = new Table();
@@ -69,7 +84,7 @@ public class MainMenuScreen extends AbstractScreen {
         startButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                audioHandler.stopMusic();
+                
                 System.out.println("Starting game...");
                 context.resetPlayer();
                 context.setScreen(ScreenType.GAME);
@@ -111,6 +126,7 @@ public class MainMenuScreen extends AbstractScreen {
     public void dispose() {
         stage.dispose();
         backgroundTexture.dispose();
+        titleTexture.dispose();
     }
     
     @Override
