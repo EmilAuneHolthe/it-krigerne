@@ -179,21 +179,23 @@
 						<configuration>
 							<excludes>
 								<!-- Example: Exclude a specific class -->
+								<exclude>**/view/AnimationTypes.class</exclude>
 								<exclude>**/view/MainMenuScreen.class</exclude>
 								<exclude>**/view/ScreenType.class</exclude>
-								<exclude>**/view/SettingScreen.class</exclude>
-								<exclude>**/view/debug.class</exclude>
-								<exclude>**/view/GameRenderer.class</exclude>
-								<exclude>**/view/ui/DeathOverlay.class</exclude>
-								<exclude>**/view/ui/ItemBar.class</exclude>
-								<exclude>**/view/ui/PlayerHUD.class</exclude>
+                    			<exclude>**/view/SettingScreen.class</exclude>
+                   				<exclude>**/view/debug.class</exclude>
+                   				<exclude>**/view/GameRenderer.class</exclude>
 								<!-- Example: Exclude all classes in a specific package -->
 								
+
 								<!-- Example: Exclude all classes in a package and its sub-packages -->
 								
+
 								<!-- Example: Exclude a specific class in another package -->
 								
+
 								<!-- Example: Exclude all classes in a specific sub-package -->
+								
 							</excludes>
 						</configuration>
 					</execution>
