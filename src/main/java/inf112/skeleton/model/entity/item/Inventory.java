@@ -213,16 +213,28 @@ public class Inventory {
      * @param index The index of the item to select.
      */
     public void selectItem(int index) {
-      if (index >= 0 && index < items.length) {
-          selectedItemIndex = index;
-      }
-  }
-  public void setSelectedItemIndex(int index) {
-      if (index >= 0 && index < items.length) {
-          selectedItemIndex = index;
-      }
-  }
-  public int getSelectedItemIndex() {
-      return selectedItemIndex;
-  }
+        if (index >= 0 && index < items.length) {
+            selectedItemIndex = index;
+        }
+    }
+
+    /**
+     * Sets the index of the currently selected item.
+     *
+     * @param index The index to set as the selected item index.
+     */
+    public void setSelectedItemIndex(int index) {
+        if (index >= 0 && index < items.length) {
+            selectedItemIndex = index;
+        }
+    }
+
+    /**
+     * Gets the index of the currently selected item.
+     *
+     * @return The index of the selected item.
+     */
+    public int getSelectedItemIndex() {
+        return selectedItemIndex;
+    }
 }
