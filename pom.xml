@@ -184,12 +184,9 @@
 								<exclude>**/view/SettingScreen.class</exclude>
 								<exclude>**/view/debug.class</exclude>
 								<exclude>**/view/GameRenderer.class</exclude>
-								
-								<!-- UI components that are difficult to test -->
 								<exclude>**/view/ui/DeathOverlay.class</exclude>
 								<exclude>**/view/ui/ItemBar.class</exclude>
 								<exclude>**/view/ui/PlayerHUD.class</exclude>
-								
 								<!-- Example: Exclude all classes in a specific package -->
 								
 								<!-- Example: Exclude all classes in a package and its sub-packages -->
