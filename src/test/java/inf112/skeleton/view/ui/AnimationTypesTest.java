@@ -1,4 +1,4 @@
-package inf112.skeleton.model.entity.player;
+package inf112.skeleton.view.ui;
 
 import org.junit.jupiter.api.Test;
 
