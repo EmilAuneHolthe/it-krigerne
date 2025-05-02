@@ -17,6 +17,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Container;
 
 import inf112.skeleton.model.entity.player.Player;
 
+/**
+ * Represents the Heads-Up Display (HUD) for the player in the game.
+ * This class manages the display of player health, mana, equipped items, and key status.
+ * It uses LibGDX's scene2d UI framework to create and update the HUD elements.
+ */
 public class PlayerHUD {
     private final Player player;
     private final Image healthBar;
@@ -25,14 +30,22 @@ public class PlayerHUD {
     private final float healthBarHeight = 24f;
     private final Image manaBar;
     private final Label manaLabel;
-
     private final Image swordSlotCircle;
     private final Image equippedSwordIcon;
     private final Stack swordStack;
     private final Image keyIcon;
     private final Label keyLabel;
-    
 
+    /**
+     * Creates a new PlayerHUD instance and sets up all UI elements.
+     *
+     * @param stage The stage to add UI elements to
+     * @param player The player to display information for
+     * @param healthTexture Texture for the health bar
+     * @param backgroundTexture Texture for the health bar background
+     * @param manaTexture Texture for the mana bar
+     * @param manaBackgroundTexture Texture for the mana bar background
+     */
     public PlayerHUD(Stage stage, Player player, Texture healthTexture, Texture backgroundTexture, Texture manaTexture,
             Texture manaBackgroundTexture) {
         this.player = player;
@@ -152,6 +165,10 @@ public class PlayerHUD {
         //leftHUDTable.setDebug(true);
     }
 
+    /**
+     * Updates the HUD elements with current player stats.
+     * Updates health bar, mana bar, and key status.
+     */
     public void update() {
         // Update health bar - using percentage of max health
         float health = player.getHealth();
@@ -170,6 +187,11 @@ public class PlayerHUD {
         keyLabel.setText(player.hasKey() ? "1x" : "0x");
     }
 
+    /**
+     * Updates the equipped sword icon with a new texture.
+     *
+     * @param texturePath Path to the new sword texture
+     */
     public void updateEquippedSword(String texturePath) {
         Texture newSwordTexture = new Texture(Gdx.files.internal(texturePath));
         equippedSwordIcon.setDrawable(new Image(newSwordTexture).getDrawable());

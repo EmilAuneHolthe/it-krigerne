@@ -23,44 +23,75 @@ import inf112.skeleton.model.map.MapType;
 import inf112.skeleton.view.GameRenderer;
 import inf112.skeleton.view.screen.ScreenType;
 
+/**
+ * Provides utility functions for managing the game world and its entities.
+ * This class handles the creation and management of game entities, including players,
+ * enemies, items, and their interactions within the game world.
+ */
 public class WorldFunctions{
-    private final World world;
-    private Player player;
-    public static Boolean victory = false;
+    /** The game panel instance */
     private final GamePanel context;
-    private float dTime = 0;
-    private Array<Borders> borders;
+    /** The Box2D physics world */
+    private final World world;
+    /** The map manager for handling game maps */
     private final MapManager mapManager;
-    private final GameRenderer gameRenderer;
+    /** The map changer for transitioning between maps */
     private final MapChanger mapChanger;
-    private static Array<Enemy> enemies = new Array<>();
-    private final Array<Item> items = new Array<>();
-    private final PlayerInteractions playerInteractions;
+    /** The game renderer for rendering game entities */
+    private final GameRenderer gameRenderer;
+    /** The audio handler for managing game sounds */
     private final AudioHandler audioHandler;
+    /** The player instance */
+    private Player player;
+    /** The player interactions handler */
+    private PlayerInteractions playerInteractions;
+    /** Collection of enemies in the current map */
+    private static Array<Enemy> enemies = new Array<>();
+    /** Collection of items in the current map */
+    private final Array<Item> items = new Array<>();
+    /** Collection of border areas in the current map */
+    private Array<Borders> borders = new Array<>();
+    /** Flag indicating if the player has achieved victory */
+    public static Boolean victory = false;
+    /** Delta time accumulator */
+    private float dTime = 0;
 
-  public WorldFunctions(GamePanel context){
-    this.mapManager = context.getMapManager();
-    this.gameRenderer = context.getGameRenderer();
-    this.context = context;
-    this.world = context.getWorld();
-    this.audioHandler = context.getAudioHandler();
-    mapChanger = new MapChanger();
-    mapManager.setMap(MapType.MAP_START);
+    /**
+     * Creates a new WorldFunctions instance and initializes the game world.
+     * Sets up the map, player, enemies, items, and task board.
+     *
+     * @param context The game panel context
+     */
+    public WorldFunctions(GamePanel context){
+        this.mapManager = context.getMapManager();
+        this.gameRenderer = context.getGameRenderer();
+        this.context = context;
+        this.world = context.getWorld();
+        this.audioHandler = context.getAudioHandler();
+        mapChanger = new MapChanger();
+        mapManager.setMap(MapType.MAP_START);
 
-    borders = mapManager.getCurrentMap().getBorders("Interact");
-    playerInteractions = new PlayerInteractions(context, player);
-    context.setPlayerInteractions(playerInteractions);
-    spawnEnemy();
-    spawnPlayer();
-    spawnItem();
-    spawnTaskBoard();
-   
+        borders = mapManager.getCurrentMap().getBorders("Interact");
+        playerInteractions = new PlayerInteractions(context, player);
+        context.setPlayerInteractions(playerInteractions);
+        spawnEnemy();
+        spawnPlayer();
+        spawnItem();
+        spawnTaskBoard();
+       
 
-    enemies = context.getEnemy();
+        enemies = context.getEnemy();
 
 
-  }
-  public void update(float delta){
+    }
+
+    /**
+     * Updates the game world state.
+     * Handles player movement, mana regeneration, enemy updates, and interactions.
+     *
+     * @param delta Time elapsed since last update
+     */
+    public void update(float delta){
         if (victory) {
             setVictory();
         }
@@ -105,12 +136,21 @@ public class WorldFunctions{
         }
     }
     }
+
+    /**
+     * Handles victory condition and transitions to victory screen.
+     */
     public void setVictory() {
       if (victory) {
           context.setScreen(ScreenType.VICTORY);
       }     
   }
-      private void spawnPlayer() {
+
+    /**
+     * Spawns the player in the current map.
+     * Creates a new player if one doesn't exist.
+     */
+    private void spawnPlayer() {
         if (context.getPlayer() == null) {
             PlayerFactory factory = new PlayerFactory(context, world);
             context.setPlayer(factory.createPlayer(
@@ -122,15 +162,33 @@ public class WorldFunctions{
         player = context.getPlayer();
         gameRenderer.updatePlayer(player);
     }
-        private void spawnItem() {
+
+    /**
+     * Spawns items in the current map.
+     * Creates items based on item spawn points in the map.
+     */
+    private void spawnItem() {
         ItemFactory factory = new ItemFactory(context, world);
         Array<Item> items = factory.createItemFromMap(mapManager.getCurrentMap());
         context.setItems(items);
         gameRenderer.updateItem(items);
     }
-        public void setPlayer(Player player) {
+
+    /**
+     * Sets the player instance.
+     *
+     * @param player The player to set
+     */
+    public void setPlayer(Player player) {
         this.player = player;
     }
+
+    /**
+     * Changes the current map and handles the transition.
+     * Removes old objects, spawns new ones, and updates the game state.
+     *
+     * @param mapType The type of map to change to
+     */
     public void changeMap(MapType mapType) {
         mapManager.setMap(mapType);
         mapChanger.removeObjects(world, mapManager.getCurrentMap(), enemies);
@@ -145,6 +203,10 @@ public class WorldFunctions{
         }
 
 
+    /**
+     * Handles player teleportation between maps.
+     * Checks player position and triggers map changes when appropriate.
+     */
     private void teleportPlayer() {
         float playerX = player.getBody().getPosition().x ;
         float playerY = player.getBody().getPosition().y ;
@@ -158,17 +220,32 @@ public class WorldFunctions{
             changeMap(MapType.MAP_BOSS);
         }
     }
+
+    /**
+     * Spawns the task board in the current map.
+     * Updates the game renderer with the new task board.
+     */
     public void spawnTaskBoard(){
         mapManager.spawnTaskBoard();
         gameRenderer.updateTaskBoard();
     }
-        private void spawnEnemy() {
+
+    /**
+     * Spawns enemies in the current map.
+     * Creates enemies based on enemy spawn points in the map.
+     */
+    private void spawnEnemy() {
         EnemyFactory factory = new EnemyFactory(context, world);
         Array<Enemy> enemies = factory.createEnemiesFromMap(mapManager.getCurrentMap());
         context.setEnemy(enemies);
         gameRenderer.updateEnemy(enemies);
     }
 
+    /**
+     * Gets all enemies in the current map.
+     *
+     * @return Array of enemies
+     */
     public static Array<Enemy> getEnemies () {
         return enemies;
     }
