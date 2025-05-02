@@ -18,6 +18,10 @@ import inf112.skeleton.model.entity.item.ItemSpawn;
 import inf112.skeleton.model.entity.item.ItemType;
 import inf112.skeleton.model.entity.player.CharacterType;
 
+/**
+ * Represents a game map loaded from a TiledMap file.
+ * This class handles map data including collision areas, enemy spawns, item spawns, and player spawns.
+ */
 public class Map {
   private final TiledMap tiledMap;
   public static final String TAG = Map.class.getSimpleName();
@@ -25,6 +29,12 @@ public class Map {
   private final ArrayList<EnemySpawn>  enemySpawn;
   private final ArrayList<ItemSpawn> itemSpawn;
   
+  /**
+   * Constructs a new Map instance from a TiledMap.
+   * Initializes collision areas, enemy spawns, and item spawns.
+   *
+   * @param tiledMap The TiledMap to load the map data from
+   */
   public Map(TiledMap tiledMap) {
     this.collisionAreas = new Array<>();
     this.tiledMap = tiledMap;
@@ -124,22 +134,57 @@ public class Map {
           return itemSpawns;
         }
 
+  /**
+   * Finds and returns the player spawn position from the map.
+   *
+   * @return Vector2 containing the player spawn coordinates
+   */
   public Vector2 getPlayerSpawn() {
     return findPlayerSpawnVector2("Player");
   }
 
+  /**
+   * Returns the TiledMap instance associated with this map.
+   *
+   * @return The TiledMap object
+   */
   public TiledMap getTiledMap() {
     return tiledMap;
 }
+
+/**
+ * Returns the list of enemy spawn points in the map.
+ *
+ * @return ArrayList of EnemySpawn objects
+ */
 public ArrayList<EnemySpawn> getEnemySpawn() {
   return enemySpawn;
 }
+
+/**
+ * Returns the boss spawn position from the map.
+ *
+ * @return Vector2 containing the boss spawn coordinates
+ */
 public Vector2 getBossSpawn(){
   return findPlayerSpawnVector2("Boss");
 }
+
+/**
+ * Returns the list of item spawn points in the map.
+ *
+ * @return ArrayList of ItemSpawn objects
+ */
 public ArrayList<ItemSpawn> getItemSpawn() {
   return itemSpawn;
 }
+
+/**
+ * Retrieves the border areas for a specific layer in the map.
+ *
+ * @param layer The name of the layer to get borders from
+ * @return Array of Borders objects, or null if the layer is not found
+ */
 public Array<Borders> getBorders(String layer){
   Array<Borders> borders = new Array<>();
   MapLayer collisionLayer = tiledMap.getLayers().get(layer);
@@ -160,6 +205,12 @@ public Array<Borders> getBorders(String layer){
   }
   return borders;
 }
+
+/**
+ * Retrieves the door areas from the map.
+ *
+ * @return Array of Borders objects representing door areas
+ */
 public Array<Borders> getDoorsAreas() {
   Array<Borders> doors = new Array<>();
   try{
