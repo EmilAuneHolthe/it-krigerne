@@ -7,8 +7,8 @@ import com.badlogic.gdx.physics.box2d.World;
 /**
  * Represents a door entity in the game.
  * 
- * <p>A door is a physical object in the game world that has a position, size, and name. 
- * It can be removed from the game world by destroying its associated physics body.</p>
+ * A door is a physical object in the game world that has a position, size, and name. 
+ * It can be removed from the game world by destroying its associated physics body.
  */
 
 public class Door {
