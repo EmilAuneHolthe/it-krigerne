@@ -10,6 +10,7 @@ class AudioTypesTest {
         assertNotNull(AudioTypes.INTRO);
         assertNotNull(AudioTypes.SELECT);
         assertNotNull(AudioTypes.HURT1);
+        assertNotNull(AudioTypes.BOSSMUSIC);
     }
 
     @Test
@@ -18,6 +19,7 @@ class AudioTypesTest {
         assertEquals("audio/music/MainMusic.mp3", AudioTypes.INTRO.getPath());
         assertEquals("audio/soundEffects/select.mp3", AudioTypes.SELECT.getPath());
         assertEquals("audio/soundEffects/hurt.mp3", AudioTypes.HURT1.getPath());
+        assertEquals("audio/music/BossMusic.mp3", AudioTypes.BOSSMUSIC.getPath());
     }
 
     @Test
@@ -26,13 +28,15 @@ class AudioTypesTest {
         assertTrue(AudioTypes.INTRO.isMusic());
         assertFalse(AudioTypes.SELECT.isMusic());
         assertFalse(AudioTypes.HURT1.isMusic());
+        assertTrue(AudioTypes.BOSSMUSIC.isMusic());
     }
 
     @Test
     void testGetVolume() {
         // Test that volumes are correctly set
-        assertEquals(0.2f, AudioTypes.INTRO.getVolume());
+        assertEquals(0.1f, AudioTypes.INTRO.getVolume());
         assertEquals(0.3f, AudioTypes.SELECT.getVolume());
         assertEquals(0.3f, AudioTypes.HURT1.getVolume());
+        assertEquals(0.2f, AudioTypes.BOSSMUSIC.getVolume());
     }
 } 
