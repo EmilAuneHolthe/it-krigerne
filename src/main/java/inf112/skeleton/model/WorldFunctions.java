@@ -5,6 +5,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
+
+import inf112.skeleton.audio.AudioHandler;
 import inf112.skeleton.audio.AudioTypes;
 import inf112.skeleton.model.entity.enemy.Enemy;
 import inf112.skeleton.model.entity.enemy.EnemyFactory;
@@ -34,12 +36,14 @@ public class WorldFunctions{
     private static Array<Enemy> enemies = new Array<>();
     private final Array<Item> items = new Array<>();
     private final PlayerInteractions playerInteractions;
+    private final AudioHandler audioHandler;
 
   public WorldFunctions(GamePanel context){
     this.mapManager = context.getMapManager();
     this.gameRenderer = context.getGameRenderer();
     this.context = context;
     this.world = context.getWorld();
+    this.audioHandler = context.getAudioHandler();
     mapChanger = new MapChanger();
     mapManager.setMap(MapType.MAP_START);
 
@@ -149,6 +153,8 @@ public class WorldFunctions{
             changeMap(MapType.MAP_CASTLE);
         }
         if ((playerX >= 83.4 && playerX <= 83.6 && playerY >= 77.9 && playerY <= 78.1) && (mapManager.getCurrentMapType() == MapType.MAP_CASTLE)) {
+            audioHandler.stopMusic();
+            audioHandler.playAudio(AudioTypes.BOSSMUSIC);
             changeMap(MapType.MAP_BOSS);
         }
     }

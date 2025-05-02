@@ -63,4 +63,15 @@ class AudioHandlerTest {
         
         verify(mockMusic1, times(1)).play(); 
     }
+
+    @Test
+    void testStopMusic() {
+        // First play some music
+        audioHandler.playAudio(mockAudioType1);
+        verify(mockMusic1, times(1)).play();
+        
+        // Then stop it
+        audioHandler.stopMusic();
+        verify(mockMusic1, times(1)).stop();
+    }
 }
