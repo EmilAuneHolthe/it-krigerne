@@ -32,9 +32,9 @@ public class MapManager {
     private final Array<MapListener> listners;
 
     /**
-     * Oppretter en ny instans av MapManager med tilgang til world og assetManager via GamePanel.
+     * Creates a new instance of MapManager with access to world and assetManager via GamePanel.
      *
-     * @param context Spillets GamePanel som gir tilgang til world og assets.
+     * @param context The game's GamePanel that provides access to world and assets.
      */
     public MapManager(GamePanel context) {
         currentMapType = null;
@@ -49,20 +49,20 @@ public class MapManager {
     }
 
     /**
-     * Legger til en lytter som får beskjed hver gang kartet endres.
+     * Adds a listener that will be notified whenever the map changes.
      *
-     * @param listener Lytteren som skal legges til.
+     * @param listener The listener to add.
      */
     public void addListener(final MapListener listener) {
         listners.add(listener);
     }
 
     /**
-     * Setter spillet til et nytt kart (MapType).
-     * Hvis kartet allerede er lastet inn, hentes det fra cache.
-     * Eksisterende kollisjonsobjekter fjernes og nye opprettes.
+     * Sets the game to a new map (MapType).
+     * If the map is already loaded, it will be retrieved from cache.
+     * Existing collision objects are removed and new ones are created.
      *
-     * @param type Karttypen som skal lastes.
+     * @param type The map type to load.
      */
     public void setMap(final MapType type) {
         if (currentMapType == type) {

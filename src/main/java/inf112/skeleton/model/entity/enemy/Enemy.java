@@ -138,10 +138,11 @@ public class Enemy extends GameEntity {
     }
 
     /**
-     * Sets the enemy's position.
+     * Sets the position of the enemy in the game world.
+     * Updates both the internal position coordinates and the physics body position.
      *
-     * @param x The new X-coordinate.
-     * @param y The new Y-coordinate.
+     * @param x The new x-coordinate
+     * @param y The new y-coordinate
      */
     public void setPosition(float x, float y) {
         this.x = x;

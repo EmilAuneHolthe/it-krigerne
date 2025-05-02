@@ -18,6 +18,11 @@ import inf112.skeleton.model.entity.item.Item;
 import inf112.skeleton.model.entity.item.ItemType;
 import inf112.skeleton.view.ui.DeathOverlay;
 
+/**
+ * Represents the player character in the game.
+ * Handles player-specific functionality including health, mana, inventory management,
+ * combat interactions, and death handling. Extends GameEntity to inherit common entity functionality.
+ */
 public class Player extends GameEntity {
     
     public static boolean isDead;

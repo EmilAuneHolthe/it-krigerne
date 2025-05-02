@@ -134,7 +134,8 @@ public class PlayerAnimation {
     
     /**
     * Initiates the attack animation sequence.
-    * If the player is not already attacking, starts the attack animation and resets the attack timer.
+    * Sets the attacking state to true and resets the attack timer.
+    * Updates the animation to show the attack animation.
     */
     public void startAttack() {
         if (!isAttacking) {
