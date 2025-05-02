@@ -1957,7 +1957,7 @@
    </properties>
    <point/>
   </object>
-  <object id="962" x="2496" y="2400">
+  <object id="962" name="H100" x="2496" y="2368">
    <properties>
     <property name="Type" value="HEALTH"/>
    </properties>
@@ -1999,6 +1999,6 @@
  <objectgroup id="28" name="Interact">
   <object id="974" name="cave" x="2272" y="832" width="96" height="96"/>
   <object id="976" name="door1" x="2304" y="1952" width="64" height="64"/>
-  <object id="979" name="TaskBoard" x="2399.55" y="2337.35" width="160" height="96"/>
+  <object id="979" name="TaskBoard" x="2400" y="2336" width="160" height="96"/>
  </objectgroup>
 </map>
