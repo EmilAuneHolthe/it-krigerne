@@ -5,7 +5,8 @@ package inf112.skeleton.audio;
  * Each audio type includes its file path, whether it is music or a sound effect, and its volume level.
  */
 public enum AudioTypes {
-    INTRO ("audio/music/intro.mp3", true, 0.3f),
+    INTRO ("audio/music/MainMusic.mp3", true, 0.2f),
+    BOSSMUSIC ("audio/music/BossMusic2.mp3", true, 0.2f),
     SELECT ("audio/soundEffects/select.mp3", false, 0.3f),
     HURT1 ("audio/soundEffects/hurt.mp3", false, 0.3f),
     HURT2 ("audio/soundEffects/Hurt2.mp3", false, 0.3f),
