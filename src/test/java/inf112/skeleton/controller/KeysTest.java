@@ -8,7 +8,6 @@ class KeysTest {
     @Test
     void testKeyEnumValues() {
         // Test that all enum values exist
-        assertNotNull(Keys.BACK);
         assertNotNull(Keys.UP);
         assertNotNull(Keys.DOWN);
         assertNotNull(Keys.LEFT);
@@ -20,7 +19,6 @@ class KeysTest {
     @Test
     void testGetKeyCode() {
         // Test that key codes are correctly set
-        assertArrayEquals(new int[]{Input.Keys.BACKSPACE}, Keys.BACK.getKeyCode());
         assertArrayEquals(new int[]{Input.Keys.W, Input.Keys.UP}, Keys.UP.getKeyCode());
         assertArrayEquals(new int[]{Input.Keys.S, Input.Keys.DOWN}, Keys.DOWN.getKeyCode());
         assertArrayEquals(new int[]{Input.Keys.A, Input.Keys.LEFT}, Keys.LEFT.getKeyCode());

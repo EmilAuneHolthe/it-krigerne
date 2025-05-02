@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import inf112.skeleton.view.AnimationTypes;
 
 public class PlayerAnimation {
+    
     private final TextureAtlas characterAtlas;
     private final TextureAtlas attackAtlas;
     private Animation<TextureRegion> currentAnimation;
@@ -28,6 +29,13 @@ public class PlayerAnimation {
     private static final float ATTACK_DURATION = 1.0f;
     private static final float FRAME_DURATION = 0.2f;
     
+    /**
+    * Creates a new PlayerAnimation instance for the specified character type.
+    * Initializes the character and attack animations, loading the necessary texture atlases.
+    * 
+    * @param characterType The type of character to create animations for
+    * @throws RuntimeException if the animation atlases cannot be loaded or initialized
+    */
     public PlayerAnimation(CharacterType characterType) {
         try {
             this.characterType = characterType;
@@ -49,12 +57,12 @@ public class PlayerAnimation {
             TextureRegion region = attackAtlas.findRegion(attackAnimationType.getAtlasKey());
             if (region == null) {
                 throw new RuntimeException("Could not find region '" + attackAnimationType.getAtlasKey() + 
-                    "' in attack atlas");
+                "' in attack atlas");
             }
             TextureRegion[][] regions = region.split(
-                region.getRegionWidth() / 5,
-                    region.getRegionHeight()
-
+            region.getRegionWidth() / 5,
+            region.getRegionHeight()
+            
             );
             attackFrames = new TextureRegion[5];
             System.arraycopy(regions[0], 0, attackFrames, 0, 5);
@@ -70,6 +78,12 @@ public class PlayerAnimation {
         }
     }
     
+    /**
+    * Updates the animation state based on the elapsed time.
+    * Handles attack animation timing and direction change cooldown.
+    * 
+    * @param deltaTime The time elapsed since the last update
+    */
     public void update(float deltaTime) {
         stateTime += deltaTime;
         if (isAttacking) {
@@ -86,6 +100,13 @@ public class PlayerAnimation {
         }
     }
     
+    /**
+    * Renders the current animation frame at the player's position.
+    * Handles different animation states (attacking, moving, idle) and scales the sprite appropriately.
+    * 
+    * @param batch The SpriteBatch used for rendering
+    * @param body The player's physics body containing position information
+    */
     public void render(SpriteBatch batch, Body body) {
         TextureRegion currentFrame;
         if (isAttacking) {
@@ -95,8 +116,8 @@ public class PlayerAnimation {
             currentFrame = currentAnimation.getKeyFrame(stateTime, true);
         } else {
             TextureRegion[][] regions = characterAtlas.findRegion(currentAnimationType.getAtlasKey()).split(
-                characterAtlas.findRegion(currentAnimationType.getAtlasKey()).getRegionWidth() / 3,
-                characterAtlas.findRegion(currentAnimationType.getAtlasKey()).getRegionHeight() / 4
+            characterAtlas.findRegion(currentAnimationType.getAtlasKey()).getRegionWidth() / 3,
+            characterAtlas.findRegion(currentAnimationType.getAtlasKey()).getRegionHeight() / 4
             );
             currentFrame = regions[currentAnimationType.getRowIndex()][1];
         }
@@ -105,12 +126,16 @@ public class PlayerAnimation {
         float height = currentFrame.getRegionHeight() / 32f;
         
         batch.draw(currentFrame, 
-            body.getPosition().x - width/2, 
-            body.getPosition().y - height/2,
-            width,
-            height);
+        body.getPosition().x - width/2, 
+        body.getPosition().y - height/2,
+        width,
+        height);
     }
     
+    /**
+    * Initiates the attack animation sequence.
+    * If the player is not already attacking, starts the attack animation and resets the attack timer.
+    */
     public void startAttack() {
         if (!isAttacking) {
             isAttacking = true;
@@ -118,7 +143,11 @@ public class PlayerAnimation {
             updateAnimation();
         }
     }
-    
+
+    /**
+     * Sets the moving state of the player.
+     * @param moving The new moving state to set
+     */
     public void setMoving(boolean moving) {
         this.isMoving = moving;
         if (!isAttacking) {
@@ -126,6 +155,12 @@ public class PlayerAnimation {
         }
     }
     
+    /**
+     * Checks if the direction change cooldown is greater than 0.
+     * If it is, it returns and does not update the direction.
+     * If it is not, it updates the direction and updates the animation.
+     * @param direction The new direction to set
+     */
     public void setDirection(String direction) {
         if (directionChangeCooldown > 0) {
             return;
@@ -149,28 +184,28 @@ public class PlayerAnimation {
             if (!isAttacking) {
                 switch (direction) {
                     case "Down":
-                        currentAnimationType = getAnimationTypeForDirection("Down");
-                        break;
+                    currentAnimationType = getAnimationTypeForDirection("Down");
+                    break;
                     case "Up":
-                        currentAnimationType = getAnimationTypeForDirection("Up");
-                        break;
+                    currentAnimationType = getAnimationTypeForDirection("Up");
+                    break;
                     case "Left":
-                        currentAnimationType = getAnimationTypeForDirection("Left");
-                        break;
+                    currentAnimationType = getAnimationTypeForDirection("Left");
+                    break;
                     case "Right":
-                        currentAnimationType = getAnimationTypeForDirection("Right");
-                        break;
+                    currentAnimationType = getAnimationTypeForDirection("Right");
+                    break;
                 }
                 
                 TextureRegion region = characterAtlas.findRegion(currentAnimationType.getAtlasKey());
                 if (region == null) {
                     throw new RuntimeException("Could not find region '" + currentAnimationType.getAtlasKey() + 
-                        "' in atlas");
+                    "' in atlas");
                 }
                 
                 TextureRegion[][] regions = region.split(
-                    region.getRegionWidth() / 3,
-                    region.getRegionHeight() / 4
+                region.getRegionWidth() / 3,
+                region.getRegionHeight() / 4
                 );
                 TextureRegion[] walkingFrames = new TextureRegion[2];
                 walkingFrames[0] = regions[currentAnimationType.getRowIndex()][0];
@@ -195,6 +230,9 @@ public class PlayerAnimation {
         }
     }
     
+    /**
+     * Disposes of the character and attack texture atlases.
+     */
     public void dispose() {
         characterAtlas.dispose();
         attackAtlas.dispose();

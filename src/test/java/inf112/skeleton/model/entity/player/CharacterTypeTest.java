@@ -61,4 +61,23 @@ public class CharacterTypeTest {
         }
         return false;
     }
+    
+    
+    @Test
+    void testGetEnemyHealth() {
+        assertEquals(100, CharacterType.getEnemyHealth(CharacterType.SKELETON));
+        assertEquals(50, CharacterType.getEnemyHealth(CharacterType.ZOMBIE));
+        assertEquals(500, CharacterType.getEnemyHealth(CharacterType.BOSS));
+        assertThrows(IllegalArgumentException.class, () -> CharacterType.getEnemyHealth(null));
+        assertThrows(IllegalArgumentException.class, () -> CharacterType.getEnemyHealth(CharacterType.SOLDIER));
+    }
+    
+    @Test
+    void testGetEnemyDamage() {
+        assertEquals(25, CharacterType.getEnemyDamage(CharacterType.SKELETON));
+        assertEquals(10, CharacterType.getEnemyDamage(CharacterType.ZOMBIE));
+        assertEquals(50, CharacterType.getEnemyDamage(CharacterType.BOSS));
+        assertThrows(IllegalArgumentException.class, () -> CharacterType.getEnemyDamage(null));
+        assertThrows(IllegalArgumentException.class, () -> CharacterType.getEnemyDamage(CharacterType.SOLDIER));
+    }
 }

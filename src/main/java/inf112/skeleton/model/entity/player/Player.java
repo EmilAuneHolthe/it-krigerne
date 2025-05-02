@@ -23,6 +23,7 @@ import inf112.skeleton.view.ui.DeathOverlay;
  * Handles player-specific functionality including movement, combat, inventory, and mana management.
  */
 public class Player extends GameEntity {
+    
     public static boolean isDead;
     private final DeathOverlay deathOverlay;
     public boolean alive;
@@ -33,40 +34,29 @@ public class Player extends GameEntity {
     public boolean canAttack = true; 
     private final int maxHealth;
     private boolean hasKey = false;
-    private PlayerInteractions playerInteractions;
     private final Item[] items;
-    private int selectedItemIndex;
-    private final KeyHandler keyHandler;
     private final Inventory inventory;
-
+    
     public Player(GamePanel context, World world, Body body, int health, int damage, float x, float y, CharacterType characterType) {
+        
         super(context, world, body, health, damage, characterType);
         isDead = false;
         deathOverlay = new DeathOverlay(context);
         this.movement = new PlayerMovement(context, world, body);
         this.currentMana = 100;
         this.maxMana = 100;
-        this.keyHandler = context.getKeyHandler();
         maxHealth = health;
         items = new Item[4]; // 4 slots for items
-        selectedItemIndex = 0;
         inventory = new Inventory(4, this, context, world);
     }
-
     /**
-     * Gets the player's inventory.
-     *
-     * @return The player's Inventory instance
-     */
-    public Inventory getInventory() {
-        return inventory;
-    }
-
-    /**
-     * Renders the death overlay if the player is dead.
-     *
-     * @param batch The SpriteBatch to render with
-     */
+    * Renders a death overlay on the screen if the player is dead.
+    * This method checks if the player is marked as dead and if a death overlay
+    * is available. If both conditions are met, it renders the death overlay
+    * using the provided SpriteBatch.
+    *
+    * @param batch The SpriteBatch used to draw the death overlay.
+    */
     public void renderDeathOverlay(SpriteBatch batch) {
         if (isDead && deathOverlay != null) {
             deathOverlay.render(batch);
@@ -82,43 +72,33 @@ public class Player extends GameEntity {
     protected boolean isActive() {
         return !isDead;
     }
-
     /**
-     * Handles item pickup and adds it to the player's inventory.
-     *
-     * @param item The type of item to pick up
-     */
-    public void ItemPickup(ItemType item) {
-        inventory.pickUpItem(item);
-    }
-
+    * Picks up an item and adds it to the player's inventory.
+    * @param item The type of item to be picked up
+    */
+    public void ItemPickup(ItemType item){inventory.pickUpItem(item);}
+    
     /**
-     * Handles key release events for player movement.
-     *
-     * @param keyHandler The KeyHandler managing the input
-     * @param key The key that was released
-     */
+    * Handles the release of movement keys and updates the player's movement and animation state.
+    * @param keyHandler The key handler managing input
+    * @param key The key that was released
+    */
     public void movePlayerReleased(KeyHandler keyHandler, Keys key) {
         movement.handleInputRelease(key);
         animation.setMoving(movement.isMoving());
         animation.setDirection(movement.getDirection());
     }
-
     /**
-     * Increases the player's damage by the specified amount.
-     *
-     * @param damage The amount to increase damage by
-     */
+    * Increases the player's damage by the specified amount.
+    * @param damage The amount to increase the player's damage by
+    */
     public void increaseDamage(int damage) {
         this.damage += damage;
     }
-
     /**
-     * Handles the player taking damage from an enemy.
-     * Plays appropriate sound effects and handles death if health reaches zero.
-     *
-     * @param enemy The enemy that caused the damage
-     */
+    * Makes the player take damage from an enemy and handles death if health reaches zero.
+    * @param enemy The enemy that is dealing damage to the player
+    */
     public void playerTakeDamage(Enemy enemy) {
         if (alive) {
             context.getAudioHandler().playAudio(AudioTypes.HURT2);
@@ -130,21 +110,16 @@ public class Player extends GameEntity {
             killPlayer();     
         }
     }
-
+    
     /**
-     * Kills the player and shows the death overlay.
-     */
+    * Kills the player and triggers the death sequence.
+    */
     public void killPlayer() {
         Gdx.app.log("DAMAGE", "Player has died!");
         isDead = true;
         die();
     }
-
-    /**
-     * Gets the player's attack damage.
-     *
-     * @return The player's damage value
-     */
+    
     @Override
     public int attack() {
         return damage;
@@ -174,12 +149,6 @@ public class Player extends GameEntity {
         return health;
     }
 
-    /**
-     * Sets the player's spawn position and resets velocity.
-     *
-     * @param x The x-coordinate of the spawn point
-     * @param y The y-coordinate of the spawn point
-     */
     @Override
     public void setSpawn(float x, float y) {
         this.x = x;
@@ -211,10 +180,10 @@ public class Player extends GameEntity {
     public float getY() {
         return body.getPosition().y * GamePanel.UNIT_SCALE;
     }
-
+    
     /**
-     * Disposes of the player's resources.
-     * Cleans up the death overlay and other disposable resources.
+     * Disposes of all resources used by the player, including the death overlay.
+     * This method should be called when the player is no longer needed to prevent memory leaks.
      */
     @Override
     public void dispose() {
@@ -232,181 +201,101 @@ public class Player extends GameEntity {
     public Vector2 getPosition() {
         return new Vector2(body.getPosition().x, body.getPosition().y);
     }
-
     /**
-     * Sets the player's current mana value, clamped between 0 and maxMana.
-     *
-     * @param mana The new mana value
-     */
+    * Sets the player's current mana value, ensuring it stays within valid bounds.
+    * 
+    * @param mana The new mana value to set
+    */
     public void setCurrentMana(int mana) {
         this.currentMana = Math.min(Math.max(0, mana), maxMana);
     }
-
     /**
-     * Sets the player's maximum mana value.
-     *
-     * @param maxMana The new maximum mana value
-     */
+    * Sets the maximum mana capacity for the player.
+    * @param maxMana The new maximum mana value
+    */
     public void setMaxMana(int maxMana) {
         this.maxMana = maxMana;
     }
 
-    /**
-     * Regenerates mana over time based on the regeneration rate.
-     * Updates the canAttack flag based on mana availability.
-     *
-     * @param deltaTime The time elapsed since the last update
-     */
+
     public void regenerateMana(float deltaTime) {
-        // Update mana regeneration
         manaRegenAccumulator += manaRegenRate * deltaTime;
         if (manaRegenAccumulator >= 1.0f) {
             int manaToAdd = (int) manaRegenAccumulator;
             setCurrentMana(getCurrentMana() + manaToAdd);
             manaRegenAccumulator -= manaToAdd;
-
+            
             canAttack = currentMana >= 30;
         }
     }
-
     /**
-     * Sets the player's mana regeneration rate.
-     *
-     * @param manaRegenRate The new mana regeneration rate
-     */
+    * Sets the rate at which mana regenerates per second.
+    * 
+    * @param manaRegenRate The new mana regeneration rate
+    */
     public void setManaRegenRate(float manaRegenRate) {
         this.manaRegenRate = manaRegenRate;
     }
-
+    
     /**
-     * Updates the sword HUD texture based on the equipped sword.
-     *
-     * @param Sword The name of the equipped sword
-     */
+    * Updates the sword HUD texture based on the equipped sword.
+    * @param Sword The identifier of the sword to update the HUD for
+    */
     public void updateSwordHUDTexturePath(String Sword) {
         String swordHUDTexture = ItemType.getSwordHUDTexturePath(Sword);
+        
         if (swordHUDTexture != null) {
             context.updateEquippedSwordHUD(swordHUDTexture);
         }
     }
-
+    
     /**
      * Checks if the player has a key.
-     *
-     * @return true if the player has a key, false otherwise
+     * @return True if the player has a key, false otherwise
      */
     public boolean hasKey() {
         return hasKey;
     }
-
+    
     /**
-     * Removes an item from the player's inventory at the specified index.
-     *
-     * @param index The index of the item to remove
-     */
+    * Removes an item from the player's inventory at the specified index.
+    * @param index The index of the item to remove
+    */
     public void removeItem(int index) {
         if (index >= 0 && index < items.length) {
             items[index] = null;
         }
     }
-
+    
     /**
-     * Selects an item in the player's inventory.
-     *
-     * @param index The index of the item to select
-     */
-    public void selectItem(int index) {
-        if (index >= 0 && index < items.length) {
-            selectedItemIndex = index;
-        }
-    }
-
-    // Getters and setters with JavaDoc
-    /**
-     * Gets the game panel context.
-     *
-     * @return The GamePanel instance
-     */
-    public GamePanel getContext() { 
-        return context;
-    }
-
-    /**
-     * Gets the mana regeneration rate.
-     *
-     * @return The current mana regeneration rate
-     */
-    public float getManaRegenRate() { 
-        return manaRegenRate;
-    }
-
-    /**
-     * Gets the player's maximum health.
-     *
-     * @return The maximum health value
-     */
-    public int getMaxHealth() { 
-        return maxHealth;
-    }
-
-    /**
-     * Gets the player's maximum mana.
-     *
-     * @return The maximum mana value
-     */
-    public int getMaxMana() { 
-        return maxMana;
-    }
-
-    /**
-     * Gets the player's current mana.
-     *
-     * @return The current mana value
-     */
-    public int getMana() { 
-        return currentMana;
-    }
-
-    /**
-     * Sets the player's current mana.
-     *
-     * @param mana The new mana value
-     */
-    public void setMana(int mana) { 
-        this.currentMana = mana;
-    }
-
-    /**
-     * Gets the player's current mana.
-     *
-     * @return The current mana value
-     */
-    public int getCurrentMana() { 
-        return currentMana;
-    }
-
-    /**
-     * Gets the death overlay.
-     *
-     * @return The DeathOverlay instance
-     */
-    public DeathOverlay getDeathOverlay() { 
-        return deathOverlay;
-    }
-
-    /**
-     * Sets whether the player has a key.
-     *
-     * @param hasKey true if the player has a key, false otherwise
-     */
+    * Sets whether the player has a key.
+    * @param hasKey True if the player has a key, false otherwise
+    */
     public void setKey(Boolean hasKey) {
         this.hasKey = hasKey;
     }
-
     /**
-     * Removes the key from the player.
-     */
+    * Removes the key from the player's possession.
+    */
     public void removeKey() {
         this.hasKey = false;
     }
+    
+    /**
+     * Sets the player's mana to the specified value.
+     * @param mana The new mana value to set
+     */
+    public void setMana(int mana) { this.currentMana = mana;}
+    
+    //Geter methods
+    public GamePanel getContext() { return context;}
+    public float getManaRegenRate() { return manaRegenRate;}
+    public int getMaxHealth() { return maxHealth;}
+    public int getMaxMana() { return maxMana;}
+    public int getMana() { return currentMana;}
+    public int getCurrentMana() { return currentMana;}
+    public Inventory getInventory() {return inventory;}
+    public DeathOverlay getDeathOverlay() { return deathOverlay;}
+
+    
 }

@@ -8,14 +8,13 @@ import com.badlogic.gdx.Input;
  */
 public enum Keys {
     // Menu keys
-    BACK (Input.Keys.BACKSPACE),
+    QUIT (Input.Keys.ESCAPE),
 
     // Movement keys
     UP (Input.Keys.W, Input.Keys.UP),
     DOWN (Input.Keys.S, Input.Keys.DOWN),
     LEFT (Input.Keys.A, Input.Keys.LEFT), 
     RIGHT (Input.Keys.D, Input.Keys.RIGHT), 
-    QUIT (Input.Keys.ESCAPE),
 
     // Player interaction keys
     INTERACT (Input.Keys.E, Input.Keys.ENTER),
