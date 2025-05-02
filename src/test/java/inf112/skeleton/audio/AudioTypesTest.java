@@ -15,7 +15,7 @@ class AudioTypesTest {
     @Test
     void testGetPath() {
         // Test that paths are correctly set
-        assertEquals("audio/music/intro.mp3", AudioTypes.INTRO.getPath());
+        assertEquals("audio/music/MainMusic.mp3", AudioTypes.INTRO.getPath());
         assertEquals("audio/soundEffects/select.mp3", AudioTypes.SELECT.getPath());
         assertEquals("audio/soundEffects/hurt.mp3", AudioTypes.HURT1.getPath());
     }
@@ -31,7 +31,7 @@ class AudioTypesTest {
     @Test
     void testGetVolume() {
         // Test that volumes are correctly set
-        assertEquals(0.3f, AudioTypes.INTRO.getVolume());
+        assertEquals(0.2f, AudioTypes.INTRO.getVolume());
         assertEquals(0.3f, AudioTypes.SELECT.getVolume());
         assertEquals(0.3f, AudioTypes.HURT1.getVolume());
     }
