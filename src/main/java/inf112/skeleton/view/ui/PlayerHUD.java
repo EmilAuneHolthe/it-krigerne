@@ -133,7 +133,7 @@ public class PlayerHUD {
         keyRow.add(keyLabel).align(Align.left).padLeft(5);
 
         Table leftHUDTable = new Table();
-        leftHUDTable.bottom().left().pad(10);
+        leftHUDTable.bottom().left().pad(20);
         leftHUDTable.add(keyRow).left().padLeft(40).padBottom(-20).row(); // more right, less vertical gap
         leftHUDTable.add(swordStack).size(128, 128).top();
         stage.addActor(leftHUDTable);
