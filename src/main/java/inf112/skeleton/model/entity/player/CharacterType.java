@@ -2,6 +2,10 @@ package inf112.skeleton.model.entity.player;
 
 import inf112.skeleton.view.AnimationTypes;
 
+/**
+ * Enum representing different character types in the game.
+ * Each character type has a default animation and associated properties.
+ */
 public enum CharacterType {
     SOLDIER(AnimationTypes.SOLDIER_DOWN),
     OLD(AnimationTypes.OLD_DOWN),
