@@ -39,9 +39,8 @@ public class EntityRenderer {
      * 
      * @param batch The SpriteBatch to use for rendering
      * @param e The game entity to render
-     * @param delta The time elapsed since the last frame
      */
-    public void renderAll(SpriteBatch batch, GameEntity e, float delta) {
+    public void renderAll(SpriteBatch batch, GameEntity e) {
         if (Player.isDead) {
             return;
         }

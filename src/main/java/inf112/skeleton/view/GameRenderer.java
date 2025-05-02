@@ -2,7 +2,7 @@ package inf112.skeleton.view;
 
 import static inf112.skeleton.model.GamePanel.UNIT_SCALE;
 
-import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GL11;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -102,155 +103,153 @@ public class GameRenderer implements Disposable, MapListener {
      * @param delta The time elapsed since the last frame
      */
     public void render(final float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        clearScreen();
+        updateCamera();
+        renderGameElements();
+        renderUI(delta);
+        renderBossHealthBar();
+        renderPlayerDeathOverlay();
+        updateItemBar();
+        logDebugInfo();
+    }
 
-        // Update camera position to follow player
+    private void clearScreen() {
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL11.GL_COLOR_BUFFER_BIT);
+    }
+
+    private void updateCamera() {
         if (player != null && player.getBody() != null) {
             camera.position.set(player.getBody().getPosition().x, player.getBody().getPosition().y, 0);
             camera.zoom = 0.7f;
             camera.update();
         }
+    }
 
-        // Apply game viewport and render game elements
+    private void renderGameElements() {
         viewport.apply();
         spriteBatch.setProjectionMatrix(camera.combined);
 
-        // Render map with layer-based rendering
         if (mapRenderer.getMap() != null) {
             mapRenderer.setView(camera);
-            
-            // Get all layers
-            com.badlogic.gdx.maps.MapLayers layers = mapRenderer.getMap().getLayers();
-            boolean playerLayerRendered = false;
-            
-            // Begin sprite batch for map rendering
-            spriteBatch.begin();
-            // Render each layer
-            for (int i = 0; i < layers.getCount(); i++) {
-                com.badlogic.gdx.maps.MapLayer layer = layers.get(i);
-                
-                // If we hit the "Player" layer, render the player and enemies
-                if (layer.getName().equals("Player") && !playerLayerRendered) {
-                    // End batch for map rendering
-                    spriteBatch.end();
-                    
-                    // Render player, enemies, and boss
-                    spriteBatch.begin();
-                    for (Door door : doors) {
-                        entityRenderer.renderDoor(spriteBatch, door);
-                    }
-                    if (taskBoard != null) {
-                        entityRenderer.renderTaskBoard(spriteBatch, taskBoard);
-                    };
-                    for (Enemy enemy : enemies) {
-                        entityRenderer.renderAll(spriteBatch, enemy, delta);
-                    }
-                    if (items != null) {
-                        for (Item item : items) {
-                            entityRenderer.renderAll(spriteBatch, item, delta);
-                        }
-                    }
-                    if (player != null) {
-                        entityRenderer.renderAll(spriteBatch, player, delta);
-                    }
-                    spriteBatch.end();
-                    // Begin batch for next layer
-                    spriteBatch.begin();
-                    playerLayerRendered = true;
-                }
-                
-                // Render the current layer if it's a tile layer
-                if (layer instanceof com.badlogic.gdx.maps.tiled.TiledMapTileLayer) {
-                    mapRenderer.renderTileLayer((com.badlogic.gdx.maps.tiled.TiledMapTileLayer) layer);
-                }
-            }
-            // End batch for map rendering
-            spriteBatch.end();
-            
-            // If no "Player" layer was found, render player and enemies at the end
-            if (!playerLayerRendered) {
-                spriteBatch.begin();
-                if (player != null) {
-                    entityRenderer.renderAll(spriteBatch, player, delta);
-                }
-                if(enemies != null) {
-                    for (Enemy enemy : enemies) {
-                        entityRenderer.renderAll(spriteBatch, enemy, delta);
-                    }
-                }
-                if (items != null) {
-                    for (Item item : items) {
-                        entityRenderer.renderAll(spriteBatch, item, delta);
-                    }
-                }
+            renderMapLayers();
+        }
+    }
+
+    private void renderMapLayers() {
+        com.badlogic.gdx.maps.MapLayers layers = mapRenderer.getMap().getLayers();
+        boolean playerLayerRendered = false;
+
+        spriteBatch.begin();
+        for (int i = 0; i < layers.getCount(); i++) {
+            com.badlogic.gdx.maps.MapLayer layer = layers.get(i);
+            if (layer.getName().equals("Player") && !playerLayerRendered) {
                 spriteBatch.end();
+                renderEntities();
+                spriteBatch.begin();
+                playerLayerRendered = true;
+            }
+            if (layer instanceof TiledMapTileLayer tiledmaptilelayer) {
+                mapRenderer.renderTileLayer(tiledmaptilelayer);
             }
         }
+        spriteBatch.end();
 
-        // Render UI with fixed position
+        if (!playerLayerRendered) {
+            renderEntities();
+        }
+    }
+
+    private void renderEntities() {
+        spriteBatch.begin();
+        if (player != null) {
+            entityRenderer.renderAll(spriteBatch, player);
+        }
+        if (enemies != null) {
+            for (Enemy enemy : enemies) {
+                entityRenderer.renderAll(spriteBatch, enemy);
+            }
+        }
+        if (items != null) {
+            for (Item item : items) {
+                entityRenderer.renderAll(spriteBatch, item);
+            }
+        }
+        if (doors != null) {
+            for (Door door : doors) {
+                entityRenderer.renderDoor(spriteBatch, door);
+            }
+        }
+        if (taskBoard != null) {
+            entityRenderer.renderTaskBoard(spriteBatch, taskBoard);
+        }
+        spriteBatch.end();
+    }
+
+    private void renderUI(float delta) {
         uiStage.getViewport().apply();
         uiStage.act(delta);
         uiStage.draw();
         if (playerHUD != null) {
             playerHUD.update();
         }
-        
-        // Render boss health bar if boss exists
+    }
+
+    private void renderBossHealthBar() {
         if (enemies != null) {
             for (Enemy enemy : enemies) {
                 if (enemy.getCharacterType() == CharacterType.BOSS) {
-                    // Switch to screen coordinates for UI elements
-
-                    spriteBatch.setProjectionMatrix(uiStage.getCamera().combined);
-                    spriteBatch.begin();
-                    
-                    // Fixed size for boss health bar
-                    float barWidth = Gdx.graphics.getWidth() * 0.4f;
-                    float barHeight = Gdx.graphics.getHeight() * 0.05f;
-                    float x = (Gdx.graphics.getWidth() - barWidth) / 2;
-                    float y = Gdx.graphics.getHeight() - barHeight - 20;
-                    
-                    // Draw background (full width)
-                    spriteBatch.draw(backgroundTexture, x, y, barWidth, barHeight);
-                    
-                    // Calculate health percentage and draw health bar
-                    float healthPercent = enemy.getHealth() / (float)enemy.getMaxHealth();
-                    spriteBatch.draw(healthTexture, x, y, barWidth * healthPercent, barHeight);
-                    font.getData().setScale((float) (Gdx.graphics.getWidth())/(Gdx.graphics.getHeight())); // Set font size
-                    // Draw health text
-                    String healthText = enemy.getHealth() + " / " + enemy.getMaxHealth();
-                    float textWidth = font.getXHeight() * healthText.length()*0.6f;
-                    float textX = x + (barWidth - textWidth) / 2.5f;
-                    float textY = y + 25;
-                    font.draw(spriteBatch, healthText, textX, textY);
-                    
-                    spriteBatch.end();
-                    
-                    // Switch back to world coordinates
-                    spriteBatch.setProjectionMatrix(camera.combined);
-                    break; // Only render for first boss found
+                    renderBossHealth(enemy);
+                    break;
                 }
             }
         }
-        
-        if(player != null) {
+    }
+
+    private void renderBossHealth(Enemy enemy) {
+        spriteBatch.setProjectionMatrix(uiStage.getCamera().combined);
+        spriteBatch.begin();
+
+        float barWidth = Gdx.graphics.getWidth() * 0.4f;
+        float barHeight = Gdx.graphics.getHeight() * 0.05f;
+        float x = (Gdx.graphics.getWidth() - barWidth) / 2;
+        float y = Gdx.graphics.getHeight() - barHeight - 20;
+
+        spriteBatch.draw(backgroundTexture, x, y, barWidth, barHeight);
+
+        float healthPercent = enemy.getHealth() / (float) enemy.getMaxHealth();
+        spriteBatch.draw(healthTexture, x, y, barWidth * healthPercent, barHeight);
+
+        font.getData().setScale((float) (Gdx.graphics.getWidth()) / (Gdx.graphics.getHeight()));
+        String healthText = enemy.getHealth() + " / " + enemy.getMaxHealth();
+        float textWidth = font.getXHeight() * healthText.length() * 0.6f;
+        float textX = x + (barWidth - textWidth) / 2.5f;
+        float textY = y + 25;
+        font.draw(spriteBatch, healthText, textX, textY);
+
+        spriteBatch.end();
+        spriteBatch.setProjectionMatrix(camera.combined);
+    }
+
+    private void renderPlayerDeathOverlay() {
+        if (player != null) {
             player.renderDeathOverlay(spriteBatch);
         }
+    }
 
-        // Update and draw item bar
+    private void updateItemBar() {
         if (itemBar != null) {
             itemBar.update();
         }
-        
-        // Debug info
+    }
+
+    private void logDebugInfo() {
         if (profiler.isEnabled()) {
             Gdx.app.debug(TAG, "Bindings: " + profiler.getTextureBindings());
             Gdx.app.debug(TAG, "Draw calls: " + profiler.getDrawCalls());
             profiler.reset();
         }
     }
-
     /**
      * Updates the viewport and UI stage size when the window is resized.
      * 
