@@ -171,6 +171,17 @@ public class Enemy extends GameEntity {
     }
 
     /**
+     * Sets the enemy's facing direction for animation.
+     *
+     * @param direction The direction string (e.g. "Up", "Down", "Left", "Right", "Front").
+     */
+    public void setDirection(String direction) {
+        if (animation != null) {
+            animation.setDirection(direction);
+        }
+    }
+
+    /**
      * Sets the enemy's linear velocity.
      *
      * @param x The velocity in the X direction.

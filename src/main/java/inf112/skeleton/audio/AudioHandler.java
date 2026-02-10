@@ -34,6 +34,9 @@ public class AudioHandler {
      * @param type The type of audio to play (music or sound effect).
      */
     public void playAudio(final AudioTypes type) {
+        if (!assetManager.isLoaded(type.getPath())) {
+            return; // Fila ble ikke lastet (f.eks. mangler i resources) – ignorer
+        }
         if (type.isMusic()) {
             if (currentMusicType == type) {
                 return; // Do nothing if the same music is already playing

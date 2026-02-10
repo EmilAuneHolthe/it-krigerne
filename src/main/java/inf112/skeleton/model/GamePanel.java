@@ -105,10 +105,12 @@ public class GamePanel extends Game {
             screenViewport = new FitViewport(25 * 32 * UNIT_SCALE, 14 * 32 * UNIT_SCALE, camera);
             screenCache = new EnumMap<>(ScreenType.class);
     
-            //Audio
+            //Audio – last kun filer som finnes (f.eks. hvis lydfiler er fjernet fra repo)
             audioHandler = new AudioHandler(this);
-            for(final AudioTypes audioType : AudioTypes.values()) { // Load all audio files
-                assetManager.load(audioType.getPath(), (Class<?>) (audioType.isMusic() ? Music.class : Sound.class));
+            for (final AudioTypes audioType : AudioTypes.values()) {
+                if (Gdx.files.internal(audioType.getPath()).exists()) {
+                    assetManager.load(audioType.getPath(), (Class<?>) (audioType.isMusic() ? Music.class : Sound.class));
+                }
             }
             assetManager.finishLoading();  // Ensures assets are loaded before use
     
